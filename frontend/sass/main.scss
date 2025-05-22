@@ -1,277 +1,436 @@
-/* Game Mage Custom Styles */
+@use "sass:map";
 
-:root {
-    --deep-purple: #1a0533;
-    --deeper-purple: #0c0318;
-    --body-text: #f8f8ff;
-    --primary: #3fa3a3;
-    --secondary: #d99141;
-    --accent: #e31bce;
-    --card-bg: rgba(12, 3, 24, 0.8);
-    --code-bg: rgba(0, 0, 0, 0.3);
+// ===================================
+// VARIABLES & FUNCTIONS
+// ===================================
+
+// Color Palette
+$colors: (
+    // Primary Colors
+    deep-purple: #1a0533,
+    deeper-purple: #0c0318,
+
+    // Theme Colors
+    primary: #3fa3a3,
+    // Teal
+    secondary: #d99141,
+    // Orange
+    accent: #e31bce,
+    // Pink
+
+    // Text Colors
+    body-text: #f8f8ff,
+
+    // Background Colors
+    card-bg: rgba(12, 3, 24, 0.8),
+    code-bg: rgba(0, 0, 0, 0.3)
+);
+
+// Typography
+$fonts: (
+    heading: ('Berkshire Swash', cursive),
+    body: ('Atkinson Hyperlegible Next', sans-serif),
+    mono: ('Atkinson Hyperlegible Mono', monospace)
+);
+
+$font-sizes: (
+    base: 16px,
+    small: 0.8rem,
+    normal: 0.9rem,
+    medium: 1.1rem,
+    large: 1.2rem,
+    h3: 1.5rem,
+    h2: 2rem,
+    h1: 3rem,
+    h1-mobile: 2.5rem
+);
+
+// Spacing
+$spacing: (
+    xs: 3px,
+    sm: 5px,
+    md: 10px,
+    lg: 15px,
+    xl: 20px,
+    xxl: 30px,
+    xxxl: 40px
+);
+
+// Borders & Effects
+$border-radius: (
+    small: 4px,
+    medium: 8px,
+    pill: 20px
+);
+
+// Helper Functions
+@function color($name) {
+    @return map.get($colors, $name);
 }
 
-/* Base Styles */
+@function font($name) {
+    @return map.get($fonts, $name);
+}
+
+@function size($name) {
+    @return map.get($font-sizes, $name);
+}
+
+@function space($name) {
+    @return map.get($spacing, $name);
+}
+
+@function radius($name) {
+    @return map.get($border-radius, $name);
+}
+
+// ===================================
+// MIXINS
+// ===================================
+
+@mixin glow($color, $intensity: 0.3) {
+    text-shadow: 0 0 10px rgba($color, $intensity);
+}
+
+@mixin card-shadow() {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+@mixin hover-shadow($color, $intensity: 0.2) {
+    box-shadow: 0 3px 8px rgba($color, $intensity);
+}
+
+@mixin accent-border($color, $width: 3px) {
+    border-left: $width solid $color;
+}
+
+@mixin subtle-border($color, $opacity: 0.3) {
+    border: 1px solid rgba($color, $opacity);
+}
+
+@mixin transition($properties: all, $duration: 0.2s) {
+    transition: $properties $duration ease;
+}
+
+// ===================================
+// BASE STYLES
+// ===================================
+
+* {
+    box-sizing: border-box;
+}
+
 body {
-    background: linear-gradient(135deg, var(--deep-purple), var(--deeper-purple));
-    color: var(--body-text);
-    font-family: 'Atkinson Hyperlegible Next', sans-serif;
-    font-size: 16px;
+    background: linear-gradient(135deg, color(deep-purple), color(deeper-purple));
+    color: color(body-text);
+    font-family: font(body);
+    font-size: size(base);
     line-height: 1.6;
     margin: 0;
     padding: 0;
     min-height: 100vh;
 }
 
-/* Typography */
+// ===================================
+// TYPOGRAPHY
+// ===================================
+
+%heading-base {
+    font-family: font(heading);
+    margin-top: space(xxl);
+    margin-bottom: space(xl);
+}
+
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-    font-family: 'Berkshire Swash', cursive;
-    margin-top: 30px;
-    margin-bottom: 20px;
+    @extend %heading-base;
 }
 
 h1 {
-    font-size: 3rem;
-    color: var(--primary);
-    text-shadow: 0 0 10px rgba(63, 163, 163, 0.3);
+    font-size: size(h1);
+    color: color(primary);
+    @include glow(color(primary));
+
+    @media (max-width: 768px) {
+        font-size: size(h1-mobile);
+    }
 }
 
 h2 {
-    font-size: 2rem;
-    color: var(--secondary);
-    border-bottom: 1px solid rgba(217, 145, 65, 0.3);
-    padding-bottom: 10px;
+    font-size: size(h2);
+    color: color(secondary);
+    border-bottom: 1px solid rgba(color(secondary), 0.3);
+    padding-bottom: space(md);
 }
 
 h3 {
-    font-size: 1.5rem;
-    color: var(--primary);
+    font-size: size(h3);
+    color: color(primary);
 }
 
+// Links
 a {
-    color: var(--primary);
+    color: color(primary);
     text-decoration: none;
-    border-bottom: 1px dotted var(--primary);
-    transition: all 0.2s ease;
+    border-bottom: 1px dotted color(primary);
+    @include transition();
+
+    &:hover {
+        border-bottom: 1px solid color(primary);
+        @include glow(#38ffcb, 0.5);
+    }
 }
 
-a:hover {
-    color: var(--primary);
-    border-bottom: 1px solid var(--primary);
-    text-shadow: 0 0 8px rgba(56, 255, 203, 0.5);
-}
-
-/* Header */
-header {
-    text-align: center;
-    margin-bottom: 40px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid rgba(56, 255, 203, 0.3);
-}
-
-header h1 {
-    margin: 0;
-}
-
-header p {
-    color: var(--body-text);
-    font-size: 1.2rem;
-    margin-top: 10px;
-}
-
-/* Components */
-.card {
-    background-color: var(--card-bg);
-    border-radius: 8px;
-    padding: 30px;
-    margin-bottom: 40px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    border-left: 3px solid var(--primary);
-}
-
-.side-content {
-    background-color: var(--card-bg);
-    padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 30px;
-}
-
-.side-title {
-    color: var(--primary);
-    margin-bottom: 15px;
-    font-size: 1.2rem;
-    border-bottom: 1px solid rgba(56, 255, 203, 0.3);
-    padding-bottom: 5px;
-    font-family: 'Berkshire Swash', cursive;
-}
-
+// Text Elements
 blockquote {
-    border-left: 3px solid var(--secondary);
-    padding-left: 15px;
+    @include accent-border(color(secondary));
+    padding-left: space(lg);
     margin-left: 0;
     font-style: italic;
-    color: var(--body-text);
+    color: color(body-text);
     opacity: 0.8;
 }
 
-code,
-pre {
-    background-color: var(--code-bg);
-    border-left: 3px solid var(--primary);
-    border-radius: 4px;
-    padding: 15px;
-    font-family: 'Atkinson Hyperlegible Mono', monospace;
-    margin: 20px 0;
-    font-size: 0.9rem;
-    white-space: pre;
-    overflow-x: auto;
-}
-
 em {
-    color: var(--secondary);
+    color: color(secondary);
     font-weight: normal;
 }
 
 strong {
-    color: var(--accent);
+    color: color(accent);
     font-weight: normal;
 }
 
-.tag {
-    display: inline-block;
-    background-color: rgba(217, 145, 65, 0.2);
-    color: var(--secondary);
-    padding: 3px 10px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    margin-right: 5px;
-    margin-bottom: 5px;
-    transition: all 0.2s ease;
-    border: 1px solid transparent;
+// Code
+%code-base {
+    background-color: color(code-bg);
+    @include accent-border(color(primary));
+    border-radius: radius(small);
+    font-family: font(mono);
+    font-size: size(normal);
 }
 
-.tag:hover {
-    border: 1px solid var(--secondary);
-    box-shadow: 0 3px 8px rgba(217, 145, 65, 0.2);
+code {
+    @extend %code-base;
+    padding: 2px 4px;
+}
+
+pre {
+    @extend %code-base;
+    padding: space(lg);
+    margin: space(xl) 0;
+    white-space: pre;
+    overflow-x: auto;
+}
+
+// ===================================
+// LAYOUT
+// ===================================
+
+header {
+    text-align: center;
+    margin-bottom: space(xxxl);
+    padding-bottom: space(xl);
+    @include subtle-border(#38ffcb);
+    border-top: none;
+    border-left: none;
+    border-right: none;
+
+    h1 {
+        margin: 0;
+    }
+
+    p {
+        color: color(body-text);
+        font-size: size(large);
+        margin-top: space(md);
+    }
 }
 
 footer {
     text-align: center;
-    padding-top: 30px;
-    padding-bottom: 30px;
-    border-top: 1px solid rgba(56, 255, 203, 0.3);
-    color: var(--body-text);
+    padding: space(xxl) 0;
+    @include subtle-border(#38ffcb);
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
+    color: color(body-text);
 }
 
-.post-tags {
-    margin-top: 25px;
-    border-top: 1px solid rgba(56, 255, 203, 0.3);
-    padding-top: 20px;
+// ===================================
+// COMPONENTS
+// ===================================
+
+// Card Component
+.card {
+    background-color: color(card-bg);
+    border-radius: radius(medium);
+    padding: space(xxl);
+    margin-bottom: space(xxxl);
+    @include card-shadow();
+    @include accent-border(color(primary));
+
+    @media (max-width: 768px) {
+        padding: space(xl);
+    }
 }
 
-/* Timestamp */
+// Sidebar Content
+.side-content {
+    background-color: color(card-bg);
+    padding: space(xl);
+    border-radius: radius(medium);
+    margin-bottom: space(xxl);
+
+    @media (max-width: 768px) {
+        @include accent-border(color(primary));
+    }
+}
+
+.side-title {
+    color: color(primary);
+    margin-bottom: space(lg);
+    font-size: size(large);
+    @include subtle-border(#38ffcb);
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    padding-bottom: space(sm);
+    font-family: font(heading);
+}
+
+// Tag Component
+%tag-base {
+    display: inline-block;
+    padding: space(xs) space(md);
+    border-radius: radius(pill);
+    font-size: size(small);
+    margin-right: space(sm);
+    margin-bottom: space(sm);
+    @include transition();
+    border: 1px solid transparent;
+}
+
+.tag {
+    @extend %tag-base;
+    background-color: rgba(color(secondary), 0.2);
+    color: color(secondary);
+
+    &:hover {
+        border-color: color(secondary);
+        @include hover-shadow(color(secondary));
+    }
+}
+
+.response-tag {
+    @extend %tag-base;
+    background-color: rgba(color(accent), 0.15);
+    color: color(accent);
+
+    &:hover {
+        border-color: color(accent);
+        @include hover-shadow(color(accent));
+    }
+
+    @media (max-width: 768px) {
+        display: inline-block;
+        margin-top: space(sm);
+    }
+}
+
+// Timestamp Component
 .arcane-timestamp {
-    color: var(--secondary);
+    color: color(secondary);
     font-style: italic;
-    margin-bottom: 20px;
+    margin-bottom: space(xl);
     opacity: 0.9;
-    font-family: 'Berkshire Swash', cursive;
-    font-size: 1.1rem;
+    font-family: font(heading);
+    font-size: size(medium);
 }
 
 .timestamp-icon {
-    color: var(--accent);
+    color: color(accent);
 }
 
-/* Pagination */
-.pagination-link.previous {
-    text-align: left;
+// Post Tags Section
+.post-tags {
+    margin-top: #{space(xl) + space(sm)};
+    @include subtle-border(#38ffcb);
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
+    padding-top: space(xl);
 }
 
-.pagination-link.next {
-    text-align: right;
+// ===================================
+// PAGINATION
+// ===================================
+
+.pagination {
+    &-link {
+        &.previous {
+            text-align: left;
+        }
+
+        &.next {
+            text-align: right;
+        }
+    }
+
+    &-icon {
+        color: color(primary);
+    }
+
+    &-pages {
+        font-family: font(heading);
+        position: relative;
+        text-align: center;
+
+        .page {
+            color: color(accent);
+            font-size: space(xl);
+        }
+    }
 }
 
-.pagination-icon {
-    color: var(--primary);
-}
-
-.pagination-pages {
-    font-family: 'Berkshire Swash', cursive;
-    position: relative;
-    text-align: center;
-}
-
-.page {
-    color: var(--accent);
-    font-size: 20px;
-}
+// ===================================
+// LAYOUT COLUMNS
+// ===================================
 
 .tags-column {
     text-align: left;
+
+    @media (max-width: 768px) {
+        width: 100% !important;
+        display: block;
+    }
 }
 
 .response-column {
     text-align: right;
-}
 
-.response-tag {
-    background-color: rgba(227, 27, 206, 0.15);
-    /* Using accent color */
-    color: var(--accent);
-    border: 1px solid transparent;
-}
-
-.response-tag:hover {
-    border: 1px solid var(--accent);
-    box-shadow: 0 3px 8px rgba(227, 27, 206, 0.2);
+    @media (max-width: 768px) {
+        width: 100% !important;
+        display: block;
+        text-align: left;
+        margin-top: space(lg);
+    }
 }
 
 .response-icon {
     margin-right: 4px;
 }
 
-/* Responsive Adjustments */
+// ===================================
+// RESPONSIVE UTILITIES
+// ===================================
+
 @media (max-width: 768px) {
-    .card {
-        padding: 20px;
-    }
-
-    h1 {
-        font-size: 2.5rem;
-    }
-
-    /* Add teal left border to sidebar elements on mobile */
-    .side-content {
-        border-left: 3px solid var(--primary);
-    }
-
     .spacer-column {
         display: none !important;
-    }
-
-    /* Force the columns to stack vertically instead of side-by-side */
-    .tags-column,
-    .response-column {
-        width: 100% !important;
-        /* Override Pure's grid width */
-        display: block;
-        text-align: left;
-    }
-
-    .response-column {
-        margin-top: 15px;
-        /* Add space between stacked columns */
-    }
-
-    /* Make the response tag more prominent since it's now on its own line */
-    .response-tag {
-        display: inline-block;
-        margin-top: 5px;
     }
 }
