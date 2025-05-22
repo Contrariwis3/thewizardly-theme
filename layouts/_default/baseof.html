@@ -50,7 +50,7 @@
         <div class="side-title">Allied Mages</div>
         <ul>
           {{ range .Site.Data.blogrolls.recommendations }}
-          <li><a href="{{ url }}">{{ name }}</a></li>
+          <li><a href="{{ .url }}">{{ .name }}</a></li>
           {{ end }}
         </ul>
       </div>
