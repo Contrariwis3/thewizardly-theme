@@ -1,13 +1,6 @@
 {{ define "main" }}
 <article class="card">
   {{ if .Title }}<h2>{{ .Title }}</h2>{{ end }}
-  <div class="arcane-timestamp">
-    <span class="timestamp-icon"><i class="ph ph-calendar"></i></span> Inscribed on <a href="{{ .Permalink }}" class="permalink" title="Permanent link to this scroll"><time datetime="{{ .Date.Format "2006-01-02 15:04:05 -0700" }}">{{ .Date.Format "January 2, 2006" }}</time></a>
-  </div>
-
-  {{ if .Params.reply_to_url }}
-  <p>Replying to: {{ if eq .Params.reply_to_hostname "micro.blog" }} <a href="{{ .Params.reply_to_url }}">@{{ .Params.reply_to_username }}</a> {{ else }} <a href="{{ .Params.reply_to_url }}">{{ .Params.reply_to_hostname }}</a></p>
-  {{ end }}
 
   {{ .Content }}
 

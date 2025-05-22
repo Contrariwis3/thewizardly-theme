@@ -6,7 +6,7 @@
   </div>
 
   {{ if .Params.reply_to_url }}
-  <p>Replying to: {{ if eq .Params.reply_to_hostname "micro.blog" }} <a href="{{ .Params.reply_to_url }}">@{{ .Params.reply_to_username }}</a> {{ else }} <a href="{{ .Params.reply_to_url }}">{{ .Params.reply_to_hostname }}</a></p>
+  <p>Replying to: {{ if eq .Params.reply_to_hostname "micro.blog" }} <a href="{{ .Params.reply_to_url }}">@{{ .Params.reply_to_username }}</a> {{ else }} <a href="{{ .Params.reply_to_url }}">{{ .Params.reply_to_hostname }}</a>{{ end }}</p>
   {{ end }}
 
   {{ .Content }}

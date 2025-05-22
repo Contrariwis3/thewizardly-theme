@@ -35,16 +35,14 @@
         </ul>
       </div>
 
-      {{ with site.RegularPages.Related . | first 4 }}
       <div class="side-content">
-        <div class="side-title">Related Incantations</div>
+        <div class="side-title">Random Incantations</div>
         <ul>
-          {{ range . }}
+          {{ range first 3 (shuffle (where (where (where site.RegularPages "Type" "post") "Permalink" "!=" .Permalink) "Title" "!=" "")) }}
           <li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
           {{ end }}
         </ul>
       </div>
-      {{ end }}
 
       <div class="side-content">
         <div class="side-title">Allied Mages</div>
@@ -61,7 +59,7 @@
         <div class="side-title">Arcane Tags</div>
         <div>
           {{ range $list }}
-          <span class="tag"><a href="{{ .Permalink }}">{{ .Title }}</a></span>
+          <a class="tag" href="{{ .Permalink }}">{{ .Title }}</a>
           {{ end }}
         </div>
       </div>
