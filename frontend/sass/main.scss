@@ -324,6 +324,10 @@ footer {
         border-color: color(secondary);
         @include hover-shadow(color(secondary));
     }
+
+    i {
+        margin-right: space(xs);
+    }
 }
 
 .response-tag {
@@ -481,7 +485,6 @@ footer {
     }
 
     .status-footer {
-        text-align: center;
         margin-top: space(lg);
         padding-top: space(md);
         @include subtle-border(color(primary));

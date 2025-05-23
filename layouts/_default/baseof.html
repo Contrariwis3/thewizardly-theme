@@ -83,7 +83,9 @@
         <div class="side-title">Arcane Tags</div>
         <div>
           {{ range $list }}
-          <a class="tag" href="{{ .Permalink }}">{{ .Title }}</a>
+          <a class="tag" href="{{ .Permalink }}">
+            <i class="ph ph-sparkle"></i>{{ .Title }}
+          </a>
           {{ end }}
         </div>
       </div>
