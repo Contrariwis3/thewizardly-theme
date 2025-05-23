@@ -347,7 +347,6 @@ footer {
     color: color(secondary);
     font-style: italic;
     margin-bottom: space(xl);
-    opacity: 0.9;
     font-family: font(heading);
     font-size: size(medium);
 }
@@ -447,7 +446,7 @@ footer {
         border-left: none;
         border-right: none;
 
-        &:last-child {
+        &:last-of-type {
             border-bottom: none;
             padding-bottom: 0;
         }
@@ -471,7 +470,6 @@ footer {
     .status-time {
         font-size: size(small);
         color: color(secondary);
-        opacity: 0.7;
         font-family: font(heading);
         font-style: italic;
     }
@@ -480,7 +478,6 @@ footer {
         font-size: size(normal);
         line-height: 1.5;
         color: color(body-text);
-        opacity: 0.9;
     }
 
     .status-footer {
@@ -494,16 +491,20 @@ footer {
     }
 
     .status-link {
-        font-size: size(small);
+        @extend %tag-base;
+        background-color: rgba(color(accent), 0.15);
         color: color(accent);
         font-family: font(heading);
         border: none;
+        display: inline-block;
 
         i {
             margin-right: space(xs);
         }
 
         &:hover {
+            border-color: color(accent);
+            @include hover-shadow(color(accent));
             @include glow(color(accent), 0.5);
         }
     }
