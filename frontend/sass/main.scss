@@ -436,18 +436,10 @@ footer {
 }
 
 // ===================================
-// STATUS SCROLL COMPONENT
+// STATUS SCROLL COMPONENT (SIMPLIFIED)
 // ===================================
 
 .status-scroll {
-    .status-container {
-        max-height: 300px;
-        overflow-y: auto;
-        overflow-x: hidden;
-        margin: -#{space(sm)} -#{space(sm)} space(md);
-        padding: space(sm);
-    }
-
     .status-entry {
         padding: space(md) 0;
         @include subtle-border(color(primary));
@@ -513,15 +505,6 @@ footer {
 
         &:hover {
             @include glow(color(accent), 0.5);
-        }
-    }
-}
-
-// Responsive adjustments
-@media (max-width: 768px) {
-    .status-scroll {
-        .status-container {
-            max-height: 250px;
         }
     }
 }
