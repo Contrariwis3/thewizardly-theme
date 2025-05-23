@@ -446,7 +446,7 @@ footer {
         border-left: none;
         border-right: none;
 
-        &:last-of-type {
+        &:nth-last-child(2) {
             border-bottom: none;
             padding-bottom: 0;
         }
@@ -505,7 +505,6 @@ footer {
         &:hover {
             border-color: color(accent);
             @include hover-shadow(color(accent));
-            @include glow(color(accent), 0.5);
         }
     }
 }
