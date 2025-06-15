@@ -6,24 +6,25 @@
 
 // Color Palette
 $colors: (
-    // Primary Colors
-    deep-purple: #1a0533,
-    deeper-purple: #0c0318,
+    // Primary Colors (Background)
+    body: #1a1a2e,
 
-    // Theme Colors
-    primary: #3fa3a3,
-    // Teal
-    secondary: #d99141,
-    // Orange
-    accent: #e31bce,
-    // Pink
+    // Theme Colors  
+    primary: #7ba05b,
+    // Sage Grimoire (main accent - links, borders, h3)
+    secondary: #b5a693,
+    // Weathered Parchment (h2, blockquotes, tags)
+    accent: #b85c69,
+    // Rose Seal (highlights, strong text, special elements)
 
     // Text Colors
-    body-text: #f8f8ff,
+    body-text: #f4f1e8,
+    // Parchment Cream
 
     // Background Colors
-    card-bg: rgba(12, 3, 24, 0.8),
-    code-bg: rgba(0, 0, 0, 0.3)
+    card-bg: rgba(15, 15, 26, 0.8),
+    // Darker midnight with transparency
+    code-bg: rgba(181, 166, 147, 0.1) // Subtle weathered parchment overlay
 );
 
 // Typography
@@ -121,7 +122,8 @@ $border-radius: (
 }
 
 body {
-    background: linear-gradient(135deg, color(deep-purple), color(deeper-purple));
+    background-color: color(body);
+    background-image: url("data:image/svg+xml,%3Csvg width='84' height='48' viewBox='0 0 84 48' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h12v6H0V0zm28 8h12v6H28V8zm14-8h12v6H42V0zm14 0h12v6H56V0zm0 8h12v6H56V8zM42 8h12v6H42V8zm0 16h12v6H42v-6zm14-8h12v6H56v-6zm14 0h12v6H70v-6zm0-16h12v6H70V0zM28 32h12v6H28v-6zM14 16h12v6H14v-6zM0 24h12v6H0v-6zm0 8h12v6H0v-6zm14 0h12v6H14v-6zm14 8h12v6H28v-6zm-14 0h12v6H14v-6zm28 0h12v6H42v-6zm14-8h12v6H56v-6zm0-8h12v6H56v-6zm14 8h12v6H70v-6zm0 8h12v6H70v-6zM14 24h12v6H14v-6zm14-8h12v6H28v-6zM14 8h12v6H14V8zM0 8h12v6H0V8z' fill='%23B5A693' fill-opacity='0.08' fill-rule='evenodd'/%3E%3C/svg%3E");
     color: color(body-text);
     font-family: font(body);
     font-size: size(base);
@@ -181,7 +183,7 @@ a {
 
     &:hover {
         border-bottom: 1px solid color(primary);
-        @include glow(#38ffcb, 0.5);
+        @include glow(color(primary), 0.5);
     }
 }
 
@@ -235,7 +237,7 @@ header {
     text-align: center;
     margin-bottom: space(xxxl);
     padding-bottom: space(xl);
-    @include subtle-border(#38ffcb);
+    @include subtle-border(color(primary));
     border-top: none;
     border-left: none;
     border-right: none;
@@ -254,7 +256,7 @@ header {
 footer {
     text-align: center;
     padding: space(xxl) 0;
-    @include subtle-border(#38ffcb);
+    @include subtle-border(color(primary));
     border-bottom: none;
     border-left: none;
     border-right: none;
@@ -295,7 +297,7 @@ footer {
     color: color(primary);
     margin-bottom: space(lg);
     font-size: size(large);
-    @include subtle-border(#38ffcb);
+    @include subtle-border(color(primary));
     border-top: none;
     border-left: none;
     border-right: none;
@@ -362,7 +364,7 @@ footer {
 // Post Tags Section
 .post-tags {
     margin-top: #{space(xl) + space(sm)};
-    @include subtle-border(#38ffcb);
+    @include subtle-border(color(primary));
     border-bottom: none;
     border-left: none;
     border-right: none;
