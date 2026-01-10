@@ -595,6 +595,15 @@ footer {
 // WEB BUTTONS COLLECTION
 // ===================================
 
+.emblem-note {
+    display: block;
+    color: color(secondary);
+    font-style: italic;
+    opacity: 0.8;
+    margin-bottom: space(sm);
+    text-align: center;
+}
+
 .button-collection {
     display: flex;
     flex-wrap: wrap;
@@ -606,5 +615,11 @@ footer {
         max-width: none;
         width: 88px;
         height: 31px;
+    }
+
+    &--share {
+        margin-bottom: space(lg);
+        padding-bottom: space(lg);
+        border-bottom: 1px solid rgba(color(secondary), 0.2);
     }
 }
