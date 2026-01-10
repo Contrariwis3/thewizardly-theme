@@ -590,3 +590,21 @@ footer {
     font-style: italic;
     opacity: 0.8;
 }
+
+// ===================================
+// WEB BUTTONS COLLECTION
+// ===================================
+
+.button-collection {
+    display: flex;
+    flex-wrap: wrap;
+    gap: space(sm);
+    justify-content: center;
+
+    img {
+        display: block;
+        max-width: none;
+        width: 88px;
+        height: 31px;
+    }
+}

@@ -1,6 +1,7 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     entry: './frontend/index.js',
@@ -8,7 +9,7 @@ module.exports = {
         //path: path.resolve(__dirname, 'frontend/build'),
         path: path.resolve(__dirname, 'static'),
         filename: 'bundle.js',
-        clean: true, // Cleans the output directory before build
+        clean: true,
     },
     module: {
         rules: [
@@ -42,6 +43,15 @@ module.exports = {
     plugins: [
         new MiniCssExtractPlugin({
             filename: 'styles.css',
+        }),
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    from: 'frontend/assets/buttons',
+                    to: 'buttons',
+                    noErrorOnMissing: true
+                }
+            ]
         })
     ],
     performance: {

@@ -363,3 +363,6 @@ Temporary Items
 
 # Project-specific Claude configuration
 CLAUDE.md
+
+# Webpack-generated assets
+static/buttons/
