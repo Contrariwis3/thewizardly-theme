@@ -519,3 +519,74 @@ footer {
         }
     }
 }
+
+// ===================================
+// BOOKSHELF COMPONENT
+// ===================================
+
+.bookshelf-page {
+    .page-header {
+        margin-bottom: space(xxxl);
+    }
+
+    .shelf {
+        margin-bottom: space(xxxl);
+    }
+
+    .year-group {
+        margin-bottom: space(xxl);
+
+        .year {
+            margin-top: space(xl);
+        }
+    }
+}
+
+.book-grid {
+    margin-top: space(xl);
+}
+
+.book-cell {
+    padding: space(md);
+    display: flex;
+    justify-content: center;
+}
+
+.book-cover-container {
+    display: inline-block;
+    @include transition();
+
+    &:hover {
+        transform: translateY(-4px);
+        @include hover-shadow(color(primary), 0.3);
+    }
+}
+
+.book-cover {
+    width: 128px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: radius(small);
+    display: block;
+    @include card-shadow();
+
+    &--placeholder {
+        background-color: rgba(color(secondary), 0.1);
+        @include subtle-border(color(secondary), 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &::after {
+            content: '📚';
+            font-size: 48px;
+            opacity: 0.3;
+        }
+    }
+}
+
+.empty {
+    color: color(secondary);
+    font-style: italic;
+    opacity: 0.8;
+}

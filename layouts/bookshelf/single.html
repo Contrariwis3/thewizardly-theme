@@ -1,0 +1,88 @@
+{{ define "main" }}
+<main class="bookshelf-page">
+    <!-- =======================
+       Currently reading
+       ======================= -->
+    <section class="shelf shelf-current">
+        <h2>Currently reading</h2>
+
+        {{ with .Site.Data.bookshelves }}
+        {{ with index . "currentlyreading" }}
+        {{ if gt (len .) 0 }}
+        <div class="pure-g book-grid">
+            {{ range . }}
+            {{ $b := . }}
+
+            <div class="pure-u-1-2 pure-u-md-1-4 book-cell">
+                <div class="book-cover-container">
+                    {{ with $b.cover_url }}
+                    <img class="book-cover" src="{{ . }}" alt="Cover of {{ $b.title }}" loading="lazy">
+                    {{ else }}
+                    <div class="book-cover book-cover--placeholder" aria-hidden="true"></div>
+                    {{ end }}
+                </div>
+            </div>
+            {{ end }}
+        </div>
+        {{ else }}
+        <p class="empty"><em>Nothing here right now.</em></p>
+        {{ end }}
+        {{ else }}
+        <p class="empty"><em>Couldn’t find the “currentlyreading” shelf data.</em></p>
+        {{ end }}
+        {{ else }}
+        <p class="empty"><em>Bookshelf data isn’t available in this build.</em></p>
+        {{ end }}
+    </section>
+
+    <!-- =======================
+       Finished (by Goals year)
+       ======================= -->
+    <section class="shelf shelf-finished">
+        <h2>Finished</h2>
+
+        {{ with .Site.Data.bookgoals }}
+        {{ $years := slice }}
+        {{ range $year, $goal := . }}
+        {{ $years = $years | append (dict "year" $year "goal" $goal) }}
+        {{ end }}
+        {{ $years = sort $years "year" "desc" }}
+
+        {{ range $years }}
+        {{ $yr := .year }}
+        {{ $goal := .goal }}
+
+        {{ with $goal }}
+        {{ with .books }}
+        {{ if gt (len .) 0 }}
+        <section class="year-group" aria-label="Finished in {{ $yr }}">
+            <h3 class="year">{{ $yr }}</h3>
+
+            <div class="pure-g book-grid">
+                {{ range . }}
+                {{ $b := . }}
+
+                <div class="pure-u-1-2 pure-u-md-1-4 book-cell">
+                    <div class="book-cover-container">
+                        {{ with $b.cover_url }}
+                        <img class="book-cover" src="{{ . }}" alt="Cover of {{ $b.title }}" loading="lazy">
+                        {{ else }}
+                        <div class="book-cover book-cover--placeholder" aria-hidden="true"></div>
+                        {{ end }}
+                    </div>
+                </div>
+                {{ end }}
+            </div>
+        </section>
+        {{ end }}
+        {{ end }}
+        {{ end }}
+
+        {{ end }}
+        {{ else }}
+        <p class="empty"><em>Goals data isn’t available in this build.</em></p>
+        {{ end }}
+    </section>
+
+</main>
+{{ end }}

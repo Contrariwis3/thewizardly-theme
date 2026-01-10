@@ -335,7 +335,8 @@ dist
 .DS_Store
 .AppleDouble
 .LSOverride
-Icon[]
+Icon[
+]
 
 # Thumbnails
 ._*
@@ -355,3 +356,10 @@ Icon[]
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# Claude Code private directories
+.claude/
+.private-journal/
+
+# Project-specific Claude configuration
+CLAUDE.md
