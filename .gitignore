@@ -361,8 +361,5 @@ Temporary Items
 .claude/
 .private-journal/
 
-# Project-specific Claude configuration
-CLAUDE.md
-
 # Test site for local Hugo builds
 testsite/
