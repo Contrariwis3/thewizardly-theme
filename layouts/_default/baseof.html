@@ -26,37 +26,44 @@
         <div class="side-title">Teleportation Circle</div>
         <ul>
           {{ range .Site.Menus.main }}
-          {{ if .Page.Params.redirect_url }}
+          {{ if and .Page (.Page.Params.redirect_url) }}
           <li><a href="{{ .Page.Params.redirect_url }}">{{ .Name }}</a></li>
           {{ else }}
-          <li><a href="{{ .URL | relLangURL | safeURL }}">{{ .Name }}</a></li>
+          <li><a href="{{ .URL | relURL | safeURL }}">{{ .Name }}</a></li>
           {{ end }}
           {{ end }}
         </ul>
       </div>
 
-      {{ $data := getJSON "https://api.omg.lol/address/contrariwise/statuses/" }}
-      {{ if $data.response.statuses }}
-      <div class="side-content status-scroll">
-        <div class="side-title">Mystic Missives</div>
-        {{ range first 3 $data.response.statuses }}
-        <div class="status-entry">
-          <div class="status-header">
-            <span class="status-emoji">{{ .emoji }}</span>
-            {{ $created := .created | int }}
-            <time class="status-time" datetime="{{ $created | dateFormat "2006-01-02" }}">
-              {{ $created | dateFormat "Jan 2" }}
-            </time>
+      {{ $result := try (resources.GetRemote "https://api.omg.lol/address/contrariwise/statuses/") }}
+      {{ with $result.Err }}
+        {{ warnf "omg.lol fetch failed: %s" . }}
+      {{ else }}
+        {{ with $result.Value }}
+          {{ $data := . | transform.Unmarshal }}
+          {{ if $data.response.statuses }}
+          <div class="side-content status-scroll">
+            <div class="side-title">Mystic Missives</div>
+            {{ range first 3 $data.response.statuses }}
+            <div class="status-entry">
+              <div class="status-header">
+                <span class="status-emoji">{{ .emoji }}</span>
+                {{ $created := .created | int }}
+                <time class="status-time" datetime="{{ $created | dateFormat "2006-01-02" }}">
+                  {{ $created | dateFormat "Jan 2" }}
+                </time>
+              </div>
+              <div class="status-content">{{ .content | safeHTML }}</div>
+            </div>
+            {{ end }}
+            <div class="status-footer">
+              <a href="https://contrariwise.status.lol" class="status-link">
+                <i class="ph ph-scroll"></i> View all scrolls
+              </a>
+            </div>
           </div>
-          <div class="status-content">{{ .content | safeHTML }}</div>
-        </div>
+          {{ end }}
         {{ end }}
-        <div class="status-footer">
-          <a href="https://contrariwise.status.lol" class="status-link">
-            <i class="ph ph-scroll"></i> View all scrolls
-          </a>
-        </div>
-      </div>
       {{ end }}
 
       <div class="side-content">
@@ -71,7 +78,7 @@
       <div class="side-content">
         <div class="side-title">Allied Mages</div>
         <ul>
-          {{ range .Site.Data.blogrolls.recommendations }}
+          {{ range hugo.Data.blogrolls.recommendations }}
           <li><a href="{{ .url }}">{{ .name }}</a></li>
           {{ end }}
         </ul>
@@ -95,7 +102,7 @@
         </div>
       </div>
 
-      {{ $list := ($.Site.GetPage "taxonomyTerm" "categories").Pages }}
+      {{ $list := ($.Site.GetPage "taxonomy" "categories").Pages }}
       {{ if gt (len $list) 0 }}
       <div class="side-content">
         <div class="side-title">Arcane Tags</div>

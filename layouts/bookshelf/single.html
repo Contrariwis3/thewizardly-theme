@@ -6,7 +6,7 @@
     <section class="shelf shelf-current">
         <h2>Currently reading</h2>
 
-        {{ with .Site.Data.bookshelves }}
+        {{ with hugo.Data.bookshelves }}
         {{ with index . "currentlyreading" }}
         {{ if gt (len .) 0 }}
         <div class="pure-g book-grid">
@@ -41,7 +41,7 @@
     <section class="shelf shelf-finished">
         <h2>Finished</h2>
 
-        {{ with .Site.Data.bookgoals }}
+        {{ with hugo.Data.bookgoals }}
         {{ $years := slice }}
         {{ range $year, $goal := . }}
         {{ $years = $years | append (dict "year" $year "goal" $goal) }}

@@ -243,10 +243,6 @@ header {
     text-align: center;
     margin-bottom: space(xxxl);
     padding-bottom: space(xl);
-    @include subtle-border(color(primary));
-    border-top: none;
-    border-left: none;
-    border-right: none;
 
     h1 {
         margin: 0;
