@@ -1,0 +1,27 @@
+{{/* ABOUTME: Bookmarks shortcode that fetches a JSON feed and renders bookmark entries. */}}
+{{/* ABOUTME: Replaces the abandoned plugin-bookmarks-json plugin. */}}
+
+{{ $feed_url := $.Site.Params.feeds.bookmarks_json }}
+{{ $result := try (resources.GetRemote $feed_url) }}
+{{ with $result.Err }}
+  {{ warnf "Bookmarks fetch failed: %s" . }}
+{{ else }}
+  {{ with $result.Value }}
+    {{ $response := . | transform.Unmarshal }}
+    {{ if isset $response "items" }}
+      {{ range $response.items }}
+        {{ $url := urls.Parse .url }}
+        {{ if not (hasPrefix .id "link") }}
+          <figure>
+            <blockquote>
+              <p>{{ .content_html | plainify | truncate 140 }}</p>
+            </blockquote>
+            <figcaption><cite><a class="u-bookmark-of" href="{{ .url }}">{{ $url.Host }}</a></cite></figcaption>
+          </figure>
+        {{ end }}
+      {{ end }}
+    {{ else }}
+      <p><strong>Bookmarks:</strong> No bookmarks found. If you're the owner of this blog, please double-check the feed URL in your site params.</p>
+    {{ end }}
+  {{ end }}
+{{ end }}
