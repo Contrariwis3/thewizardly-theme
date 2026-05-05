@@ -8,21 +8,54 @@
     <span class="timestamp-icon"><i class="ph ph-calendar"></i></span> Inscribed on <a href="{{ .Permalink }}" class="permalink" title="Permanent link to this scroll"><time datetime="{{ .Date.Format "2006-01-02 15:04:05 -0700" }}">{{ .Date.Format "January 2, 2006" }}</time></a>
   </div>
 
+  {{/*
+    Three rendering paths, in priority order:
+      1. Author placed <!--more--> in the source — render the prefix as the summary.
+      2. Author set custom_summary — render .Summary.
+      3. Post is long enough to auto-truncate at a paragraph boundary past 750 words,
+         with at least 200 words remaining past the cut. Otherwise render in full.
+  */}}
+  {{ $body := .Content }}
+  {{ $truncated := false }}
+
   {{ if in .RawContent "<!--more-->" }}
-  {{ $splitContents := split .RawContent "<!--more-->" }}
-  {{ $summary := index $splitContents 0 }}
-  {{ $summary := replaceRE "\\[\\^.*?\\]" "" $summary }}
-  {{ $summary := replaceRE "\\n\\[\\^.*?\\]:.*" "" $summary }}
-  <p>{{ $summary | markdownify }}</p>
-  <p><a href="{{ .Permalink }}">Read More</a></p>
-
+    {{ $splitContents := split .RawContent "<!--more-->" }}
+    {{ $summary := index $splitContents 0 }}
+    {{ $summary = replaceRE "\\[\\^.*?\\]" "" $summary }}
+    {{ $summary = replaceRE "\\n\\[\\^.*?\\]:.*" "" $summary }}
+    {{ $body = $summary | markdownify }}
+    {{ $truncated = true }}
   {{ else if .Params.custom_summary }}
-  <p>{{ .Summary | safeHTML }}</p>
+    {{ $body = .Summary | safeHTML }}
+    {{ $truncated = true }}
+  {{ else if ge .WordCount 950 }}
+    {{ $paragraphs := split .Content "</p>" }}
+    {{ $accumulated := 0 }}
+    {{ $cutAt := -1 }}
+    {{ range $i, $p := $paragraphs }}
+      {{ if lt $cutAt 0 }}
+        {{ $accumulated = add $accumulated (len (split (plainify $p) " ")) }}
+        {{ if ge $accumulated 750 }}
+          {{ $cutAt = $i }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+    {{/* Only truncate if at least 200 words remain past the cut. Otherwise the
+         "Continue reading" link reveals too little to justify the round trip. */}}
+    {{ if and (ge $cutAt 0) (gt (sub .WordCount $accumulated) 200) }}
+      {{ $kept := first (add $cutAt 1) $paragraphs }}
+      {{ $body = printf "%s</p>" (delimit $kept "</p>") | safeHTML }}
+      {{ $truncated = true }}
+    {{ end }}
+  {{ end }}
 
-  {{ else }}
   <div class="post-content">
-    {{ .Content }}
+    {{ $body }}
   </div>
+
+  {{ if $truncated }}
+  <p class="continue-reading"><a href="{{ .Permalink }}">Continue reading <span class="continue-reading-icon">→</span></a></p>
+  {{ end }}
 
   {{ $categories := (.GetTerms "categories") }}
   {{ if gt (len $categories) 0 }}
@@ -37,7 +70,6 @@
       </div>
     </div>
   </div>
-  {{ end }}
   {{ end }}
 </article>
 {{ end }}

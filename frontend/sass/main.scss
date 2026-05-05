@@ -390,6 +390,16 @@ footer {
     padding-top: space(xl);
 }
 
+// Continue Reading affordance (the page-turn)
+// Shown beneath an auto-truncated or <!--more--> summary on the index. The
+// link itself inherits the global sage / dotted-underline / hover-glow
+// treatment; this rule only positions the wrapping paragraph.
+.continue-reading {
+    margin-top: space(xl);
+    margin-bottom: 0;
+    text-align: right;
+}
+
 // ===================================
 // PAGINATION
 // ===================================
