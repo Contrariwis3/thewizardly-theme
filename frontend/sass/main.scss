@@ -292,9 +292,11 @@ footer {
 // awkwardly small inside the manuscript page; large images get scaled down
 // without horizontal overflow. !important defeats both the HTML width/height
 // attributes (which are low-specificity presentational hints) and any inline
-// style micro.blog ships. Scoping to .post-content keeps book covers, web
-// buttons, and side trinkets at their explicit fixed sizes.
-.post-content img {
+// style micro.blog ships. Scoped to direct-paragraph-child images, which is
+// how micro.blog renders markdown image posts (`![]()` → `<p><img></p>`),
+// so deeply-nested images inside shortcodes (bookmark favicons, web buttons,
+// future trinkets) keep their explicit sizes.
+.post-content > p > img {
     width: 100% !important;
     height: auto !important;
     margin: space(lg) 0;
@@ -752,7 +754,7 @@ footer {
 .bookmark-link {
     display: inline-flex;
     align-items: baseline;
-    gap: space(sm);
+    gap: space(md);
     border-bottom: none;
 
     &:hover {

@@ -16,7 +16,7 @@
                 before the first <a> tag. Anything after that point is the
                 hostname link plus micro.blog's "Read: ..." archived-links
                 block, both already represented elsewhere in the row. */}}
-            {{ $note := replaceRE `(?s)<a.*` "" .content_html | plainify | htmlUnescape | strings.TrimSpace }}
+            {{ $note := replaceRE `(?s)<a.*` "" .content_html | plainify | htmlUnescape | strings.TrimSpace | truncate 200 }}
             {{ $host := "" }}
             {{ $favicon := "" }}
             {{ with .author }}
