@@ -25,7 +25,7 @@ incompatibilities will show up in Hugo's output.
 The test site includes stub partials for templates micro.blog normally provides
 (`microblog_head.html`, `reply-by-email.html`).
 
-After building frontend (npm run build), pause and wait for Merlin to upload to test blog.
+After building frontend (npm run build), pause for the test blog upload before continuing.
 Final verification happens on the Micro.blog test instance.
 
 ## Build and Deployment
