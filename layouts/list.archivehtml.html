@@ -15,7 +15,12 @@
 				{{ if .Title }}
 				<a href="{{ .Permalink }}" class="archive-title u-url p-name">{{ .Title }}</a>
 				{{ else }}
-				<a href="{{ .Permalink }}" class="archive-snippet u-url p-summary">{{ .Content | plainify | htmlUnescape | chomp | truncate 200 }}</a>
+				{{ $snippet := .Content | plainify | htmlUnescape | chomp | truncate 200 }}
+				{{ if $snippet }}
+				<a href="{{ .Permalink }}" class="archive-snippet u-url p-summary">{{ $snippet }}</a>
+				{{ else }}
+				<a href="{{ .Permalink }}" class="archive-snippet archive-snippet--wordless u-url"><i class="ph ph-image" aria-hidden="true"></i> an illumination</a>
+				{{ end }}
 				{{ end }}
 			</li>
 			{{ end }}

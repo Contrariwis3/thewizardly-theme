@@ -706,6 +706,21 @@ footer {
         color: color(body-text);
         opacity: 0.85;
     }
+
+    // Image-only microposts have no plain-text content (alt attributes are
+    // stripped by plainify), so the row falls back to a small Phosphor image
+    // icon and an italic "an illumination" label, in the manuscript-marginalia
+    // sense. Italics + Weathered Parchment match the Arcane Timestamp ornament
+    // language: this is metadata about the post, not the post's words.
+    .archive-snippet--wordless {
+        font-style: italic;
+        color: color(secondary);
+        opacity: 0.85;
+
+        i {
+            margin-right: space(xs);
+        }
+    }
 }
 
 // ===================================
