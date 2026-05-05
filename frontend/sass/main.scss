@@ -285,6 +285,21 @@ footer {
     }
 }
 
+// Post images.
+// Images in posts fill the column width, regardless of intrinsic size or
+// the width/height attributes micro.blog encodes from the source file.
+// Smaller images get upscaled to match the text column instead of sitting
+// awkwardly small inside the manuscript page; large images get scaled down
+// without horizontal overflow. !important defeats both the HTML width/height
+// attributes (which are low-specificity presentational hints) and any inline
+// style micro.blog ships. Scoping to .post-content keeps book covers, web
+// buttons, and side trinkets at their explicit fixed sizes.
+.post-content img {
+    width: 100% !important;
+    height: auto !important;
+    margin: space(lg) 0;
+}
+
 // Illuminated Drop Cap (essay posts only)
 // Scoped to .card:has(> h2): only titled posts get the manuscript capital.
 // On micro.blog, titleless posts are microposts (often <10 words) where a
