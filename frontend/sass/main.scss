@@ -491,18 +491,23 @@ footer {
 .status-scroll {
     .status-entry {
         padding: space(md) 0;
-        @include subtle-border(color(primary));
-        border-top: none;
-        border-left: none;
-        border-right: none;
 
-        &:nth-last-child(2) {
-            border-bottom: none;
-            padding-bottom: 0;
+        // Sage divider between entries only; the last entry abuts the
+        // footer's own top rule so it carries no bottom border. Selector is
+        // robust to whether .status-footer is present.
+        &:not(:last-of-type) {
+            @include subtle-border(color(primary));
+            border-top: none;
+            border-left: none;
+            border-right: none;
         }
 
-        &:first-child {
+        &:first-of-type {
             padding-top: 0;
+        }
+
+        &:last-of-type {
+            padding-bottom: 0;
         }
     }
 
@@ -528,6 +533,9 @@ footer {
         font-size: size(normal);
         line-height: 1.5;
         color: color(body-text);
+        // omg.lol content is user-authored; long URLs must not overflow the
+        // narrow side column.
+        overflow-wrap: anywhere;
     }
 
     .status-footer {
@@ -545,7 +553,7 @@ footer {
         color: color(accent);
         font-family: font(heading);
         display: inline-block;
-        margin-top: 0.8em;
+        margin-top: space(md);
 
         i {
             margin-right: space(xs);
