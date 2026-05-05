@@ -491,24 +491,13 @@ footer {
 .status-scroll {
     .status-entry {
         padding: space(md) 0;
+    }
 
-        // Sage divider between entries only; the last entry abuts the
-        // footer's own top rule so it carries no bottom border. Selector is
-        // robust to whether .status-footer is present.
-        &:not(:last-of-type) {
-            @include subtle-border(color(primary));
-            border-top: none;
-            border-left: none;
-            border-right: none;
-        }
-
-        &:first-of-type {
-            padding-top: 0;
-        }
-
-        &:last-of-type {
-            padding-bottom: 0;
-        }
+    // Sage divider between consecutive entries. Adjacent-sibling combinator
+    // is class-aware (unlike :last-of-type, which is keyed off tag name and
+    // would treat the trailing .status-footer div as the "last" sibling).
+    .status-entry + .status-entry {
+        border-top: 1px solid rgba(color(primary), 0.3);
     }
 
     .status-header {
