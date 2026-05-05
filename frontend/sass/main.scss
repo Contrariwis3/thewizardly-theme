@@ -269,7 +269,9 @@ footer {
 // COMPONENTS
 // ===================================
 
-// Card Component
+// Card Component (the manuscript page)
+// Identity is carried by the Arcane Timestamp at the top and the Illuminated
+// Drop Cap on titled essays, not by chrome on the edges. No spine.
 .card {
     background-color: color(card-bg);
     border-radius: radius(medium);
@@ -277,11 +279,29 @@ footer {
     overflow: hidden;
     margin-bottom: space(xxxl);
     @include card-shadow();
-    @include accent-border(color(primary));
 
     @media (max-width: 768px) {
         padding: space(xl);
     }
+}
+
+// Illuminated Drop Cap (essay posts only)
+// Scoped to .card:has(> h2): only titled posts get the manuscript capital.
+// On micro.blog, titleless posts are microposts (often <10 words) where a
+// 4em capital would be absurd. The :has(> h2) scope handles the conditional.
+//
+// The Three-Knobs Rule: cap font-size × cap line-height = N × body line-height.
+// Here 4em × 0.8 = 3.2em = 2 × 1.6em (clean 2-line drop). Cap-baseline lands
+// on body line 2's baseline. If body line-height changes, recompute cap
+// line-height to preserve the lockup.
+.card:has(> h2) .post-content > p:first-of-type::first-letter {
+    font-family: font(heading);
+    font-weight: 400;
+    color: color(primary);
+    font-size: 4em;
+    line-height: 0.8;
+    float: left;
+    margin-right: 0.12em;
 }
 
 // Sidebar Content
@@ -290,10 +310,6 @@ footer {
     padding: space(xl);
     border-radius: radius(medium);
     margin-bottom: space(xxl);
-
-    @media (max-width: 768px) {
-        @include accent-border(color(primary));
-    }
 }
 
 .side-title {

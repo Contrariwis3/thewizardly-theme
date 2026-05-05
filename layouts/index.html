@@ -20,7 +20,9 @@
   <p>{{ .Summary | safeHTML }}</p>
 
   {{ else }}
-  {{ .Content }}
+  <div class="post-content">
+    {{ .Content }}
+  </div>
 
   {{ $categories := (.GetTerms "categories") }}
   {{ if gt (len $categories) 0 }}

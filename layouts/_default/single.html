@@ -2,7 +2,9 @@
 <article class="card">
   {{ if .Title }}<h2>{{ .Title }}</h2>{{ end }}
 
-  {{ .Content }}
+  <div class="post-content">
+    {{ .Content }}
+  </div>
 
   {{ $categories := (.GetTerms "categories") }}
   {{ if gt (len $categories) 0 }}

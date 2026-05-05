@@ -9,7 +9,9 @@
   <p>Replying to: {{ if eq .Params.reply_to_hostname "micro.blog" }} <a href="{{ .Params.reply_to_url }}">@{{ .Params.reply_to_username }}</a> {{ else }} <a href="{{ .Params.reply_to_url }}">{{ .Params.reply_to_hostname }}</a>{{ end }}</p>
   {{ end }}
 
-  {{ .Content }}
+  <div class="post-content">
+    {{ .Content }}
+  </div>
 
   {{ $categories := (.GetTerms "categories") }}
   {{ if gt (len $categories) 0 }}
