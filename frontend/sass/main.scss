@@ -724,6 +724,75 @@ footer {
 }
 
 // ===================================
+// BOOKMARKS
+// ===================================
+
+// A list of saved links: each row is favicon + title (or user note), with
+// hostname and date below in the Compendium's Philosopher-italic Weathered
+// Parchment language. Replaces the old <figure><blockquote> rendering, which
+// misused blockquote (reserved for actual pull-quotes) and inherited the
+// 3px parchment side-stripe explicitly banned on list items.
+.bookmarks {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.bookmark {
+    padding: space(md) 0;
+
+    & + & {
+        border-top: 1px dotted rgba(color(secondary), 0.18);
+    }
+}
+
+// The link wraps both favicon and title text. Suppress the default anchor
+// dotted underline at the link level (it would underline below the favicon)
+// and reapply it on the title text only.
+.bookmark-link {
+    display: inline-flex;
+    align-items: baseline;
+    gap: space(sm);
+    border-bottom: none;
+
+    &:hover {
+        border-bottom: none;
+    }
+}
+
+.bookmark-favicon {
+    width: 16px;
+    height: 16px;
+    // Optical alignment: 16px favicon sits a few pixels low on a body
+    // baseline; nudge it up so it reads as on-line with the title text.
+    transform: translateY(3px);
+    flex-shrink: 0;
+}
+
+.bookmark-title {
+    border-bottom: 1px dotted color(primary);
+
+    .bookmark-link:hover & {
+        border-bottom-style: solid;
+    }
+}
+
+.bookmark-meta {
+    margin-top: space(xs);
+    // Indent past the favicon column so meta aligns under the title text.
+    margin-left: calc(16px + #{space(sm)});
+    font-family: font(heading);
+    font-style: italic;
+    font-size: size(small);
+    color: color(secondary);
+}
+
+.bookmark-date::before {
+    content: " · ";
+    margin: 0 space(xs);
+}
+
+// ===================================
 // WEB BUTTONS COLLECTION
 // ===================================
 

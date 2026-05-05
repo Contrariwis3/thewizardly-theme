@@ -9,17 +9,33 @@
   {{ with $result.Value }}
     {{ $response := . | transform.Unmarshal }}
     {{ if isset $response "items" }}
-      {{ range $response.items }}
-        {{ $url := urls.Parse .url }}
-        {{ if not (hasPrefix .id "link") }}
-          <figure>
-            <blockquote>
-              <p>{{ .content_html | plainify | truncate 140 }}</p>
-            </blockquote>
-            <figcaption><cite><a class="u-bookmark-of" href="{{ .url }}">{{ $url.Host }}</a></cite></figcaption>
-          </figure>
+      <ul class="bookmarks">
+        {{ range $response.items }}
+          {{ if not (hasPrefix .id "link") }}
+            {{/* The note (or linked-page title) is everything in content_html
+                before the first <a> tag. Anything after that point is the
+                hostname link plus micro.blog's "Read: ..." archived-links
+                block, both already represented elsewhere in the row. */}}
+            {{ $note := replaceRE `(?s)<a.*` "" .content_html | plainify | htmlUnescape | strings.TrimSpace }}
+            {{ $host := "" }}
+            {{ $favicon := "" }}
+            {{ with .author }}
+              {{ $host = .name }}
+              {{ $favicon = .avatar }}
+            {{ end }}
+            <li class="bookmark h-cite">
+              <a href="{{ .url }}" class="bookmark-link u-url u-bookmark-of">
+                {{ with $favicon }}<img class="bookmark-favicon" src="{{ . }}" alt="" width="16" height="16" loading="lazy" />{{ end }}
+                <span class="bookmark-title p-name">{{ $note }}</span>
+              </a>
+              <div class="bookmark-meta">
+                {{ with $host }}<cite class="bookmark-host">{{ . }}</cite>{{ end }}
+                {{ with .date_published }}<time class="bookmark-date dt-published" datetime="{{ . }}">{{ dateFormat "Jan 2, 2006" . }}</time>{{ end }}
+              </div>
+            </li>
+          {{ end }}
         {{ end }}
-      {{ end }}
+      </ul>
     {{ else }}
       <p><strong>Bookmarks:</strong> No bookmarks found. If you're the owner of this blog, please double-check the feed URL in your site params.</p>
     {{ end }}
