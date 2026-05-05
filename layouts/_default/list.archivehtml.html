@@ -1,15 +1,26 @@
 {{ define "main" }}
-<div class="card">
-	<h2>Archive</h2>
-	{{ $list := (where .Site.RegularPages "Type" "post") }}
-	{{ range $list }}
-	<p>
-		<a href="{{ .Permalink }}" class="u-url"><span class="dt-published" datetime="{{ .Date.Format "2006-01-02T15:04:05-0700" }}">{{ partial "dateformat/short" . }}</span></a>:
-		{{ if .Title }}
-		<span class="p-name"><b>{{ .Title }}</b></span>
-		{{ end }}
-		<span class="p-summary">{{ .Content | plainify | htmlUnescape | truncate 150 }}</span>
-	</p>
+<div class="card archive-card">
+	<h2>The Compendium</h2>
+
+	{{ $list := where .Site.RegularPages "Type" "post" }}
+	{{ range $list.GroupByDate "2006" }}
+	<section class="year-group" aria-label="Inscribed in {{ .Key }}">
+		<h3 class="year">{{ .Key }}</h3>
+		<ul class="archive-list">
+			{{ range .Pages }}
+			<li class="archive-entry">
+				<span class="archive-date">
+					<time datetime="{{ .Date.Format "2006-01-02T15:04:05-0700" }}" class="dt-published">{{ .Date.Format "Jan 2" }}</time>
+				</span>
+				{{ if .Title }}
+				<a href="{{ .Permalink }}" class="archive-title u-url p-name">{{ .Title }}</a>
+				{{ else }}
+				<a href="{{ .Permalink }}" class="archive-snippet u-url p-summary">{{ .Content | plainify | htmlUnescape | chomp | truncate 200 }}</a>
+				{{ end }}
+			</li>
+			{{ end }}
+		</ul>
+	</section>
 	{{ end }}
 </div>
 {{ end }}

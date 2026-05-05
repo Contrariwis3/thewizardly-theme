@@ -627,6 +627,88 @@ footer {
 }
 
 // ===================================
+// COMPENDIUM (ARCHIVE INDEX)
+// ===================================
+
+// The Compendium: a year-grouped, dense-but-quiet index of every post. Mirrors
+// the bookshelf's year-group / year-heading IA, in keeping with the Trinkets-
+// as-architecture principle: the compendium is the bookshelf's twin for posts.
+// No new tokens, no rose, no glow on the date ornament.
+.archive-card {
+    .year-group {
+        margin-bottom: space(xxxl);
+
+        &:last-of-type {
+            margin-bottom: 0;
+        }
+
+        // The year heading nests inside the card with its own dotted Sage
+        // rule. Override the default %heading-base top margin so the section
+        // break carries the spacing, not the heading itself.
+        .year {
+            margin-top: 0;
+            margin-bottom: space(lg);
+            border-bottom: 1px dotted rgba(color(primary), 0.3);
+            padding-bottom: space(sm);
+        }
+    }
+
+    .archive-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    // Two-column grid: a fixed-width Philosopher date column on the left,
+    // the title or snippet flowing in the right column. Baseline-aligned so
+    // the italic ornament date sits on the title's text baseline.
+    .archive-entry {
+        display: grid;
+        grid-template-columns: 5.5em 1fr;
+        gap: space(lg);
+        align-items: baseline;
+        padding: space(sm) 0;
+
+        // Dotted Parchment rule between entries. Mirrors the Mystic Missives
+        // status-entry separator language (1px sage at 30%) but tinted to
+        // Weathered Parchment at lower opacity, because the codex is long
+        // and a row of higher-contrast sage rules would read as a ladder.
+        & + & {
+            border-top: 1px dotted rgba(color(secondary), 0.18);
+        }
+
+        @media (max-width: 540px) {
+            grid-template-columns: 1fr;
+            gap: space(xs);
+            padding: space(md) 0;
+        }
+    }
+
+    // The date is a non-link ornament. Making the title (or snippet) the
+    // sole click target avoids the global a:hover glow firing on a
+    // parchment-colored date and keeps each row to one affordance.
+    .archive-date {
+        font-family: font(heading);
+        font-style: italic;
+        color: color(secondary);
+        font-size: size(normal);
+        white-space: nowrap;
+    }
+
+    .archive-title {
+        font-weight: 600;
+    }
+
+    // Microposts: render as quieter body-colored prose so the row reads as
+    // content rather than as a heading. The dotted Sage underline still
+    // inherits from the global anchor rule, signalling the affordance.
+    .archive-snippet {
+        color: color(body-text);
+        opacity: 0.85;
+    }
+}
+
+// ===================================
 // WEB BUTTONS COLLECTION
 // ===================================
 
