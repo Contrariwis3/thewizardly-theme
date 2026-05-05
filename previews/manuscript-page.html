@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preview · Manuscript Page · TheWizardly Theme</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Philosopher:ital@0;1&family=Atkinson+Hyperlegible+Next:wght@400;700&family=Atkinson+Hyperlegible+Mono&display=swap" rel="stylesheet">
+<style>
+  /* ===== TOKENS (from DESIGN.md) ===== */
+  :root {
+    --sage-grimoire: #7ba05b;
+    --weathered-parchment: #b5a693;
+    --rose-seal: #b85c69;
+    --parchment-cream: #f4f1e8;
+    --inkwell-midnight: #1a1a2e;
+    --inkwell-midnight-deep: #0f0f1a;
+    --card-bg: #0f0f1acc;
+    --code-bg: #b5a6931a;
+
+    --font-heading: 'Philosopher', serif;
+    --font-body: 'Atkinson Hyperlegible Next', sans-serif;
+    --font-mono: 'Atkinson Hyperlegible Mono', monospace;
+
+    --shadow-card: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background-color: var(--inkwell-midnight);
+    background-image: url("data:image/svg+xml,%3Csvg width='84' height='48' viewBox='0 0 84 48' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h12v6H0V0zm28 8h12v6H28V8zm14-8h12v6H42V0zm14 0h12v6H56V0zm0 8h12v6H56V8zM42 8h12v6H42V8zm0 16h12v6H42v-6zm14-8h12v6H56v-6zm14 0h12v6H70v-6zm0-16h12v6H70V0zM28 32h12v6H28v-6zM14 16h12v6H14v-6zM0 24h12v6H0v-6zm0 8h12v6H0v-6zm14 0h12v6H14v-6zm14 8h12v6H28v-6zm-14 0h12v6H14v-6zm28 0h12v6H42v-6zm14-8h12v6H56v-6zm0-8h12v6H56v-6zm14 8h12v6H70v-6zm0 8h12v6H70v-6zM14 24h12v6H14v-6zm14-8h12v6H28v-6zM14 8h12v6H14V8zM0 8h12v6H0V8z' fill='%23B5A693' fill-opacity='0.08' fill-rule='evenodd'/%3E%3C/svg%3E");
+    color: var(--parchment-cream);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+  }
+
+  /* ===== LAYOUT (PureCSS-style 14/24 + 7/24) ===== */
+  .page-grid {
+    display: grid;
+    grid-template-columns: 1fr 14fr 1fr 7fr 1fr;
+    gap: 0;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 30px 0;
+  }
+  .header-row {
+    grid-column: 2 / 5;
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+  }
+  .main-col { grid-column: 2 / 3; }
+  .aside-col { grid-column: 4 / 5; }
+
+  @media (max-width: 900px) {
+    .page-grid { grid-template-columns: 1fr; padding: 20px; gap: 20px; }
+    .header-row, .main-col, .aside-col { grid-column: 1 / -1; }
+  }
+
+  /* ===== MASTHEAD ===== */
+  h1.masthead {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    font-weight: 400;
+    color: var(--sage-grimoire);
+    text-shadow: 0 0 10px rgba(123, 160, 91, 0.3);
+    margin: 0;
+  }
+  h1.masthead a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: none;
+  }
+  @media (max-width: 768px) { h1.masthead { font-size: 2.5rem; } }
+
+  /* ===== CARD (manuscript page) ===== */
+  /* overflow: visible — required for the Marginalia Timestamp to escape into the left gutter on desktop */
+  .card {
+    position: relative;
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    padding: 30px;
+    margin-bottom: 40px;
+    box-shadow: var(--shadow-card);
+    overflow: visible;
+  }
+  @media (max-width: 768px) { .card { padding: 20px; } }
+
+  /* ===== HEADINGS ===== */
+  .card h2 {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--weathered-parchment);
+    border-bottom: 1px solid rgba(181, 166, 147, 0.3);
+    padding-bottom: 10px;
+    margin: 0 0 20px 0;
+  }
+  .card h3 {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--sage-grimoire);
+    margin: 30px 0 15px 0;
+  }
+
+  /* ===== LINKS ===== */
+  .card a, .arcane-timestamp a, .side-content a, .scribe-note a {
+    color: var(--sage-grimoire);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--sage-grimoire);
+    transition: border-color 0.2s ease, text-shadow 0.2s ease;
+  }
+  .card a:hover, .arcane-timestamp a:hover, .side-content a:hover, .scribe-note a:hover,
+  .card a:focus-visible, .arcane-timestamp a:focus-visible, .side-content a:focus-visible, .scribe-note a:focus-visible {
+    border-bottom: 1px solid var(--sage-grimoire);
+    text-shadow: 0 0 10px rgba(123, 160, 91, 0.5);
+    outline: none;
+  }
+
+  /* ===== BODY TEXT ===== */
+  .post-content p { margin: 0 0 16px 0; }
+  .post-content p:last-child { margin-bottom: 0; }
+  .post-content em { color: var(--weathered-parchment); font-weight: normal; }
+  .post-content strong { color: var(--rose-seal); font-weight: normal; }
+  .post-content blockquote {
+    border-left: 3px solid var(--weathered-parchment);
+    padding-left: 15px;
+    margin: 20px 0;
+    font-style: italic;
+    color: var(--parchment-cream);
+    opacity: 0.85;
+  }
+  .post-content code {
+    background-color: var(--code-bg);
+    border-left: 3px solid var(--sage-grimoire);
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    padding: 2px 4px;
+  }
+
+  /* ===== ILLUMINATED DROP CAP (essay posts only) ===== */
+  /* Scoped to .card:has(> h2): only titled (essay) posts get the cap.
+     The float reserves a box of (cap font-size × cap line-height) vertical
+     space; for a clean 2-line drop, that product must equal 2 × body
+     line-height. Here: 4em × 0.8 = 3.2em = 2 × 1.6em. Cap-baseline lands on
+     body line 2's baseline. Body line-height is the third variable; tuning
+     only cap font-size while leaving cap line-height at 1 produces the
+     "good but not great" sliver where the float reserves a fractional
+     number of body lines. */
+  .card:has(> h2) .post-content > p:first-of-type::first-letter {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    color: var(--sage-grimoire);
+    font-size: 4em;
+    line-height: 0.8;
+    float: left;
+    margin-right: 0.12em;
+  }
+
+  /* ===== ARCANE TIMESTAMP (in-card dateline) ===== */
+  .arcane-timestamp {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--weathered-parchment);
+    margin-bottom: 20px;
+  }
+  .timestamp-icon {
+    color: var(--rose-seal);
+    margin-right: 4px;
+  }
+
+  /* ===== SIDEBAR (mantel) ===== */
+  .side-content {
+    background-color: var(--card-bg);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+  }
+  .side-title {
+    color: var(--sage-grimoire);
+    margin: 0 0 15px 0;
+    font-size: 1.2rem;
+    border-bottom: 1px dotted rgba(123, 160, 91, 0.3);
+    padding-bottom: 5px;
+    font-family: var(--font-heading);
+    font-weight: 400;
+  }
+  .side-content ul { list-style: none; margin: 0; padding: 0; }
+  .side-content li { padding: 4px 0; font-size: 0.95rem; }
+
+  /* ===== TAGS ===== */
+  .post-tags { margin-top: 25px; padding-top: 20px; border-top: 1px solid rgba(123, 160, 91, 0.3); }
+  /* a.tag bumps specificity to (0,1,1) so it ties .card a and wins on source order */
+  a.tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    margin-right: 5px;
+    background-color: rgba(181, 166, 147, 0.2);
+    color: var(--weathered-parchment);
+    border: 1px solid transparent;
+    text-decoration: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  a.tag:hover, a.tag:focus-visible {
+    border-color: var(--weathered-parchment);
+    box-shadow: 0 3px 8px rgba(181, 166, 147, 0.2);
+    outline: none;
+  }
+
+
+  /* ===== PREVIEW HARNESS NOTES ===== */
+  .preview-banner {
+    grid-column: 2 / 5;
+    text-align: center;
+    color: var(--weathered-parchment);
+    font-style: italic;
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    opacity: 0.7;
+    margin-bottom: 16px;
+  }
+</style>
+</head>
+<body>
+  <div class="page-grid">
+
+    <div class="preview-banner">Preview · Hand-tuned drop cap (3.2em / line-height 1, titled posts only) + in-card "Inscribed on" dateline. Third card: titleless micropost, no cap.</div>
+
+    <div class="header-row">
+      <h1 class="masthead"><a href="/">The Wizardly</a></h1>
+    </div>
+
+    <main class="main-col">
+      <article class="card">
+        <h2>Of Cabbages and Wax Seals</h2>
+
+        <div class="arcane-timestamp">
+          <span class="timestamp-icon">▸</span> Inscribed on <a href="#">January 14, 2026</a>
+        </div>
+
+        <div class="post-content">
+          <p>A short letter from the workbench. The candle is sage. The seal is rose. The room behind is inkwell-dark. Things are out, in use, mid-thought; that is the point of a workbench, and that is the point of a personal site. The illuminated capital is the medieval scribe's way of saying <em>begin here</em>, and it does the same job nine hundred years later: a clear, generous opening that earns the rest of the page.</p>
+
+          <p>Subsequent paragraphs need no flourish. The body face is Atkinson Hyperlegible Next, which carries every word a reader actually reads. <strong>Hyperlegibility is non-negotiable</strong>; atmosphere never wins over reading. The Philosopher serif is reserved for the heading, the drop cap, and small ornamental labels.</p>
+
+          <blockquote>The voice belongs to the proprietor, not to the room. The room is just a person's workbench, faithfully rendered.</blockquote>
+
+          <h3>Notes from the margin</h3>
+
+          <p>The dateline now lives in the left gutter on desktop, like a scribe's marginalia. It does not push the body text down; it floats in the negative space beside the page. On smaller screens it falls back inside the card, where it has always been.</p>
+
+          <p>You can find the source for this preview at <code>previews/manuscript-page.html</code>.</p>
+
+          <div class="post-tags">
+            <a class="tag" href="#">▸ wizardry</a>
+            <a class="tag" href="#">▸ marginalia</a>
+            <a class="tag" href="#">▸ design notes</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <h2>A Second Page, For Comparison</h2>
+
+        <div class="arcane-timestamp">
+          <span class="timestamp-icon">▸</span> Inscribed on <a href="#">January 9, 2026</a>
+        </div>
+
+        <div class="post-content">
+          <p>Each titled post opens with a fresh illumination. The drop cap is the system's <em>this is an essay</em> signal, replacing the side-stripe that used to sit on the left edge of every card. The card itself is now a clean translucent page; the shadow alone defines its edge against the inkwell body.</p>
+
+          <p>Successive cards stack with a 40-pixel gap. They never touch. The eye reads them as separate pages laid out on the workbench, each with its own dated note in the margin.</p>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="arcane-timestamp">
+          <span class="timestamp-icon">▸</span> Inscribed on <a href="#">January 7, 2026</a>
+        </div>
+
+        <div class="post-content">
+          <p>A titleless micropost. No drop cap, no h2. Just a thought, a link, a small note. The card still gets its marginalia date; the body text reads plainly.</p>
+        </div>
+      </article>
+    </main>
+
+    <aside class="aside-col">
+      <div class="side-content">
+        <div class="side-title">Teleportation Circle</div>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Bookshelf</a></li>
+          <li><a href="#">Archive</a></li>
+          <li><a href="#">Newsletter</a></li>
+        </ul>
+      </div>
+
+      <div class="side-content">
+        <div class="side-title">Allied Mages</div>
+        <ul>
+          <li><a href="#">A Quiet Bookshop</a></li>
+          <li><a href="#">Saturnday Notes</a></li>
+          <li><a href="#">Marginalia &amp; Glosses</a></li>
+        </ul>
+      </div>
+
+      <div class="side-content">
+        <div class="side-title">Random Incantations</div>
+        <ul>
+          <li><a href="#">A Note on Dotted Underlines</a></li>
+          <li><a href="#">In Praise of Web Buttons</a></li>
+          <li><a href="#">Why I Keep a Blogroll</a></li>
+        </ul>
+      </div>
+    </aside>
+
+  </div>
+</body>
+</html>

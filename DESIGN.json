@@ -1,0 +1,283 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-05-04T00:00:00Z",
+  "title": "Design System: TheWizardly Theme",
+  "extensions": {
+    "colorMeta": {
+      "sage-grimoire": {
+        "role": "primary",
+        "displayName": "Sage Grimoire",
+        "canonical": "oklch(63% 0.10 130)",
+        "tonalRamp": ["#1c2517", "#2d3b22", "#3f5230", "#52693f", "#67814f", "#7ba05b", "#9ab880", "#bdd0ab"]
+      },
+      "weathered-parchment": {
+        "role": "secondary",
+        "displayName": "Weathered Parchment",
+        "canonical": "oklch(72% 0.025 75)",
+        "tonalRamp": ["#28241e", "#3a342b", "#4d4538", "#615746", "#857a64", "#b5a693", "#d3c8b6", "#e9e2d4"]
+      },
+      "rose-seal": {
+        "role": "tertiary",
+        "displayName": "Rose Seal",
+        "canonical": "oklch(57% 0.11 12)",
+        "tonalRamp": ["#2a1417", "#3d1d22", "#52262d", "#6b313a", "#8e424c", "#b85c69", "#cf8b94", "#e3b9bf"]
+      },
+      "parchment-cream": {
+        "role": "neutral",
+        "displayName": "Parchment Cream",
+        "canonical": "oklch(95% 0.012 80)",
+        "tonalRamp": ["#1f1d18", "#2f2c25", "#403c33", "#534e43", "#7f7868", "#b1aa97", "#d4cdba", "#f4f1e8"]
+      },
+      "inkwell-midnight": {
+        "role": "neutral",
+        "displayName": "Inkwell Midnight",
+        "canonical": "oklch(15% 0.02 270)",
+        "tonalRamp": ["#0f0f1a", "#1a1a2e", "#272741", "#363754", "#4a4b6b", "#646584", "#8c8da7", "#bcbdcd"]
+      },
+      "inkwell-midnight-deep": {
+        "role": "neutral",
+        "displayName": "Inkwell Midnight Deep",
+        "canonical": "oklch(11% 0.02 270)",
+        "tonalRamp": ["#08080f", "#0f0f1a", "#181828", "#222236", "#2f2f47", "#41415c", "#5b5c75", "#83849c"]
+      },
+      "card-bg": {
+        "role": "neutral",
+        "displayName": "Card Surface (Inkwell Midnight Deep at 80%)",
+        "canonical": "color-mix(in oklab, oklch(11% 0.02 270) 80%, transparent)",
+        "tonalRamp": ["#0f0f1acc", "#0f0f1aaa", "#0f0f1a88", "#0f0f1a66", "#0f0f1a44", "#0f0f1a22", "#0f0f1a11", "#0f0f1a00"]
+      },
+      "code-bg": {
+        "role": "neutral",
+        "displayName": "Code Overlay (Weathered Parchment at 10%)",
+        "canonical": "color-mix(in oklab, oklch(72% 0.025 75) 10%, transparent)",
+        "tonalRamp": ["#b5a69366", "#b5a6934d", "#b5a6933d", "#b5a6932e", "#b5a6931f", "#b5a6931a", "#b5a69314", "#b5a6930a"]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display (Site Masthead)",
+        "purpose": "The site title h1 only. Glows in Sage Grimoire. Once per page."
+      },
+      "display-mobile": {
+        "displayName": "Display, Mobile",
+        "purpose": "Site title h1 at viewports ≤768px."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "h2. Section dividers within posts. Weathered Parchment with dotted bottom rule."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "h3. Sub-section headings within long posts. Sage Grimoire."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "All paragraph text. Atkinson Hyperlegible Next, non-negotiable."
+      },
+      "body-large": {
+        "displayName": "Body, Large",
+        "purpose": "The masthead tagline paragraph below the site title."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Tag pills, status time, response-tag pills, pagination tertiary copy."
+      },
+      "mono": {
+        "displayName": "Mono",
+        "purpose": "All inline code and code blocks. Atkinson Hyperlegible Mono."
+      },
+      "ornament": {
+        "displayName": "Ornament (Philosopher Italic)",
+        "purpose": "The Marginalia Timestamp dateline, side-content titles, status time, pagination 'Scroll N of M'. Weathered Parchment."
+      },
+      "drop-cap": {
+        "displayName": "Drop Cap (Philosopher 4em / line-height 0.8)",
+        "purpose": "The first letter of titled (essay-form) post bodies. Sage Grimoire, floated for a clean 2-line drop (4em × 0.8 = 3.2em = 2 × 1.6em body line-height). Skipped on titleless microposts via the .card:has(> h2) scope. Medieval manuscript illumination."
+      }
+    },
+    "shadows": [
+      {
+        "name": "card-rest",
+        "value": "0 10px 20px rgba(0, 0, 0, 0.2)",
+        "purpose": "Default shadow under cards and side-content panels. Reads as 'page on parchment'. Static, never animated."
+      },
+      {
+        "name": "trinket-hover-sage",
+        "value": "0 3px 8px rgba(123, 160, 91, 0.2)",
+        "purpose": "Hover halo under sage-pigmented trinkets (book covers, sage tags)."
+      },
+      {
+        "name": "trinket-hover-parchment",
+        "value": "0 3px 8px rgba(181, 166, 147, 0.2)",
+        "purpose": "Hover halo under Weathered Parchment tag pills."
+      },
+      {
+        "name": "trinket-hover-rose",
+        "value": "0 3px 8px rgba(184, 92, 105, 0.2)",
+        "purpose": "Hover halo under Rose Seal response-tag pills and status-link pills."
+      },
+      {
+        "name": "display-glow",
+        "value": "text-shadow: 0 0 10px rgba(123, 160, 91, 0.3)",
+        "purpose": "Always-on Sage Grimoire halo under the masthead h1."
+      },
+      {
+        "name": "link-hover-glow",
+        "value": "text-shadow: 0 0 10px rgba(123, 160, 91, 0.5)",
+        "purpose": "Sage Grimoire glow under hovered links. Present only while hovered."
+      }
+    ],
+    "motion": [
+      {
+        "name": "transition-default",
+        "value": "all 0.2s ease",
+        "purpose": "Inherited project default for tag/link hover state changes. New work should narrow this to specific properties (color, border-color, box-shadow, transform) and switch to an ease-out exponential curve."
+      },
+      {
+        "name": "ease-out-quart",
+        "value": "cubic-bezier(0.25, 1, 0.5, 1)",
+        "purpose": "Recommended easing for any new state transitions. Exponential ease-out, no bounce."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "mobile",
+        "value": "768px",
+        "purpose": "The single breakpoint the theme honors. Below 768px: card padding shrinks, h1 shrinks to display-mobile, sidebar stacks under main, side-content gains a sage spine."
+      }
+    ],
+    "patterns": [
+      {
+        "name": "parchment-body",
+        "purpose": "The 8% Weathered Parchment SVG dot pattern washing the body background under Inkwell Midnight.",
+        "css": "background-image: url(\"data:image/svg+xml,%3Csvg width='84' height='48' viewBox='0 0 84 48' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h12v6H0V0zm28 8h12v6H28V8zm14-8h12v6H42V0zm14 0h12v6H56V0zm0 8h12v6H56V8zM42 8h12v6H42V8zm0 16h12v6H42v-6zm14-8h12v6H56v-6zm14 0h12v6H70v-6zm0-16h12v6H70V0zM28 32h12v6H28v-6zM14 16h12v6H14v-6zM0 24h12v6H0v-6zm0 8h12v6H0v-6zm14 0h12v6H14v-6zm14 8h12v6H28v-6zm-14 0h12v6H14v-6zm28 0h12v6H42v-6zm14-8h12v6H56v-6zm0-8h12v6H56v-6zm14 8h12v6H70v-6zm0 8h12v6H70v-6zM14 24h12v6H14v-6zm14-8h12v6H28v-6zM14 8h12v6H14V8zM0 8h12v6H0V8z' fill='%23B5A693' fill-opacity='0.08' fill-rule='evenodd'/%3E%3C/svg%3E\");"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Card (Manuscript Page)",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "The primary writing surface. A clean, faintly translucent inkwell-deep page; identity is carried by the Arcane Timestamp at the top of each card and the Illuminated Drop Cap on titled essays, not by chrome on the edges.",
+      "html": "<article class=\"ds-card\">\n  <h2 class=\"ds-card-h2\">Of Cabbages and Wax Seals</h2>\n  <div class=\"ds-arcane-timestamp\"><span class=\"ds-timestamp-icon\">▸</span> Inscribed on <a class=\"ds-link\" href=\"#\">January 14, 2026</a></div>\n  <p class=\"ds-card-body ds-drop-cap\">A short letter from the workbench. The candle is sage. The seal is rose. The room behind is inkwell-dark. Things are out, in use, mid-thought; that is the point.</p>\n</article>",
+      "css": ".ds-card { background: #0f0f1acc; border-radius: 8px; padding: 30px; margin-bottom: 40px; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); color: #f4f1e8; font-family: 'Atkinson Hyperlegible Next', sans-serif; line-height: 1.6; overflow: hidden; max-width: 640px; }\n.ds-card-h2 { font-family: 'Philosopher', serif; font-size: 2rem; font-weight: 400; color: #b5a693; border-bottom: 1px solid rgba(181, 166, 147, 0.3); padding-bottom: 10px; margin: 0 0 20px 0; }\n.ds-arcane-timestamp { font-family: 'Philosopher', serif; font-style: italic; font-size: 1.1rem; color: #b5a693; margin-bottom: 20px; }\n.ds-timestamp-icon { color: #b85c69; margin-right: 6px; }\n.ds-card-body { margin: 0; }\n.ds-drop-cap::first-letter { font-family: 'Philosopher', serif; font-size: 4em; line-height: 0.8; float: left; margin-right: 0.12em; color: #7ba05b; }\n.ds-link { color: #7ba05b; text-decoration: none; border-bottom: 1px dotted #7ba05b; transition: border-color 0.2s ease, text-shadow 0.2s ease; }\n.ds-link:hover, .ds-link:focus-visible { border-bottom: 1px solid #7ba05b; text-shadow: 0 0 10px rgba(123, 160, 91, 0.5); outline: none; }"
+    },
+    {
+      "name": "Side Content (Mantel)",
+      "kind": "card",
+      "refersTo": "side-content",
+      "description": "A sidebar tray holding one category of trinket: blogroll, status feed, web buttons, random posts, or category tags.",
+      "html": "<aside class=\"ds-side-content\">\n  <div class=\"ds-side-title\">Allied Mages</div>\n  <ul class=\"ds-side-list\">\n    <li><a class=\"ds-link\" href=\"#\">A Quiet Bookshop</a></li>\n    <li><a class=\"ds-link\" href=\"#\">Saturnday Notes</a></li>\n    <li><a class=\"ds-link\" href=\"#\">Marginalia &amp; Glosses</a></li>\n  </ul>\n</aside>",
+      "css": ".ds-side-content { background: #0f0f1acc; border-radius: 8px; padding: 20px; margin-bottom: 30px; color: #f4f1e8; font-family: 'Atkinson Hyperlegible Next', sans-serif; line-height: 1.6; max-width: 280px; }\n.ds-side-title { font-family: 'Philosopher', serif; font-size: 1.2rem; color: #7ba05b; border-bottom: 1px dotted rgba(123, 160, 91, 0.3); padding-bottom: 5px; margin-bottom: 15px; }\n.ds-side-list { list-style: none; margin: 0; padding: 0; }\n.ds-side-list li { padding: 4px 0; }\n.ds-side-list .ds-link { color: #7ba05b; text-decoration: none; border-bottom: 1px dotted #7ba05b; transition: border-color 0.2s ease, text-shadow 0.2s ease; }\n.ds-side-list .ds-link:hover, .ds-side-list .ds-link:focus-visible { border-bottom: 1px solid #7ba05b; text-shadow: 0 0 10px rgba(123, 160, 91, 0.5); outline: none; }"
+    },
+    {
+      "name": "Tag Pill",
+      "kind": "chip",
+      "refersTo": "tag",
+      "description": "A weathered-parchment category tag. The most common pill on the site: appears in post tag rows and the Arcane Tags sidebar. Sparkle icon to the left.",
+      "html": "<a class=\"ds-tag\" href=\"#\"><svg class=\"ds-tag-icon\" viewBox=\"0 0 256 256\" width=\"14\" height=\"14\" aria-hidden=\"true\"><path fill=\"currentColor\" d=\"M197.66 178.34a8 8 0 0 1 0 11.32l-8 8a8 8 0 0 1-11.32-11.32l8-8a8 8 0 0 1 11.32 0M48 104h16v16a8 8 0 0 0 16 0v-16h16a8 8 0 0 0 0-16H80V72a8 8 0 0 0-16 0v16H48a8 8 0 0 0 0 16m175.43 23.93l-67.06 24.4l-24.4 67.06a8 8 0 0 1-15 0l-24.4-67.06l-67.05-24.4a8 8 0 0 1 0-15l67.05-24.4l24.4-67.06a8 8 0 0 1 15 0l24.4 67.06l67.06 24.4a8 8 0 0 1 0 15M203.6 120l-55.7-20.27a8 8 0 0 1-4.77-4.77L122.86 39.27L102.6 95a8 8 0 0 1-4.77 4.77L42.13 120l55.7 20.27a8 8 0 0 1 4.77 4.77l20.26 55.7l20.27-55.7a8 8 0 0 1 4.77-4.77ZM160 40h8v8a8 8 0 0 0 16 0v-8h8a8 8 0 0 0 0-16h-8v-8a8 8 0 0 0-16 0v8h-8a8 8 0 0 0 0 16\"/></svg> arcana</a>",
+      "css": ".ds-tag { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 20px; font-family: 'Atkinson Hyperlegible Next', sans-serif; font-size: 0.8rem; background: rgba(181, 166, 147, 0.2); color: #b5a693; border: 1px solid transparent; text-decoration: none; transition: border-color 0.2s ease, box-shadow 0.2s ease; }\n.ds-tag:hover, .ds-tag:focus-visible { border-color: #b5a693; box-shadow: 0 3px 8px rgba(181, 166, 147, 0.2); outline: none; }\n.ds-tag-icon { flex: none; }"
+    },
+    {
+      "name": "Response Tag Pill",
+      "kind": "chip",
+      "refersTo": "response-tag",
+      "description": "A rose-seal pill for replies, status links, and outbound 'view all' affordances. Less common than the standard tag; signals action or response.",
+      "html": "<a class=\"ds-response-tag\" href=\"#\">View all scrolls</a>",
+      "css": ".ds-response-tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-family: 'Philosopher', serif; font-size: 0.8rem; background: rgba(184, 92, 105, 0.15); color: #b85c69; border: 1px solid transparent; text-decoration: none; transition: border-color 0.2s ease, box-shadow 0.2s ease; }\n.ds-response-tag:hover, .ds-response-tag:focus-visible { border-color: #b85c69; box-shadow: 0 3px 8px rgba(184, 92, 105, 0.2); outline: none; }"
+    },
+    {
+      "name": "Arcane Timestamp",
+      "kind": "custom",
+      "refersTo": "arcane-timestamp",
+      "description": "The signature dateline ornament present at the top of every post card. Calendar icon, 'Inscribed on' label, linked permalink date. Philosopher italic in Weathered Parchment with a Rose Seal icon.",
+      "html": "<div class=\"ds-arcane-timestamp-standalone\"><svg class=\"ds-cal-icon\" viewBox=\"0 0 256 256\" width=\"18\" height=\"18\" aria-hidden=\"true\"><path fill=\"currentColor\" d=\"M208 32h-24v-8a8 8 0 0 0-16 0v8H88v-8a8 8 0 0 0-16 0v8H48a16 16 0 0 0-16 16v160a16 16 0 0 0 16 16h160a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16M72 48v8a8 8 0 0 0 16 0v-8h80v8a8 8 0 0 0 16 0v-8h24v32H48V48Zm136 160H48V96h160v112Z\"/></svg> Inscribed on <a class=\"ds-link\" href=\"#\">January 14, 2026</a></div>",
+      "css": ".ds-arcane-timestamp-standalone { font-family: 'Philosopher', serif; font-style: italic; font-size: 1.1rem; color: #b5a693; }\n.ds-cal-icon { color: #b85c69; vertical-align: -3px; margin-right: 6px; }\n.ds-link { color: #7ba05b; text-decoration: none; border-bottom: 1px dotted #7ba05b; transition: border-color 0.2s ease, text-shadow 0.2s ease; }\n.ds-link:hover, .ds-link:focus-visible { border-bottom: 1px solid #7ba05b; text-shadow: 0 0 10px rgba(123, 160, 91, 0.5); outline: none; }"
+    },
+    {
+      "name": "Illuminated Drop Cap",
+      "kind": "custom",
+      "refersTo": "drop-cap",
+      "description": "The first letter of every long-form post rendered as an oversized Philosopher capital in Sage Grimoire, dropped for two or three lines. Medieval manuscript illumination as the system's primary 'this is a post' signal.",
+      "html": "<article class=\"ds-illuminated-card\">\n  <h2 class=\"ds-illuminated-h2\">On Marginalia</h2>\n  <p class=\"ds-illuminated-body\">Once, a scribe in a quiet room would mark the start of every chapter with a letter taller than itself. The capital said two things at once: this is where you begin, and a hand has been here. We do the same. The cap is sage; the room is inkwell; the page is parchment-cream.</p>\n  <p class=\"ds-illuminated-body-cont\">Subsequent paragraphs need no flourish. The illumination has done its work.</p>\n</article>",
+      "css": ".ds-illuminated-card { background: #0f0f1acc; border-radius: 8px; padding: 30px; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); color: #f4f1e8; font-family: 'Atkinson Hyperlegible Next', sans-serif; line-height: 1.6; max-width: 540px; overflow: hidden; }\n.ds-illuminated-h2 { font-family: 'Philosopher', serif; font-size: 2rem; font-weight: 400; color: #b5a693; border-bottom: 1px solid rgba(181, 166, 147, 0.3); padding-bottom: 10px; margin: 0 0 20px 0; }\n.ds-illuminated-body { margin: 0 0 16px 0; }\n.ds-illuminated-card:has(> .ds-illuminated-h2) .ds-illuminated-body::first-letter { font-family: 'Philosopher', serif; font-size: 4em; line-height: 0.8; float: left; margin-right: 0.12em; color: #7ba05b; }\n.ds-illuminated-body-cont { margin: 0; }"
+    },
+    {
+      "name": "Web Button (Enchanted Emblem)",
+      "kind": "custom",
+      "refersTo": "web-button",
+      "description": "An 88x31 indie-web button rendered at native pixel size. The defining detail: never filtered, never scaled, displayed as the artifact it is. Shown here as a styled stand-in since real buttons are external GIFs.",
+      "html": "<a class=\"ds-web-button\" href=\"#\" aria-label=\"The Wizardly\">\n  <span class=\"ds-web-button-l\">the</span>\n  <span class=\"ds-web-button-r\">WIZARDLY</span>\n</a>",
+      "css": ".ds-web-button { display: inline-flex; width: 88px; height: 31px; align-items: stretch; border: 1px solid #1a1a2e; box-shadow: inset 1px 1px 0 rgba(244, 241, 232, 0.12), inset -1px -1px 0 rgba(0, 0, 0, 0.4); font-family: 'Verdana', 'Geneva', sans-serif; font-size: 8px; line-height: 1; text-decoration: none; transition: box-shadow 0.2s ease; }\n.ds-web-button:hover, .ds-web-button:focus-visible { box-shadow: inset 1px 1px 0 rgba(244, 241, 232, 0.12), inset -1px -1px 0 rgba(0, 0, 0, 0.4), 0 3px 8px rgba(123, 160, 91, 0.2); outline: none; }\n.ds-web-button-l { background: #1a1a2e; color: #b5a693; padding: 0 4px; display: flex; align-items: center; font-style: italic; }\n.ds-web-button-r { background: #7ba05b; color: #1a1a2e; padding: 0 4px; flex: 1; display: flex; align-items: center; justify-content: center; font-weight: 700; letter-spacing: 0.05em; }"
+    },
+    {
+      "name": "Book Cover",
+      "kind": "custom",
+      "refersTo": "book-cover",
+      "description": "A 128x200 book cover in the Bookshelf grid. Soft Card Rest shadow at rest; lifts 4px with a sage hover halo. The only translate-on-hover in the system.",
+      "html": "<div class=\"ds-book-cover-container\">\n  <div class=\"ds-book-cover ds-book-cover-placeholder\" role=\"img\" aria-label=\"A book\"></div>\n</div>",
+      "css": ".ds-book-cover-container { display: inline-block; padding: 10px; transition: transform 0.2s ease, box-shadow 0.2s ease; }\n.ds-book-cover-container:hover { transform: translateY(-4px); box-shadow: 0 3px 8px rgba(123, 160, 91, 0.3); }\n.ds-book-cover { width: 128px; height: 200px; border-radius: 4px; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); display: flex; align-items: center; justify-content: center; }\n.ds-book-cover-placeholder { background: rgba(181, 166, 147, 0.1); border: 1px solid rgba(181, 166, 147, 0.3); }\n.ds-book-cover-placeholder::after { content: '📚'; font-size: 48px; opacity: 0.3; }\n@media (prefers-reduced-motion: reduce) { .ds-book-cover-container { transition: none; } .ds-book-cover-container:hover { transform: none; } }"
+    },
+    {
+      "name": "Pagination",
+      "kind": "nav",
+      "refersTo": "pagination",
+      "description": "Three-column pagination bar inside its own card. Sage arrows on the sides, a Philosopher 'Scroll N of M' counter in the middle with Rose Seal numerals.",
+      "html": "<nav class=\"ds-pagination-card\">\n  <div class=\"ds-pagination-prev\"><a class=\"ds-link\" href=\"#\"><span class=\"ds-pagination-icon\">←</span> Previous</a></div>\n  <div class=\"ds-pagination-counter\">Scroll <span class=\"ds-pagination-page\">3</span> of <span class=\"ds-pagination-page\">7</span></div>\n  <div class=\"ds-pagination-next\"><a class=\"ds-link\" href=\"#\">More <span class=\"ds-pagination-icon\">→</span></a></div>\n</nav>",
+      "css": ".ds-pagination-card { display: grid; grid-template-columns: 1fr 1fr 1fr; align-items: center; background: #0f0f1acc; border-radius: 8px; padding: 30px; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); color: #f4f1e8; font-family: 'Atkinson Hyperlegible Next', sans-serif; max-width: 640px; }\n.ds-pagination-prev { text-align: left; }\n.ds-pagination-next { text-align: right; }\n.ds-pagination-counter { text-align: center; font-family: 'Philosopher', serif; }\n.ds-pagination-page { color: #b85c69; font-size: 20px; }\n.ds-pagination-icon { color: #7ba05b; }\n.ds-link { color: #7ba05b; text-decoration: none; border-bottom: 1px dotted #7ba05b; transition: border-color 0.2s ease, text-shadow 0.2s ease; }\n.ds-link:hover, .ds-link:focus-visible { border-bottom: 1px solid #7ba05b; text-shadow: 0 0 10px rgba(123, 160, 91, 0.5); outline: none; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Wizard's Workbench",
+    "overview": "A workbench at twilight, lit by candlelight on parchment. A sage-bound notebook lies open. A rose wax seal is cooling on a letter. The room behind it is inkwell-dark, but the surfaces in arm's reach glow warm. This system is workmanlike and lived-in; things are out, in use, mid-thought. The wizardly framing belongs to the proprietor, not to the room: the room is just a person's workbench, faithfully rendered.\n\nDensity is high in the writing surface and modest in the chrome. The page reads top-to-bottom in a single column of long-form text framed by a sidebar of trinkets, sigils, and outbound links. There is one bound notebook (the post card), one mantel of small objects (the sidebar), and a parchment pattern faintly visible on the wall behind everything. Edges are hand-drawn rather than die-cut: dotted underlines, soft drop shadows, a single sage stripe down the spine of each card. Decoration is sincere, not winking, and it never overrides the body type.\n\nThis system explicitly rejects modern SaaS / Substack templates, official D&D / WotC commercial fantasy gloss, goth-metal mysticism, and ironic Web 2.0 nostalgia bait. The 88x31 web buttons, blogroll, and status scrolls here are sincere indie-web participation, not pastiche.",
+    "keyCharacteristics": [
+      "Inkwell-midnight surface tinted faintly toward blue, never pure black",
+      "Parchment-cream body type that never sacrifices legibility for atmosphere",
+      "A three-pigment palette of sage, weathered parchment, and rose seal carrying all accent work",
+      "Essay-form posts (those with titles) open with an illuminated drop cap in Sage Grimoire; titleless microposts skip it",
+      "Every post carries the Arcane Timestamp inside the card: a Philosopher-italic 'Inscribed on…' line with a Rose Seal calendar mark",
+      "A subtle parchment SVG pattern washing the body at 8% opacity",
+      "Soft glows on the display heading and on link hover; no other ambient effects",
+      "Trinkets (web buttons, blogroll, status feed) treated as load-bearing, not chrome"
+    ],
+    "rules": [
+      { "name": "The Three-Pigment Rule", "body": "Sage, parchment, rose. No new accent hues without explicit approval. New surfaces compose from these three plus the two midnight neutrals; reaching for blue, gold, or yellow is a sign the design has drifted off-brand.", "section": "colors" },
+      { "name": "The One Seal Rule", "body": "Rose Seal is rare. It signs the timestamp icon, the response-tag pill, the page-number numerals, and <strong> emphasis. It does not get used as a button background, a heading color, a border, or a section divider. If the eye is finding rose in three places on a screen at once, two of them are wrong.", "section": "colors" },
+      { "name": "The Tinted-Black Rule", "body": "Pure #000 and pure #fff are forbidden. Inkwell Midnight carries the blue-cast body; Parchment Cream carries the warm-cast text. Even rgba shadows over the body should fall on Inkwell Midnight Deep, not on #000.", "section": "colors" },
+      { "name": "The Hyperlegible Body Rule", "body": "The body face is Atkinson Hyperlegible Next. It is non-negotiable. The Philosopher decorative face never carries paragraph text, button labels, form input text, or anything a reader reads in volume. If a heading has more than ~10 words, it stops being decorative and the choice should be reconsidered.", "section": "typography" },
+      { "name": "The One Glow Rule", "body": "Soft text-shadow glows are reserved for the site-title h1 (always, low intensity) and for link hover (briefly, while hovered). They do not appear on h2, h3, body text, or buttons. Glow is a flourish, not a tone.", "section": "typography" },
+      { "name": "The Three-Knobs Rule (drop cap lockup)", "body": "A floated drop cap reserves vertical space equal to cap font-size × cap line-height; for a clean N-line drop, that product must equal N × body line-height. The current lockup is 4em × 0.8 = 3.2em = 2 × 1.6em. There are three knobs (cap font-size, cap line-height, body line-height) and only two equations (the lockup, and any aesthetic preference). Tuning one without retuning another produces the 'good but not great' sliver where the float reserves a fractional number of body lines and line 3 starts beside the cap awkwardly.", "section": "typography" },
+      { "name": "The Page-Not-Button Rule", "body": "The Card Rest shadow is a 'page on parchment' cue, not a 'click me' cue. It does not animate, intensify, or lift on hover. A card is a resting page; a button is something else and gets explicit interactive feedback elsewhere.", "section": "elevation" },
+      { "name": "The Hover-Halo Rule", "body": "Trinket hover halos use 0 3px 8px rgba(<accent>, 0.2) and tint the halo to the trinket's own accent (sage, parchment, or rose). They do not exceed 8px blur, do not cast more than 3px down, and do not change opacity beyond 0.2. Hover is a whisper.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do keep Atkinson Hyperlegible Next as the body face on every screen. Decorative atmosphere is allowed in headings and ornaments, never in paragraph type or form input text.",
+      "Do retune the drop cap's line-height alongside any change to its font-size or to body line-height. The Three-Knobs Rule is non-negotiable: cap font-size × cap line-height = N × body line-height.",
+      "Do verify all sage / parchment / rose foreground colors against Inkwell Midnight (#1a1a2e) for WCAG 2.2 AA contrast (4.5:1 body, 3:1 large text). When contrast falls short, nudge lightness, not chroma.",
+      "Do use the Three-Pigment Rule. Sage, parchment, rose. New accent hues require explicit approval.",
+      "Do treat trinkets (web buttons, blogroll, status feed, bookshelf, random posts) as load-bearing architecture. New surfaces should make room for the next trinket, not eliminate the existing ones.",
+      "Do cite the wizardly metaphor in copy ('Inscribed on', 'Mystic Missives', 'Allied Mages', 'Enchanted Emblems'). The voice carries the bit so the visuals don't have to.",
+      "Do use Philosopher for headings and small ornamental labels (Arcane Timestamp, side-content titles, status time, pagination counter).",
+      "Do keep the Card Rest shadow soft (0 10px 20px rgba(0,0,0,0.2)) and the Trinket Hover halo small (0 3px 8px rgba(<accent>, 0.2)).",
+      "Do show visible focus rings on every interactive trinket (web button images, blogroll links, status feed links, tag pills, pagination, book covers). Focus is distinct from hover.",
+      "Do wrap any new motion in @media (prefers-reduced-motion: no-preference)."
+    ],
+    "donts": [
+      "Don't let the site look like a modern SaaS / Substack template (white sans-serif blog with author bio card, subscribe CTA, Medium-style scroll-optimized layout). This site is a hearth, not a funnel.",
+      "Don't lean toward official D&D / WotC commercial fantasy gloss (red and black, scroll banners, stock fantasy art). The wizardly voice here is personal and weird, not licensed.",
+      "Don't drift toward goth / metal mysticism (pure black + blood red, occult sigils, blackletter, edgelord posturing). The base is Inkwell Midnight, not pitch black; the accent is Rose Seal, not blood.",
+      "Don't wear ironic Web 2.0 nostalgia bait (Comic Sans, animated GIF chaos for its own sake, 'old web' worn as a meme costume). The 88x31 web buttons here are sincere indie-web participation; treat them straight.",
+      "Don't add side-stripe borders to new components. Side-stripes greater than 1px exist in exactly two locations: the 3px Weathered Parchment stripe on blockquotes (a print typography convention) and the 3px Sage Grimoire stripe on code blocks (a syntax-highlighter convention). Cards have no spine; their identity is carried by the Illuminated Drop Cap and the Arcane Timestamp. Do not propagate the stripe to callouts, alerts, list items, sidebars, or any other surface.",
+      "Don't use gradient text (background-clip: text over a gradient). Emphasis is via weight, size, or pigment, never via gradient.",
+      "Don't use #000 or #fff anywhere. Inkwell Midnight and Parchment Cream are the bounds of the value scale.",
+      "Don't flood-fill with Sage Grimoire (no full sage button backgrounds, no sage section bands, no sage hero panels). Sage is a voice; it should not become a wall.",
+      "Don't use Rose Seal as a background, button, border, or section divider. One Seal Rule: rose signs one thing on a surface, then disappears.",
+      "Don't add modals as a first thought. Inline disclosure, expanding cards, or a follow-up post on the blog are usually the better answer for a personal site.",
+      "Don't apply glow to body text, h2, h3, or buttons. Glow lives on the masthead h1 (always) and link hover (briefly), nowhere else.",
+      "Don't animate layout properties. If hover transforms or scroll motion is added, animate transform and opacity only, with ease-out exponential curves, gated behind prefers-reduced-motion.",
+      "Don't lift cards on hover. Cards are resting pages, not buttons. The Page-Not-Button Rule.",
+      "Don't filter, restyle, or scale the 88x31 web buttons. They render at their native pixel size and look like what they are."
+    ]
+  }
+}
