@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<!-- ABOUTME: Side-by-side display-serif specimen for FJ#1, on the All-Night Pavilion palette.
+     ABOUTME: Renders OFL candidates in the masthead + Marquee Initial lockup; Recoleta is a verdict panel (commercial, not embeddable here). -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Specimen · Display Serif Candidates · All-Night Pavilion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Body/mono: unchanged, the non-negotiable Atkinson pairing -->
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,700;1,400&family=Atkinson+Hyperlegible+Mono&display=swap" rel="stylesheet">
+<!-- Display candidates: OFL, all self-hostable, all public-repo clean -->
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400,0..100,0..1;1,9..144,400,0..100,0..1&family=Literata:ital,wght@0,400;1,400&family=Brygada+1918:ital,wght@0,400;1,400&family=Petrona:ital,wght@0,400;1,400&family=Bona+Nova:ital,wght@0,400;1,400&family=Spectral:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+  /* ===== ALL-NIGHT PAVILION TOKENS (DESIGN.md §2) ===== */
+  :root {
+    --night-shift-midnight: #233745;
+    --exhibit-card-deep: #1c2d39;          /* cool-on-cool, ~4-5 L points under the surface */
+    --drafting-lamp-amber: #f2b24c;
+    --atomic-turquoise: #68c6b5;
+    --now-broadcasting-red: #cd7561;
+    --brass-linework: #beae94;
+    --marquee-bulb-cream: #f4ece0;
+
+    --font-body: 'Atkinson Hyperlegible Next', sans-serif;
+    --font-mono: 'Atkinson Hyperlegible Mono', monospace;
+
+    /* Marquee Glow Rule: amber text-shadow, masthead h1 + Marquee Initial only */
+    --marquee-glow: 0 0 12px rgba(242, 178, 76, 0.42);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background-color: var(--night-shift-midnight);
+    /* Named-Light Rule: a faint drafting-lamp wash from the top, not ambient slop */
+    background-image: radial-gradient(120% 60% at 50% -10%, rgba(242, 178, 76, 0.07), rgba(35, 55, 69, 0) 60%);
+    color: var(--marquee-bulb-cream);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    padding: 56px 24px 96px;
+  }
+
+  .wrap { max-width: 760px; margin: 0 auto; }
+
+  /* ===== SPECIMEN INTRO ===== */
+  .intro { margin-bottom: 48px; }
+  .intro .kicker {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--atomic-turquoise);
+    margin: 0 0 10px;
+  }
+  .intro h1 {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 1.5rem;
+    line-height: 1.3;
+    margin: 0 0 12px;
+    color: var(--marquee-bulb-cream);
+  }
+  .intro p { margin: 0 0 10px; color: var(--brass-linework); max-width: 62ch; }
+  .intro code { font-family: var(--font-mono); font-size: 0.85em; color: var(--marquee-bulb-cream); }
+
+  /* ===== CANDIDATE PANEL (Exhibit Card) ===== */
+  .panel {
+    --display: serif; /* overridden per panel */
+    background-color: var(--exhibit-card-deep);
+    border-radius: 10px;
+    padding: 34px 36px 40px;
+    margin-bottom: 36px;
+    box-shadow: 0 10px 30px rgba(40, 26, 12, 0.30); /* Exhibit Rest: warm-tinted, not black */
+  }
+
+  .panel-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 8px 14px;
+    padding-bottom: 18px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid rgba(190, 174, 148, 0.28); /* Brass Linework rule */
+  }
+  .panel-name {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+    color: var(--atomic-turquoise);
+  }
+  .panel-meta { font-size: 0.82rem; color: var(--brass-linework); }
+  .panel-meta .lic { color: var(--atomic-turquoise); }
+  .panel-note {
+    flex-basis: 100%;
+    font-size: 0.9rem;
+    color: var(--brass-linework);
+    margin-top: 4px;
+  }
+
+  /* Masthead at 3rem, amber, with the Marquee Glow */
+  .masthead {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: 3rem;
+    line-height: 1.2;
+    color: var(--drafting-lamp-amber);
+    text-shadow: var(--marquee-glow);
+    margin: 0 0 6px;
+  }
+  /* Ornament italic: the Arcane Timestamp dateline */
+  .ornament {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--brass-linework);
+    margin: 0 0 22px;
+  }
+  .ornament .rec { color: var(--now-broadcasting-red); margin-right: 5px; }
+
+  .h2 {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: 2rem;
+    line-height: 1.25;
+    color: var(--marquee-bulb-cream);
+    margin: 0 0 4px;
+  }
+  .h3 {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: 1.5rem;
+    line-height: 1.3;
+    color: var(--drafting-lamp-amber);
+    margin: 0 0 20px;
+  }
+
+  /* Body stays Atkinson in every panel; only the display face changes */
+  .body p { margin: 0 0 14px; max-width: 64ch; }
+  .body p:last-child { margin-bottom: 0; }
+  .body strong { font-weight: 700; } /* emphasis is weight, never the signal red */
+
+  /* Marquee Initial: 4em amber glowing cap, the stress test */
+  .body .marquee::first-letter {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: 4em;
+    line-height: 0.8;
+    float: left;
+    margin: 0.02em 0.10em 0 0;
+    color: var(--drafting-lamp-amber);
+    text-shadow: var(--marquee-glow);
+  }
+
+  /* Per-panel font assignment */
+  .p-fraunces { --display: 'Fraunces', serif; }
+  .p-fraunces .masthead, .p-fraunces .h2, .p-fraunces .h3,
+  .p-fraunces .ornament, .p-fraunces .marquee::first-letter {
+    /* soft, warm, large optical size — the flattering display instance */
+    font-variation-settings: 'opsz' 144, 'SOFT' 70, 'WONK' 0;
+  }
+  .p-petrona  { --display: 'Petrona', serif; }
+  .p-literata { --display: 'Literata', serif; }
+  .p-bona     { --display: 'Bona Nova', serif; }
+  .p-brygada  { --display: 'Brygada 1918', serif; }
+  .p-spectral { --display: 'Spectral', serif; }
+
+  /* ===== RECOLETA VERDICT PANEL ===== */
+  .verdict {
+    background-color: var(--exhibit-card-deep);
+    border-radius: 10px;
+    padding: 34px 36px 38px;
+    box-shadow: 0 10px 30px rgba(40, 26, 12, 0.30);
+    border-top: 3px solid var(--now-broadcasting-red); /* the one signal: "decision here" */
+  }
+  .verdict .panel-name { color: var(--now-broadcasting-red); }
+  .verdict h4 {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin: 22px 0 6px;
+    color: var(--marquee-bulb-cream);
+  }
+  .verdict p { margin: 0 0 10px; color: var(--marquee-bulb-cream); max-width: 64ch; }
+  .verdict .brass { color: var(--brass-linework); }
+  .verdict a { color: var(--drafting-lamp-amber); text-decoration: none; border-bottom: 1px dotted var(--drafting-lamp-amber); }
+  .verdict a:hover { border-bottom-style: solid; text-shadow: 0 0 10px rgba(242, 178, 76, 0.5); }
+  .verdict code { font-family: var(--font-mono); font-size: 0.85em; color: var(--atomic-turquoise); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="intro">
+    <p class="kicker">Specimen · FJ#1 · Display Serif</p>
+    <h1>Six OFL display serifs in the All-Night Pavilion masthead lockup</h1>
+    <p>Each panel renders the same thing on the real palette: the masthead at 3rem with the Marquee Glow, an h2/h3 stack, the italic Arcane Timestamp ornament, and a paragraph opening on the 4em Marquee Initial. The body face is Atkinson Hyperlegible Next in every panel, so you are judging the pairing, not just the face. All six are self-hostable and clean for a public repo. Recoleta is the last panel: a verdict, not a render, since it is commercial and can't be embedded here.</p>
+    <p class="brass">Source: <code>previews/display-serif-specimen.html</code></p>
+  </div>
+
+  <!-- 1. FRAUNCES -->
+  <section class="panel p-fraunces">
+    <div class="panel-head">
+      <span class="panel-name">Fraunces</span>
+      <span class="panel-meta">Undercase Type · <span class="lic">OFL</span> · variable opsz/SOFT/WONK + italic</span>
+      <span class="panel-note">The warmest, most expressive OFL face here; shown at SOFT 70 / opsz 144. Closest to the Recoleta feel. Caveat: it is the reflex "warm wonky serif" of the moment.</span>
+    </div>
+    <p class="masthead">The Wizardly</p>
+    <p class="ornament"><span class="rec">&#9658;</span> Inscribed on the 14th of January</p>
+    <h2 class="h2">Of Cabbages and Marquee Bulbs</h2>
+    <h3 class="h3">Notes from the late shift</h3>
+    <div class="body">
+      <p class="marquee">Some nights the model city hums on the long oak table, half-built and faithfully lit, and the work of keeping a small light on for tomorrow feels like the only honest thing to do. The display face decorates; the body face does the reading, and it <strong>never gives that job away</strong>.</p>
+    </div>
+  </section>
+
+  <!-- 2. PETRONA -->
+  <section class="panel p-petrona">
+    <div class="panel-head">
+      <span class="panel-name">Petrona</span>
+      <span class="panel-meta">Huerta Tipográfica · <span class="lic">OFL</span> · variable wght + italic</span>
+      <span class="panel-note">Friendly, slightly slab-bracketed, optimistic. Reads like a mid-century how-it-works caption. Warm without the wonk.</span>
+    </div>
+    <p class="masthead">The Wizardly</p>
+    <p class="ornament"><span class="rec">&#9658;</span> Inscribed on the 14th of January</p>
+    <h2 class="h2">Of Cabbages and Marquee Bulbs</h2>
+    <h3 class="h3">Notes from the late shift</h3>
+    <div class="body">
+      <p class="marquee">Some nights the model city hums on the long oak table, half-built and faithfully lit, and the work of keeping a small light on for tomorrow feels like the only honest thing to do. The display face decorates; the body face does the reading, and it <strong>never gives that job away</strong>.</p>
+    </div>
+  </section>
+
+  <!-- 3. LITERATA -->
+  <section class="panel p-literata">
+    <div class="panel-head">
+      <span class="panel-name">Literata</span>
+      <span class="panel-meta">TypeTogether · <span class="lic">OFL</span> · variable wght/opsz + italic</span>
+      <span class="panel-note">Warm and bookish, drawn for long reading. The "sit down with a book" end of the brief; calmer and less showy at masthead size.</span>
+    </div>
+    <p class="masthead">The Wizardly</p>
+    <p class="ornament"><span class="rec">&#9658;</span> Inscribed on the 14th of January</p>
+    <h2 class="h2">Of Cabbages and Marquee Bulbs</h2>
+    <h3 class="h3">Notes from the late shift</h3>
+    <div class="body">
+      <p class="marquee">Some nights the model city hums on the long oak table, half-built and faithfully lit, and the work of keeping a small light on for tomorrow feels like the only honest thing to do. The display face decorates; the body face does the reading, and it <strong>never gives that job away</strong>.</p>
+    </div>
+  </section>
+
+  <!-- 4. BONA NOVA -->
+  <section class="panel p-bona">
+    <div class="panel-head">
+      <span class="panel-name">Bona Nova</span>
+      <span class="panel-meta">Mateusz Machalski (rev. of A. Heidrich, 1971) · <span class="lic">OFL</span> · italic</span>
+      <span class="panel-note">A genuine mid-century revival (a 1971 Polish book serif). Elegant, period-authentic, not fashionable. Distinctive precisely because nobody reaches for it.</span>
+    </div>
+    <p class="masthead">The Wizardly</p>
+    <p class="ornament"><span class="rec">&#9658;</span> Inscribed on the 14th of January</p>
+    <h2 class="h2">Of Cabbages and Marquee Bulbs</h2>
+    <h3 class="h3">Notes from the late shift</h3>
+    <div class="body">
+      <p class="marquee">Some nights the model city hums on the long oak table, half-built and faithfully lit, and the work of keeping a small light on for tomorrow feels like the only honest thing to do. The display face decorates; the body face does the reading, and it <strong>never gives that job away</strong>.</p>
+    </div>
+  </section>
+
+  <!-- 5. BRYGADA 1918 -->
+  <section class="panel p-brygada">
+    <div class="panel-head">
+      <span class="panel-name">Brygada 1918</span>
+      <span class="panel-meta">Borutta (rev. of Antykwa Półtawskiego) · <span class="lic">OFL</span> · variable wght + italic</span>
+      <span class="panel-note">A revival of a 1920s-30s Polish serif. Sober, literary, hand-cut warmth. The most "old encyclopedia spine" of the set, less optimistic-bright.</span>
+    </div>
+    <p class="masthead">The Wizardly</p>
+    <p class="ornament"><span class="rec">&#9658;</span> Inscribed on the 14th of January</p>
+    <h2 class="h2">Of Cabbages and Marquee Bulbs</h2>
+    <h3 class="h3">Notes from the late shift</h3>
+    <div class="body">
+      <p class="marquee">Some nights the model city hums on the long oak table, half-built and faithfully lit, and the work of keeping a small light on for tomorrow feels like the only honest thing to do. The display face decorates; the body face does the reading, and it <strong>never gives that job away</strong>.</p>
+    </div>
+  </section>
+
+  <!-- 6. SPECTRAL -->
+  <section class="panel p-spectral">
+    <div class="panel-head">
+      <span class="panel-name">Spectral</span>
+      <span class="panel-meta">Production Type · <span class="lic">OFL</span> · italic</span>
+      <span class="panel-note">The restrained anchor: editorial, cool, screen-drawn. Included to mark the austere end of the range. Probably too cool for the EPCOT-dreamer brief, useful as a contrast.</span>
+    </div>
+    <p class="masthead">The Wizardly</p>
+    <p class="ornament"><span class="rec">&#9658;</span> Inscribed on the 14th of January</p>
+    <h2 class="h2">Of Cabbages and Marquee Bulbs</h2>
+    <h3 class="h3">Notes from the late shift</h3>
+    <div class="body">
+      <p class="marquee">Some nights the model city hums on the long oak table, half-built and faithfully lit, and the work of keeping a small light on for tomorrow feels like the only honest thing to do. The display face decorates; the body face does the reading, and it <strong>never gives that job away</strong>.</p>
+    </div>
+  </section>
+
+  <!-- RECOLETA VERDICT -->
+  <section class="verdict">
+    <div class="panel-head">
+      <span class="panel-name">Recoleta &mdash; the verdict</span>
+      <span class="panel-meta">Latinotype · commercial · Basic family 8 styles, $79</span>
+    </div>
+    <p>Recoleta nails the brief's vibe better than anything OFL: warm, rounded, optimistic, exactly the friendly-encyclopedia / World's-Fair-brochure feel the seed reached for. License and price are not the obstacle; self-hosting the woff2 on <code>static.thewizardly.com</code> is within a one-time webfont license.</p>
+    <h4>The real cost is not the $79</h4>
+    <p>Recoleta is one of the most-used display serifs in premium brand design right now. For a site whose entire thesis is sincere, non-template distinctiveness, paying to land on the single most-saturated warm serif buys you <em>more</em> resemblance to every other 2025 brand page, not less. That fights the slop test directly.</p>
+    <h4>My honest take</h4>
+    <p>Spend the $79 only if, seeing it next to Fraunces here, its warmth is <em>decisively</em> better to your eye and you accept the familiarity. My prior: it won't clear that bar, because the drenched dark world, the amber glow, and the Marquee Initial are already doing the differentiation. The distinctive-and-defensible pick is an OFL face that <em>isn't</em> the reflex.</p>
+    <p class="brass">Compare it yourself with our exact masthead string: open the foundry specimen, set the preview text to "The Wizardly" at large size. &nbsp;<a href="https://www.latinotype.com/typography/recoleta" target="_blank" rel="noopener">latinotype.com/typography/recoleta</a></p>
+  </section>
+
+</div>
+</body>
+</html>

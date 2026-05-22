@@ -8,10 +8,13 @@ colors:
   now-broadcasting-red: "#cd7561"
   brass-linework: "#beae94"
   marquee-bulb-cream: "#f4ece0"
+fonts:
+  display: "Bona Nova"
+  body: "Atkinson Hyperlegible Next"
+  mono: "Atkinson Hyperlegible Mono"
 ---
 
-<!-- SEED: the palette is locked to hex (see §2); the remaining seed work is OKLCH conversion, the final Marquee-Bulb Cream value, font choices, and component snippets. Re-run /impeccable document once the redesign is implemented to capture real tokens. The previous Wizard's Workbench DESIGN.md is preserved in git history and is being deliberately replaced.
-     marquee-bulb-cream above is a provisional near-white; finalize at the OKLCH pass. -->
+<!-- SEED: palette resolved to OKLCH and re-verified for WCAG 2.2 AA (see §2 table); Marquee-Bulb Cream locked; display serif chosen (Bona Nova, see §3). Remaining seed work: component snippets (§5), filled in by a scan-mode pass after the redesign lands. Re-run /impeccable document once implemented to capture real tokens. The previous Wizard's Workbench DESIGN.md is preserved in git history and is being deliberately replaced. -->
 <!-- Palette source: cross-bred from two Color Cube cards — surface, counter, signal, and a warm-light from card 689; the amber lead and brass-linework neutral from card 589. The cards donated a scheme; the names here are ours. -->
 <!-- The deep bench (secondary tier, structural / fill / large-accent only, not primary roles): filament-glow #fbbf98, banked-ember #7c4c49, kiln-rust #8b4021, deep-dome-teal #018990, drafting-shadow #393631, walnut #4e3123. Documented in §2 prose; promoted to frontmatter only if/when implementation actually reuses them. -->
 
@@ -42,7 +45,19 @@ This system explicitly rejects AI-rendered chrome-rocket atompunk gloss, generic
 
 ## 2. Colors
 
-A warm-led night-shift palette: warm accents glowing against a cool night-navy ground. Drafting-Lamp Amber leads; Atomic Turquoise is the cool counter; Now-Broadcasting Red is the rare signal; a warm near-white cream carries every word. The palette is locked to hex below (cross-bred from two donated Color Cube schemes). OKLCH is the canonical target — converting these sRGB hex values to OKLCH, and finalizing the Marquee-Bulb Cream near-white, is the remaining implementation step. WCAG 2.2 AA ratios are computed against Night-Shift Midnight (`#233745`).
+A warm-led night-shift palette: warm accents glowing against a cool night-navy ground. Drafting-Lamp Amber leads; Atomic Turquoise is the cool counter; Now-Broadcasting Red is the rare signal; a warm near-white cream carries every word. The palette is locked below (cross-bred from two donated Color Cube schemes), now resolved to OKLCH — the canonical target — with the sRGB hex retained as the source value. WCAG 2.2 AA ratios are computed against Night-Shift Midnight (`#233745`); the resolved tokens and their verified contrast are tabled here.
+
+| Token | sRGB | OKLCH | Contrast on surface |
+|---|---|---|---|
+| Night-Shift Midnight | `#233745` | `oklch(32.6% 0.036 239.8)` | surface |
+| Drafting-Lamp Amber | `#f2b24c` | `oklch(80.5% 0.138 75.9)` | 6.60:1 — AA body |
+| Atomic Turquoise | `#68c6b5` | `oklch(76.4% 0.094 180.5)` | 6.06:1 — AA body |
+| Now-Broadcasting Red | `#cd7561` | `oklch(65.5% 0.115 33.8)` | 3.71:1 — AA large/UI only |
+| Brass Linework | `#beae94` | `oklch(75.7% 0.040 79.9)` | 5.68:1 — AA body |
+| Marquee-Bulb Cream | `#f4ece0` | `oklch(94.6% 0.018 78.2)` | 10.52:1 — AAA |
+| Exhibit-Card Deep | `#1c2d39` | `oklch(28% 0.034 240)` | card surface (cool-on-cool) |
+
+The Deep Bench converts on the same basis; its four fill-only pigments fail body contrast by design (they are never text). The round-trip preserved every AA result — no lightness nudges were required.
 
 ### Primary
 - **Drafting-Lamp Amber** (`#f2b24c`): The dominant warm accent. Carries link affordance, ornament glows, marquee details, the warm side of typography. Reads as a 60-watt incandescent bulb seen through paper; never as electric sodium-vapor yellow. Contrast on Night-Shift Midnight ≈ 6.5:1 — passes AA for body and large text, so amber links and emphasis are crisp.
@@ -55,9 +70,9 @@ A warm-led night-shift palette: warm accents glowing against a cool night-navy g
 
 ### Neutral
 - **Night-Shift Midnight** (`#233745`): Body background. A deep planetarium-navy with a cool blue cast. A starfield texture overlays at low opacity (4–8%); the constellation is not random — see The Named-Starfield Rule below.
-- **Marquee-Bulb Cream** (`#f4ece0`, provisional): All body text on every surface. A warm near-white — warmer than ivory, well clear of the AA floor (≈ 10:1 on the surface). Provisional value; finalize the exact warm off-white at the OKLCH pass. This color is not on either donor card by design — body-on-dark wants a sourced near-white, not a saturated tan.
+- **Marquee-Bulb Cream** (`#f4ece0` = `oklch(94.6% 0.018 78.2)`, locked): All body text on every surface. A warm near-white — warmer than ivory, well clear of the AA floor (10.52:1 on the surface). Not on either donor card by design — body-on-dark wants a sourced near-white, not a saturated tan.
 - **Brass Linework** (`#beae94`): Structural color for dividers, ornamental separators, low-emphasis rules, and muted metadata text. A desaturated greige-brass. Contrast ≈ 5.6:1 — passes AA for body, so it doubles as a legible muted-metadata text color. Used for the rules under section titles, between status entries, and around the bookshelf year groupings.
-- **Exhibit-Card Deep**: Card and pavilion-display background, a shade off the body so cards read as nested pages rather than raised UI. Derived from Night-Shift Midnight (a slightly deeper or higher-opacity navy — exact value TBD at implementation), kept cool-on-cool. Do **not** use the warm-dark bench colors (Drafting-Shadow, Walnut) here; a warm-brown card on the cool navy body clashes.
+- **Exhibit-Card Deep**: Card and pavilion-display background, a shade off the body so cards read as nested pages rather than raised UI. Resolved to `oklch(28% 0.034 240)` ≈ `#1c2d39`: Night-Shift Midnight's hue and chroma held, lightness dropped ~4.5 points so the card reads as a recessed exhibit case, kept cool-on-cool. Do **not** use the warm-dark bench colors (Drafting-Shadow, Walnut) here; a warm-brown card on the cool navy body clashes.
 
 ### The Deep Bench (secondary tier — structural, fill, or large-accent only)
 
@@ -81,27 +96,27 @@ These pigments are decided and available but are **not** primary roles. They do 
 
 **The Three-Pigment-Plus-One Rule.** Drafting-Lamp Amber, Atomic Turquoise, Brass Linework — those are the accent and structural pigments. Now-Broadcasting Red is the rare signal layered on top. The Deep Bench is structural/fill, not new accent voices. No new accent hues without explicit approval. Reaching for purple, magenta, or a fresh green is the sign the design has drifted off-brand.
 
-**The Named-Starfield Rule.** The starfield texture under the body is a real, identifiable, low-density star map (a constellation, a sliver of the Milky Way, a recognizable star pattern). It is not random pixel noise. The exact star pattern is a designer choice; that it is *a real sky* and not a generated one is the rule.
+**The Named-Starfield Rule.** The starfield texture under the body is a real, identifiable, low-density star map (a constellation, a sliver of the Milky Way, a recognizable star pattern). It is not random pixel noise. The exact star pattern is a designer choice; that it is *a real sky* and not a generated one is the rule. **Resolved — the Founding Sky:** a real ephemeris, the sky as it stood over 33.83°N, 117.92°W at 03:00 local on 22 April 2000. Source: the Yale Bright Star Catalogue, every star above the horizon at that instant down to magnitude ~6; each star's radius and opacity mapped to its magnitude, the field laid at 4–8% opacity over Night-Shift Midnight. Real catalogue stars only — no procedural fill, no "thickening." The projection and SVG construction land in the implementation issue.
 
 ## 3. Typography
 
-**Display Font:** An atompunk editorial display serif `[exact face to be chosen at implementation — direction: Recoleta / Reckless Neue / DM Serif Display / similar — warm, mid-century-encyclopedia energy, not Futura-style geometric sans]`
+**Display Font:** Bona Nova (OFL) — Mateusz Machalski's 2017 revival of Andrzej Heidrich's 1971 *Bona*, completed with the original author. A warm Polish book serif rooted in Renaissance antiqua: the obscure, period-authentic pick that stands beside the lineage rather than wearing its costume, chosen over the reflex atompunk serifs (Recoleta, DM Serif Display, Reckless Neue). Self-hostable and public-repo clean; it holds character at the 4em Marquee Initial under amber glow, and it ships ornamental manicules that echo the ▸ of the Arcane Timestamp.
 **Body Font:** Atkinson Hyperlegible Next (sans-serif fallback)
 **Mono Font:** Atkinson Hyperlegible Mono (monospace fallback)
-**Marquee/Ornament Variant:** The italic of the display face, or a complementary display-italic with bulb-spaced warmth `[to be chosen at implementation]`
+**Marquee/Ornament Variant:** Bona Nova Italic — the display face's own italic (the cut the original *Bona* began as), for the Arcane Timestamp and pavilion-display titles.
 
 **Character:** The display face carries the EPCOT-Dreamer optimism — a sit-down-with-a-book editorial serif with mid-century warmth, the kind of letterform that lived on a 1962 children's encyclopedia spine or a 1964 World's Fair brochure cover. Atkinson Hyperlegible Next remains untouched on body, doing the actual work of carrying every word a reader reads. The pairing is intentionally unequal: the display decorates; the body works. Marquee moments — the masthead title and the Marquee Initial on essays — borrow the display face at extreme size, dressed in amber glow.
 
 ### Hierarchy
-- **Display** (`[display serif]` 400, ~3rem desktop / ~2.5rem ≤768px, line-height 1.2): The masthead. The site title under starlight, glowing softly in Drafting-Lamp Amber via the Marquee Glow.
-- **Headline** (`[display serif]` 400, ~2rem, line-height 1.25): h2. Section dividers within a post. Brass Linework rule beneath, 1px solid at ~30% opacity.
-- **Title** (`[display serif]` 400, ~1.5rem, line-height 1.3): h3. Sub-section headings within long posts. Drafting-Lamp Amber.
+- **Display** (Bona Nova 400, ~3rem desktop / ~2.5rem ≤768px, line-height 1.2): The masthead. The site title under starlight, glowing softly in Drafting-Lamp Amber via the Marquee Glow.
+- **Headline** (Bona Nova 400, ~2rem, line-height 1.25): h2. Section dividers within a post. Brass Linework rule beneath, 1px solid at ~30% opacity.
+- **Title** (Bona Nova 400, ~1.5rem, line-height 1.3): h3. Sub-section headings within long posts. Drafting-Lamp Amber.
 - **Body** (Atkinson Hyperlegible Next 400, 1rem, line-height 1.6): All paragraph text on Marquee-Bulb Cream. Cap line length at the 14/24 PureCSS column (~65–75ch) on desktop.
 - **Body Large** (Atkinson Hyperlegible Next 400, ~1.2rem, line-height 1.6): The masthead tagline paragraph and any pull-quote treatment.
 - **Label** (Atkinson Hyperlegible Next 400, 0.8rem): Sigil pills, status time, response-tag pills, pagination tertiary copy.
 - **Mono** (Atkinson Hyperlegible Mono 400, 0.9rem, line-height 1.5): All inline code and code blocks.
-- **Ornament** (`[display serif italic]` 400, ~1.1rem): The Arcane Timestamp, pavilion-display titles, status time, pagination "Scroll N of M." Brass Linework or Drafting-Lamp Amber depending on context.
-- **Marquee Initial** (`[display serif]` 400, ~4em, line-height 0.8): The first letter of titled-essay bodies, in Drafting-Lamp Amber, floated left for a clean 2-line drop, with a soft Marquee Glow. Skipped on titleless microposts. Replaces the previous medieval-manuscript Drop Cap; same lockup math, different cultural reference.
+- **Ornament** (Bona Nova Italic 400, ~1.1rem): The Arcane Timestamp, pavilion-display titles, status time, pagination "Scroll N of M." Brass Linework or Drafting-Lamp Amber depending on context.
+- **Marquee Initial** (Bona Nova 400, ~4em, line-height 0.8): The first letter of titled-essay bodies, in Drafting-Lamp Amber, floated left for a clean 2-line drop, with a soft Marquee Glow. Skipped on titleless microposts. Replaces the previous medieval-manuscript Drop Cap; same lockup math, different cultural reference.
 
 ### Named Rules
 
