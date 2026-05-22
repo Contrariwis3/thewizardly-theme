@@ -1,9 +1,19 @@
 ---
 name: TheWizardly Theme — All-Night Pavilion (SEED)
 description: A Hugo theme for thewizardly.com. The All-Night Pavilion: sincere atompunk in a dark room, lit by drafting lamp and marquee bulb, where the wizard is awake while the world sleeps and holds the candle for tomorrow.
+colors:
+  night-shift-midnight: "#233745"
+  drafting-lamp-amber: "#f2b24c"
+  atomic-turquoise: "#68c6b5"
+  now-broadcasting-red: "#cd7561"
+  brass-linework: "#beae94"
+  marquee-bulb-cream: "#f4ece0"
 ---
 
-<!-- SEED: re-run /impeccable document once the EPCOT-Dreamer redesign is implemented, to capture the real tokens, exact OKLCH values, font choices, and component snippets. The previous Wizard's Workbench DESIGN.md is preserved in git history and is being deliberately replaced. -->
+<!-- SEED: the palette is locked to hex (see §2); the remaining seed work is OKLCH conversion, the final Marquee-Bulb Cream value, font choices, and component snippets. Re-run /impeccable document once the redesign is implemented to capture real tokens. The previous Wizard's Workbench DESIGN.md is preserved in git history and is being deliberately replaced.
+     marquee-bulb-cream above is a provisional near-white; finalize at the OKLCH pass. -->
+<!-- Palette source: cross-bred from two Color Cube cards — surface, counter, signal, and a warm-light from card 689; the amber lead and brass-linework neutral from card 589. The cards donated a scheme; the names here are ours. -->
+<!-- The deep bench (secondary tier, structural / fill / large-accent only, not primary roles): filament-glow #fbbf98, banked-ember #7c4c49, kiln-rust #8b4021, deep-dome-teal #018990, drafting-shadow #393631, walnut #4e3123. Documented in §2 prose; promoted to frontmatter only if/when implementation actually reuses them. -->
 
 # Design System: TheWizardly Theme — All-Night Pavilion
 
@@ -32,22 +42,32 @@ This system explicitly rejects AI-rendered chrome-rocket atompunk gloss, generic
 
 ## 2. Colors
 
-A warm-led night-shift palette: a deep midnight surface lit by drafting-lamp amber, with one cool counter (atomic turquoise), one rare signal pigment (REC-light red), and a single warm body-text color carrying every word. Exact OKLCH values to be resolved during implementation; what follows is the intent and the named rules.
+A warm-led night-shift palette: warm accents glowing against a cool night-navy ground. Drafting-Lamp Amber leads; Atomic Turquoise is the cool counter; Now-Broadcasting Red is the rare signal; a warm near-white cream carries every word. The palette is locked to hex below (cross-bred from two donated Color Cube schemes). OKLCH is the canonical target — converting these sRGB hex values to OKLCH, and finalizing the Marquee-Bulb Cream near-white, is the remaining implementation step. WCAG 2.2 AA ratios are computed against Night-Shift Midnight (`#233745`).
 
 ### Primary
-- **Drafting-Lamp Amber** `[OKLCH to be resolved at implementation]`: The dominant warm accent. Carries link affordance, ornament glows, marquee details, the warm side of typography. Reads as a 60-watt incandescent bulb seen through paper; never as electric sodium-vapor yellow. Mid-range chroma, warm hue, lightness tuned to pass WCAG 2.2 AA on Night-Shift Midnight.
+- **Drafting-Lamp Amber** (`#f2b24c`): The dominant warm accent. Carries link affordance, ornament glows, marquee details, the warm side of typography. Reads as a 60-watt incandescent bulb seen through paper; never as electric sodium-vapor yellow. Contrast on Night-Shift Midnight ≈ 6.5:1 — passes AA for body and large text, so amber links and emphasis are crisp.
 
 ### Secondary
-- **Atomic Turquoise** `[OKLCH to be resolved at implementation]`: The cool counter. Carries hover states on certain surfaces, ornamental linework, the "tomorrow shimmer" on slide-tray transitions and planetarium-style ornaments. Used sparingly and intentionally — turquoise should punctuate, never flood-fill.
+- **Atomic Turquoise** (`#68c6b5`): The cool counter. Carries hover states on certain surfaces, ornamental linework, the "tomorrow shimmer" on slide-tray transitions and planetarium-style ornaments. Used sparingly and intentionally — turquoise should punctuate, never flood-fill. Contrast ≈ 6.0:1 — passes AA for body and large text. (Chosen over the deeper Deep-Dome-Teal `#018990`, which lands at ≈ 2.9:1 and is therefore large-ornament-only.)
 
 ### Tertiary
-- **Now-Broadcasting Red** `[OKLCH to be resolved at implementation]`: The rare signal accent. Carries `<strong>` emphasis, the timestamp icon, the response-tag pill, and the "live" indicator on the status feed. Used like a REC light: ≤1% of any screen. Never a button background, never a border, never a section divider. The wax-seal pigment from the previous design's vocabulary, reincarnated as the console's recording lamp.
+- **Now-Broadcasting Red** (`#cd7561`): The rare signal accent. Reads as a glowing neon tube. Contrast ≈ 3.6:1 — **passes AA for large text and UI/icon contexts, fails for body-size text.** Therefore it carries the timestamp icon, the response-tag pill, the page-number numerals, and the "live" indicator (all large/UI), but **not** inline `<strong>` at body size — inline emphasis uses font weight (with Drafting-Lamp Amber where a color is wanted). Used like a REC light: ≤1% of any screen. Never a button background, never a border, never a section divider.
 
 ### Neutral
-- **Night-Shift Midnight** `[OKLCH to be resolved at implementation]`: Body background. Deep planetarium navy, tuned faintly warmer than the previous inkwell-midnight so the room reads "drafting room at night" rather than "wizard's study." A starfield texture overlays at low opacity (4–8%); the constellation is not random — see the Named Starfield Rule below.
-- **Marquee-Bulb Cream** `[OKLCH to be resolved at implementation]`: All body text on every surface. Warmer than the previous parchment-cream; less yellow than ivory. The page itself.
-- **Brass Linework** `[OKLCH to be resolved at implementation]`: Structural color for dividers, ornamental separators, low-emphasis rules. Desaturated copper. Used for the rules under section titles, between status entries, and around the bookshelf year groupings.
-- **Exhibit-Card Deep** `[OKLCH to be resolved at implementation]`: Card and pavilion-display background, slightly deeper than the body surface so cards read as nested pages rather than raised UI. Likely Night-Shift Midnight at ~85% opacity, exact ratio TBD.
+- **Night-Shift Midnight** (`#233745`): Body background. A deep planetarium-navy with a cool blue cast. A starfield texture overlays at low opacity (4–8%); the constellation is not random — see The Named-Starfield Rule below.
+- **Marquee-Bulb Cream** (`#f4ece0`, provisional): All body text on every surface. A warm near-white — warmer than ivory, well clear of the AA floor (≈ 10:1 on the surface). Provisional value; finalize the exact warm off-white at the OKLCH pass. This color is not on either donor card by design — body-on-dark wants a sourced near-white, not a saturated tan.
+- **Brass Linework** (`#beae94`): Structural color for dividers, ornamental separators, low-emphasis rules, and muted metadata text. A desaturated greige-brass. Contrast ≈ 5.6:1 — passes AA for body, so it doubles as a legible muted-metadata text color. Used for the rules under section titles, between status entries, and around the bookshelf year groupings.
+- **Exhibit-Card Deep**: Card and pavilion-display background, a shade off the body so cards read as nested pages rather than raised UI. Derived from Night-Shift Midnight (a slightly deeper or higher-opacity navy — exact value TBD at implementation), kept cool-on-cool. Do **not** use the warm-dark bench colors (Drafting-Shadow, Walnut) here; a warm-brown card on the cool navy body clashes.
+
+### The Deep Bench (secondary tier — structural, fill, or large-accent only)
+
+These pigments are decided and available but are **not** primary roles. They do not get used as accent voices; reaching for them as a fifth and sixth "accent color" is off-brand. Promote to frontmatter only when implementation actually reuses one.
+
+- **Filament Glow** (`#fbbf98`): A light warm peach, ≈ 7.5:1. The halo of a lit bulb. Soft secondary warm, glow tint, hover wash.
+- **Banked Ember** (`#7c4c49`): A muted deep maroon, text-fails on the surface. Structural fill only — blockquote bar, a deep warm panel.
+- **Kiln Rust** (`#8b4021`): A deep rust, text-fails on the surface. Structural fill only — code-block tint, warm deep accent.
+- **Deep-Dome Teal** (`#018990`): A saturated teal, ≈ 2.9:1 — large-ornament / focus-ring / big-element use only, never body text.
+- **Drafting-Shadow** (`#393631`) and **Walnut** (`#4e3123`): Warm darks, fill only — possible code-block or footer fills. Keep off the primary card surface (see Exhibit-Card Deep).
 
 ### Named Rules
 
@@ -55,13 +75,13 @@ A warm-led night-shift palette: a deep midnight surface lit by drafting-lamp amb
 
 **The Named-Light Rule.** Light comes from sources you can name. A desk lamp. A CRT. A marquee bulb. A planetarium projector. A REC light on a console. If a glow doesn't have a clear physical analogue, it isn't earned and shouldn't be in the design. Ambient gradients with no source are the AI-atompunk-slop tell.
 
-**The One-REC-Light Rule.** Now-Broadcasting Red signs one thing on a surface, then disappears. Timestamp icon, `<strong>`, response-tag, page-number, "live" indicator — pick the one that's signing this surface. Three reds visible at once means two are wrong.
+**The One-REC-Light Rule.** Now-Broadcasting Red signs one thing on a surface, then disappears. Timestamp icon, response-tag, page-number, "live" indicator — pick the one that's signing this surface. Three reds visible at once means two are wrong. And because the signal red fails AA at body size, inline `<strong>` is not one of its jobs — emphasis there is weight, not red.
 
 **The Tinted-Black Rule (preserved from Wizard's Workbench).** Pure `#000` and pure `#fff` are forbidden. Night-Shift Midnight carries the cool-blue cast of the body surface; Marquee-Bulb Cream carries the warm-incandescent cast of the text. Even rgba shadows over the body should be tinted toward warm-shadow, not toward absolute black.
 
-**The Three-Pigment-Plus-One Rule.** Drafting-Lamp Amber, Atomic Turquoise, Brass Linework — those are the accent and structural pigments. Now-Broadcasting Red is the rare signal layered on top. No new accent hues without explicit approval. Reaching for green, purple, or magenta is the sign the design has drifted off-brand.
+**The Three-Pigment-Plus-One Rule.** Drafting-Lamp Amber, Atomic Turquoise, Brass Linework — those are the accent and structural pigments. Now-Broadcasting Red is the rare signal layered on top. The Deep Bench is structural/fill, not new accent voices. No new accent hues without explicit approval. Reaching for purple, magenta, or a fresh green is the sign the design has drifted off-brand.
 
-**The Named-Starfield Rule.** The starfield texture under the body is a real, identifiable, low-density star map (a constellation, a sliver of the southern Milky Way, a recognizable star pattern). It is not random pixel noise. The exact star pattern is a designer choice; that it is *a real sky* and not a generated one is the rule.
+**The Named-Starfield Rule.** The starfield texture under the body is a real, identifiable, low-density star map (a constellation, a sliver of the Milky Way, a recognizable star pattern). It is not random pixel noise. The exact star pattern is a designer choice; that it is *a real sky* and not a generated one is the rule.
 
 ## 3. Typography
 
@@ -163,6 +183,7 @@ Component identity from the All-Night Pavilion brief:
 - **Don't** use `#000` or `#fff` anywhere. Night-Shift Midnight and Marquee-Bulb Cream are the bounds of the value scale.
 - **Don't** flood-fill with Drafting-Lamp Amber or Atomic Turquoise. They are voices; they do not become walls. No solid amber button backgrounds, no turquoise hero panels, no full-bleed accent bands.
 - **Don't** use Now-Broadcasting Red as a background, button, border, or section divider. One REC light per surface, maximum.
+- **Don't** color inline `<strong>` with Now-Broadcasting Red. At body size it lands at ≈ 3.6:1 on the surface and fails AA. Inline emphasis is font weight; the signal red is for icons, pills, page numbers, and the "live" indicator, where it is large enough to pass.
 - **Don't** add modals as a first thought. Inline disclosure, expanding cards, or a follow-up post are usually the better answer for a personal site.
 - **Don't** apply glow to body text, h2, h3, sigil pills, or buttons. Glow lives on the masthead h1, the Marquee Initial, and link hover — nowhere else.
 - **Don't** animate layout properties. If motion is added, animate `transform` and `opacity` only, with ease-out exponential curves, gated behind `prefers-reduced-motion`.
