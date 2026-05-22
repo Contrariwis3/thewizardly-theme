@@ -2,6 +2,10 @@
 
 Hugo theme for [thewizardly.com](https://thewizardly.com), hosted on micro.blog.
 
+## Workflow
+
+This project overrides the global Agentic SDLC. It is a design-only effort, so **Impeccable replaces OpenSpec and beads** — there are no OpenSpec changes, no beads graphs, and no `/propose` → `/implement` → `/finalize` ceremony. Design decisions are explored and recorded in `DESIGN.md` / `PRODUCT.md` and implemented with `/impeccable` (`shape`, `craft`, `document`). Forgejo issues stay the lightweight backlog and decision surface: close an issue once its decision is made and recorded, not after an OpenSpec/beads handoff.
+
 ## Platform
 - **Hosting:** micro.blog (Hugo-based)
 - **micro.blog supports up to:** Hugo 0.158
