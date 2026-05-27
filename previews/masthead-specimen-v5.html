@@ -107,6 +107,12 @@
 
   E(gSolid, 'rect', { x: 0, y: GROUND, width: 1200, height: 36, fill: SIL, opacity: 0.92 });
 
+  // ---------- the MONORAIL TRACK: built, level, crossing the full width ----------
+  // Drawn early so the city and dome paint over it — the track runs behind them.
+  const TRACKY = 172;
+  E(gSolid, 'line', { x1: 0, y1: TRACKY, x2: 1200, y2: TRACKY, stroke: TRACK, 'stroke-width': 2.2 });
+  [70, 250, 430, 640, 820, 1000, 1160].forEach(x => E(gSolid, 'line', { x1: x, y1: TRACKY, x2: x, y2: GROUND, stroke: TRACK, 'stroke-width': 1.4, opacity: 0.8 }));
+
   // ---------- LEFT: the dense, built, inhabited city ----------
   // big finished dome
   E(gSolid, 'path', { d: 'M 60 ' + GROUND + ' L 60 150 A 52 52 0 0 1 164 150 L 164 ' + GROUND + ' Z', fill: SIL });
@@ -147,16 +153,13 @@
   E(gSpark, 'circle', { cx: cx, cy: cy - r, r: 2.6, fill: SPARK });          // apex
   E(gSpark, 'circle', { cx: 548, cy: 196, r: 1.5, fill: SPARK, opacity: 0.7 }); // one lit window inside the base
 
-  // ---------- the MONORAIL: built track all the way; dreamed cars to the right ----------
-  E(gSolid, 'line', { x1: 0, y1: 176, x2: 1200, y2: 150, stroke: TRACK, 'stroke-width': 2.2 });   // track (built)
-  [70, 250, 430, 700, 920, 1120].forEach(x => { const ty = 176 - (x/1200)*26;
-    E(gSolid, 'line', { x1: x, y1: ty, x2: x, y2: GROUND, stroke: TRACK, 'stroke-width': 1.4, opacity: 0.8 }); });
-  // cars, pale brass, still to be built — a little train heading right
-  function car(x) { const ty = 176 - (x/1200)*26;
-    E(gDream, 'path', { d: `M ${x-22} ${ty-3} q 0 -13 12 -13 l 20 0 q 12 0 12 13 l 0 3 z`, fill: 'none', stroke: DRAFT, 'stroke-width': 1, opacity: 0.62 });
-    E(gDream, 'line', { x1: x-8, y1: ty-12, x2: x-8, y2: ty-3, stroke: DRAFT, 'stroke-width': 0.7, opacity: 0.45 });
-    E(gDream, 'line', { x1: x+6, y1: ty-12, x2: x+6, y2: ty-3, stroke: DRAFT, 'stroke-width': 0.7, opacity: 0.45 }); }
-  [792, 856, 920].forEach(car);
+  // ---------- the MONORAIL CARS: pale brass, still to be built ----------
+  // A train sitting flush on the level track, running right toward the frontier.
+  function car(x) { const w = 46, h = 17, T = TRACKY, l = x - w/2, rt = x + w/2;
+    E(gDream, 'path', { d: `M ${l} ${T} L ${l} ${T-h+5} Q ${l} ${T-h} ${l+5} ${T-h} L ${rt-5} ${T-h} Q ${rt} ${T-h} ${rt} ${T-h+5} L ${rt} ${T} Z`, fill: 'none', stroke: DRAFT, 'stroke-width': 1, opacity: 0.64 });
+    [-13, 0, 13].forEach(dx => E(gDream, 'line', { x1: x+dx, y1: T-h+5, x2: x+dx, y2: T-4, stroke: DRAFT, 'stroke-width': 0.7, opacity: 0.4 }));
+  }
+  [828, 892, 956].forEach(car);
 
   // ---------- RIGHT: sparse, figurative — what's next, barely sketched ----------
   E(gDream, 'path', { d: 'M 1050 ' + GROUND + ' L 1050 190 A 26 26 0 0 1 1102 190 L 1102 ' + GROUND, fill: 'none', stroke: DRAFT, 'stroke-width': 0.9, opacity: 0.4 });
