@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<!-- ABOUTME: Masthead specimen v5 for the All-Night Pavilion (FJ#4) — the built-and-dreamed door, refined.
+     ABOUTME: Dense built city left → sparse dreamed frontier right; real geodesic lattice; monorail with pale-brass cars still to be built. -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Masthead Specimen v5 · Built Left, Dreamed Right</title>
+<link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
+<link href="https://fonts.bunny.net/css?family=atkinson-hyperlegible-mono:400|atkinson-hyperlegible-next:400,400i,700|bona-nova:400,400i&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --night-shift-midnight: oklch(32.6% 0.036 239.8);
+    --drafting-lamp-amber:  oklch(80.5% 0.138 75.9);
+    --atomic-turquoise:     oklch(76.4% 0.094 180.5);
+    --brass-linework:       oklch(75.7% 0.040 79.9);
+    --marquee-bulb-cream:   oklch(94.6% 0.018 78.2);
+    --font-display: 'Bona Nova', serif;
+    --font-body: 'Atkinson Hyperlegible Next', sans-serif;
+    --font-mono: 'Atkinson Hyperlegible Mono', monospace;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--night-shift-midnight); color: var(--marquee-bulb-cream); font-family: var(--font-body); font-size: 16px; line-height: 1.6; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+  .intro { padding-top: 48px; margin-bottom: 4px; }
+  .intro .kicker { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--atomic-turquoise); margin: 0 0 10px; }
+  .intro h1 { font-family: var(--font-display); font-weight: 400; font-size: 1.9rem; line-height: 1.25; margin: 0 0 12px; color: var(--marquee-bulb-cream); }
+  .intro p { margin: 0; color: var(--brass-linework); max-width: 64ch; }
+  .intro em { color: var(--marquee-bulb-cream); font-style: italic; }
+  .note { font-size: 0.88rem; color: var(--brass-linework); max-width: 70ch; padding: 18px 0 0; }
+  .note b { color: var(--marquee-bulb-cream); font-weight: 700; }
+  .after { padding: 0 0 8px; }
+  .after p { max-width: 60ch; margin: 0 auto; color: color-mix(in oklch, var(--marquee-bulb-cream) 82%, var(--night-shift-midnight)); text-align: center; }
+
+  .sky-band { position: relative; width: 100%; min-height: 640px; overflow: hidden; background: var(--night-shift-midnight); display: flex; align-items: center; justify-content: center; }
+  .skyfield { position: absolute; inset: 0; z-index: 0;
+    -webkit-mask-image: radial-gradient(122% 96% at 50% 24%, #000 44%, rgba(0,0,0,0.3) 72%, transparent 100%);
+            mask-image: radial-gradient(122% 96% at 50% 24%, #000 44%, rgba(0,0,0,0.3) 72%, transparent 100%); }
+  .star { position: absolute; border-radius: 50%; background: var(--marquee-bulb-cream); }
+  .dawn { position: absolute; left: -10%; right: -10%; bottom: 0; height: 80%; z-index: 1; pointer-events: none;
+    background: radial-gradient(150% 100% at 42% 138%, color-mix(in oklch, var(--drafting-lamp-amber) 22%, transparent), color-mix(in oklch, var(--drafting-lamp-amber) 6%, transparent) 24%, transparent 50%); }
+  .melt { position: absolute; left: 0; right: 0; bottom: 0; height: 28%; z-index: 4; pointer-events: none; background: linear-gradient(to bottom, transparent, var(--night-shift-midnight) 96%); }
+  .city { position: absolute; left: 0; right: 0; bottom: 0; z-index: 3; width: 100%; height: 250px; pointer-events: none; }
+  .city .dreamed { filter: drop-shadow(0 0 3px color-mix(in oklch, var(--brass-linework) 50%, transparent)); }
+
+  .stage-content { position: relative; z-index: 5; text-align: center; padding: 0 24px; transform: translateY(-9%); }
+  .title { font-family: var(--font-display); font-weight: 400; line-height: 1.06; margin: 0;
+    font-size: clamp(2.8rem, 8vw, 5rem); letter-spacing: 0.012em; color: var(--drafting-lamp-amber);
+    text-shadow: 0 0 7px color-mix(in oklch, var(--drafting-lamp-amber) 52%, transparent), 0 0 20px color-mix(in oklch, var(--drafting-lamp-amber) 28%, transparent), 0 0 52px color-mix(in oklch, var(--drafting-lamp-amber) 12%, transparent); }
+  .tag { font-family: var(--font-display); font-style: italic; font-size: 1.15rem; color: var(--brass-linework); margin: 18px 0 0; }
+
+  @keyframes tw { 0%,100% { opacity: var(--o); } 50% { opacity: calc(var(--o) * 0.4); } }
+  @keyframes drift { from { transform: translateX(0); } to { transform: translateX(-1.6%); } }
+  @keyframes dreambreath { 0%,100% { opacity: 1; } 50% { opacity: 0.84; } }
+  @media (prefers-reduced-motion: no-preference) {
+    .star.tw { animation: tw 5.5s ease-in-out infinite; animation-delay: var(--d); }
+    .skyfield.drift { animation: drift 140s ease-in-out infinite alternate; }
+    .city .dreamed { animation: dreambreath 8s ease-in-out infinite; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap intro">
+    <p class="kicker">Specimen v5 · FJ#4 · Built Left, Dreamed Right</p>
+    <h1>The city you've built is behind you; the one you're dreaming is ahead</h1>
+    <p>Refinements: the crane is gone, the geodesic dome has its <em>lattice</em> back so it reads as a dome and not a mark, density leans <em>left</em> (the established, inhabited city) and thins to <em>sparse and figurative</em> on the right (where it's still being imagined), and the monorail keeps a solid built track with pale-brass <em>cars still to be built</em> running out toward the frontier. Open the file for the slow motion.</p>
+  </div>
+
+  <section class="sky-band" id="v5">
+    <div class="skyfield drift" data-sky></div>
+    <div class="dawn"></div>
+    <svg class="city" viewBox="0 0 1200 250" preserveAspectRatio="xMidYMax slice" aria-hidden="true" data-city></svg>
+    <div class="melt"></div>
+    <div class="stage-content"><h1 class="title">The Wizardly</h1><p class="tag">notes from the late shift</p></div>
+  </section>
+  <div class="wrap after"><p>The page begins here; the stars thin into the same night it is made of.</p></div>
+  <div class="wrap"><p class="note"><b>Built left, dreamed right.</b> The left is dense and solid, finished domes with lit windows, a tower with its beacon, the established city, inhabited, warm. At center the great geodesic is skinned on its lower half and its full lattice is still open above, the frame being dreamed, apex lit. The monorail's track is built all the way across; its cars, pale brass, are still to be built, running right toward open sky where only a faint outline of what's next is sketched. Gold is rationed and lives on the left, where people are awake.</p></div>
+
+<script>
+  const ns = 'http://www.w3.org/2000/svg';
+  const sky = document.querySelector('[data-sky]');
+  for (let i = 0; i < 150; i++) {
+    const s = document.createElement('span'); s.className = 'star';
+    const mag = Math.random(); const size = (0.8 + (1 - mag) * 2.2).toFixed(2); const op = (0.18 + (1 - mag) * 0.72).toFixed(2);
+    s.style.width = s.style.height = size + 'px'; s.style.left = (Math.random() * 100).toFixed(2) + '%';
+    s.style.top = (Math.pow(Math.random(), 1.25) * 82).toFixed(2) + '%'; s.style.opacity = op; s.style.setProperty('--o', op);
+    if (mag < 0.13) s.style.boxShadow = '0 0 6px 1px color-mix(in oklch, var(--marquee-bulb-cream) 55%, transparent)';
+    if (Math.random() < 0.45) { s.classList.add('tw'); s.style.setProperty('--d', (Math.random() * 5).toFixed(2) + 's'); }
+    sky.appendChild(s);
+  }
+  for (let i = 0; i < 80; i++) { const s = document.createElement('span'); s.className = 'star';
+    const t = Math.random(), x = t * 100, y = 6 + t * 50 + (Math.random() - 0.5) * 14; s.style.left = x.toFixed(2) + '%'; s.style.top = y.toFixed(2) + '%';
+    const sz = (0.6 + Math.random()).toFixed(2); s.style.width = s.style.height = sz + 'px'; const op = (0.1 + Math.random() * 0.26).toFixed(2); s.style.opacity = op; s.style.setProperty('--o', op); sky.appendChild(s); }
+
+  const svg = document.querySelector('[data-city]');
+  const SIL   = 'color-mix(in oklch, var(--night-shift-midnight) 52%, black)';                 // built fills
+  const SEAM  = 'color-mix(in oklch, var(--brass-linework) 22%, transparent)';                 // panel seams on built skin
+  const TRACK = 'color-mix(in oklch, var(--brass-linework) 34%, transparent)';                 // built lines (track), muted
+  const DRAFT = 'color-mix(in oklch, var(--brass-linework) 84%, var(--marquee-bulb-cream))';   // dreamed lines, pale luminous
+  const SPARK = 'var(--drafting-lamp-amber)';                                                  // rationed gold
+  const RIM   = 'color-mix(in oklch, var(--drafting-lamp-amber) 55%, var(--marquee-bulb-cream))';
+  const gSolid = document.createElementNS(ns, 'g'); svg.appendChild(gSolid);
+  const gDream = document.createElementNS(ns, 'g'); gDream.setAttribute('class', 'dreamed'); svg.appendChild(gDream);
+  const gSpark = document.createElementNS(ns, 'g'); svg.appendChild(gSpark);
+  const E = (g, tag, a) => { const e = document.createElementNS(ns, tag); for (const k in a) e.setAttribute(k, a[k]); g.appendChild(e); return e; };
+  const GROUND = 214;
+
+  E(gSolid, 'rect', { x: 0, y: GROUND, width: 1200, height: 36, fill: SIL, opacity: 0.92 });
+
+  // ---------- LEFT: the dense, built, inhabited city ----------
+  // big finished dome
+  E(gSolid, 'path', { d: 'M 60 ' + GROUND + ' L 60 150 A 52 52 0 0 1 164 150 L 164 ' + GROUND + ' Z', fill: SIL });
+  E(gSpark, 'path', { d: 'M 60 150 A 52 52 0 0 1 164 150', fill: 'none', stroke: RIM, 'stroke-width': 1.2, opacity: 0.5 });
+  // a stepped block building (adds built density)
+  E(gSolid, 'path', { d: 'M 178 ' + GROUND + ' L 178 168 L 206 168 L 206 140 L 236 140 L 236 ' + GROUND + ' Z', fill: SIL });
+  // a second small dome
+  E(gSolid, 'path', { d: 'M 250 ' + GROUND + ' L 250 184 A 26 26 0 0 1 302 184 L 302 ' + GROUND + ' Z', fill: SIL });
+  // the tower / needle (built) with beacon
+  E(gSolid, 'path', { d: 'M 344 ' + GROUND + ' L 352 92 L 360 ' + GROUND + ' Z', fill: SIL });
+  E(gSpark, 'circle', { cx: 352, cy: 88, r: 2.4, fill: SPARK });
+  // lit windows — the city is awake, warm, on the LEFT only
+  [[96,182,.92],[120,196,.7],[140,184,.85],[196,154,.8],[214,184,.65],[270,200,.75],[288,192,.6]]
+    .forEach(([x,y,o]) => E(gSpark, 'circle', { cx: x, cy: y, r: 1.6, fill: SPARK, opacity: o }));
+
+  // ---------- CENTER: the geodesic, built below + dreamed lattice above ----------
+  const cx = 560, cy = 150, r = 92;
+  const P = (phi, lam) => { const a = phi*Math.PI/180, b = lam*Math.PI/180; return { x: cx + r*Math.cos(a)*Math.sin(b), y: cy - r*Math.sin(a) }; };
+  const LAMS = [-90,-60,-30,0,30,60,90];
+  // built lower hemisphere: solid skin + faint seams
+  E(gSolid, 'path', { d: `M ${cx-r} ${cy} A ${r} ${r} 0 0 0 ${cx+r} ${cy} Z`, fill: SIL });
+  function lattice(phis, group, stroke, w, op) {
+    const grid = phis.map(ph => LAMS.map(lm => P(ph, lm)));
+    grid.forEach((ring, k) => {                       // latitude rings
+      if (Math.abs(phis[k]) === 90) return;
+      const d = ring.map((pt,i) => (i?'L':'M') + pt.x.toFixed(1) + ' ' + pt.y.toFixed(1)).join(' ');
+      E(group, 'path', { d, fill: 'none', stroke, 'stroke-width': w, opacity: op });
+    });
+    for (let j = 0; j < LAMS.length; j++) {           // meridians + diagonals (triangulation)
+      const d = grid.map((ring,k) => (k?'L':'M') + ring[j].x.toFixed(1) + ' ' + ring[j].y.toFixed(1)).join(' ');
+      E(group, 'path', { d, fill: 'none', stroke, 'stroke-width': w, opacity: op*0.92 });
+      if (j < LAMS.length - 1) for (let k = 0; k < grid.length - 1; k++)
+        E(group, 'line', { x1: grid[k][j].x.toFixed(1), y1: grid[k][j].y.toFixed(1), x2: grid[k+1][j+1].x.toFixed(1), y2: grid[k+1][j+1].y.toFixed(1), stroke, 'stroke-width': w*0.8, opacity: op*0.7 });
+    }
+  }
+  lattice([0,-30,-60,-90], gSolid, SEAM, 0.8, 0.9);   // seams on the built skin (faint)
+  lattice([0,30,60,90],    gDream, DRAFT, 1.0, 0.66); // open frame above (luminous)
+  E(gSpark, 'circle', { cx: cx, cy: cy - r, r: 2.6, fill: SPARK });          // apex
+  E(gSpark, 'circle', { cx: 548, cy: 196, r: 1.5, fill: SPARK, opacity: 0.7 }); // one lit window inside the base
+
+  // ---------- the MONORAIL: built track all the way; dreamed cars to the right ----------
+  E(gSolid, 'line', { x1: 0, y1: 176, x2: 1200, y2: 150, stroke: TRACK, 'stroke-width': 2.2 });   // track (built)
+  [70, 250, 430, 700, 920, 1120].forEach(x => { const ty = 176 - (x/1200)*26;
+    E(gSolid, 'line', { x1: x, y1: ty, x2: x, y2: GROUND, stroke: TRACK, 'stroke-width': 1.4, opacity: 0.8 }); });
+  // cars, pale brass, still to be built — a little train heading right
+  function car(x) { const ty = 176 - (x/1200)*26;
+    E(gDream, 'path', { d: `M ${x-22} ${ty-3} q 0 -13 12 -13 l 20 0 q 12 0 12 13 l 0 3 z`, fill: 'none', stroke: DRAFT, 'stroke-width': 1, opacity: 0.62 });
+    E(gDream, 'line', { x1: x-8, y1: ty-12, x2: x-8, y2: ty-3, stroke: DRAFT, 'stroke-width': 0.7, opacity: 0.45 });
+    E(gDream, 'line', { x1: x+6, y1: ty-12, x2: x+6, y2: ty-3, stroke: DRAFT, 'stroke-width': 0.7, opacity: 0.45 }); }
+  [792, 856, 920].forEach(car);
+
+  // ---------- RIGHT: sparse, figurative — what's next, barely sketched ----------
+  E(gDream, 'path', { d: 'M 1050 ' + GROUND + ' L 1050 190 A 26 26 0 0 1 1102 190 L 1102 ' + GROUND, fill: 'none', stroke: DRAFT, 'stroke-width': 0.9, opacity: 0.4 });
+  E(gDream, 'line', { x1: 1140, y1: GROUND, x2: 1140, y2: 168, stroke: DRAFT, 'stroke-width': 0.8, opacity: 0.34 });
+</script>
+</body>
+</html>
