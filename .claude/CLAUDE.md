@@ -29,11 +29,22 @@ After building frontend (npm run build), pause for the test blog upload before c
 Final verification happens on the Micro.blog test instance.
 
 ## Build and Deployment
-- NO CI/CD pipeline exists for this project
-- Webpack-generated assets in static/ MUST be committed to git
-- Build happens locally, gets pushed to repo, and Micro.blog downloads the repo as-is
-- The repo must be in final deployable form at all times
-- After running npm run build, always commit the updated static/ files
+- NO CI/CD pipeline exists for this project.
+- Webpack-generated assets in `static/` MUST be committed to git. After `npm run build`, always commit the updated `static/` files.
+- The repo must be in final deployable form at all times.
+
+### Remotes
+- **`origin` → Forgejo (private).** All everyday git — `push`, `pull`, `fetch`, branch work — targets Forgejo only. Forgejo is trusted: access is limited to the proprietor.
+- **`github` → the public GitHub repo.** micro.blog renders the live site from GitHub's `main`, so **publishing to production = pushing `main` to `github`.** Reached only through the deploy gate below; never `git push github` by hand.
+
+### Publishing (`just deploy`)
+Production deploys are gated to keep the proprietor's real identity off the public repo. Run from `main` with a clean tree: `just deploy` fetches `github`, runs `scripts/deploy-preflight.sh`, and pushes `main` to `github` only if the gate passes — fail closed otherwise. `just preflight` runs the same check without publishing.
+
+The gate inspects every commit in `github/main..main`:
+- **Identity allowlist** — author *and* committer of each commit must be `Contrariwis3 <contrariwise@thewizardly.com>`.
+- **Content + message denylist** — forbidden real-identity strings must not appear in published file contents (tip tree plus lines introduced in the range) or in commit messages.
+
+Forbidden strings live in `.deploy-guard/forbidden.txt`, which is **gitignored and never published** — so it is absent from a fresh clone. Recreate it before the first deploy or the gate fails closed. `just test` runs `scripts/test-deploy-preflight.sh`, which covers the gate's behavior. Content scanning covers live files and lines introduced in the published range, not every historical blob ever removed.
 
 ## Micro.blog Limitations
 - Micro.blog does NOT support image files in themes (even in static/)
