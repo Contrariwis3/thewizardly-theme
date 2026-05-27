@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<!-- ABOUTME: Masthead specimen v4 for the All-Night Pavilion (FJ#4) — the First Light + Luminous Plan synthesis.
+     ABOUTME: A readable city silhouette where it is built; luminous pale-brass line where it is still being dreamed; gold rationed to a few sparks. -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Masthead Specimen v4 · Built and Dreamed</title>
+<link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
+<link href="https://fonts.bunny.net/css?family=atkinson-hyperlegible-mono:400|atkinson-hyperlegible-next:400,400i,700|bona-nova:400,400i&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --night-shift-midnight: oklch(32.6% 0.036 239.8);
+    --exhibit-card-deep:    oklch(28% 0.034 240);
+    --drafting-lamp-amber:  oklch(80.5% 0.138 75.9);
+    --atomic-turquoise:     oklch(76.4% 0.094 180.5);
+    --brass-linework:       oklch(75.7% 0.040 79.9);
+    --marquee-bulb-cream:   oklch(94.6% 0.018 78.2);
+    --shadow-warm:          oklch(20% 0.03 64);
+    --font-display: 'Bona Nova', serif;
+    --font-body: 'Atkinson Hyperlegible Next', sans-serif;
+    --font-mono: 'Atkinson Hyperlegible Mono', monospace;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--night-shift-midnight); color: var(--marquee-bulb-cream); font-family: var(--font-body); font-size: 16px; line-height: 1.6; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+
+  .intro { padding-top: 48px; margin-bottom: 4px; }
+  .intro .kicker { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--atomic-turquoise); margin: 0 0 10px; }
+  .intro h1 { font-family: var(--font-display); font-weight: 400; font-size: 1.9rem; line-height: 1.25; margin: 0 0 12px; color: var(--marquee-bulb-cream); }
+  .intro p { margin: 0 0 8px; color: var(--brass-linework); max-width: 64ch; }
+  .intro em { color: var(--marquee-bulb-cream); font-style: italic; }
+  .note { font-size: 0.88rem; color: var(--brass-linework); max-width: 70ch; padding: 18px 0 0; }
+  .note b { color: var(--marquee-bulb-cream); font-weight: 700; }
+  .after { padding: 0 0 8px; }
+  .after p { max-width: 60ch; margin: 0 auto; color: color-mix(in oklch, var(--marquee-bulb-cream) 82%, var(--night-shift-midnight)); text-align: center; }
+
+  .sky-band { position: relative; width: 100%; min-height: 640px; overflow: hidden;
+    background: var(--night-shift-midnight); display: flex; align-items: center; justify-content: center; }
+  .skyfield { position: absolute; inset: 0; z-index: 0;
+    -webkit-mask-image: radial-gradient(122% 96% at 50% 24%, #000 44%, rgba(0,0,0,0.3) 72%, transparent 100%);
+            mask-image: radial-gradient(122% 96% at 50% 24%, #000 44%, rgba(0,0,0,0.3) 72%, transparent 100%); }
+  .star { position: absolute; border-radius: 50%; background: var(--marquee-bulb-cream); }
+
+  /* a whisper of First Light, centred off-frame so only the smooth falloff shows */
+  .dawn { position: absolute; left: -10%; right: -10%; bottom: 0; height: 80%; z-index: 1; pointer-events: none;
+    background: radial-gradient(150% 100% at 50% 138%, color-mix(in oklch, var(--drafting-lamp-amber) 22%, transparent), color-mix(in oklch, var(--drafting-lamp-amber) 6%, transparent) 24%, transparent 50%); }
+  .melt { position: absolute; left: 0; right: 0; bottom: 0; height: 28%; z-index: 4; pointer-events: none;
+    background: linear-gradient(to bottom, transparent, var(--night-shift-midnight) 96%); }
+
+  .city { position: absolute; left: 0; right: 0; bottom: 0; z-index: 3; width: 100%; height: 250px; pointer-events: none; }
+  /* only the DREAMED line glows; a tight drop-shadow follows the stroke, never a blob */
+  .city .dreamed { filter: drop-shadow(0 0 3px color-mix(in oklch, var(--brass-linework) 55%, transparent)); }
+
+  .stage-content { position: relative; z-index: 5; text-align: center; padding: 0 24px; transform: translateY(-9%); }
+  .title { font-family: var(--font-display); font-weight: 400; line-height: 1.06; margin: 0;
+    font-size: clamp(2.8rem, 8vw, 5rem); letter-spacing: 0.012em; color: var(--drafting-lamp-amber);
+    text-shadow:
+      0 0 7px  color-mix(in oklch, var(--drafting-lamp-amber) 52%, transparent),
+      0 0 20px color-mix(in oklch, var(--drafting-lamp-amber) 28%, transparent),
+      0 0 52px color-mix(in oklch, var(--drafting-lamp-amber) 12%, transparent); }
+  .tag { font-family: var(--font-display); font-style: italic; font-size: 1.15rem; color: var(--brass-linework); margin: 18px 0 0; }
+
+  @keyframes tw { 0%,100% { opacity: var(--o); } 50% { opacity: calc(var(--o) * 0.4); } }
+  @keyframes drift { from { transform: translateX(0); } to { transform: translateX(-1.6%); } }
+  @keyframes dreambreath { 0%,100% { opacity: 1; } 50% { opacity: 0.82; } }
+  @media (prefers-reduced-motion: no-preference) {
+    .star.tw { animation: tw 5.5s ease-in-out infinite; animation-delay: var(--d); }
+    .skyfield.drift { animation: drift 140s ease-in-out infinite alternate; }
+    .city .dreamed { animation: dreambreath 8s ease-in-out infinite; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="wrap intro">
+    <p class="kicker">Specimen v4 · FJ#4 · Built and Dreamed</p>
+    <h1>The city is real where it's built, and glows where it's still imagined</h1>
+    <p>First Light meets the Luminous Plan. The silhouette keeps it unmistakably a <em>city</em>; the half-finished parts are drawn in luminous line, so the magic-as-idea rides along; and the gold is <em>rationed</em>, the glowing line is pale brass, not gold, with amber saved for a handful of precious sparks (a beacon, a lit window or two, the apex of the frame). Built below, dreamed above, lit where someone is awake. Open the file for the slow motion.</p>
+  </div>
+
+  <section class="sky-band" id="v4">
+    <div class="skyfield drift" data-sky></div>
+    <div class="dawn"></div>
+    <svg class="city" viewBox="0 0 1200 250" preserveAspectRatio="xMidYMax slice" aria-hidden="true" data-city></svg>
+    <div class="melt"></div>
+    <div class="stage-content"><h1 class="title">The Wizardly</h1><p class="tag">notes from the late shift</p></div>
+  </section>
+  <div class="wrap after"><p>The page begins here; the stars thin into the same night it is made of.</p></div>
+  <div class="wrap"><p class="note"><b>Built and dreamed.</b> The two domes on the left are finished (solid). The great geodesic frame is skinned on its lower half and still <b>open at the top</b>, its unbuilt ribs drawn in light. A crane works beside it; the monorail runs off past the frame's edge, still being extended. The only gold is the few sparks, the needle's beacon, the apex, a couple of lit windows, so each one stays special. The glow lives on the dreamed line, breathing slowly, like a plan being held in mind.</p></div>
+
+<script>
+  const ns = 'http://www.w3.org/2000/svg';
+  const sky = document.querySelector('[data-sky]');
+  for (let i = 0; i < 150; i++) {
+    const s = document.createElement('span'); s.className = 'star';
+    const mag = Math.random();
+    const size = (0.8 + (1 - mag) * 2.2).toFixed(2);
+    const op = (0.18 + (1 - mag) * 0.72).toFixed(2);
+    s.style.width = s.style.height = size + 'px';
+    s.style.left = (Math.random() * 100).toFixed(2) + '%';
+    s.style.top = (Math.pow(Math.random(), 1.25) * 82).toFixed(2) + '%';
+    s.style.opacity = op; s.style.setProperty('--o', op);
+    if (mag < 0.13) s.style.boxShadow = '0 0 6px 1px color-mix(in oklch, var(--marquee-bulb-cream) 55%, transparent)';
+    if (Math.random() < 0.45) { s.classList.add('tw'); s.style.setProperty('--d', (Math.random() * 5).toFixed(2) + 's'); }
+    sky.appendChild(s);
+  }
+  for (let i = 0; i < 80; i++) { // faint Milky Way
+    const s = document.createElement('span'); s.className = 'star';
+    const t = Math.random(), x = t * 100, y = 6 + t * 50 + (Math.random() - 0.5) * 14;
+    s.style.left = x.toFixed(2) + '%'; s.style.top = y.toFixed(2) + '%';
+    const sz = (0.6 + Math.random()).toFixed(2); s.style.width = s.style.height = sz + 'px';
+    const op = (0.1 + Math.random() * 0.26).toFixed(2); s.style.opacity = op; s.style.setProperty('--o', op);
+    sky.appendChild(s);
+  }
+
+  const svg = document.querySelector('[data-city]');
+  const SIL  = 'color-mix(in oklch, var(--night-shift-midnight) 52%, black)';     // built: solid, dark, cool
+  const DRAFT= 'color-mix(in oklch, var(--brass-linework) 82%, var(--marquee-bulb-cream))'; // dreamed: pale luminous line (not gold)
+  const SPARK= 'var(--drafting-lamp-amber)';                                       // rationed gold
+  const RIM  = 'color-mix(in oklch, var(--drafting-lamp-amber) 55%, var(--marquee-bulb-cream))';
+  const ns2 = ns;
+  // two groups so only the dreamed line carries the glow filter
+  const gSolid = document.createElementNS(ns2, 'g'); svg.appendChild(gSolid);
+  const gDream = document.createElementNS(ns2, 'g'); gDream.setAttribute('class', 'dreamed'); svg.appendChild(gDream);
+  const gSpark = document.createElementNS(ns2, 'g'); svg.appendChild(gSpark);
+  const E = (g, tag, a) => { const e = document.createElementNS(ns2, tag); for (const k in a) e.setAttribute(k, a[k]); g.appendChild(e); return e; };
+
+  // ground
+  E(gSolid, 'rect', { x: 0, y: 214, width: 1200, height: 36, fill: SIL, opacity: 0.9 });
+
+  // --- BUILT (solid silhouette) ---
+  // two finished domes, left
+  E(gSolid, 'path', { d: 'M 104 250 L 104 158 A 48 48 0 0 1 200 158 L 200 250 Z', fill: SIL });
+  E(gSolid, 'path', { d: 'M 232 250 L 232 182 A 30 30 0 0 1 292 182 L 292 250 Z', fill: SIL });
+  // needle, built lower shaft
+  E(gSolid, 'path', { d: 'M 372 250 L 380 120 L 388 250 Z', fill: SIL });
+  // geodesic: skinned LOWER hemisphere (built)
+  const cx = 640, cy = 150, r = 86;
+  E(gSolid, 'path', { d: `M ${cx - r} ${cy} A ${r} ${r} 0 0 0 ${cx + r} ${cy} Z`, fill: SIL });
+  // dawn rim catching the built tops (thin, the coming light)
+  E(gSpark, 'path', { d: 'M 104 158 A 48 48 0 0 1 200 158', fill: 'none', stroke: RIM, 'stroke-width': 1.2, opacity: 0.5 });
+  E(gSpark, 'path', { d: `M ${cx - r} ${cy} A ${r} ${r} 0 0 0 ${cx + r} ${cy}`, fill: 'none', stroke: RIM, 'stroke-width': 1.1, opacity: 0.4 });
+
+  // --- DREAMED (luminous pale-brass line) ---
+  // geodesic upper frame, OPEN at the top
+  E(gDream, 'path', { d: `M ${cx - r} ${cy} A ${r} ${r} 0 0 1 ${cx + r} ${cy}`, fill: 'none', stroke: DRAFT, 'stroke-width': 1.3, opacity: 0.72 });
+  // upper meridians/struts (some missing = unfinished)
+  [[-0.5,-0.86],[0,-1],[0.5,-0.86],[-0.84,-0.54],[0.84,-0.54]].forEach((p, i) => {
+    if (i === 1) return; // a missing strut at the crown
+    E(gDream, 'line', { x1: cx, y1: cy, x2: cx + p[0]*r, y2: cy + p[1]*r, stroke: DRAFT, 'stroke-width': 1, opacity: 0.55 });
+  });
+  E(gDream, 'path', { d: `M ${cx - r*0.7} ${cy - r*0.52} Q ${cx} ${cy - r*0.86} ${cx + r*0.7} ${cy - r*0.52}`, fill: 'none', stroke: DRAFT, 'stroke-width': 0.9, opacity: 0.4 });
+  // needle upper antenna, drawn in light
+  E(gDream, 'line', { x1: 380, y1: 120, x2: 380, y2: 78, stroke: DRAFT, 'stroke-width': 1.1, opacity: 0.6 });
+  // a crane working beside the frame
+  E(gDream, 'path', { d: 'M 770 250 L 770 96 M 770 104 L 836 104 M 770 112 L 742 112 M 836 104 L 836 118', fill: 'none', stroke: DRAFT, 'stroke-width': 1, opacity: 0.55 });
+  // the next dome, still only planned (open outline, right)
+  E(gDream, 'path', { d: 'M 980 250 L 980 196 A 30 30 0 0 1 1040 196 L 1040 250', fill: 'none', stroke: DRAFT, 'stroke-width': 1, opacity: 0.42 });
+  // monorail: near span solid-dark, far span drawn (being extended off-frame)
+  E(gSolid, 'line', { x1: 0, y1: 168, x2: 600, y2: 156, stroke: SIL, 'stroke-width': 2.5, opacity: 0.9 });
+  E(gDream, 'line', { x1: 600, y1: 156, x2: 1200, y2: 140, stroke: DRAFT, 'stroke-width': 1.1, opacity: 0.5 });
+  [120, 300, 470].forEach(x => E(gSolid, 'line', { x1: x, y1: 162, x2: x, y2: 214, stroke: SIL, 'stroke-width': 2, opacity: 0.85 }));
+  [760, 940, 1110].forEach(x => E(gDream, 'line', { x1: x, y1: 150, x2: x, y2: 214, stroke: DRAFT, 'stroke-width': 0.8, opacity: 0.32 }));
+
+  // --- RATIONED GOLD (a few precious sparks) ---
+  E(gSpark, 'circle', { cx: 380, cy: 74, r: 2.4, fill: SPARK });                 // needle beacon
+  E(gSpark, 'circle', { cx: cx, cy: cy - r, r: 2.6, fill: SPARK });              // geodesic apex
+  E(gSpark, 'circle', { cx: 150, cy: 196, r: 1.7, fill: SPARK, opacity: 0.92 }); // a lit window
+  E(gSpark, 'circle', { cx: 168, cy: 210, r: 1.4, fill: SPARK, opacity: 0.7 });  // another
+  E(gSpark, 'circle', { cx: 636, cy: 198, r: 1.6, fill: SPARK, opacity: 0.85 }); // one inside the frame
+</script>
+</body>
+</html>
