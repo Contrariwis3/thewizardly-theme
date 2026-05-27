@@ -309,10 +309,16 @@ pre {
 
 // The hero (home): a tall scene with the title floating at center, sky above.
 .masthead--hero {
-    min-height: clamp(440px, 76vh, 680px);
+    min-height: clamp(360px, 60vh, 544px);
 
+    // Seat the title about a third of the way down, so it reads as centred in
+    // the sky above the city rather than low in the whole frame.
     .masthead-title {
-        transform: translateY(-9%);
+        position: absolute;
+        top: 34%;
+        left: 0;
+        right: 0;
+        transform: translateY(-50%);
     }
 
     .masthead-title h1 {
@@ -320,7 +326,7 @@ pre {
     }
 
     @media (max-width: 768px) {
-        min-height: clamp(360px, 60vh, 480px);
+        min-height: clamp(320px, 54vh, 432px);
     }
 }
 
