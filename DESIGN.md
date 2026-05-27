@@ -100,7 +100,7 @@ These pigments are decided and available but are **not** primary roles. They do 
 
 ## 3. Typography
 
-**Display Font:** Bona Nova (OFL) — Mateusz Machalski's 2017 revival of Andrzej Heidrich's 1971 *Bona*, completed with the original author. A warm Polish book serif rooted in Renaissance antiqua: the obscure, period-authentic pick that stands beside the lineage rather than wearing its costume, chosen over the reflex atompunk serifs (Recoleta, DM Serif Display, Reckless Neue). Self-hostable and public-repo clean; it holds character at the 4em Marquee Initial under amber glow, and it ships ornamental manicules that echo the ▸ of the Arcane Timestamp.
+**Display Font:** Bona Nova (OFL) — Mateusz Machalski's 2017 revival of Andrzej Heidrich's 1971 *Bona*, completed with the original author. A warm Polish book serif rooted in Renaissance antiqua: the obscure, period-authentic pick that stands beside the lineage rather than wearing its costume, chosen over the reflex atompunk serifs (Recoleta, DM Serif Display, Reckless Neue). Delivered via Bunny Fonts (privacy-first and GDPR-clean), which serves it alongside the Atkinson body and mono faces and retires the Google Fonts dependency; it holds character at the 4em Marquee Initial under amber glow, and it ships ornamental manicules that echo the ▸ of the Arcane Timestamp.
 **Body Font:** Atkinson Hyperlegible Next (sans-serif fallback)
 **Mono Font:** Atkinson Hyperlegible Mono (monospace fallback)
 **Marquee/Ornament Variant:** Bona Nova Italic — the display face's own italic (the cut the original *Bona* began as), for the Arcane Timestamp and pavilion-display titles.

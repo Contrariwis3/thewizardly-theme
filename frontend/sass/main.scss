@@ -1,35 +1,44 @@
+// ABOUTME: The All-Night Pavilion stylesheet for the TheWizardly Hugo theme.
+// ABOUTME: Defines the OKLCH palette tokens, type scale, and every component's styling.
+
 @use "sass:map";
+
+// ===================================
+// DESIGN TOKENS — ALL-NIGHT PAVILION PALETTE
+// ===================================
+// Resolved OKLCH (DESIGN.md §2); OKLCH is the canonical target. The palette
+// lives here as CSS custom properties; alpha variants are derived at use-site
+// with color-mix(in oklch, …) so every tint stays in one perceptual space.
+// Pure #000/#fff are forbidden (Tinted-Black Rule): the neutrals are tinted
+// toward the cool surface or the warm light, and even shadows tint warm.
+:root {
+    --night-shift-midnight: oklch(32.6% 0.036 239.8); // body surface
+    --exhibit-card-deep: oklch(28% 0.034 240); // recessed card surface, cool-on-cool
+    --drafting-lamp-amber: oklch(80.5% 0.138 75.9); // dominant warm accent: links, headings, masthead
+    --atomic-turquoise: oklch(76.4% 0.094 180.5); // cool counter — wired into components in Increment 3
+    --now-broadcasting-red: oklch(65.5% 0.115 33.8); // rare signal: timestamp, pills, page numbers (large/UI only)
+    --brass-linework: oklch(75.7% 0.040 79.9); // structural rules/dividers + muted metadata text
+    --marquee-bulb-cream: oklch(94.6% 0.018 78.2); // all body text on every surface
+
+    // Warm-shadow base for the Exhibit Rest shadow — paper on varnished oak under
+    // a drafting lamp. Tinted warm, never toward absolute black (Tinted-Black Rule).
+    --shadow-warm: oklch(20% 0.03 64);
+
+    // Earned glow (Marquee Glow Rule): an amber halo with a named physical source.
+    // The masthead h1 and the Marquee Initial wear --marquee-glow always-on; links
+    // wear --link-hover-glow only while hovered. Nothing else glows.
+    --marquee-glow: 0 0 12px color-mix(in oklch, var(--drafting-lamp-amber) 42%, transparent);
+    --link-hover-glow: 0 0 10px color-mix(in oklch, var(--drafting-lamp-amber) 50%, transparent);
+}
 
 // ===================================
 // VARIABLES & FUNCTIONS
 // ===================================
 
-// Color Palette
-$colors: (
-    // Primary Colors (Background)
-    body: #1a1a2e,
-
-    // Theme Colors  
-    primary: #7ba05b,
-    // Sage Grimoire (main accent - links, borders, h3)
-    secondary: #b5a693,
-    // Weathered Parchment (h2, blockquotes, tags)
-    accent: #b85c69,
-    // Rose Seal (highlights, strong text, special elements)
-
-    // Text Colors
-    body-text: #f4f1e8,
-    // Parchment Cream
-
-    // Background Colors
-    card-bg: rgba(15, 15, 26, 0.8),
-    // Darker midnight with transparency
-    code-bg: rgba(181, 166, 147, 0.1) // Subtle weathered parchment overlay
-);
-
 // Typography
 $fonts: (
-    heading: ('Philosopher', sans-serif),
+    heading: ('Bona Nova', serif),
+    // All-Night Pavilion display serif (FJ#1, OFL, served via Bunny Fonts)
     body: ('Atkinson Hyperlegible Next', sans-serif),
     mono: ('Atkinson Hyperlegible Mono', monospace)
 );
@@ -65,10 +74,8 @@ $border-radius: (
 );
 
 // Helper Functions
-@function color($name) {
-    @return map.get($colors, $name);
-}
-
+// Color is no longer a Sass function: the palette lives in :root above, reached
+// with var(--token) and color-mix(). Type, spacing, and radius stay build-time maps.
 @function font($name) {
     @return map.get($fonts, $name);
 }
@@ -89,24 +96,23 @@ $border-radius: (
 // MIXINS
 // ===================================
 
-@mixin glow($color, $intensity: 0.3) {
-    text-shadow: 0 0 10px rgba($color, $intensity);
-}
-
 @mixin card-shadow() {
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    // Exhibit Rest (DESIGN.md §4): a diffuse, warm-tinted shadow — paper resting
+    // on oak under a drafting lamp. Low-contrast against the night-shift surface.
+    box-shadow: 0 10px 30px color-mix(in oklch, var(--shadow-warm) 30%, transparent);
 }
 
-@mixin hover-shadow($color, $intensity: 0.2) {
-    box-shadow: 0 3px 8px rgba($color, $intensity);
+@mixin hover-shadow($color, $alpha: 20%) {
+    // Trinket Hover Halo (DESIGN.md §4): a small accent-tinted halo, ≤8px blur.
+    box-shadow: 0 3px 8px color-mix(in oklch, #{$color} $alpha, transparent);
 }
 
 @mixin accent-border($color, $width: 3px) {
     border-left: $width solid $color;
 }
 
-@mixin subtle-border($color, $opacity: 0.3) {
-    border: 1px solid rgba($color, $opacity);
+@mixin subtle-border($color, $opacity: 30%) {
+    border: 1px solid color-mix(in oklch, #{$color} $opacity, transparent);
 }
 
 @mixin transition($properties: all, $duration: 0.2s) {
@@ -122,9 +128,11 @@ $border-radius: (
 }
 
 body {
-    background-color: color(body);
-    background-image: url("data:image/svg+xml,%3Csvg width='84' height='48' viewBox='0 0 84 48' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h12v6H0V0zm28 8h12v6H28V8zm14-8h12v6H42V0zm14 0h12v6H56V0zm0 8h12v6H56V8zM42 8h12v6H42V8zm0 16h12v6H42v-6zm14-8h12v6H56v-6zm14 0h12v6H70v-6zm0-16h12v6H70V0zM28 32h12v6H28v-6zM14 16h12v6H14v-6zM0 24h12v6H0v-6zm0 8h12v6H0v-6zm14 0h12v6H14v-6zm14 8h12v6H28v-6zm-14 0h12v6H14v-6zm28 0h12v6H42v-6zm14-8h12v6H56v-6zm0-8h12v6H56v-6zm14 8h12v6H70v-6zm0 8h12v6H70v-6zM14 24h12v6H14v-6zm14-8h12v6H28v-6zM14 8h12v6H14V8zM0 8h12v6H0V8z' fill='%23B5A693' fill-opacity='0.08' fill-rule='evenodd'/%3E%3C/svg%3E");
-    color: color(body-text);
+    background-color: var(--night-shift-midnight);
+    // Body texture: the Founding Sky starfield (DESIGN.md Named-Starfield Rule)
+    // arrives in Increment 4 (FJ#4). Until then the surface is plain Night-Shift
+    // Midnight — exactly the cream-on-navy the masthead checkpoint validates.
+    color: var(--marquee-bulb-cream);
     font-family: font(body);
     font-size: size(base);
     line-height: 1.6;
@@ -158,10 +166,12 @@ h6 {
     @extend %heading-base;
 }
 
+// Display step (DESIGN.md §3). The Marquee Glow is NOT here — it is reserved for
+// the masthead h1 (see the header rule), so list-page titles do not glow.
 h1 {
     font-size: size(h1);
-    color: color(primary);
-    @include glow(color(primary));
+    line-height: 1.2;
+    color: var(--drafting-lamp-amber);
 
     @media (max-width: 768px) {
         font-size: size(h1-mobile);
@@ -170,53 +180,56 @@ h1 {
 
 h2 {
     font-size: size(h2);
-    color: color(secondary);
-    border-bottom: 1px solid rgba(color(secondary), 0.3);
+    color: var(--brass-linework);
+    border-bottom: 1px solid color-mix(in oklch, var(--brass-linework) 30%, transparent);
     padding-bottom: space(md);
 }
 
 h3 {
     font-size: size(h3);
-    color: color(primary);
+    color: var(--drafting-lamp-amber);
 }
 
-// Links
+// Links (DESIGN.md §5): Amber text, 1px dotted Amber underline at rest; on hover
+// the underline goes solid and the Link Hover Glow appears.
 a {
-    color: color(primary);
+    color: var(--drafting-lamp-amber);
     text-decoration: none;
-    border-bottom: 1px dotted color(primary);
+    border-bottom: 1px dotted var(--drafting-lamp-amber);
     @include transition();
 
     &:hover {
-        border-bottom: 1px solid color(primary);
-        @include glow(color(primary), 0.5);
+        border-bottom: 1px solid var(--drafting-lamp-amber);
+        text-shadow: var(--link-hover-glow);
     }
 }
 
 // Text Elements
 blockquote {
-    @include accent-border(color(secondary));
+    @include accent-border(var(--brass-linework));
     padding-left: space(lg);
     margin-left: 0;
     font-style: italic;
-    color: color(body-text);
+    color: var(--marquee-bulb-cream);
     opacity: 0.8;
 }
 
 em {
-    color: color(secondary);
-    font-weight: normal;
+    font-style: italic;
 }
 
+// One-REC-Light Rule: inline emphasis is font weight, never the signal red.
+// Now-Broadcasting Red lands at ~3.7:1 at body size and fails AA, so it never
+// colors running text (DESIGN.md §2 Tertiary / §6).
 strong {
-    color: color(accent);
-    font-weight: normal;
+    font-weight: 700;
 }
 
 // Code
 %code-base {
-    background-color: color(code-bg);
-    @include accent-border(color(primary));
+    // Brass wash on the surface (DESIGN.md §5 Code).
+    background-color: color-mix(in oklch, var(--brass-linework) 10%, transparent);
+    @include accent-border(var(--drafting-lamp-amber));
     border-radius: radius(small);
     font-family: font(mono);
     font-size: size(normal);
@@ -244,12 +257,35 @@ header {
     margin-bottom: space(xxxl);
     padding-bottom: space(xl);
 
+    // Masthead (DESIGN.md §3 Display): the site title under starlight, glowing
+    // softly in Drafting-Lamp Amber. The Marquee Glow lives here, on the Marquee
+    // Initial, and on link hover — nowhere else (Marquee Glow Rule). text-shadow
+    // is inherited, so the title link glows at rest without restating it.
     h1 {
         margin: 0;
+        text-shadow: var(--marquee-glow);
+
+        a {
+            // The title links home; as the masthead, not a body link, it wears no
+            // dotted underline and holds the masthead glow through hover.
+            color: inherit;
+            border-bottom: none;
+
+            &:hover {
+                border-bottom: none;
+                text-shadow: var(--marquee-glow);
+            }
+
+            &:focus-visible {
+                outline: 2px solid var(--drafting-lamp-amber);
+                outline-offset: 4px;
+                border-radius: radius(small);
+            }
+        }
     }
 
     p {
-        color: color(body-text);
+        color: var(--marquee-bulb-cream);
         font-size: size(large);
         margin-top: space(md);
     }
@@ -258,22 +294,22 @@ header {
 footer {
     text-align: center;
     padding: space(xxl) 0;
-    @include subtle-border(color(primary));
+    @include subtle-border(var(--brass-linework));
     border-bottom: none;
     border-left: none;
     border-right: none;
-    color: color(body-text);
+    color: var(--marquee-bulb-cream);
 }
 
 // ===================================
 // COMPONENTS
 // ===================================
 
-// Card Component (the manuscript page)
-// Identity is carried by the Arcane Timestamp at the top and the Illuminated
-// Drop Cap on titled essays, not by chrome on the edges. No spine.
+// Card Component (the Exhibit Card)
+// Identity is carried by the Arcane Timestamp at the top and the Drop Cap on
+// titled essays, not by chrome on the edges. No spine.
 .card {
-    background-color: color(card-bg);
+    background-color: var(--exhibit-card-deep);
     border-radius: radius(medium);
     padding: space(xxl);
     overflow: hidden;
@@ -312,30 +348,31 @@ footer {
 // The Three-Knobs Rule: cap font-size × cap line-height = N × body line-height.
 // Here 4em × 0.8 = 3.2em = 2 × 1.6em (clean 2-line drop). Cap-baseline lands
 // on body line 2's baseline. If body line-height changes, recompute cap
-// line-height to preserve the lockup.
+// line-height to preserve the lockup. (Rebuilt as the glowing Marquee Initial
+// in Increment 2.)
 .card:has(> h2) .post-content > p:first-of-type::first-letter {
     font-family: font(heading);
     font-weight: 400;
-    color: color(primary);
+    color: var(--drafting-lamp-amber);
     font-size: 4em;
     line-height: 0.8;
     float: left;
     margin-right: 0.12em;
 }
 
-// Sidebar Content
+// Sidebar Content (the Pavilion Displays)
 .side-content {
-    background-color: color(card-bg);
+    background-color: var(--exhibit-card-deep);
     padding: space(xl);
     border-radius: radius(medium);
     margin-bottom: space(xxl);
 }
 
 .side-title {
-    color: color(primary);
+    color: var(--drafting-lamp-amber);
     margin-bottom: space(lg);
     font-size: size(large);
-    @include subtle-border(color(primary));
+    @include subtle-border(var(--brass-linework));
     border-top: none;
     border-left: none;
     border-right: none;
@@ -343,7 +380,7 @@ footer {
     font-family: font(heading);
 }
 
-// Tag Component
+// Tag Component (Sigil Pills)
 %tag-base {
     display: inline-block;
     padding: space(xs) space(md);
@@ -355,14 +392,15 @@ footer {
     border: 1px solid transparent;
 }
 
+// Subject sigil: Brass on a warm tint.
 .tag {
     @extend %tag-base;
-    background-color: rgba(color(secondary), 0.2);
-    color: color(secondary);
+    background-color: color-mix(in oklch, var(--brass-linework) 20%, transparent);
+    color: var(--brass-linework);
 
     &:hover {
-        border-color: color(secondary);
-        @include hover-shadow(color(secondary));
+        border-color: var(--brass-linework);
+        @include hover-shadow(var(--brass-linework));
     }
 
     i {
@@ -370,14 +408,15 @@ footer {
     }
 }
 
+// Response sigil: the REC-light red on a red tint.
 .response-tag {
     @extend %tag-base;
-    background-color: rgba(color(accent), 0.15);
-    color: color(accent);
+    background-color: color-mix(in oklch, var(--now-broadcasting-red) 15%, transparent);
+    color: var(--now-broadcasting-red);
 
     &:hover {
-        border-color: color(accent);
-        @include hover-shadow(color(accent));
+        border-color: var(--now-broadcasting-red);
+        @include hover-shadow(var(--now-broadcasting-red));
     }
 
     @media (max-width: 768px) {
@@ -386,23 +425,25 @@ footer {
     }
 }
 
-// Timestamp Component
+// Timestamp Component (the Arcane Timestamp)
 .arcane-timestamp {
-    color: color(secondary);
+    color: var(--brass-linework);
     font-style: italic;
     margin-bottom: space(xl);
     font-family: font(heading);
     font-size: size(medium);
 }
 
+// The REC light: Now-Broadcasting Red signs the timestamp like a console's
+// recording lamp (DESIGN.md One-REC-Light Rule).
 .timestamp-icon {
-    color: color(accent);
+    color: var(--now-broadcasting-red);
 }
 
 // Post Tags Section
 .post-tags {
     margin-top: #{space(xl) + space(sm)};
-    @include subtle-border(color(primary));
+    @include subtle-border(var(--brass-linework));
     border-bottom: none;
     border-left: none;
     border-right: none;
@@ -411,7 +452,7 @@ footer {
 
 // Continue Reading affordance (the page-turn)
 // Shown beneath an auto-truncated or <!--more--> summary on the index. The
-// link itself inherits the global sage / dotted-underline / hover-glow
+// link itself inherits the global amber / dotted-underline / hover-glow
 // treatment; this rule only positions the wrapping paragraph.
 .continue-reading {
     margin-top: space(xl);
@@ -420,7 +461,7 @@ footer {
 }
 
 // ===================================
-// PAGINATION
+// PAGINATION (Slide Tray Counter)
 // ===================================
 
 .pagination {
@@ -434,8 +475,9 @@ footer {
         }
     }
 
+    // Arrows in Drafting-Lamp Amber (DESIGN.md Slide Tray Counter).
     &-icon {
-        color: color(primary);
+        color: var(--drafting-lamp-amber);
     }
 
     &-pages {
@@ -443,8 +485,9 @@ footer {
         position: relative;
         text-align: center;
 
+        // Page numerals in the REC-light red (large enough to pass AA).
         .page {
-            color: color(accent);
+            color: var(--now-broadcasting-red);
             font-size: space(xl);
         }
     }
@@ -489,7 +532,7 @@ footer {
 }
 
 // ===================================
-// STATUS SCROLL COMPONENT (SIMPLIFIED)
+// STATUS SCROLL COMPONENT (MYSTIC MISSIVES)
 // ===================================
 
 .status-scroll {
@@ -497,11 +540,12 @@ footer {
         padding: space(md) 0;
     }
 
-    // Sage divider between consecutive entries. Adjacent-sibling combinator
-    // is class-aware (unlike :last-of-type, which is keyed off tag name and
-    // would treat the trailing .status-footer div as the "last" sibling).
+    // Brass Linework divider between consecutive entries (DESIGN.md Mystic
+    // Missives). The adjacent-sibling combinator is class-aware (unlike
+    // :last-of-type, which is keyed off tag name and would treat the trailing
+    // .status-footer div as the "last" sibling).
     .status-entry + .status-entry {
-        border-top: 1px solid rgba(color(primary), 0.3);
+        border-top: 1px solid color-mix(in oklch, var(--brass-linework) 30%, transparent);
     }
 
     .status-header {
@@ -517,7 +561,7 @@ footer {
 
     .status-time {
         font-size: size(small);
-        color: color(secondary);
+        color: var(--brass-linework);
         font-family: font(heading);
         font-style: italic;
     }
@@ -525,7 +569,7 @@ footer {
     .status-content {
         font-size: size(normal);
         line-height: 1.5;
-        color: color(body-text);
+        color: var(--marquee-bulb-cream);
         // omg.lol content is user-authored; long URLs must not overflow the
         // narrow side column.
         overflow-wrap: anywhere;
@@ -534,7 +578,7 @@ footer {
     .status-footer {
         margin-top: space(lg);
         padding-top: space(md);
-        @include subtle-border(color(primary));
+        @include subtle-border(var(--brass-linework));
         border-bottom: none;
         border-left: none;
         border-right: none;
@@ -542,8 +586,8 @@ footer {
 
     .status-link {
         @extend %tag-base;
-        background-color: rgba(color(accent), 0.15);
-        color: color(accent);
+        background-color: color-mix(in oklch, var(--now-broadcasting-red) 15%, transparent);
+        color: var(--now-broadcasting-red);
         font-family: font(heading);
         display: inline-block;
         margin-top: space(md);
@@ -553,14 +597,14 @@ footer {
         }
 
         &:hover {
-            border-color: color(accent);
-            @include hover-shadow(color(accent));
+            border-color: var(--now-broadcasting-red);
+            @include hover-shadow(var(--now-broadcasting-red));
         }
     }
 }
 
 // ===================================
-// BOOKSHELF COMPONENT
+// BOOKSHELF COMPONENT (READING PAVILION)
 // ===================================
 
 .bookshelf-page {
@@ -597,7 +641,7 @@ footer {
 
     &:hover {
         transform: translateY(-4px);
-        @include hover-shadow(color(primary), 0.3);
+        @include hover-shadow(var(--drafting-lamp-amber), 30%);
     }
 }
 
@@ -610,8 +654,8 @@ footer {
     @include card-shadow();
 
     &--placeholder {
-        background-color: rgba(color(secondary), 0.1);
-        @include subtle-border(color(secondary), 0.3);
+        background-color: color-mix(in oklch, var(--brass-linework) 10%, transparent);
+        @include subtle-border(var(--brass-linework), 30%);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -625,7 +669,7 @@ footer {
 }
 
 .empty {
-    color: color(secondary);
+    color: var(--brass-linework);
     font-style: italic;
     opacity: 0.8;
 }
@@ -646,13 +690,13 @@ footer {
             margin-bottom: 0;
         }
 
-        // The year heading nests inside the card with its own dotted Sage
+        // The year heading nests inside the card with its own dotted Brass
         // rule. Override the default %heading-base top margin so the section
         // break carries the spacing, not the heading itself.
         .year {
             margin-top: 0;
             margin-bottom: space(lg);
-            border-bottom: 1px dotted rgba(color(primary), 0.3);
+            border-bottom: 1px dotted color-mix(in oklch, var(--brass-linework) 30%, transparent);
             padding-bottom: space(sm);
         }
     }
@@ -663,7 +707,7 @@ footer {
         margin: 0;
     }
 
-    // Two-column grid: a fixed-width Philosopher date column on the left,
+    // Two-column grid: a fixed-width Bona Nova date column on the left,
     // the title or snippet flowing in the right column. Baseline-aligned so
     // the italic ornament date sits on the title's text baseline.
     .archive-entry {
@@ -673,12 +717,11 @@ footer {
         align-items: baseline;
         padding: space(sm) 0;
 
-        // Dotted Parchment rule between entries. Mirrors the Mystic Missives
-        // status-entry separator language (1px sage at 30%) but tinted to
-        // Weathered Parchment at lower opacity, because the codex is long
-        // and a row of higher-contrast sage rules would read as a ladder.
+        // Dotted Brass rule between entries, at lower opacity than the year
+        // rule because the codex is long and a row of higher-contrast rules
+        // would read as a ladder.
         & + & {
-            border-top: 1px dotted rgba(color(secondary), 0.18);
+            border-top: 1px dotted color-mix(in oklch, var(--brass-linework) 18%, transparent);
         }
 
         @media (max-width: 540px) {
@@ -690,11 +733,11 @@ footer {
 
     // The date is a non-link ornament. Making the title (or snippet) the
     // sole click target avoids the global a:hover glow firing on a
-    // parchment-colored date and keeps each row to one affordance.
+    // brass-colored date and keeps each row to one affordance.
     .archive-date {
         font-family: font(heading);
         font-style: italic;
-        color: color(secondary);
+        color: var(--brass-linework);
         font-size: size(normal);
         white-space: nowrap;
     }
@@ -704,21 +747,21 @@ footer {
     }
 
     // Microposts: render as quieter body-colored prose so the row reads as
-    // content rather than as a heading. The dotted Sage underline still
+    // content rather than as a heading. The dotted Amber underline still
     // inherits from the global anchor rule, signalling the affordance.
     .archive-snippet {
-        color: color(body-text);
+        color: var(--marquee-bulb-cream);
         opacity: 0.85;
     }
 
     // Image-only microposts have no plain-text content (alt attributes are
     // stripped by plainify), so the row falls back to a small Phosphor image
     // icon and an italic "an illumination" label, in the manuscript-marginalia
-    // sense. Italics + Weathered Parchment match the Arcane Timestamp ornament
+    // sense. Italics + Brass Linework match the Arcane Timestamp ornament
     // language: this is metadata about the post, not the post's words.
     .archive-snippet--wordless {
         font-style: italic;
-        color: color(secondary);
+        color: var(--brass-linework);
         opacity: 0.85;
 
         i {
@@ -732,10 +775,10 @@ footer {
 // ===================================
 
 // A list of saved links: each row is favicon + title (or user note), with
-// hostname and date below in the Compendium's Philosopher-italic Weathered
-// Parchment language. Replaces the old <figure><blockquote> rendering, which
-// misused blockquote (reserved for actual pull-quotes) and inherited the
-// 3px parchment side-stripe explicitly banned on list items.
+// hostname and date below in the Compendium's Bona Nova-italic Brass Linework
+// language. Replaces the old <figure><blockquote> rendering, which misused
+// blockquote (reserved for actual pull-quotes) and inherited the 3px side-stripe
+// explicitly banned on list items.
 .bookmarks {
     list-style: none;
     padding: 0;
@@ -746,7 +789,7 @@ footer {
     padding: space(md) 0;
 
     & + & {
-        border-top: 1px dotted rgba(color(secondary), 0.18);
+        border-top: 1px dotted color-mix(in oklch, var(--brass-linework) 18%, transparent);
     }
 }
 
@@ -774,7 +817,7 @@ footer {
 }
 
 .bookmark-title {
-    border-bottom: 1px dotted color(primary);
+    border-bottom: 1px dotted var(--drafting-lamp-amber);
 
     .bookmark-link:hover & {
         border-bottom-style: solid;
@@ -788,7 +831,7 @@ footer {
     font-family: font(heading);
     font-style: italic;
     font-size: size(small);
-    color: color(secondary);
+    color: var(--brass-linework);
 }
 
 .bookmark-date::before {
@@ -797,12 +840,12 @@ footer {
 }
 
 // ===================================
-// WEB BUTTONS COLLECTION
+// WEB BUTTONS COLLECTION (ENCHANTED EMBLEMS)
 // ===================================
 
 .emblem-note {
     display: block;
-    color: color(secondary);
+    color: var(--brass-linework);
     font-style: italic;
     opacity: 0.8;
     margin-bottom: space(sm);
@@ -825,6 +868,6 @@ footer {
     &--share {
         margin-bottom: space(lg);
         padding-bottom: space(lg);
-        border-bottom: 1px solid rgba(color(secondary), 0.2);
+        border-bottom: 1px solid color-mix(in oklch, var(--brass-linework) 20%, transparent);
     }
 }
