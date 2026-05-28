@@ -540,6 +540,18 @@ footer {
     min-width: 0;
 }
 
+// Row 2: a full-width pair split evenly down the middle, with a brass divider.
+// Two block trinkets (the "on the wire" streams) get room to breathe here,
+// rather than stacking in the narrow rail and leaving a hole beside them.
+.catalog-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    > *:first-child {
+        border-right: 1px solid var(--catalog-rule);
+    }
+}
+
 // Bottom zone: the remaining fixtures in a dense ruled grid.
 .catalog-grid {
     display: grid;
@@ -550,8 +562,7 @@ footer {
     > * { border-right: 1px solid var(--catalog-rule-faint); }
     > .fixture--mages { grid-column: span 4; }
     > .fixture--random { grid-column: span 4; }
-    > .fixture--bookmarks { grid-column: span 4; }
-    > .fixture--tags { grid-column: span 12; }
+    > .fixture--tags { grid-column: span 4; }
     > .fixture--emblems { grid-column: span 12; border-right: none; }
 }
 
@@ -559,6 +570,7 @@ footer {
 // the whole spread reads as warm ink on dark paper.
 .feature,
 .catalog-rail > *,
+.catalog-pair > *,
 .catalog-grid > * {
     padding: space(xl);
     border-top: 1px solid var(--catalog-rule);
@@ -570,6 +582,7 @@ footer {
 // uppercase, warm-brass kicker prefixed with its figure number — not the serif
 // amber title the aside uses. The inner-page aside keeps the serif .fixture-title.
 .catalog-rail .fixture-title,
+.catalog-pair .fixture-title,
 .catalog-grid .fixture-title {
     font-family: font(mono);
     font-weight: 400;
@@ -585,11 +598,13 @@ footer {
 // Number every catalog fixture except the Recent Scrolls index (which is labelled
 // "Contents", not a figure).
 .catalog-rail > .fixture:not(.recent-scrolls),
+.catalog-pair > .fixture,
 .catalog-grid > .fixture {
     counter-increment: fig;
 }
 
 .catalog-rail > .fixture:not(.recent-scrolls) .fixture-title::before,
+.catalog-pair > .fixture .fixture-title::before,
 .catalog-grid > .fixture .fixture-title::before {
     content: "Fig. " counter(fig) " · ";
     color: color-mix(in oklch, var(--drafting-lamp-amber) 66%, var(--brass-linework));
@@ -819,11 +834,13 @@ footer {
 
 // Collapse the catalog to a single column on narrow viewports.
 @media (max-width: 900px) {
-    .catalog-top {
+    .catalog-top,
+    .catalog-pair {
         grid-template-columns: 1fr;
     }
 
-    .feature {
+    .feature,
+    .catalog-pair > *:first-child {
         border-right: none;
     }
 

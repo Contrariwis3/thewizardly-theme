@@ -102,14 +102,19 @@
 
       {{ partial "fixtures/illuminations.html" . }}
       {{ partial "fixtures/reading-pavilion.html" . }}
-      {{ partial "fixtures/mystic-missives.html" . }}
     </div>
+  </div>
+
+  {{/* Row 2: a full-width pair split evenly down the middle — the two "on the
+       wire" streams, each wide enough to breathe. */}}
+  <div class="catalog-pair">
+    {{ partial "fixtures/mystic-missives.html" . }}
+    {{ partial "fixtures/bookmarks.html" . }}
   </div>
 
   <div class="catalog-grid">
     {{ partial "fixtures/allied-mages.html" . }}
     {{ partial "fixtures/random-incantations.html" . }}
-    {{ partial "fixtures/bookmarks.html" . }}
     {{ partial "fixtures/arcane-tags.html" . }}
     {{ partial "fixtures/enchanted-emblems.html" . }}
   </div>

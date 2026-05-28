@@ -17,7 +17,7 @@
       <section class="fixture fixture--bookmarks">
         <h2 class="fixture-title">Bookmarks</h2>
         <ul class="fixture-list bookmark-mini">
-          {{ range first 4 $bookmarks }}
+          {{ range first 6 $bookmarks }}
           {{ $note := replaceRE `(?s)<a.*` "" .content_html | plainify | htmlUnescape | strings.TrimSpace | truncate 72 }}
           <li>
             <a href="{{ .url }}">
