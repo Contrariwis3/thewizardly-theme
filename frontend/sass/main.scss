@@ -711,42 +711,43 @@ footer {
 }
 
 // RECENT SCROLLS — the catalog's dated contents index of everything past the feature.
-.recent-scrolls {
-    .scroll-list {
-        list-style: none;
-        margin: space(sm) 0 0;
-        padding: 0;
+// The scroll-list: a dated index of scrolls, used by the home's Recent Scrolls
+// and by the reading plate's "Other Curiosities" colophon. Base classes so the
+// component travels; the "Contents" label stays scoped to .recent-scrolls.
+.scroll-list {
+    list-style: none;
+    margin: space(sm) 0 0;
+    padding: 0;
+}
+
+.scroll-row {
+    display: grid;
+    grid-template-columns: 4.4em 1fr;
+    gap: space(md);
+    align-items: baseline;
+    padding: space(sm) 0;
+
+    & + & {
+        border-top: 1px dotted var(--catalog-rule-faint);
     }
+}
 
-    .scroll-row {
-        display: grid;
-        grid-template-columns: 4.4em 1fr;
-        gap: space(md);
-        align-items: baseline;
-        padding: space(sm) 0;
+.scroll-date {
+    font-family: font(heading);
+    font-style: italic;
+    color: var(--brass-linework);
+    font-size: size(small);
+    white-space: nowrap;
+}
 
-        & + & {
-            border-top: 1px dotted var(--catalog-rule-faint);
-        }
-    }
+.scroll-title a {
+    border-bottom: none;
 
-    .scroll-date {
-        font-family: font(heading);
-        font-style: italic;
-        color: var(--brass-linework);
-        font-size: size(small);
-        white-space: nowrap;
-    }
+    &:hover { border-bottom: 1px solid var(--drafting-lamp-amber); }
+}
 
-    .scroll-title a {
-        border-bottom: none;
-
-        &:hover { border-bottom: 1px solid var(--drafting-lamp-amber); }
-    }
-
-    .scroll-title--micro a {
-        color: color-mix(in oklch, var(--marquee-bulb-cream) 82%, var(--night-shift-midnight));
-    }
+.scroll-title--micro a {
+    color: color-mix(in oklch, var(--marquee-bulb-cream) 82%, var(--night-shift-midnight));
 }
 
 .fixture-more {
@@ -1014,6 +1015,11 @@ footer {
     margin-top: space(xxxl);
     padding-top: space(xl);
     border-top: 2px solid var(--catalog-rule);
+    // The colophon is an <article> footer; override the centered, padded site-footer
+    // styling that the unscoped global `footer {}` rule leaks onto it.
+    text-align: left;
+    padding-bottom: 0;
+    color: inherit;
 }
 
 .colophon-filed {
@@ -1034,20 +1040,24 @@ footer {
 }
 
 .colophon-reply { margin-bottom: space(xl); }
+// micro.blog supplies the reply affordance; if it renders nothing, don't leave a gap.
+.colophon-reply:empty { display: none; }
 
+// Other Curiosities: a few random scrolls to wander into (the catalog-of-wonder
+// fallback in place of a linear next/previous), styled as a small Recent-Scrolls
+// fixture at the foot of the plate.
+.colophon-curiosities {
+    // The "Other Curiosities" heading carries its own rule (fixture-title), so the
+    // section needs spacing above, not another divider.
+    margin-top: space(xl);
+}
+
+// The static-page colophon's single return link.
 .colophon-wayfinding {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: space(md);
     padding-top: space(lg);
     border-top: 1px solid var(--catalog-rule-faint);
     font-family: font(mono);
     font-size: size(small);
-
-    .wayfinding-side { flex: 1 1 0; }
-    .wayfinding-side--later { text-align: right; }
-    .wayfinding-home { white-space: nowrap; }
 }
 
 // Pavilion Displays (the trinket fixtures). On inner pages each fixture renders
