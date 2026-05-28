@@ -9,10 +9,7 @@
 {{ if gt (len $posts) 0 }}{{ $feature = index $posts 0 }}{{ end }}
 
 <div class="catalog">
-  <div class="catalog-runhead">
-    <span class="catalog-vol">The All-Night Pavilion · dispatches from the late shift</span>
-    <nav class="catalog-nav" aria-label="Main navigation">{{ partial "fixtures/_nav-links.html" . }}</nav>
-  </div>
+  {{ partial "catalog/runhead.html" (dict "vol" "The All-Night Pavilion · dispatches from the late shift" "page" .) }}
 
   <div class="catalog-top">
     {{ with $feature }}

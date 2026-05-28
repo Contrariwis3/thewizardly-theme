@@ -290,7 +290,7 @@ pre {
     text-align: center;
     padding: 0 space(xl);
 
-    h1 {
+    .masthead-wordmark {
         margin: 0;
         font-family: font(heading);
         font-weight: 400;
@@ -333,7 +333,7 @@ pre {
         transform: translateY(-50%);
     }
 
-    .masthead-title h1 {
+    .masthead-title .masthead-wordmark {
         font-size: clamp(2.8rem, 8vw, 5rem);
     }
 
@@ -348,7 +348,7 @@ pre {
     padding: space(xxl) 0;
     border-bottom: 1px solid color-mix(in oklch, var(--brass-linework) 18%, transparent);
 
-    .masthead-title h1 {
+    .masthead-title .masthead-wordmark {
         font-size: size(h1);
 
         @media (max-width: 768px) {
@@ -936,15 +936,14 @@ footer {
 // Bona Nova capital floated for a clean 2-line drop: the planetarium-show
 // title slide that opens each essay. Replaces the old manuscript Drop Cap with
 // the same lockup math and a marquee cultural reference instead of a medieval
-// one. Scoped to .card:has(> h2): only titled posts get it; titleless
-// microposts (no h2, often <10 words, where a 4em capital would be absurd) are
-// skipped.
+// one. Scoped to a titled reading plate; titleless microposts (where a 4em
+// capital would be absurd) are skipped.
 //
 // The Three-Knobs Rule: cap font-size × cap line-height = N × body line-height.
 // Here 4em × 0.8 = 3.2em = 2 × 1.6em (a clean 2-line drop), and body
 // line-height is 1.6, so the lockup holds with no retune. If body line-height
 // changes, recompute the cap line-height to preserve the equation.
-.card:has(> h2) .post-content > p:first-of-type::first-letter {
+.reading-plate:not(.reading-plate--micro):not(.reading-plate--standing) .post-content > p:first-of-type::first-letter {
     font-family: font(heading);
     font-weight: 400;
     color: var(--drafting-lamp-amber);
@@ -955,6 +954,100 @@ footer {
     // Earned-Glow Rule: the Marquee Initial glows like a planetarium title slide.
     // Marquee Glow lives here, on the masthead, and on link hover, nowhere else.
     text-shadow: var(--marquee-glow);
+}
+
+// ===================================
+// THE READING PLATE (single scrolls + standing pages) — FJ#4
+// ===================================
+// A scroll read in full as one Catalog plate: the runhead (in baseof) carries the
+// nav, the specimen sits centered under the lamp's lit edge in a single reading
+// column, no trinket aside. The catalog language frames the prose without crowding it.
+.reading {
+    max-width: 40rem;
+    margin: 0 auto;
+    padding: space(md) space(xl) space(xxxl);
+    // Figure-numbered images within the plate count off this scope.
+    counter-reset: fig;
+}
+
+.reading-plate {
+    // The lamp catches the top edge of the sheet (named-light glint), as on the feature.
+    border-top: 2px solid var(--lit-edge);
+    margin-top: space(xl);
+    padding-top: space(xl);
+
+    .arcane-timestamp { margin-bottom: space(xxl); }
+}
+
+// The plate title: the page's h1, Bona Nova amber — the scroll on display.
+.plate-title {
+    font-family: font(heading);
+    font-weight: 400;
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    line-height: 1.15;
+    color: var(--drafting-lamp-amber);
+    margin: space(xs) 0 space(sm);
+    text-wrap: balance;
+}
+
+// Titleless micropost: the dateline stands in as the heading — modest, not a display title.
+.plate-title--micro {
+    font-family: font(heading);
+    font-style: italic;
+    font-weight: 400;
+    font-size: size(medium);
+    color: var(--brass-linework);
+    margin: 0 0 space(lg);
+
+    .timestamp-icon { color: var(--now-broadcasting-red); }
+    .permalink { color: inherit; border-bottom: none; }
+}
+
+.plate-replying {
+    font-style: italic;
+    color: var(--brass-linework);
+    margin-bottom: space(lg);
+}
+
+// The colophon: back-matter that replaces the trinket aside — filing, response, wayfinding.
+.colophon {
+    margin-top: space(xxxl);
+    padding-top: space(xl);
+    border-top: 2px solid var(--catalog-rule);
+}
+
+.colophon-filed {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: space(sm);
+    margin-bottom: space(xl);
+
+    .colophon-label {
+        font-family: font(mono);
+        font-size: size(small);
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--brass-warm);
+        margin-right: space(xs);
+    }
+}
+
+.colophon-reply { margin-bottom: space(xl); }
+
+.colophon-wayfinding {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: space(md);
+    padding-top: space(lg);
+    border-top: 1px solid var(--catalog-rule-faint);
+    font-family: font(mono);
+    font-size: size(small);
+
+    .wayfinding-side { flex: 1 1 0; }
+    .wayfinding-side--later { text-align: right; }
+    .wayfinding-home { white-space: nowrap; }
 }
 
 // Pavilion Displays (the trinket fixtures). On inner pages each fixture renders

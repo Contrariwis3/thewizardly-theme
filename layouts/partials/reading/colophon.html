@@ -1,0 +1,37 @@
+{{/* ABOUTME: The reading plate's colophon — the filing, the response affordance, and wayfinding back into the Catalog. */}}
+{{/* ABOUTME: Posts step to adjacent scrolls + the compendium; static plates return to the Pavilion. */}}
+{{ $isPost := eq .Type "post" }}
+<footer class="colophon">
+  {{ with (.GetTerms "categories") }}
+  <div class="colophon-filed">
+    <span class="colophon-label">Filed under</span>
+    {{ range . }}<a class="tag" href="{{ .Permalink }}"><i class="ph ph-sparkle" aria-hidden="true"></i> {{ .LinkTitle }}</a>{{ end }}
+  </div>
+  {{ end }}
+
+  {{ if $isPost }}
+  <div class="colophon-reply">{{ partial "reply-by-email.html" . }}</div>
+  {{ end }}
+
+  <nav class="colophon-wayfinding" aria-label="More from the catalog">
+    {{ if $isPost }}
+      {{/* Adjacent scrolls, computed from the date-ordered post list (newest first):
+           the page before this one is later, the page after is earlier. */}}
+      {{ $posts := where .Site.RegularPages.ByDate.Reverse "Type" "post" }}
+      {{ $cur := .Permalink }}
+      {{ $later := false }}
+      {{ $earlier := false }}
+      {{ range $i, $p := $posts }}
+        {{ if eq $p.Permalink $cur }}
+          {{ if gt $i 0 }}{{ $later = index $posts (sub $i 1) }}{{ end }}
+          {{ if lt (add $i 1) (len $posts) }}{{ $earlier = index $posts (add $i 1) }}{{ end }}
+        {{ end }}
+      {{ end }}
+      <span class="wayfinding-side wayfinding-side--earlier">{{ with $earlier }}<a href="{{ .Permalink }}">← Earlier scroll</a>{{ end }}</span>
+      <a class="wayfinding-home" href="{{ "archive" | relURL }}">Return to the compendium</a>
+      <span class="wayfinding-side wayfinding-side--later">{{ with $later }}<a href="{{ .Permalink }}">Later scroll →</a>{{ end }}</span>
+    {{ else }}
+      <a class="wayfinding-home" href="{{ "/" | relURL }}">Return to the Pavilion</a>
+    {{ end }}
+  </nav>
+</footer>
