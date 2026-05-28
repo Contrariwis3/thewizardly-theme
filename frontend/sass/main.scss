@@ -486,6 +486,9 @@ footer {
     max-width: 1180px;
     margin: 0 auto;
     padding: space(md) space(xxl) space(xxxl);
+    // Figure numbering for the plate language (the feature is "Plate I", the
+    // Recent Scrolls index is "Contents", every other fixture is "Fig. N").
+    counter-reset: fig;
 }
 
 .catalog-runhead {
@@ -562,10 +565,38 @@ footer {
     position: relative;
 }
 
-// Catalog fixture titles read a touch smaller than the aside's.
+// In the catalog, the trinket headings become the plate language: a mono,
+// uppercase, warm-brass kicker prefixed with its figure number — not the serif
+// amber title the aside uses. The inner-page aside keeps the serif .fixture-title.
 .catalog-rail .fixture-title,
 .catalog-grid .fixture-title {
-    font-size: size(medium);
+    font-family: font(mono);
+    font-weight: 400;
+    font-size: size(small);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--brass-warm);
+    border: none;
+    padding: 0;
+    margin: 0 0 space(md);
+}
+
+// Number every catalog fixture except the Recent Scrolls index (which is labelled
+// "Contents", not a figure).
+.catalog-rail > .fixture:not(.recent-scrolls),
+.catalog-grid > .fixture {
+    counter-increment: fig;
+}
+
+.catalog-rail > .fixture:not(.recent-scrolls) .fixture-title::before,
+.catalog-grid > .fixture .fixture-title::before {
+    content: "Fig. " counter(fig) " · ";
+    color: color-mix(in oklch, var(--drafting-lamp-amber) 66%, var(--brass-linework));
+}
+
+.recent-scrolls .fixture-title::before {
+    content: "Contents · ";
+    color: color-mix(in oklch, var(--drafting-lamp-amber) 66%, var(--brass-linework));
 }
 
 // The figure / plate kicker that labels each entry.

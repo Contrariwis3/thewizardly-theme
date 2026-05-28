@@ -43,20 +43,13 @@
       {{ else if .Params.custom_summary }}
         {{ $body = .Summary | safeHTML }}
         {{ $truncated = true }}
-      {{ else if ge .WordCount 950 }}
+      {{ else }}
+        {{/* Auto-trim the feature to a ~3-paragraph lead so the front page invites
+             the reader in without pushing the catalog below the fold. Only trims
+             when there are more than 3 paragraphs; shorter posts render in full. */}}
         {{ $paragraphs := split .Content "</p>" }}
-        {{ $accumulated := 0 }}
-        {{ $cutAt := -1 }}
-        {{ range $i, $p := $paragraphs }}
-          {{ if lt $cutAt 0 }}
-            {{ $accumulated = add $accumulated (len (split (plainify $p) " ")) }}
-            {{ if ge $accumulated 750 }}
-              {{ $cutAt = $i }}
-            {{ end }}
-          {{ end }}
-        {{ end }}
-        {{ if and (ge $cutAt 0) (gt (sub .WordCount $accumulated) 200) }}
-          {{ $kept := first (add $cutAt 1) $paragraphs }}
+        {{ if gt (len $paragraphs) 4 }}
+          {{ $kept := first 3 $paragraphs }}
           {{ $body = printf "%s</p>" (delimit $kept "</p>") | safeHTML }}
           {{ $truncated = true }}
         {{ end }}
@@ -92,7 +85,13 @@
             {{ if .Title }}
             <span class="scroll-title"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></span>
             {{ else }}
-            <span class="scroll-title scroll-title--micro"><a href="{{ .RelPermalink }}">{{ .Content | plainify | truncate 72 }}</a></span>
+            {{ $plain := .Content | plainify | strings.TrimSpace }}
+            {{ if $plain }}
+            <span class="scroll-title scroll-title--micro"><a href="{{ .RelPermalink }}">{{ $plain | truncate 72 }}</a></span>
+            {{ else }}
+            {{/* Wordless (image-only) micropost: the Compendium's "an illumination" treatment. */}}
+            <span class="scroll-title scroll-title--micro scroll-title--wordless"><a href="{{ .RelPermalink }}"><i class="ph ph-image" aria-hidden="true"></i> an illumination</a></span>
+            {{ end }}
             {{ end }}
           </li>
           {{ end }}
