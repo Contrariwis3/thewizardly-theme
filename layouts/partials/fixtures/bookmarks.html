@@ -1,0 +1,36 @@
+{{/* ABOUTME: Bookmarks fixture — a few recent saved links as a Pavilion catalog entry, linking to /bookmarks/. */}}
+{{/* ABOUTME: Reads the same micro.blog JSON feed as the bookmarks shortcode (Site.Params.feeds.bookmarks_json). */}}
+{{ with $.Site.Params.feeds.bookmarks_json }}
+{{ $result := try (resources.GetRemote .) }}
+{{ with $result.Err }}
+  {{ warnf "Bookmarks fixture fetch failed: %s" . }}
+{{ else }}
+  {{ with $result.Value }}
+    {{ $response := . | transform.Unmarshal }}
+    {{ if isset $response "items" }}
+      {{/* micro.blog mixes in "link..."-id archived-link sub-items; keep only real bookmarks. */}}
+      {{ $bookmarks := slice }}
+      {{ range $response.items }}
+        {{ if not (hasPrefix .id "link") }}{{ $bookmarks = $bookmarks | append . }}{{ end }}
+      {{ end }}
+      {{ if gt (len $bookmarks) 0 }}
+      <section class="fixture fixture--bookmarks">
+        <h2 class="fixture-title">Bookmarks</h2>
+        <ul class="fixture-list bookmark-mini">
+          {{ range first 4 $bookmarks }}
+          {{ $note := replaceRE `(?s)<a.*` "" .content_html | plainify | htmlUnescape | strings.TrimSpace | truncate 72 }}
+          <li>
+            <a href="{{ .url }}">
+              {{ with .author }}{{ with .avatar }}<img class="bookmark-favicon" src="{{ . }}" alt="" width="16" height="16" loading="lazy">{{ end }}{{ end }}
+              <span>{{ $note }}</span>
+            </a>
+          </li>
+          {{ end }}
+        </ul>
+        <a class="fixture-more" href="{{ "bookmarks" | relURL }}">More bookmarks →</a>
+      </section>
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+{{ end }}

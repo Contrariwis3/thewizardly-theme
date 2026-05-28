@@ -550,7 +550,8 @@ footer {
     > * { border-right: 1px solid var(--catalog-rule-faint); }
     > .fixture--mages { grid-column: span 4; }
     > .fixture--random { grid-column: span 4; }
-    > .fixture--tags { grid-column: span 4; }
+    > .fixture--bookmarks { grid-column: span 4; }
+    > .fixture--tags { grid-column: span 12; }
     > .fixture--emblems { grid-column: span 12; border-right: none; }
 }
 
@@ -724,6 +725,95 @@ footer {
         object-fit: cover;
         border-radius: radius(small);
         @include card-shadow();
+    }
+}
+
+// ILLUMINATIONS fixture — the latest photo as a framed plate linking to /photos/.
+.fixture--illuminations {
+    .illumination-latest {
+        display: block;
+        margin-top: space(sm);
+        padding: 4px;
+        border: 1px solid var(--catalog-rule);
+        @include card-shadow();
+
+        &:hover {
+            border-color: color-mix(in oklch, var(--drafting-lamp-amber) 50%, var(--brass-linework));
+        }
+
+        img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+        }
+    }
+}
+
+// BOOKMARKS fixture — a compact list of recent saved links.
+.bookmark-mini {
+    li {
+        padding: space(xs) 0;
+    }
+
+    li + li {
+        border-top: 1px dotted var(--catalog-rule-faint);
+    }
+
+    a {
+        display: flex;
+        align-items: baseline;
+        gap: space(sm);
+        border-bottom: none;
+
+        &:hover {
+            border-bottom: none;
+
+            span { text-decoration: underline; }
+        }
+    }
+
+    .bookmark-favicon {
+        flex-shrink: 0;
+        transform: translateY(3px);
+    }
+}
+
+// ===================================
+// ILLUMINATIONS SURFACE (/photos/)
+// ===================================
+// A Catalog page of every photo post as a grid of plates.
+.catalog-rubric {
+    font-family: font(heading);
+    font-weight: 400;
+    font-size: size(h2);
+    color: var(--drafting-lamp-amber);
+    margin: space(xl) 0 space(lg);
+    padding-top: space(lg);
+    border-top: 2px solid var(--catalog-rule);
+}
+
+.plate-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: space(md);
+}
+
+.plate {
+    display: block;
+    padding: 5px;
+    border: 1px solid var(--catalog-rule);
+    @include card-shadow();
+
+    &:hover {
+        border-color: color-mix(in oklch, var(--drafting-lamp-amber) 50%, var(--brass-linework));
+    }
+
+    img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
     }
 }
 
