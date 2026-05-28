@@ -1215,8 +1215,9 @@ footer {
     display: inline-block;
     @include transition();
 
+    // No card-lift (DESIGN.md §5 Reading Pavilion / §4 Page-Not-Button Rule):
+    // the cover gets a gentle hover-halo, never a lift.
     &:hover {
-        transform: translateY(-4px);
         @include hover-shadow(var(--drafting-lamp-amber), 30%);
     }
 }
