@@ -1458,6 +1458,14 @@ footer {
     margin: 0 space(xs);
 }
 
+// Archived fallback: a public S3 snapshot link for bookmarks whose original may
+// rot. Inherits the amber link treatment; only the separator stays meta-brass.
+.bookmark-archive::before {
+    content: " · ";
+    margin: 0 space(xs);
+    color: var(--brass-linework);
+}
+
 // ===================================
 // WEB BUTTONS COLLECTION (ENCHANTED EMBLEMS)
 // ===================================
