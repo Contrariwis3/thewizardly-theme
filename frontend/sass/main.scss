@@ -1042,13 +1042,14 @@ footer {
 }
 
 // Continue Reading affordance (the page-turn)
-// Shown beneath an auto-truncated or <!--more--> summary on the index. The
-// link itself inherits the global amber / dotted-underline / hover-glow
-// treatment; this rule only positions the wrapping paragraph.
+// Shown beneath an auto-truncated or <!--more--> summary on the index. Matches
+// the catalog's other "more ->" affordances (.fixture-more): mono, small, and
+// left-aligned. The link inherits the global amber / dotted-underline / glow.
 .continue-reading {
     margin-top: space(xl);
     margin-bottom: 0;
-    text-align: right;
+    font-family: font(mono);
+    font-size: size(small);
 }
 
 // ===================================
