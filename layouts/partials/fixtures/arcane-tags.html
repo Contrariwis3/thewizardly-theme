@@ -5,9 +5,14 @@
 <section class="fixture fixture--tags">
   <h2 class="fixture-title">Arcane Tags</h2>
   <div class="fixture-pills">
-    {{ range $list }}
+    {{/* A sample only — the full taxonomy can run long (and unhinged); the rest
+         live at /categories/. */}}
+    {{ range first 6 $list }}
     <a class="tag" href="{{ .Permalink }}"><i class="ph ph-sparkle"></i> {{ .Title }}</a>
     {{ end }}
   </div>
+  {{ if gt (len $list) 6 }}
+  <a class="fixture-more" href="{{ "categories" | relURL }}">All categories →</a>
+  {{ end }}
 </section>
 {{ end }}
