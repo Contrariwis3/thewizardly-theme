@@ -503,16 +503,19 @@ footer {
     margin: space(lg) 0;
 }
 
-// Illuminated Drop Cap (essay posts only)
-// Scoped to .card:has(> h2): only titled posts get the manuscript capital.
-// On micro.blog, titleless posts are microposts (often <10 words) where a
-// 4em capital would be absurd. The :has(> h2) scope handles the conditional.
+// Marquee Initial (titled essays only)
+// The first letter of a titled essay's opening paragraph, set as a glowing
+// Bona Nova capital floated for a clean 2-line drop: the planetarium-show
+// title slide that opens each essay. Replaces the old manuscript Drop Cap with
+// the same lockup math and a marquee cultural reference instead of a medieval
+// one. Scoped to .card:has(> h2): only titled posts get it; titleless
+// microposts (no h2, often <10 words, where a 4em capital would be absurd) are
+// skipped.
 //
 // The Three-Knobs Rule: cap font-size × cap line-height = N × body line-height.
-// Here 4em × 0.8 = 3.2em = 2 × 1.6em (clean 2-line drop). Cap-baseline lands
-// on body line 2's baseline. If body line-height changes, recompute cap
-// line-height to preserve the lockup. (Rebuilt as the glowing Marquee Initial
-// in Increment 2.)
+// Here 4em × 0.8 = 3.2em = 2 × 1.6em (a clean 2-line drop), and body
+// line-height is 1.6, so the lockup holds with no retune. If body line-height
+// changes, recompute the cap line-height to preserve the equation.
 .card:has(> h2) .post-content > p:first-of-type::first-letter {
     font-family: font(heading);
     font-weight: 400;
@@ -520,7 +523,10 @@ footer {
     font-size: 4em;
     line-height: 0.8;
     float: left;
-    margin-right: 0.12em;
+    margin-right: 0.14em;
+    // Earned-Glow Rule: the Marquee Initial glows like a planetarium title slide.
+    // Marquee Glow lives here, on the masthead, and on link hover, nowhere else.
+    text-shadow: var(--marquee-glow);
 }
 
 // Sidebar Content (the Pavilion Displays)
