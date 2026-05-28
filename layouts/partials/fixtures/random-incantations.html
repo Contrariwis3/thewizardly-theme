@@ -1,0 +1,10 @@
+{{/* ABOUTME: Random Incantations fixture — three random titled posts as a Pavilion catalog entry. */}}
+{{/* ABOUTME: Shared by the index Catalog and the inner-page aside. */}}
+<section class="fixture fixture--random">
+  <h2 class="fixture-title">Random Incantations</h2>
+  <ul class="fixture-list">
+    {{ range first 3 (shuffle (where (where (where site.RegularPages "Type" "post") "Permalink" "!=" .Permalink) "Title" "!=" "")) }}
+    <li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
+    {{ end }}
+  </ul>
+</section>

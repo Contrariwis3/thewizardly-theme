@@ -1,0 +1,11 @@
+{{/* ABOUTME: The main-menu link list, shared by the catalog runhead nav and the Teleportation Circle fixture. */}}
+{{/* ABOUTME: Single source for the menu loop so the two presentations never drift. */}}
+<ul class="fixture-list">
+  {{ range .Site.Menus.main }}
+  {{ if and .Page (.Page.Params.redirect_url) }}
+  <li><a href="{{ .Page.Params.redirect_url }}">{{ .Name }}</a></li>
+  {{ else }}
+  <li><a href="{{ .URL | relURL | safeURL }}">{{ .Name }}</a></li>
+  {{ end }}
+  {{ end }}
+</ul>

@@ -1,0 +1,10 @@
+{{/* ABOUTME: Allied Mages fixture — the blogroll of fellow dreamers as a Pavilion catalog entry. */}}
+{{/* ABOUTME: Shared by the index Catalog and the inner-page aside. */}}
+<section class="fixture fixture--mages">
+  <h2 class="fixture-title">Allied Mages</h2>
+  <ul class="fixture-list">
+    {{ range hugo.Data.blogrolls.recommendations }}
+    <li><a href="{{ .url }}">{{ .name }}</a></li>
+    {{ end }}
+  </ul>
+</section>

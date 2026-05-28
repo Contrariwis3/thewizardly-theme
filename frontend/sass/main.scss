@@ -465,6 +465,255 @@ footer {
 }
 
 // ===================================
+// THE GREAT CATALOG (HOME / FRONT PAGE) — FJ#4 Increment 3
+// ===================================
+// The home page is a dense, ruled catalog spread (DESIGN.md §5, reframed): the
+// most recent post is the feature (trimmed at a paragraph boundary), a Recent
+// Scrolls index keeps the rest reachable, and the trinkets are catalog fixtures
+// at stable grid positions. Warmth comes from ink and edges — the lamp catching
+// the feature's top edge, and brass rules + figure numbers warmed toward amber —
+// never an ambient pool (a sourceless glow is the AI-atompunk-slop tell).
+:root {
+    // Warm structural ink: brass nudged toward the drafting lamp (the "lamplit ledger").
+    --brass-warm: color-mix(in oklch, var(--brass-linework) 74%, var(--drafting-lamp-amber));
+    --catalog-rule: color-mix(in oklch, var(--brass-warm) 40%, transparent);
+    --catalog-rule-faint: color-mix(in oklch, var(--brass-warm) 20%, transparent);
+    // The lamp catching the top edge of the current sheet (named-light glint).
+    --lit-edge: color-mix(in oklch, var(--drafting-lamp-amber) 60%, var(--brass-linework));
+}
+
+.catalog {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: space(md) space(xxl) space(xxxl);
+}
+
+.catalog-runhead {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: space(lg);
+    flex-wrap: wrap;
+    border-bottom: 2px solid var(--catalog-rule);
+    padding-bottom: space(sm);
+
+    .catalog-vol {
+        font-family: font(heading);
+        font-style: italic;
+        color: var(--brass-linework);
+        font-size: size(medium);
+    }
+}
+
+.catalog-nav .fixture-list {
+    display: flex;
+    gap: space(lg);
+    flex-wrap: wrap;
+
+    li {
+        padding: 0;
+    }
+
+    a {
+        border-bottom: none;
+        font-size: size(small);
+
+        &:hover {
+            border-bottom: 1px solid var(--drafting-lamp-amber);
+        }
+    }
+}
+
+// Top zone: the feature beside a right rail (Recent Scrolls + Reading Pavilion).
+// Two independent-height columns, top-aligned, so a tall feature never forces a
+// dense-grid gap.
+.catalog-top {
+    display: grid;
+    grid-template-columns: 8fr 4fr;
+    align-items: start;
+}
+
+.catalog-rail {
+    min-width: 0;
+}
+
+// Bottom zone: the remaining fixtures in a dense ruled grid.
+.catalog-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-auto-flow: dense;
+    grid-auto-rows: min-content;
+
+    > * { border-right: 1px solid var(--catalog-rule-faint); }
+    > .fixture--mages { grid-column: span 4; }
+    > .fixture--random { grid-column: span 4; }
+    > .fixture--tags { grid-column: span 4; }
+    > .fixture--emblems { grid-column: span 12; border-right: none; }
+}
+
+// Every catalog entry is a ruled cell. The brass rules are warmed toward amber so
+// the whole spread reads as warm ink on dark paper.
+.feature,
+.catalog-rail > *,
+.catalog-grid > * {
+    padding: space(xl);
+    border-top: 1px solid var(--catalog-rule);
+    min-width: 0;
+    position: relative;
+}
+
+// Catalog fixture titles read a touch smaller than the aside's.
+.catalog-rail .fixture-title,
+.catalog-grid .fixture-title {
+    font-size: size(medium);
+}
+
+// The figure / plate kicker that labels each entry.
+.catalog-fig {
+    display: block;
+    margin-bottom: space(sm);
+    font-family: font(mono);
+    font-size: size(small);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--brass-warm);
+
+    .catalog-fig-n { color: color-mix(in oklch, var(--drafting-lamp-amber) 66%, var(--brass-linework)); }
+
+    // One REC light per surface: the "now broadcasting" mark on the feature.
+    .catalog-fig-live {
+        color: var(--now-broadcasting-red);
+
+        i { font-size: 0.8em; vertical-align: middle; }
+    }
+}
+
+// THE FEATURE — the most recent post, large, under the lamp's lit edge.
+.feature {
+    // The lamp catches the top edge of the current sheet (named-light glint);
+    // a vertical rule separates the feature from the right rail.
+    border-top: 2px solid var(--lit-edge);
+    border-right: 1px solid var(--catalog-rule);
+
+    .feature-title {
+        font-family: font(heading);
+        font-weight: 400;
+        font-size: 2.4rem;
+        line-height: 1.18;
+        margin: space(xs) 0 space(sm);
+        color: var(--drafting-lamp-amber);
+        text-wrap: balance;
+    }
+
+    .arcane-timestamp { margin-bottom: space(xl); }
+    .post-content > p { max-width: 64ch; }
+
+    .post-tags {
+        margin-top: space(xl);
+        padding-top: space(lg);
+        border-top: 1px solid var(--catalog-rule-faint);
+    }
+}
+
+// Marquee Initial on the titled feature (Three-Knobs Rule preserved: 4em × 0.8 = 2 × 1.6em).
+// Skipped on titleless microposts, where a 4em capital would be absurd.
+.feature:not(.feature--micro) .post-content > p:first-of-type::first-letter {
+    font-family: font(heading);
+    font-weight: 400;
+    color: var(--drafting-lamp-amber);
+    font-size: 4em;
+    line-height: 0.8;
+    float: left;
+    margin-right: 0.14em;
+    text-shadow: var(--marquee-glow);
+}
+
+// RECENT SCROLLS — the catalog's dated contents index of everything past the feature.
+.recent-scrolls {
+    .scroll-list {
+        list-style: none;
+        margin: space(sm) 0 0;
+        padding: 0;
+    }
+
+    .scroll-row {
+        display: grid;
+        grid-template-columns: 4.4em 1fr;
+        gap: space(md);
+        align-items: baseline;
+        padding: space(sm) 0;
+
+        & + & {
+            border-top: 1px dotted var(--catalog-rule-faint);
+        }
+    }
+
+    .scroll-date {
+        font-family: font(heading);
+        font-style: italic;
+        color: var(--brass-linework);
+        font-size: size(small);
+        white-space: nowrap;
+    }
+
+    .scroll-title a {
+        border-bottom: none;
+
+        &:hover { border-bottom: 1px solid var(--drafting-lamp-amber); }
+    }
+
+    .scroll-title--micro a {
+        color: color-mix(in oklch, var(--marquee-bulb-cream) 82%, var(--night-shift-midnight));
+    }
+}
+
+.fixture-more {
+    display: inline-block;
+    margin-top: space(md);
+    font-family: font(mono);
+    font-size: size(small);
+}
+
+// READING PAVILION fixture — a shelf preview of currently-reading covers.
+.fixture--reading {
+    .shelf {
+        display: flex;
+        gap: space(md);
+        align-items: flex-end;
+        margin-top: space(sm);
+        padding-bottom: space(md);
+        border-bottom: 2px solid color-mix(in oklch, var(--brass-warm) 34%, transparent);
+    }
+
+    .shelf-book { flex: 0 0 auto; }
+
+    .book-cover {
+        width: 64px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: radius(small);
+        @include card-shadow();
+    }
+}
+
+// Collapse the catalog to a single column on narrow viewports.
+@media (max-width: 900px) {
+    .catalog-top {
+        grid-template-columns: 1fr;
+    }
+
+    .feature {
+        border-right: none;
+    }
+
+    .catalog-grid > * {
+        grid-column: span 12 !important;
+        grid-row: auto !important;
+        border-right: none;
+    }
+}
+
+// ===================================
 // COMPONENTS
 // ===================================
 
@@ -529,24 +778,44 @@ footer {
     text-shadow: var(--marquee-glow);
 }
 
-// Sidebar Content (the Pavilion Displays)
-.side-content {
+// Pavilion Displays (the trinket fixtures). On inner pages each fixture renders
+// as a small exhibit case stacked down the right-hand aside; on the home page the
+// same partials are catalog cells (see THE GREAT CATALOG below). The .fixture-title
+// and .fixture-list rules are shared by both presentations.
+.pavilion-aside .fixture {
     background-color: var(--exhibit-card-deep);
     padding: space(xl);
     border-radius: radius(medium);
     margin-bottom: space(xxl);
 }
 
-.side-title {
+.fixture-title {
     color: var(--drafting-lamp-amber);
-    margin-bottom: space(lg);
+    margin: 0 0 space(lg);
     font-size: size(large);
+    font-weight: 400;
     @include subtle-border(var(--brass-linework));
     border-top: none;
     border-left: none;
     border-right: none;
     padding-bottom: space(sm);
     font-family: font(heading);
+}
+
+.fixture-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+        padding: space(xs) 0;
+    }
+}
+
+.fixture-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: space(sm);
 }
 
 // Tag Component (Sigil Pills)
