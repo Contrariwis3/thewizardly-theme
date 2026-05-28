@@ -129,9 +129,9 @@ $border-radius: (
 
 body {
     background-color: var(--night-shift-midnight);
-    // Body texture: the Founding Sky starfield (DESIGN.md Named-Starfield Rule)
-    // arrives in Increment 4 (FJ#4). Until then the surface is plain Night-Shift
-    // Midnight — exactly the cream-on-navy the masthead checkpoint validates.
+    // The Founding Sky lives in the masthead, not here (Increment 4 decision):
+    // the body stays plain Night-Shift Midnight so the catalog reads on warm ink
+    // and edges, not an ambient field. The starfield is in the .masthead-sky rules.
     color: var(--marquee-bulb-cream);
     font-family: font(body);
     font-size: size(base);
@@ -258,8 +258,8 @@ pre {
 // luminous, still-being-dreamed frontier on the right, under the founding sky.
 // Light obeys the Named-Light Rule (the dawn and a few rationed sparks); the
 // title glow lives on the letterforms only (Marquee Glow Rule); motion is gated.
-// The starfield is a generated placeholder; the real Founding Sky lands in
-// Increment 4 and swaps into partials/masthead/.
+// The starfield is the real Founding Sky (scripts/founding_sky.py emits the SVG
+// partial that partials/masthead/{hero,compact} include).
 .masthead {
     position: relative;
     width: 100%;
@@ -345,20 +345,32 @@ pre {
     }
 }
 
-// The boundless starfield (generated placeholder; real Founding Sky in Inc 4).
+// The boundless starfield: the real Founding Sky. scripts/founding_sky.py projects
+// the Yale BSC5 stars above the horizon at the founding instant and emits the SVG
+// partial; it fills the masthead and is cropped by the masthead's aspect ratio.
 .masthead-sky {
     position: absolute;
     inset: 0;
     z-index: 0;
 
-    .star {
-        position: absolute;
-        border-radius: 50%;
-        background-color: var(--marquee-bulb-cream);
+    .founding-sky {
+        display: block;
+        width: 100%;
+        height: 100%;
     }
 
-    .star.bright {
-        box-shadow: 0 0 6px 1px color-mix(in oklch, var(--marquee-bulb-cream) 55%, transparent);
+    // Horizontal overscan so the slow drift never reveals a bare edge.
+    &.drift .founding-sky {
+        width: 104%;
+    }
+
+    .fs-star {
+        fill: var(--marquee-bulb-cream);
+    }
+
+    // The brightest catalogue stars carry a soft bulb-halo (the Named-Light glow).
+    .fs-bright {
+        filter: drop-shadow(0 0 6px color-mix(in oklch, var(--marquee-bulb-cream) 62%, transparent));
     }
 }
 
@@ -440,7 +452,7 @@ pre {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-    .masthead-sky .star.tw {
+    .masthead-sky .fs-tw {
         animation: masthead-twinkle 5.5s ease-in-out infinite;
         animation-delay: var(--d);
     }

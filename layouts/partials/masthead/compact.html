@@ -1,41 +1,8 @@
 {{/* ABOUTME: Inner-page masthead — the compact All-Night Pavilion title band (FJ#4). */}}
-{{/* ABOUTME: A few placeholder stars on the night sky; the full Threshold hero is home-only. */}}
+{{/* ABOUTME: The night sky is the real Founding Sky, cropped to the band; full hero is home-only. */}}
 <header class="masthead masthead--compact">
   <div class="masthead-sky" aria-hidden="true">
-      <span class="star tw" style="left:26.64%;top:75.95%;width:1.44px;height:1.44px;opacity:0.39;--o:0.39;--d:1.96s"></span>
-      <span class="star" style="left:7.07%;top:70.78%;width:2.23px;height:2.23px;opacity:0.65"></span>
-      <span class="star" style="left:76.72%;top:61.95%;width:2.52px;height:2.52px;opacity:0.74"></span>
-      <span class="star tw" style="left:74.92%;top:58.47%;width:2.44px;height:2.44px;opacity:0.72;--o:0.72;--d:1.08s"></span>
-      <span class="star tw" style="left:74.67%;top:17.24%;width:0.88px;height:0.88px;opacity:0.21;--o:0.21;--d:4.47s"></span>
-      <span class="star tw" style="left:55.34%;top:4.26%;width:2.19px;height:2.19px;opacity:0.63;--o:0.63;--d:3.17s"></span>
-      <span class="star" style="left:9.10%;top:55.83%;width:1.25px;height:1.25px;opacity:0.33"></span>
-      <span class="star" style="left:16.73%;top:63.41%;width:1.47px;height:1.47px;opacity:0.40"></span>
-      <span class="star tw" style="left:76.63%;top:7.34%;width:2.52px;height:2.52px;opacity:0.74;--o:0.74;--d:4.43s"></span>
-      <span class="star" style="left:29.20%;top:54.01%;width:2.22px;height:2.22px;opacity:0.64"></span>
-      <span class="star" style="left:85.23%;top:34.46%;width:2.64px;height:2.64px;opacity:0.78"></span>
-      <span class="star bright tw" style="left:4.30%;top:41.60%;width:2.76px;height:2.76px;opacity:0.82;--o:0.82;--d:3.81s"></span>
-      <span class="star bright" style="left:52.53%;top:80.20%;width:2.99px;height:2.99px;opacity:0.90"></span>
-      <span class="star tw" style="left:89.26%;top:51.58%;width:1.24px;height:1.24px;opacity:0.33;--o:0.33;--d:2.71s"></span>
-      <span class="star" style="left:11.80%;top:86.02%;width:1.78px;height:1.78px;opacity:0.50"></span>
-      <span class="star bright" style="left:88.50%;top:55.23%;width:2.95px;height:2.95px;opacity:0.88"></span>
-      <span class="star bright" style="left:15.47%;top:38.92%;width:2.78px;height:2.78px;opacity:0.83"></span>
-      <span class="star" style="left:92.68%;top:17.59%;width:2.68px;height:2.68px;opacity:0.80"></span>
-      <span class="star bright tw" style="left:83.38%;top:37.35%;width:2.75px;height:2.75px;opacity:0.82;--o:0.82;--d:1.37s"></span>
-      <span class="star tw" style="left:17.30%;top:51.52%;width:0.98px;height:0.98px;opacity:0.24;--o:0.24;--d:0.53s"></span>
-      <span class="star tw" style="left:49.08%;top:71.37%;width:2.62px;height:2.62px;opacity:0.78;--o:0.78;--d:2.89s"></span>
-      <span class="star" style="left:0.53%;top:3.97%;width:1.50px;height:1.50px;opacity:0.41"></span>
-      <span class="star" style="left:98.76%;top:55.03%;width:2.33px;height:2.33px;opacity:0.68"></span>
-      <span class="star tw" style="left:19.80%;top:77.74%;width:1.18px;height:1.18px;opacity:0.30;--o:0.30;--d:2.86s"></span>
-      <span class="star" style="left:50.67%;top:86.49%;width:2.25px;height:2.25px;opacity:0.66"></span>
-      <span class="star" style="left:72.90%;top:1.76%;width:2.57px;height:2.57px;opacity:0.76"></span>
-      <span class="star" style="left:89.17%;top:49.93%;width:1.42px;height:1.42px;opacity:0.25"></span>
-      <span class="star" style="left:60.22%;top:35.45%;width:0.63px;height:0.63px;opacity:0.26"></span>
-      <span class="star" style="left:84.03%;top:44.49%;width:0.89px;height:0.89px;opacity:0.10"></span>
-      <span class="star" style="left:93.13%;top:50.91%;width:1.26px;height:1.26px;opacity:0.15"></span>
-      <span class="star" style="left:21.57%;top:10.97%;width:0.66px;height:0.66px;opacity:0.19"></span>
-      <span class="star" style="left:25.65%;top:12.03%;width:1.55px;height:1.55px;opacity:0.17"></span>
-      <span class="star" style="left:0.89%;top:7.56%;width:1.50px;height:1.50px;opacity:0.18"></span>
-      <span class="star" style="left:49.57%;top:31.36%;width:1.36px;height:1.36px;opacity:0.35"></span>
+      {{ partial "masthead/founding-sky.html" . }}
   </div>
   <div class="masthead-title">
     <h1><a href="/">{{ .Site.Title }}</a></h1>
