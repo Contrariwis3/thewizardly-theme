@@ -764,6 +764,9 @@ footer {
     .shelf {
         display: flex;
         gap: space(md);
+        // Spread the covers evenly across the cell rather than left-packing them,
+        // so the shelf reads as a filled row (gap stays the minimum spacing).
+        justify-content: space-between;
         align-items: flex-end;
         margin-top: space(sm);
         padding-bottom: space(md);
