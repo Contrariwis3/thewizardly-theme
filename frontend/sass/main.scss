@@ -423,6 +423,9 @@ pre {
     .draft { stroke: color-mix(in oklch, var(--brass-linework) 84%, var(--marquee-bulb-cream)); fill: none; }
     .rim { stroke: color-mix(in oklch, var(--drafting-lamp-amber) 55%, var(--marquee-bulb-cream)); fill: none; }
     .spark { fill: var(--drafting-lamp-amber); }
+    // Lit windows: small amber panes (a deliberate rectangle, never a round
+    // star) so the built structure reads as built against the starfield.
+    .window { fill: var(--drafting-lamp-amber); }
 
     // Only the dreamed structure glows; the drop-shadow follows the stroke,
     // never pooling into a blob.
