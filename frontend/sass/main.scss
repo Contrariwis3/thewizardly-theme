@@ -202,6 +202,16 @@ a {
         border-bottom: 1px solid var(--drafting-lamp-amber);
         text-shadow: var(--link-hover-glow);
     }
+
+    // Keyboard focus ring: Atomic Turquoise, the pigment DESIGN.md reserves for
+    // focus rings. The cool counter reads as distinct from the warm amber hover
+    // (underline + glow), and clears AA on the night surface (6.07:1). Scoped to
+    // :focus-visible so it shows for keyboard users, not on mouse click.
+    &:focus-visible {
+        outline: 2px solid var(--atomic-turquoise);
+        outline-offset: 3px;
+        border-radius: radius(small);
+    }
 }
 
 // Text Elements
@@ -299,7 +309,9 @@ pre {
             }
 
             &:focus-visible {
-                outline: 2px solid var(--drafting-lamp-amber);
+                // Consistent with the global focus ring (turquoise), with more
+                // offset to clear the large glowing title.
+                outline: 2px solid var(--atomic-turquoise);
                 outline-offset: 6px;
                 border-radius: radius(small);
             }
