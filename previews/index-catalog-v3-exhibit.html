@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<!-- ABOUTME: Index specimen v3 "The Exhibit Floor" (FJ#4 Inc 3) — the Great Catalog as a fairground of varied exhibits.
+     ABOUTME: Mid-fi, pure-CSS: each content type is a differently-shaped exhibit (placard / vitrine / marquee / pedestal), threaded by a promenade path. -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Index Specimen v3 · The Exhibit Floor</title>
+<link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
+<link href="https://fonts.bunny.net/css?family=atkinson-hyperlegible-mono:400|atkinson-hyperlegible-next:400,400i,700|bona-nova:400,400i&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --night-shift-midnight: oklch(32.6% 0.036 239.8);
+    --exhibit-card-deep:    oklch(28% 0.034 240);
+    --drafting-lamp-amber:  oklch(80.5% 0.138 75.9);
+    --atomic-turquoise:     oklch(76.4% 0.094 180.5);
+    --now-broadcasting-red: oklch(65.5% 0.115 33.8);
+    --brass-linework:       oklch(75.7% 0.040 79.9);
+    --marquee-bulb-cream:   oklch(94.6% 0.018 78.2);
+    --font-display: 'Bona Nova', serif;
+    --font-body: 'Atkinson Hyperlegible Next', sans-serif;
+    --font-mono: 'Atkinson Hyperlegible Mono', monospace;
+    --edge: color-mix(in oklch, var(--brass-linework) 26%, transparent);
+    --edge-faint: color-mix(in oklch, var(--brass-linework) 15%, transparent);
+    --case: color-mix(in oklch, var(--exhibit-card-deep) 90%, black);
+    --marquee-glow: 0 0 12px color-mix(in oklch, var(--drafting-lamp-amber) 42%, transparent);
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--night-shift-midnight); color: var(--marquee-bulb-cream);
+    font-family: var(--font-body); font-size: 16px; line-height: 1.6; }
+  a { color: var(--drafting-lamp-amber); text-decoration: none; border-bottom: 1px dotted var(--drafting-lamp-amber); }
+  a:hover { border-bottom-style: solid; text-shadow: var(--marquee-glow); }
+  .kicker { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--brass-linework); }
+
+  .sky { position: relative; height: 200px; overflow: hidden; display: flex; align-items: center; justify-content: center;
+    background:
+      radial-gradient(1.4px 1.4px at 18% 34%, var(--marquee-bulb-cream) 50%, transparent 51%),
+      radial-gradient(1px 1px at 40% 60%, color-mix(in oklch, var(--marquee-bulb-cream) 65%, transparent) 50%, transparent 51%),
+      radial-gradient(1.5px 1.5px at 64% 26%, var(--marquee-bulb-cream) 50%, transparent 51%),
+      radial-gradient(1px 1px at 82% 48%, color-mix(in oklch, var(--marquee-bulb-cream) 60%, transparent) 50%, transparent 51%),
+      var(--night-shift-midnight); }
+  .sky::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 52%, var(--night-shift-midnight) 98%); }
+  .sky h1 { position: relative; z-index: 2; margin: 0; font-family: var(--font-display); font-weight: 400;
+    font-size: clamp(2.4rem, 6vw, 3.6rem); letter-spacing: 0.012em; color: var(--drafting-lamp-amber);
+    text-shadow: 0 0 7px color-mix(in oklch, var(--drafting-lamp-amber) 52%, transparent), 0 0 22px color-mix(in oklch, var(--drafting-lamp-amber) 22%, transparent); }
+
+  /* the floor: a narrow promenade rail + the exhibit hall */
+  .floor { max-width: 1180px; margin: 0 auto; padding: 18px 28px 64px; display: grid; grid-template-columns: 40px 1fr; gap: 0 22px; }
+  .directory { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 14px;
+    border-bottom: 1px solid var(--edge); padding-bottom: 8px; margin-bottom: 24px;
+    font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; color: var(--brass-linework); }
+  .directory nav a { border-bottom: none; margin-left: 16px; }
+
+  /* the promenade: a dotted monorail track down the page with glowing bulb nodes */
+  .promenade { position: relative; }
+  .promenade::before { content: ""; position: absolute; top: 6px; bottom: 30px; left: 50%; width: 0; transform: translateX(-50%);
+    border-left: 1px dashed color-mix(in oklch, var(--brass-linework) 38%, transparent); }
+  .promenade .bulb { position: absolute; left: 50%; transform: translate(-50%, -50%); width: 8px; height: 8px; border-radius: 50%;
+    background: var(--drafting-lamp-amber); box-shadow: 0 0 8px 1px color-mix(in oklch, var(--drafting-lamp-amber) 60%, transparent); }
+  .promenade .bulb:nth-child(1) { top: 60px; }
+  .promenade .bulb:nth-child(2) { top: 320px; }
+  .promenade .bulb:nth-child(3) { top: 560px; }
+  .promenade .bulb:nth-child(4) { top: 800px; }
+  .promenade .bulb:nth-child(5) { top: 1040px; }
+
+  .hall { display: grid; grid-template-columns: repeat(12, 1fr); gap: 22px; align-items: start; grid-auto-flow: dense; }
+  @media (max-width: 900px) { .floor { grid-template-columns: 1fr; } .promenade { display: none; } }
+  @media (max-width: 720px) { .hall > * { grid-column: span 12 !important; } }
+
+  /* ---- exhibit: ESSAY placard hall (wide, marquee header) ---- */
+  .ex-essay { grid-column: span 8; background: var(--case); border: 1px solid var(--edge); border-radius: 4px; overflow: hidden;
+    box-shadow: 0 10px 30px color-mix(in oklch, oklch(20% 0.03 64) 26%, transparent); }
+  .marquee-head { padding: 12px 22px; border-bottom: 1px solid var(--edge);
+    background:
+      radial-gradient(circle at 12px 50%, color-mix(in oklch, var(--drafting-lamp-amber) 70%, transparent) 0 2px, transparent 2.5px) repeat-x,
+      color-mix(in oklch, var(--night-shift-midnight) 60%, var(--case));
+    background-size: 28px 100%; }
+  .ex-essay h2 { font-family: var(--font-display); font-weight: 400; font-size: 2.05rem; line-height: 1.2; margin: 0; color: var(--drafting-lamp-amber);
+    text-shadow: 0 0 10px color-mix(in oklch, var(--drafting-lamp-amber) 22%, transparent); }
+  .ex-essay .body { padding: 16px 22px 24px; }
+  .dateline { font-family: var(--font-display); font-style: italic; color: var(--brass-linework); font-size: 0.95rem; margin: 0 0 12px; }
+  .dateline .rec { color: var(--now-broadcasting-red); }
+  .ex-essay p { margin: 0 0 13px; max-width: 60ch; }
+  .ex-essay p:first-of-type::first-letter { font-family: var(--font-display); font-weight: 400; color: var(--drafting-lamp-amber);
+    font-size: 3.8em; line-height: 0.8; float: left; margin: 0.02em 0.12em 0 0; text-shadow: var(--marquee-glow); }
+  .more { font-family: var(--font-mono); font-size: 0.8rem; }
+
+  /* ---- exhibit: STATUS as a NOW SHOWING marquee sign ---- */
+  .ex-status { grid-column: span 4; align-self: start; padding: 16px; border-radius: 4px; position: relative;
+    background: color-mix(in oklch, var(--night-shift-midnight) 50%, black);
+    border: 2px solid color-mix(in oklch, var(--drafting-lamp-amber) 26%, transparent);
+    box-shadow: inset 0 0 24px color-mix(in oklch, var(--drafting-lamp-amber) 6%, transparent); }
+  /* bulb dots around the sign */
+  .ex-status::before { content: ""; position: absolute; inset: 5px; border-radius: 3px; pointer-events: none;
+    background:
+      radial-gradient(circle, color-mix(in oklch, var(--drafting-lamp-amber) 75%, transparent) 0 1.6px, transparent 2px) repeat-x top left,
+      radial-gradient(circle, color-mix(in oklch, var(--drafting-lamp-amber) 75%, transparent) 0 1.6px, transparent 2px) repeat-x bottom left;
+    background-size: 16px 16px; }
+  .ex-status .now { display: flex; align-items: center; gap: 7px; font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--now-broadcasting-red); margin-bottom: 10px; }
+  .ex-status .now .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--now-broadcasting-red); box-shadow: 0 0 8px 1px color-mix(in oklch, var(--now-broadcasting-red) 60%, transparent); }
+  .wire-entry { padding: 6px 0; }
+  .wire-entry + .wire-entry { border-top: 1px solid var(--edge-faint); }
+  .wire-entry .h { display: flex; justify-content: space-between; align-items: baseline; }
+  .wire-entry .em { font-size: 1.05rem; }
+  .wire-entry .ti { font-family: var(--font-display); font-style: italic; color: var(--brass-linework); font-size: 0.74rem; }
+  .wire-entry .tx { font-size: 0.86rem; line-height: 1.4; }
+
+  /* ---- exhibit: PHOTO vitrine (glass case) ---- */
+  .ex-photo { grid-column: span 4; border-radius: 4px; padding: 7px; background: var(--case);
+    border: 1px solid var(--edge); box-shadow: 0 10px 30px color-mix(in oklch, oklch(20% 0.03 64) 26%, transparent); }
+  .ex-photo .glass { position: relative; aspect-ratio: 4/3; border-radius: 2px; overflow: hidden;
+    border: 1px solid color-mix(in oklch, var(--brass-linework) 30%, transparent);
+    background: radial-gradient(120% 90% at 30% 120%, color-mix(in oklch, var(--drafting-lamp-amber) 26%, transparent), transparent 55%), color-mix(in oklch, var(--exhibit-card-deep) 80%, black); }
+  .ex-photo .glass::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(135deg, color-mix(in oklch, var(--marquee-bulb-cream) 10%, transparent) 0%, transparent 28%); }
+  .ex-photo .placard { font-family: var(--font-mono); font-size: 0.68rem; color: var(--brass-linework); padding: 8px 4px 4px; }
+
+  /* ---- exhibit: BOOKS on a pedestal shelf ---- */
+  .ex-books { grid-column: span 8; }
+  .ex-books .kicker { display: block; margin-bottom: 10px; }
+  .shelf { display: flex; gap: 14px; align-items: flex-end; padding-bottom: 12px;
+    border-bottom: 2px solid color-mix(in oklch, var(--brass-linework) 30%, transparent); }
+  .book { width: 78px; aspect-ratio: 2/3; border-radius: 2px; display: flex; align-items: flex-end; padding: 8px 6px;
+    font-family: var(--font-display); font-size: 0.72rem; line-height: 1.1; color: var(--marquee-bulb-cream);
+    box-shadow: 0 8px 14px color-mix(in oklch, oklch(20% 0.03 64) 44%, transparent); }
+  .b1 { background: color-mix(in oklch, var(--now-broadcasting-red) 40%, var(--exhibit-card-deep)); }
+  .b2 { background: color-mix(in oklch, var(--atomic-turquoise) 32%, var(--exhibit-card-deep)); }
+  .b3 { background: color-mix(in oklch, var(--drafting-lamp-amber) 34%, var(--exhibit-card-deep)); }
+  .b4 { background: color-mix(in oklch, var(--brass-linework) 36%, var(--exhibit-card-deep)); }
+
+  /* ---- directory panel (mages + random + tags) ---- */
+  .ex-dir { grid-column: span 4; background: var(--case); border: 1px solid var(--edge); border-radius: 4px; padding: 16px 18px;
+    box-shadow: 0 10px 30px color-mix(in oklch, oklch(20% 0.03 64) 22%, transparent); }
+  .ex-dir h3 { font-family: var(--font-display); font-weight: 400; font-size: 1.1rem; color: var(--drafting-lamp-amber); margin: 0 0 6px; }
+  .ex-dir + .ex-dir, .ex-dir .group + .group { margin-top: 12px; }
+  .ex-dir .group { padding-top: 12px; border-top: 1px solid var(--edge-faint); }
+  .ex-dir .group:first-of-type { padding-top: 0; border-top: none; }
+  ul.idx { list-style: none; margin: 4px 0 0; padding: 0; }
+  ul.idx li { padding: 3px 0; font-size: 0.9rem; }
+  .pills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+  .pill { font-size: 0.74rem; padding: 2px 10px; border-radius: 20px; background: color-mix(in oklch, var(--brass-linework) 20%, transparent); color: var(--brass-linework); }
+
+  /* ---- emblems trading post ---- */
+  .ex-emblems { grid-column: span 12; }
+  .ex-emblems .kicker { display: block; margin-bottom: 8px; }
+  .emblems { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 12px 0 0; border-top: 1px solid var(--edge); }
+  .emblems img { width: 88px; height: 31px; display: block; }
+  .emblems .note { font-family: var(--font-display); font-style: italic; color: var(--brass-linework); font-size: 0.82rem; margin-right: 6px; }
+
+  .footer { max-width: 1180px; margin: 0 auto; padding: 22px 28px 50px; color: var(--brass-linework); font-size: 0.85rem; text-align: center; }
+  .specimen-note { max-width: 1180px; margin: 6px auto 0; padding: 0 28px 40px; color: var(--brass-linework); font-size: 0.9rem; }
+  .specimen-note b { color: var(--marquee-bulb-cream); }
+</style>
+</head>
+<body>
+  <header class="sky"><h1>The Wizardly</h1></header>
+
+  <main class="floor">
+    <div class="directory">
+      <span>PAVILION FLOOR · WALK THE EXHIBITS</span>
+      <nav><a href="#">Home</a><a href="#">Reading</a><a href="#">Archive</a><a href="#">About</a></nav>
+    </div>
+
+    <div class="promenade">
+      <span class="bulb"></span><span class="bulb"></span><span class="bulb"></span><span class="bulb"></span><span class="bulb"></span>
+    </div>
+
+    <div class="hall">
+      <!-- ESSAY placard hall -->
+      <article class="ex-essay">
+        <div class="marquee-head"><h2>A Half-Built Future</h2></div>
+        <div class="body">
+          <div class="dateline"><span class="rec">●</span> Inscribed on January 25, 2026</div>
+          <p>The first paragraph of an essay is doing a particular kind of work. It has to invite the reader into a room and tell them, with no metadata, what kind of room it is. So this one commits: long-form writing on a personal site has a different shape than a one-line aside, and the page that holds both should honor the difference.</p>
+          <p>What follows is a floor you walk, not a feed you scroll: each exhibit is a different object, lit on its own terms, and the path runs from one to the next.</p>
+          <a class="more" href="#">Continue reading →</a>
+        </div>
+      </article>
+
+      <!-- STATUS marquee -->
+      <section class="ex-status">
+        <div class="now"><span class="dot"></span> Now Showing</div>
+        <div class="wire-entry"><div class="h"><span class="em">🤔</span><span class="ti">Mar 5</span></div><div class="tx">In theory I like a "two sentences per day" journal; in practice it reads like vague posting.</div></div>
+        <div class="wire-entry"><div class="h"><span class="em">📚</span><span class="ti">Feb 16</span></div><div class="tx">Three book stores in one day.</div></div>
+      </section>
+
+      <!-- BOOKS pedestal -->
+      <section class="ex-books">
+        <span class="kicker">Reading Pavilion · on the plinth</span>
+        <div class="shelf">
+          <div class="book b1">A Pattern Language</div>
+          <div class="book b2">The Whole Earth Catalog</div>
+          <div class="book b3">Powers of Ten</div>
+          <div class="book b4">How Things Work</div>
+        </div>
+      </section>
+
+      <!-- PHOTO vitrine -->
+      <section class="ex-photo">
+        <div class="glass"></div>
+        <div class="placard">FIG. 4 · The model city at 3am, lit only by the drafting lamp.</div>
+      </section>
+
+      <!-- DIRECTORY (mages + random + tags) -->
+      <aside class="ex-dir">
+        <div class="group"><h3>Allied Mages</h3><ul class="idx"><li><a href="#">A Fellow Dreamer</a></li><li><a href="#">Night Shift Notes</a></li><li><a href="#">Example Blog</a></li></ul></div>
+        <div class="group"><h3>Random Incantations</h3><ul class="idx"><li><a href="#">On the Persistence of Marginalia</a></li><li><a href="#">The Case for Slow Software</a></li></ul></div>
+        <div class="group"><h3>Arcane Tags</h3><div class="pills"><span class="pill">Essays</span><span class="pill">Gaming</span><span class="pill">Tabletop</span><span class="pill">Books</span></div></div>
+      </aside>
+
+      <!-- EMBLEMS trading post -->
+      <section class="ex-emblems">
+        <span class="kicker">Enchanted Emblems · trading post</span>
+        <div class="emblems">
+          <span class="note">Take these sigils for thy grimoire:</span>
+          <img src="https://static.thewizardly.com/buttons/soup.gif" alt="Soup" width="88" height="31">
+          <img src="https://static.thewizardly.com/buttons/the_wizardly.gif" alt="The Wizardly" width="88" height="31">
+          <img src="https://static.thewizardly.com/buttons/any-browser.gif" alt="Any Browser" width="88" height="31">
+          <img src="https://static.thewizardly.com/buttons/coffee.gif" alt="Coffee" width="88" height="31">
+          <img src="https://static.thewizardly.com/buttons/internetprivacy.gif" alt="Internet Privacy" width="88" height="31">
+          <img src="https://static.thewizardly.com/buttons/mothcore-2.gif" alt="Mothcore" width="88" height="31">
+          <img src="https://static.thewizardly.com/buttons/right2repair.gif" alt="Right to Repair" width="88" height="31">
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <div class="footer">© 2026 Contrariwise the Wizardly · Powered by soup</div>
+  <p class="specimen-note"><b>v3 · The Exhibit Floor.</b> The catalog as a fairground you walk: each content type is a differently-shaped exhibit (an essay placard hall with a marquee header, a status "Now Showing" sign ringed in bulbs, a photo in a glass vitrine, books on a pedestal shelf, a directory panel), threaded by a dotted promenade path with glowing bulb nodes. Object-variety foregrounded; tightest continuity with the masthead's monorail.</p>
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<!-- ABOUTME: Index specimen "The Front Page" (FJ#4 Inc 3) — Catalog with ONLY the most recent post featured (trimmed), plus standing fixtures.
+     ABOUTME: Compares against the feed (v4). One feature essay under the lamp + a Recent Scrolls index + the trinket fixtures. -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Index Specimen · The Front Page (single feature)</title>
+<link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
+<link href="https://fonts.bunny.net/css?family=atkinson-hyperlegible-mono:400|atkinson-hyperlegible-next:400,400i,700|bona-nova:400,400i&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --night-shift-midnight: oklch(32.6% 0.036 239.8);
+    --exhibit-card-deep:    oklch(28% 0.034 240);
+    --drafting-lamp-amber:  oklch(80.5% 0.138 75.9);
+    --atomic-turquoise:     oklch(76.4% 0.094 180.5);
+    --now-broadcasting-red: oklch(65.5% 0.115 33.8);
+    --brass-linework:       oklch(75.7% 0.040 79.9);
+    --marquee-bulb-cream:   oklch(94.6% 0.018 78.2);
+    --font-display: 'Bona Nova', serif;
+    --font-body: 'Atkinson Hyperlegible Next', sans-serif;
+    --font-mono: 'Atkinson Hyperlegible Mono', monospace;
+    --brass-warm: color-mix(in oklch, var(--brass-linework) 74%, var(--drafting-lamp-amber));
+    --rule: color-mix(in oklch, var(--brass-warm) 40%, transparent);
+    --rule-faint: color-mix(in oklch, var(--brass-warm) 20%, transparent);
+    --case: color-mix(in oklch, var(--exhibit-card-deep) 90%, black);
+    --marquee-glow: 0 0 12px color-mix(in oklch, var(--drafting-lamp-amber) 42%, transparent);
+    /* the lamp catches the top edge of the current sheet (a named-light glint), warm enough to read */
+    --lit-edge: color-mix(in oklch, var(--drafting-lamp-amber) 60%, var(--brass-linework));
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--night-shift-midnight); color: var(--marquee-bulb-cream);
+    font-family: var(--font-body); font-size: 16px; line-height: 1.6; position: relative; }
+  a { color: var(--drafting-lamp-amber); text-decoration: none; border-bottom: 1px dotted var(--drafting-lamp-amber); }
+  a:hover { border-bottom-style: solid; text-shadow: var(--marquee-glow); }
+  .mono { font-family: var(--font-mono); }
+  .kicker { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--brass-linework); }
+
+  .sky { position: relative; height: 210px; overflow: hidden; display: flex; align-items: center; justify-content: center;
+    background:
+      radial-gradient(1.3px 1.3px at 14% 30%, var(--marquee-bulb-cream) 50%, transparent 51%),
+      radial-gradient(1px 1px at 32% 62%, color-mix(in oklch, var(--marquee-bulb-cream) 70%, transparent) 50%, transparent 51%),
+      radial-gradient(1.6px 1.6px at 58% 24%, var(--marquee-bulb-cream) 50%, transparent 51%),
+      radial-gradient(1px 1px at 73% 52%, color-mix(in oklch, var(--marquee-bulb-cream) 60%, transparent) 50%, transparent 51%),
+      radial-gradient(1.2px 1.2px at 86% 34%, var(--marquee-bulb-cream) 50%, transparent 51%),
+      radial-gradient(1px 1px at 45% 44%, color-mix(in oklch, var(--marquee-bulb-cream) 55%, transparent) 50%, transparent 51%),
+      var(--night-shift-midnight); }
+  .sky::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 55%, var(--night-shift-midnight) 97%); }
+  .sky h1 { position: relative; z-index: 2; margin: 0; font-family: var(--font-display); font-weight: 400;
+    font-size: clamp(2.4rem, 6vw, 3.6rem); letter-spacing: 0.012em; color: var(--drafting-lamp-amber);
+    text-shadow: 0 0 7px color-mix(in oklch, var(--drafting-lamp-amber) 52%, transparent), 0 0 22px color-mix(in oklch, var(--drafting-lamp-amber) 22%, transparent); }
+
+  .plate { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; padding: 8px 28px 64px; }
+  .runhead { display: flex; align-items: baseline; justify-content: space-between; gap: 16px;
+    border-bottom: 2px solid var(--rule); padding-bottom: 8px; margin-bottom: 4px; flex-wrap: wrap; }
+  .runhead .vol { font-family: var(--font-display); font-style: italic; color: var(--brass-linework); font-size: 1.05rem; }
+  .runhead nav { display: flex; gap: 18px; flex-wrap: wrap; }
+  .runhead nav a { border-bottom: none; font-size: 0.82rem; }
+  .runhead nav a:hover { border-bottom: 1px solid var(--drafting-lamp-amber); }
+
+  .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 0; grid-auto-flow: dense; grid-auto-rows: min-content; }
+  .cell { padding: 18px 20px; border-top: 1px solid var(--rule); border-right: 1px solid var(--rule-faint); position: relative; min-width: 0; }
+  .fig { display: block; margin-bottom: 8px; }
+  .fig .n { color: color-mix(in oklch, var(--drafting-lamp-amber) 66%, var(--brass-linework)); }
+  .fig .t { color: color-mix(in oklch, var(--marquee-bulb-cream) 80%, var(--night-shift-midnight)); }
+  .tb { position: absolute; right: 0; bottom: 0; border-top: 1px solid var(--rule-faint); border-left: 1px solid var(--rule-faint);
+    background: color-mix(in oklch, var(--night-shift-midnight) 86%, var(--case)); padding: 3px 9px;
+    font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.08em; color: var(--brass-linework); white-space: nowrap; }
+
+  /* THE FEATURE: only the most recent post, large, trimmed.
+     The lamp catches the sheet's top edge: a warm lit hairline with light falling just off it
+     (earned by the visible edge, not a sourceless pool). */
+  .c-feature { grid-column: span 8; grid-row: span 4; border-right: 1px solid var(--rule);
+    border-top: 2px solid var(--lit-edge); }
+  .c-feature::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 38px; pointer-events: none;
+    background: linear-gradient(to bottom, color-mix(in oklch, var(--drafting-lamp-amber) 12%, transparent), transparent); }
+  .c-feature > * { position: relative; }
+  .c-feature .lead-fig { display: flex; align-items: baseline; gap: 10px; }
+  .c-feature .lead-fig .live { color: var(--now-broadcasting-red); }
+  .c-feature h2 { font-family: var(--font-display); font-weight: 400; font-size: 2.6rem; line-height: 1.16; margin: 6px 0 6px; color: var(--drafting-lamp-amber); max-width: 18ch; }
+  .c-feature .dateline { font-family: var(--font-display); font-style: italic; color: var(--brass-linework); font-size: 0.98rem; margin-bottom: 18px; }
+  .c-feature .dateline .rec { color: var(--now-broadcasting-red); }
+  .c-feature p { margin: 0 0 15px; max-width: 64ch; }
+  .c-feature p:first-of-type::first-letter { font-family: var(--font-display); font-weight: 400; color: var(--drafting-lamp-amber);
+    font-size: 4em; line-height: 0.8; float: left; margin: 0.02em 0.12em 0 0; text-shadow: var(--marquee-glow); }
+  .more { font-family: var(--font-mono); font-size: 0.82rem; }
+
+  /* RECENT SCROLLS — the catalog's contents/index of the rest */
+  .c-recent { grid-column: span 4; }
+  .c-recent .idx-list { list-style: none; margin: 6px 0 0; padding: 0; }
+  .c-recent .row { display: grid; grid-template-columns: 4.4em 1fr; gap: 10px; align-items: baseline; padding: 7px 0; }
+  .c-recent .row + .row { border-top: 1px dotted var(--rule-faint); }
+  .c-recent .d { font-family: var(--font-display); font-style: italic; color: var(--brass-linework); font-size: 0.82rem; white-space: nowrap; }
+  .c-recent .t a { border-bottom: none; }
+  .c-recent .t a:hover { border-bottom: 1px solid var(--drafting-lamp-amber); }
+  .c-recent .t.micro { color: color-mix(in oklch, var(--marquee-bulb-cream) 82%, var(--night-shift-midnight)); font-size: 0.92rem; }
+  .c-recent .allscrolls { margin-top: 12px; font-family: var(--font-mono); font-size: 0.76rem; }
+
+  /* fixtures (same Catalog grammar as v4) */
+  .c-read { grid-column: span 7; border-right: 1px solid var(--rule); }
+  .c-wire { grid-column: span 5; }
+  .c-mages { grid-column: span 4; }
+  .c-rand { grid-column: span 4; }
+  .c-tags { grid-column: span 4; }
+  .c-emblems { grid-column: span 12; border-right: none; border-top: 2px solid var(--rule); }
+  @media (max-width: 880px) { .grid > .cell { grid-column: span 12; grid-row: auto; border-right: none; } }
+
+  .spines { display: flex; gap: 12px; align-items: flex-end; margin-top: 10px; padding-bottom: 12px;
+    border-bottom: 2px solid color-mix(in oklch, var(--brass-linework) 28%, transparent); }
+  .spine { width: 86px; aspect-ratio: 2/3; border-radius: 2px; display: flex; align-items: flex-end; padding: 8px 6px;
+    font-family: var(--font-display); font-size: 0.72rem; line-height: 1.1; color: var(--marquee-bulb-cream);
+    box-shadow: 0 8px 16px color-mix(in oklch, oklch(20% 0.03 64) 42%, transparent); }
+  .s1 { background: color-mix(in oklch, var(--now-broadcasting-red) 40%, var(--exhibit-card-deep)); }
+  .s2 { background: color-mix(in oklch, var(--atomic-turquoise) 32%, var(--exhibit-card-deep)); }
+  .s3 { background: color-mix(in oklch, var(--drafting-lamp-amber) 34%, var(--exhibit-card-deep)); }
+  .s4 { background: color-mix(in oklch, var(--brass-linework) 36%, var(--exhibit-card-deep)); }
+
+  .wire-entry { padding: 8px 0; }
+  .wire-entry + .wire-entry { border-top: 1px solid var(--rule-faint); }
+  .wire-entry .h { display: flex; justify-content: space-between; align-items: baseline; }
+  .wire-entry .em { font-size: 1.1rem; }
+  .wire-entry .ti { font-family: var(--font-display); font-style: italic; color: var(--brass-linework); font-size: 0.78rem; }
+  .wire-entry .tx { font-size: 0.9rem; line-height: 1.45; }
+
+  ul.idx { list-style: none; margin: 8px 0 0; padding: 0; }
+  ul.idx li { padding: 4px 0; border-top: 1px dotted var(--rule-faint); font-size: 0.92rem; }
+  ul.idx li:first-child { border-top: none; }
+  .pills { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
+  .pill { font-size: 0.78rem; padding: 3px 11px; border-radius: 20px; background: color-mix(in oklch, var(--brass-linework) 20%, transparent); color: var(--brass-linework); }
+  .emblems { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 8px; }
+  .emblems img { width: 88px; height: 31px; display: block; }
+  .emblems .note { font-family: var(--font-display); font-style: italic; color: var(--brass-linework); font-size: 0.82rem; margin-right: 6px; }
+
+  .footer { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; padding: 22px 28px 50px; color: var(--brass-linework); font-size: 0.85rem; text-align: center; border-top: 1px solid var(--rule-faint); }
+  .specimen-note { position: relative; z-index: 1; max-width: 1180px; margin: 26px auto 0; padding: 0 28px; color: var(--brass-linework); font-size: 0.9rem; }
+  .specimen-note b { color: var(--marquee-bulb-cream); }
+</style>
+</head>
+<body>
+  <header class="sky"><h1>The Wizardly</h1></header>
+
+  <main class="plate">
+    <div class="runhead">
+      <span class="vol">The All-Night Pavilion · dispatches from the late shift</span>
+      <nav><a href="#">Home</a><a href="#">Reading</a><a href="#">Archive</a><a href="#">Buttons</a><a href="#">About</a></nav>
+    </div>
+
+    <div class="grid">
+      <!-- THE FEATURE: most recent post, trimmed -->
+      <article class="cell c-feature">
+        <span class="lead-fig kicker"><span class="n">Plate I</span> · <span class="t">The latest scroll</span> · <span class="live">● now broadcasting</span></span>
+        <h2>A Half-Built Future</h2>
+        <div class="dateline"><span class="rec">●</span> Inscribed on January 25, 2026</div>
+        <p>The first paragraph of an essay is doing a particular kind of work. It has to invite the reader into a room and tell them, with no metadata, what kind of room it is. So this one commits: long-form writing on a personal site has a different shape than a one-line aside, and the page that holds both should honor the difference rather than flatten it.</p>
+        <p>What follows is a catalog, not a feed. A wall of essay text pulls all the oxygen out of a room that is supposed to hold a photograph, an aside, a status from the wire, and a recommendation, each doing real work in its own register. The front page renders the newest piece in full, then trims it at a paragraph boundary and lets the rest of the catalog breathe around it.</p>
+        <p>The drafting lamp falls on the sheet currently being written; the standing exhibits of the pavilion, the reading shelf, the dispatches on the wire, the allied mages, sit in the cooler light just past the pool, present but not competing.</p>
+        <a class="more mono" href="#">Continue reading →</a>
+      </article>
+
+      <!-- RECENT SCROLLS index -->
+      <section class="cell c-recent">
+        <span class="fig kicker"><span class="n">Contents</span> · <span class="t">Recent Scrolls</span></span>
+        <ul class="idx-list">
+          <li class="row"><span class="d">Jan 22</span><span class="t"><a href="#">On the Persistence of Marginalia</a></span></li>
+          <li class="row"><span class="d">Jan 19</span><span class="t micro">A photograph of the model city at 3am.</span></li>
+          <li class="row"><span class="d">Jan 15</span><span class="t"><a href="#">Why I Still Keep a Blogroll</a></span></li>
+          <li class="row"><span class="d">Jan 11</span><span class="t micro">Three book stores in one day.</span></li>
+          <li class="row"><span class="d">Jan 6</span><span class="t"><a href="#">The Case for Slow Software</a></span></li>
+          <li class="row"><span class="d">Jan 2</span><span class="t"><a href="#">On Trading Buttons With Strangers</a></span></li>
+        </ul>
+        <a class="allscrolls" href="#">The full compendium →</a>
+      </section>
+
+      <!-- READING PAVILION shelf -->
+      <section class="cell c-read">
+        <span class="fig kicker"><span class="n">Fig. 2</span> · <span class="t">Reading Pavilion</span></span>
+        <div class="spines">
+          <div class="spine s1">A Pattern Language</div>
+          <div class="spine s2">The Whole Earth Catalog</div>
+          <div class="spine s3">Powers of Ten</div>
+          <div class="spine s4">How Things Work</div>
+        </div>
+        <span class="tb">FIG 2 / BOOKS</span>
+      </section>
+
+      <!-- MYSTIC MISSIVES -->
+      <section class="cell c-wire">
+        <span class="fig kicker"><span class="n">Fig. 3</span> · <span class="t">Mystic Missives</span></span>
+        <div class="wire-entry"><div class="h"><span class="em">🤔</span><span class="ti">Mar 5</span></div><div class="tx">In theory I like the idea of a "two sentences per day" journal; in practice it reads like unintentional vague posting.</div></div>
+        <div class="wire-entry"><div class="h"><span class="em">📚</span><span class="ti">Feb 16</span></div><div class="tx">Three book stores in one day, could have been five with my druthers.</div></div>
+      </section>
+
+      <!-- ALLIED MAGES -->
+      <section class="cell c-mages">
+        <span class="fig kicker"><span class="n">Fig. 4</span> · <span class="t">Allied Mages</span></span>
+        <ul class="idx"><li><a href="#">A Fellow Dreamer</a></li><li><a href="#">Night Shift Notes</a></li><li><a href="#">Example Blog</a></li></ul>
+      </section>
+
+      <!-- RANDOM INCANTATIONS -->
+      <section class="cell c-rand">
+        <span class="fig kicker"><span class="n">Fig. 5</span> · <span class="t">Random Incantations</span></span>
+        <ul class="idx"><li><a href="#">On the Persistence of Marginalia</a></li><li><a href="#">The Case for Slow Software</a></li></ul>
+      </section>
+
+      <!-- ARCANE TAGS -->
+      <section class="cell c-tags">
+        <span class="fig kicker"><span class="n">Fig. 6</span> · <span class="t">Arcane Tags</span></span>
+        <div class="pills"><span class="pill">Essays</span><span class="pill">Gaming</span><span class="pill">Tabletop</span><span class="pill">Books</span></div>
+      </section>
+
+      <!-- ENCHANTED EMBLEMS -->
+      <section class="cell c-emblems">
+        <span class="fig kicker"><span class="n">Plate IX</span> · <span class="t">Enchanted Emblems</span></span>
+        <div class="emblems">
+          <span class="note">Take these sigils for thy grimoire:</span>
+          <img src="https://static.thewizardly.com/buttons/soup.gif" alt="Soup" width="88" height="31">
+          <img src="https://static.thewizardly.com/buttons/the_wizardly.gif" alt="The Wizardly" width="88" height="31">
+          <img src="https://static.thewizardly.com/buttons/any-browser.gif" alt="Any Browser" width="88" height="31">
+          <img src="https://static.thewizardly.com/buttons/coffee.gif" alt="Coffee" width="88" height="31">
+          <img src="https://static.thewizardly.com/buttons/internetprivacy.gif" alt="Internet Privacy" width="88" height="31">
+          <img src="https://static.thewizardly.com/buttons/mothcore-2.gif" alt="Mothcore" width="88" height="31">
+          <img src="https://static.thewizardly.com/buttons/right2repair.gif" alt="Right to Repair" width="88" height="31">
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <div class="footer">© 2026 Contrariwise the Wizardly · Powered by soup</div>
+
+  <p class="specimen-note"><b>The Front Page.</b> Only the most recent post is rendered, large and trimmed at a paragraph boundary with "Continue reading," sitting under the drafting lamp (here at 15%). A "Recent Scrolls" contents index keeps the rest reachable, and the standing fixtures (Reading Pavilion, Mystic Missives, Allied Mages, Random Incantations, Arcane Tags, Enchanted Emblems) hold their Catalog positions. Compare to the feed (v4), where many typed post-entries fill the grid.</p>
+</body>
+</html>
