@@ -554,6 +554,14 @@ footer {
     }
 }
 
+// Nav-link tap target: keep the menu links above the 24px touch minimum
+// (WCAG 2.5.8) in both presentations — the runhead row and the Teleportation
+// Circle aside. Shared via the .nav-link class in partials/fixtures/_nav-links.
+.nav-link {
+    display: inline-block;
+    padding-block: 7px;
+}
+
 // Top zone: the feature beside a right rail (Recent Scrolls + Reading Pavilion).
 // Two independent-height columns, top-aligned, so a tall feature never forces a
 // dense-grid gap.
@@ -743,7 +751,10 @@ footer {
 
 .fixture-more {
     display: inline-block;
-    margin-top: space(md);
+    margin-top: space(sm);
+    // padding-block lifts the tap target above the 24px touch minimum
+    // (WCAG 2.5.8); margin-top eased to space(sm) to keep the visual gap.
+    padding-block: 6px;
     font-family: font(mono);
     font-size: size(small);
 }

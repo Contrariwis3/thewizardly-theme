@@ -3,9 +3,9 @@
 <ul class="fixture-list">
   {{ range .Site.Menus.main }}
   {{ if and .Page (.Page.Params.redirect_url) }}
-  <li><a href="{{ .Page.Params.redirect_url }}">{{ .Name }}</a></li>
+  <li><a class="nav-link" href="{{ .Page.Params.redirect_url }}">{{ .Name }}</a></li>
   {{ else }}
-  <li><a href="{{ .URL | relURL | safeURL }}">{{ .Name }}</a></li>
+  <li><a class="nav-link" href="{{ .URL | relURL | safeURL }}">{{ .Name }}</a></li>
   {{ end }}
   {{ end }}
 </ul>
