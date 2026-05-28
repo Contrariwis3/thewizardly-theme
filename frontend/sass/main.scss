@@ -545,11 +545,13 @@ footer {
     }
 
     a {
-        border-bottom: none;
+        // Reserve the underline's 1px at rest (transparent) so coloring it on
+        // hover never grows the box and reflows the baseline-aligned runhead.
+        border-bottom: 1px solid transparent;
         font-size: size(small);
 
         &:hover {
-            border-bottom: 1px solid var(--drafting-lamp-amber);
+            border-bottom-color: var(--drafting-lamp-amber);
         }
     }
 }
@@ -741,9 +743,11 @@ footer {
 }
 
 .scroll-title a {
-    border-bottom: none;
+    // Same reserved-underline trick as the runhead nav: 1px transparent at rest,
+    // colored on hover, so a hovered title never shifts the scrolls listed below.
+    border-bottom: 1px solid transparent;
 
-    &:hover { border-bottom: 1px solid var(--drafting-lamp-amber); }
+    &:hover { border-bottom-color: var(--drafting-lamp-amber); }
 }
 
 .scroll-title--micro a {
