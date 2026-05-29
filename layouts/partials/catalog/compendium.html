@@ -5,31 +5,5 @@
 
   <h2 class="catalog-rubric">The Compendium</h2>
 
-  <div class="archive-card">
-    {{ $list := where .Site.RegularPages "Type" "post" }}
-    {{ range $list.GroupByDate "2006" }}
-    <section class="year-group" aria-label="Inscribed in {{ .Key }}">
-      <h3 class="year">{{ .Key }}</h3>
-      <ul class="archive-list">
-        {{ range .Pages }}
-        <li class="archive-entry">
-          <span class="archive-date">
-            <time datetime="{{ .Date.Format "2006-01-02T15:04:05-0700" }}" class="dt-published">{{ .Date.Format "Jan 2" }}</time>
-          </span>
-          {{ if .Title }}
-          <a href="{{ .Permalink }}" class="archive-title u-url p-name">{{ .Title }}</a>
-          {{ else }}
-          {{ $snippet := .Content | plainify | htmlUnescape | strings.TrimSpace }}
-          {{ if $snippet }}
-          <a href="{{ .Permalink }}" class="archive-snippet u-url p-summary">{{ $snippet | truncate 200 }}</a>
-          {{ else }}
-          <a href="{{ .Permalink }}" class="archive-snippet archive-snippet--wordless u-url"><i class="ph ph-image" aria-hidden="true"></i> an illumination</a>
-          {{ end }}
-          {{ end }}
-        </li>
-        {{ end }}
-      </ul>
-    </section>
-    {{ end }}
-  </div>
+  {{ partial "catalog/scroll-ledger.html" (dict "pages" (where .Site.RegularPages "Type" "post")) }}
 </div>

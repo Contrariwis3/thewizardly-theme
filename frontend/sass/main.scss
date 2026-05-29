@@ -911,6 +911,13 @@ footer {
     margin: space(xl) 0 space(lg);
     padding-top: space(lg);
     border-top: 2px solid var(--catalog-rule);
+
+    // The category sigil on an Arcanum page (/categories/<term>/): the sparkle
+    // that marks a category everywhere, sized to sit beside the amber name.
+    i {
+        font-size: 0.8em;
+        margin-right: space(sm);
+    }
 }
 
 .plate-grid {
