@@ -1617,6 +1617,30 @@ footer {
     }
 }
 
+// On the full-width Bookmarks plate the list becomes a columnar index — the Index
+// of Arcana's reflowing-ledger mechanic — so the saved links fill the wide plate
+// in readable-measure columns rather than one 1180px-wide line, and collapse to a
+// single column on a phone. (The bare .bookmark rules above still serve the
+// {{< bookmarks >}} shortcode when it is used inline inside a scroll.)
+.bookmarks-page .bookmarks {
+    column-width: 20rem;
+    column-gap: space(xxxl);
+    column-rule: 1px solid var(--catalog-rule-faint);
+}
+
+.bookmarks-page .bookmark {
+    // Keep an entry whole rather than letting it split across a column break.
+    break-inside: avoid;
+    // A per-entry bottom rule replaces the base between-siblings top rule, so the
+    // first entry at the top of each column never carries a stray dotted rule.
+    border-top: none;
+    border-bottom: 1px dotted color-mix(in oklch, var(--brass-linework) 18%, transparent);
+
+    &:last-child {
+        border-bottom: none;
+    }
+}
+
 // The link wraps both favicon and title text. Suppress the default anchor
 // dotted underline at the link level (it would underline below the favicon)
 // and reapply it on the title text only.
