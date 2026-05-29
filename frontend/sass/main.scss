@@ -69,8 +69,7 @@ $spacing: (
 // Borders & Effects
 $border-radius: (
     small: 4px,
-    medium: 8px,
-    pill: 20px
+    medium: 8px
 );
 
 // Helper Functions
@@ -1162,48 +1161,20 @@ footer {
     gap: space(sm);
 }
 
-// Tag Component (Sigil Pills)
-%tag-base {
-    display: inline-block;
-    padding: space(xs) space(md);
-    border-radius: radius(pill);
-    font-size: size(small);
-    margin-right: space(sm);
-    margin-bottom: space(sm);
-    @include transition();
-    border: 1px solid transparent;
-}
-
-// Subject sigil: Brass on a warm tint.
+// Tag Component (the Category Sigil)
+// A category renders as a sigil-link, not a filled pill: the ✦ sparkle in
+// Drafting-Lamp Amber (the category's lamp-spark), the name in Brass Linework,
+// carrying the site's universal link affordance inherited from the global `a`
+// rule — the dotted→solid Amber underline, the Link Hover Glow on hover, and the
+// turquoise focus ring. No fill, no pill radius, no box: a tag is a catalog index
+// entry in the same grammar as every other link, not a chip resting on the page.
+// The leading sparkle delimits each entry where there is no enclosure.
 .tag {
-    @extend %tag-base;
-    background-color: color-mix(in oklch, var(--brass-linework) 20%, transparent);
     color: var(--brass-linework);
 
-    &:hover {
-        border-color: var(--brass-linework);
-        @include hover-shadow(var(--brass-linework));
-    }
-
     i {
+        color: var(--drafting-lamp-amber);
         margin-right: space(xs);
-    }
-}
-
-// Response sigil: the REC-light red on a red tint.
-.response-tag {
-    @extend %tag-base;
-    background-color: color-mix(in oklch, var(--now-broadcasting-red) 15%, transparent);
-    color: var(--now-broadcasting-red);
-
-    &:hover {
-        border-color: var(--now-broadcasting-red);
-        @include hover-shadow(var(--now-broadcasting-red));
-    }
-
-    @media (max-width: 768px) {
-        display: inline-block;
-        margin-top: space(sm);
     }
 }
 
@@ -1222,7 +1193,7 @@ footer {
     color: var(--now-broadcasting-red);
 }
 
-// Post Tags Section
+// Post Tags Section — a row of category sigils beneath the feature.
 .post-tags {
     margin-top: #{space(xl) + space(sm)};
     @include subtle-border(var(--brass-linework));
@@ -1230,6 +1201,10 @@ footer {
     border-left: none;
     border-right: none;
     padding-top: space(xl);
+    display: flex;
+    flex-wrap: wrap;
+    gap: space(sm);
+    align-items: baseline;
 }
 
 // Continue Reading affordance (the page-turn)
@@ -1274,34 +1249,6 @@ footer {
             font-size: space(xl);
         }
     }
-}
-
-// ===================================
-// LAYOUT COLUMNS
-// ===================================
-
-.tags-column {
-    text-align: left;
-
-    @media (max-width: 768px) {
-        width: 100% !important;
-        display: block;
-    }
-}
-
-.response-column {
-    text-align: right;
-
-    @media (max-width: 768px) {
-        width: 100% !important;
-        display: block;
-        text-align: left;
-        margin-top: space(lg);
-    }
-}
-
-.response-icon {
-    margin-right: 4px;
 }
 
 // ===================================
