@@ -1,0 +1,37 @@
+{{/* ABOUTME: The Index of Arcana (/categories/) — a full-width Catalog plate listing every */}}
+{{/* ABOUTME: category as a dot-leader index entry, sibling to the Compendium at /archive/. */}}
+{{ define "main" }}
+<div class="catalog index-arcana" id="main-content" tabindex="-1">
+  {{ partial "catalog/runhead.html" (dict "vol" "The All-Night Pavilion · the index of arcana" "page" .) }}
+
+  <h2 class="catalog-rubric">The Index of Arcana</h2>
+
+  {{/* .Data.Terms.ByCount: the categories ordered most-inscribed first, each entry
+       carrying the term's page (.Page) and its scroll count (.Count). */}}
+  {{ $terms := .Data.Terms.ByCount }}
+  {{ $arcana := len $terms }}
+  {{ if gt $arcana 0 }}
+  {{ $scrolls := len (where .Site.RegularPages "Type" "post") }}
+  <p class="arcana-dek">{{ $arcana }} arcana · {{ $scrolls }} scroll{{ if ne $scrolls 1 }}s{{ end }} inscribed</p>
+
+  {{/* Each category is a printed-index entry: the name, a dot leader, and the
+       count of scrolls filed under it. */}}
+  <ul class="arcana-index">
+    {{ range $terms }}
+    {{ $n := .Count }}
+    <li class="arcanum-row">
+      <a class="arcanum" href="{{ .Page.Permalink }}">
+        <span class="arcanum-name">{{ .Page.LinkTitle }}</span>
+        <span class="arcanum-leader" aria-hidden="true"></span>
+        <span class="arcanum-count">{{ $n }} scroll{{ if ne $n 1 }}s{{ end }}</span>
+      </a>
+    </li>
+    {{ end }}
+  </ul>
+  {{ else }}
+  <p class="empty">No arcana have been inscribed yet. The catalogue waits.</p>
+  {{ end }}
+
+  <a class="catalog-totop" href="{{ site.Home.RelPermalink }}">Back to the threshold <span class="catalog-totop-icon" aria-hidden="true">↑</span></a>
+</div>
+{{ end }}

@@ -1530,6 +1530,96 @@ footer {
 }
 
 // ===================================
+// INDEX OF ARCANA (/categories/)
+// ===================================
+
+// The all-categories page: a full-width Catalog plate, the Compendium's sibling.
+// Where the Compendium indexes scrolls by year, this indexes them by category.
+// Every category is a printed-index entry — name, dot leader, scroll count — laid
+// in reflowing columns so an unhinged-long taxonomy reads as a real index, not a
+// card grid. No new tokens; the leader and count speak the Brass ornament language.
+.arcana-dek {
+    font-family: font(heading);
+    font-style: italic;
+    color: var(--brass-linework);
+    font-size: size(medium);
+    margin: 0 0 space(xl);
+}
+
+.arcana-index {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    // Reflowing columns ruled like a ledger: column-width drives the count, so
+    // the index packs to as many columns as the plate affords and collapses to
+    // one on a phone. The faint brass column rule is the catalog's vertical rule.
+    column-width: 20rem;
+    column-gap: space(xxxl);
+    column-rule: 1px solid var(--catalog-rule-faint);
+}
+
+.arcanum-row {
+    // Keep an entry whole rather than letting it split across a column break.
+    break-inside: avoid;
+    padding: space(sm) 0;
+}
+
+.arcanum {
+    display: flex;
+    align-items: baseline;
+    gap: space(sm);
+    // Override the global dotted-amber link underline: the affordance here is the
+    // name underlining on hover, not a rule under the whole row.
+    border-bottom: none;
+    color: var(--marquee-bulb-cream);
+
+    &:hover {
+        border-bottom: none;
+        text-shadow: none;
+
+        .arcanum-name {
+            border-bottom-color: var(--drafting-lamp-amber);
+            text-shadow: var(--link-hover-glow);
+        }
+
+        .arcanum-leader {
+            border-bottom-color: color-mix(in oklch, var(--brass-linework) 55%, transparent);
+        }
+    }
+}
+
+.arcanum-name {
+    font-family: font(heading);
+    font-weight: 400;
+    font-size: size(large);
+    line-height: 1.2;
+    color: var(--drafting-lamp-amber);
+    // Reserve the hover underline's 1px (transparent at rest) so coloring it on
+    // hover never shifts the count or the entries below — the runhead's trick.
+    border-bottom: 1px solid transparent;
+}
+
+.arcanum-leader {
+    // The dot leader: a dotted brass rule riding the text baseline, bridging the
+    // name to its count the way a printed catalogue index does. Nudged up to sit
+    // on the baseline; min-width keeps a few dots even behind a long name.
+    flex: 1 1 auto;
+    min-width: space(xl);
+    border-bottom: 1px dotted color-mix(in oklch, var(--brass-linework) 35%, transparent);
+    transform: translateY(-0.35em);
+    @include transition(border-bottom-color);
+}
+
+.arcanum-count {
+    flex: 0 0 auto;
+    font-family: font(heading);
+    font-style: italic;
+    font-size: size(normal);
+    color: var(--brass-linework);
+    white-space: nowrap;
+}
+
+// ===================================
 // BOOKMARKS
 // ===================================
 

@@ -17,6 +17,11 @@
     {{ partial "catalog/runhead.html" (dict "vol" "The All-Night Pavilion · the reading room" "page" .) }}
     {{ block "main" . }}{{ end }}
   </div>
+  {{ else if eq .Kind "taxonomy" }}
+  {{/* The all-categories index (Kind "taxonomy") is a full-width Catalog plate that owns
+       the body with its own runhead, the Compendium's sibling. Term pages (Kind "term",
+       e.g. /categories/gaming/) keep the list + Pavilion-aside layout below. */}}
+  {{ block "main" . }}{{ end }}
   {{ else }}
   {{/* List surfaces (taxonomy terms, sections) keep the main + Pavilion-aside layout. */}}
   <div class="pure-g">
