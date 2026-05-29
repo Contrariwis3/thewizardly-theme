@@ -1,20 +1,79 @@
 ---
-name: TheWizardly Theme — All-Night Pavilion (SEED)
+name: TheWizardly Theme — All-Night Pavilion
 description: A Hugo theme for thewizardly.com. The All-Night Pavilion: sincere atompunk in a dark room, lit by drafting lamp and marquee bulb, where the wizard is awake while the world sleeps and holds the candle for tomorrow.
 colors:
-  night-shift-midnight: "#233745"
-  drafting-lamp-amber: "#f2b24c"
-  atomic-turquoise: "#68c6b5"
-  now-broadcasting-red: "#cd7561"
-  brass-linework: "#beae94"
-  marquee-bulb-cream: "#f4ece0"
-fonts:
-  display: "Bona Nova"
-  body: "Atkinson Hyperlegible Next"
-  mono: "Atkinson Hyperlegible Mono"
+  night-shift-midnight: "oklch(32.6% 0.036 239.8)"
+  exhibit-card-deep: "oklch(28% 0.034 240)"
+  drafting-lamp-amber: "oklch(80.5% 0.138 75.9)"
+  atomic-turquoise: "oklch(76.4% 0.094 180.5)"
+  now-broadcasting-red: "oklch(65.5% 0.115 33.8)"
+  brass-linework: "oklch(75.7% 0.040 79.9)"
+  marquee-bulb-cream: "oklch(94.6% 0.018 78.2)"
+typography:
+  display:
+    fontFamily: "'Bona Nova', serif"
+    fontSize: "clamp(2.8rem, 8vw, 5rem)"
+    fontWeight: 400
+    lineHeight: 1.06
+  headline:
+    fontFamily: "'Bona Nova', serif"
+    fontSize: "2rem"
+    fontWeight: 400
+    lineHeight: 1.25
+  title:
+    fontFamily: "'Bona Nova', serif"
+    fontSize: "1.5rem"
+    fontWeight: 400
+    lineHeight: 1.3
+  body:
+    fontFamily: "'Atkinson Hyperlegible Next', sans-serif"
+    fontSize: "1rem"
+    fontWeight: 400
+    lineHeight: 1.6
+  label:
+    fontFamily: "'Atkinson Hyperlegible Next', sans-serif"
+    fontSize: "0.8rem"
+    fontWeight: 400
+  mono:
+    fontFamily: "'Atkinson Hyperlegible Mono', monospace"
+    fontSize: "0.9rem"
+    fontWeight: 400
+    lineHeight: 1.5
+rounded:
+  small: "4px"
+  medium: "8px"
+spacing:
+  xs: "3px"
+  sm: "5px"
+  md: "10px"
+  lg: "15px"
+  xl: "20px"
+  xxl: "30px"
+  xxxl: "40px"
+components:
+  exhibit-card:
+    backgroundColor: "{colors.exhibit-card-deep}"
+    rounded: "{rounded.medium}"
+    padding: "30px"
+  pavilion-display:
+    backgroundColor: "{colors.exhibit-card-deep}"
+    rounded: "{rounded.medium}"
+    padding: "20px"
+  link:
+    textColor: "{colors.drafting-lamp-amber}"
+  tag-sigil:
+    textColor: "{colors.brass-linework}"
+  fixture-title:
+    textColor: "{colors.drafting-lamp-amber}"
+  arcane-timestamp:
+    textColor: "{colors.brass-linework}"
+  pagination-page:
+    textColor: "{colors.now-broadcasting-red}"
+  book-cover:
+    rounded: "{rounded.small}"
 ---
 
-<!-- SEED: palette resolved to OKLCH and re-verified for WCAG 2.2 AA (see §2 table); Marquee-Bulb Cream locked; display serif chosen (Bona Nova, see §3). Remaining seed work: component snippets (§5), filled in by a scan-mode pass after the redesign lands. Re-run /impeccable document once implemented to capture real tokens. The previous Wizard's Workbench DESIGN.md is preserved in git history and is being deliberately replaced. -->
+<!-- Documented in scan mode (FJ#4 Increment 6) from the shipped All-Night Pavilion implementation in frontend/sass/main.scss — real compiled tokens (palette, type scale, spacing, radii, shadows, focus rings) and real component specs. Palette, faces, and starfield were resolved per the closed #1/#2/#3 decisions; the previous Wizard's Workbench DESIGN.md is preserved in git history and was deliberately replaced. Frontmatter carries OKLCH, the project's canonical color space (Stitch's linter prefers hex sRGB and will warn; this is the accepted OKLCH-doctrine path) — the §2 table pairs each token with its sRGB source value. -->
 <!-- Palette source: cross-bred from two Color Cube cards — surface, counter, signal, and a warm-light from card 689; the amber lead and brass-linework neutral from card 589. The cards donated a scheme; the names here are ours. -->
 <!-- The deep bench (secondary tier, structural / fill / large-accent only, not primary roles): filament-glow #fbbf98, banked-ember #7c4c49, kiln-rust #8b4021, deep-dome-teal #018990, drafting-shadow #393631, walnut #4e3123. Documented in §2 prose; promoted to frontmatter only if/when implementation actually reuses them. -->
 
@@ -134,10 +193,10 @@ Mostly flat with two atmospheric registers. Cards rest on the Night-Shift Midnig
 
 ### Shadow Vocabulary
 
-- **Exhibit Rest** (`box-shadow: 0 10px 30px rgba(<warm-tinted-shadow>, 0.3)`): The default shadow under every Exhibit Card and Pavilion Display. Diffuse, warm-tinted (toward Drafting-Lamp Amber, not toward black), low-contrast against the night-shift surface. Reads as paper resting on oak under a drafting lamp.
-- **Trinket Hover Halo** (`box-shadow: 0 3px 8px rgba(<accent>, 0.2)`): A small colored hover halo under book covers (and any trinket that earns one). The accent matches the trinket's own pigment (Drafting-Lamp Amber for warm trinkets, Atomic Turquoise for cool trinkets, Now-Broadcasting Red only for explicitly "live" affordances).
-- **Marquee Glow** (`text-shadow: 0 0 12px rgba(<drafting-lamp-amber>, 0.4)`): The masthead h1 and Marquee Initials. Always-on, low intensity, atmospheric. Reads as a bulb seen through a paper letterform.
-- **Link Hover Glow** (`text-shadow: 0 0 10px rgba(<drafting-lamp-amber>, 0.5)`): A brief amber glow under hovered links, slightly stronger than Marquee Glow, present only while hovered.
+- **Exhibit Rest** (`box-shadow: 0 10px 30px color-mix(in oklch, var(--shadow-warm) 30%, transparent)`, where `--shadow-warm: oklch(20% 0.03 64)`; shipped as the `card-shadow()` mixin): The default shadow under every Exhibit Card, Pavilion Display, book cover, and framed plate. Diffuse, warm-tinted (toward Drafting-Lamp Amber, not toward black), low-contrast against the night-shift surface. Reads as paper resting on oak under a drafting lamp.
+- **Trinket Hover Halo** (`box-shadow: 0 3px 8px color-mix(in oklch, <accent> 20%, transparent)`; shipped as the `hover-shadow($color, $alpha)` mixin): A small colored hover halo under book covers (and any trinket that earns one). The accent matches the trinket's own pigment (Drafting-Lamp Amber for warm trinkets, Atomic Turquoise for cool trinkets, Now-Broadcasting Red only for explicitly "live" affordances).
+- **Marquee Glow** (`text-shadow: 0 0 12px color-mix(in oklch, var(--drafting-lamp-amber) 42%, transparent)`, the `--marquee-glow` token): The masthead h1 and Marquee Initials. Always-on, low intensity, atmospheric. Reads as a bulb seen through a paper letterform.
+- **Link Hover Glow** (`text-shadow: 0 0 10px color-mix(in oklch, var(--drafting-lamp-amber) 50%, transparent)`, the `--link-hover-glow` token): A brief amber glow under hovered links, slightly stronger than Marquee Glow, present only while hovered.
 
 ### Named Rules
 
@@ -149,24 +208,71 @@ Mostly flat with two atmospheric registers. Cards rest on the Night-Shift Midnig
 
 ## 5. Components
 
-`[Seed: no implemented components yet. Component identity intent is captured below as a target for implementation; full token specs (radii, exact paddings, exact shadows, focus rings) will be filled in by a scan-mode pass after the redesign lands.]`
+Documented from the shipped implementation (`frontend/sass/main.scss`). Values are the real compiled tokens: spacing from the `$spacing` scale (`xs` 3px / `sm` 5px / `md` 10px / `lg` 15px / `xl` 20px / `xxl` 30px / `xxxl` 40px), radii from `$border-radius` (`small` 4px / `medium` 8px), shadows and glows from §4. Color names map to the §2 palette.
 
-Component identity from the All-Night Pavilion brief:
+### Exhibit Cards
+Paper exhibits resting on oak. The load-bearing content container; identity is carried by the Arcane Timestamp and the Marquee Initial, never by chrome on the edges. No spine.
+- **Corner Style:** 8px (`radius(medium)`).
+- **Background:** Exhibit-Card Deep, a shade off the body so the card reads as a recessed exhibit case rather than raised UI.
+- **Internal Padding:** 30px (`space(xxl)`), tightening to 20px (`space(xl)`) ≤768px.
+- **Shadow:** Exhibit Rest (§4). **Does not lift, intensify, or change on hover** (Page-Not-Button Rule).
+- **Border:** none.
 
-- **Exhibit Cards** (formerly Cards): paper exhibits resting on oak. Same load-bearing role as the previous design's cards; warmer shadow, no spine, an opportunity for a marquee-style header strip if it earns it.
-- **Pavilion Displays** (formerly Side Content): small exhibit cases on a model fairground, stacked down the right column. Each holds a named trinket category.
-- **Tag Sigils** (formerly Sigil Pills / Tag Pills): a category renders as a sigil-link, not a filled chip. The ✦ sparkle in Drafting-Lamp Amber (the category's lamp-spark), the name in Brass Linework, carrying the site's universal link affordance inherited from the global `a` rule — the dotted→solid Amber underline, the Link Hover Glow on hover, the turquoise focus ring. No fill, no pill radius, no box: a tag is a catalog index entry in the same grammar as every other link, not a chip resting on the page; the leading sparkle delimits each entry where there is no enclosure. The old filled-pill shape and the separate Now-Broadcasting-Red response-tag species are retired — a scroll's response/reply lives in the reading plate's colophon, not a red pill. The taxonomy is a deliberately unclassifiable list (the Celestial Emporium of Benevolent Knowledge), so the sigil stays one uniform sparkle rather than a per-category pictogram: a literal glyph would domesticate categories the list exists to keep wild.
-- **Marquee Initial** (replaces Illuminated Drop Cap): a glowing display-serif capital opening an essay's first paragraph, floated left in a clean 2-line drop. Skipped on titleless microposts. Same lockup math as the previous Drop Cap.
-- **Arcane Timestamp** (preserved in concept and copy): the `Inscribed on <date>` dateline inside every post card. The "wax seal" icon-and-pigment becomes the REC-light Now-Broadcasting Red, marking the timestamp like a console's recording lamp.
-- **Slide Tray Counter** (formerly Pagination): three-column layout (previous, page counter, next), with the counter numerals in Now-Broadcasting Red and the arrows in Drafting-Lamp Amber.
-- **Reading Pavilion** (formerly Bookshelf): a grid of book-cover thumbnails grouped by year-of-departure. Card-rest shadow on each cover, gentle hover-halo, no card-lift.
-- **Mystic Missives** (Status Feed, name preserved): a Pavilion Display rendering the most recent statuses from omg.lol. "Transmissions on the wire" visual treatment; entries separated by Brass Linework rules at low opacity.
-- **Allied Mages** (Blogroll, name preserved): the Network of Fellow Dreamers, as a Pavilion Display. Each entry an outbound link to another wizard's site.
-- **Enchanted Emblems** (Web Button Collection, name preserved): a flexbox wrap of 88×31 indie-web buttons at native pixel resolution. Untouched by CSS effects: no filter, no scaling, no border. They render exactly as their authors made them.
-- **Random Incantations** (Random Posts list): a Pavilion Display offering the reader a curated jump to elsewhere in the archive.
-- **Links**: Drafting-Lamp Amber text, 1px dotted Amber underline at rest. On hover: underline becomes 1px solid Amber; Link Hover Glow appears. No decorative underlines on non-links.
-- **Blockquote**: 3px Brass Linework left-stripe, italic body type, slight desaturation against the Exhibit Card background.
-- **Code (inline + block)**: low-opacity wash of Brass Linework on the Exhibit Card surface as background; 3px Drafting-Lamp Amber left-stripe on block code (preserved syntax-highlighter convention); Atkinson Hyperlegible Mono throughout.
+### Pavilion Displays
+Small exhibit cases on a model fairground, stacked down the right-hand aside on inner pages. On the home page the same partials re-body as ruled catalog cells (see The Great Catalog, below).
+- **Aside form:** Exhibit-Card Deep background, 8px corners (`radius(medium)`), 20px padding (`space(xl)`), 30px bottom margin.
+- **Catalog form:** no card — a ruled cell with a 1px warm-brass top rule and a mono uppercase kicker (see Fixture Titles).
+
+### Fixture Titles
+- **Aside:** Bona Nova 400, 1.2rem (`size(large)`), Drafting-Lamp Amber, with a 1px Brass Linework bottom rule at 30% opacity (`subtle-border`).
+- **Catalog:** Atkinson Hyperlegible Mono 400, 0.8rem (`size(small)`), uppercase, 0.14em tracking, warm-brass, prefixed with a figure number (`Fig. N ·`) or `Contents ·` for the Recent Scrolls index. The prefix recedes (0.82em, dimmer) so the fixture's NAME is the dominant token.
+
+### Tag Sigils  (formerly Sigil Pills / Tag Pills)
+A category renders as a sigil-link, not a filled chip. The ✦ sparkle in Drafting-Lamp Amber (the category's lamp-spark), the name in Brass Linework, carrying the site's universal link affordance inherited from the global `a` rule — the dotted→solid Amber underline, the Link Hover Glow on hover, the turquoise focus ring. No fill, no pill radius, no box: a tag is a catalog index entry in the same grammar as every other link, not a chip resting on the page; the leading sparkle delimits each entry where there is no enclosure. The old filled-pill shape and the separate Now-Broadcasting-Red response-tag species are retired — a scroll's response/reply lives in the reading plate's colophon, not a red pill. The taxonomy is a deliberately unclassifiable list (the Celestial Emporium of Benevolent Knowledge), so the sigil stays one uniform sparkle rather than a per-category pictogram: a literal glyph would domesticate categories the list exists to keep wild.
+- **Sparkle:** Phosphor `ph-sparkle`, Drafting-Lamp Amber, `space(xs)` right margin. **Name:** Brass Linework. **Shape:** no fill, no radius, no box.
+
+### Links
+- **Rest:** Drafting-Lamp Amber text, 1px dotted Amber bottom border.
+- **Hover:** border goes 1px solid; Link Hover Glow appears. No decorative underlines on non-links.
+- **Focus (`:focus-visible`):** see Focus Rings.
+- **Reserved-underline trick:** in baseline-aligned rows (runhead nav, Recent Scrolls, the Arcanum index) the 1px is reserved transparent at rest and only colored on hover, so hovering never reflows the row.
+
+### Arcane Timestamp
+The `Inscribed on <date>` dateline. Bona Nova italic, 1.1rem (`size(medium)`), Brass Linework. Its icon is the one REC light: a Now-Broadcasting Red filled circle (`.timestamp-icon`), marking the timestamp like a console's recording lamp. One REC light per surface.
+
+### Marquee Initial  (replaces the Illuminated Drop Cap)
+A glowing Bona Nova capital opening a titled essay's first paragraph: 4em, line-height 0.8, floated left for a clean 2-line drop (the Three-Knobs Rule: 4em × 0.8 = 3.2em = 2 × 1.6em body line-height), Drafting-Lamp Amber with the always-on Marquee Glow, 0.14em right margin. Skipped on titleless microposts and standing pages, where a 4em capital would be absurd.
+
+### Blockquote
+3px Brass Linework left-stripe (`accent-border`), italic, 15px left padding (`space(lg)`), desaturated to 0.8 opacity. One of the two sanctioned side-stripes (see Don'ts).
+
+### Code
+- **Inline:** Brass Linework 10% wash on the surface, 4px corners (`radius(small)`), Atkinson Hyperlegible Mono 0.9rem (`size(normal)`), 2px 4px padding.
+- **Block (`pre`):** the same wash plus a 3px Drafting-Lamp Amber left-stripe (the preserved syntax-highlighter convention, the second sanctioned side-stripe), 15px padding (`space(lg)`), horizontal scroll on overflow.
+
+### Slide Tray Counter  (Pagination)
+Three columns (previous · counter · next). Arrows in Drafting-Lamp Amber; page numerals in Now-Broadcasting Red at 20px (`space(xl)`) — large enough to clear AA. Counter set in Bona Nova.
+
+### Reading Pavilion  (Bookshelf, /bookshelf/)
+A full-width Catalog plate: covers grouped by year-of-departure, bottom-aligned in a wrapping row like books on a shelf.
+- **Cover:** 128×200px, 4px corners (`radius(small)`), `object-fit: cover`, Exhibit Rest shadow.
+- **Hover:** a gentle Drafting-Lamp Amber Trinket Hover Halo (§4). **No card-lift.**
+- **Art-less book:** the title set on an Exhibit-Card-Deep board with a 1px Brass edge, line-clamped to 7 lines, in place of an emoji. The home-fixture preview covers are 64×100px.
+
+### Mystic Missives  (Status Feed)
+A Pavilion Display of recent omg.lol statuses. Entries separated by 1px Brass Linework rules at 30% (a class-aware adjacent-sibling combinator, so the trailing footer never reads as the last entry); time in Bona Nova italic Brass; long URLs wrap with `overflow-wrap: anywhere`.
+
+### Allied Mages  (Blogroll) · Random Incantations  (Random Posts)
+Pavilion Displays of outbound links — the Network of Fellow Dreamers, and a curated jump elsewhere in the archive. Each entry inherits the global amber link treatment; lists are `.fixture-list` (unstyled, `space(xs)` row padding).
+
+### Enchanted Emblems  (88×31 Web Buttons)
+A centered flex-wrap of indie-web buttons at native pixel size (88×31, `max-width: none` to defeat the global responsive-image cap). **No filter, no scale, no border, no radius.** They render exactly as their authors made them.
+
+### Focus Rings
+Every interactive trinket shows a keyboard focus ring distinct from hover: `outline: 2px solid var(--atomic-turquoise); outline-offset: 3px; border-radius: 4px`, scoped to `:focus-visible` so it shows for keyboard users and not on mouse click. Atomic Turquoise is the reserved focus pigment — the cool counter reads as distinct from the warm amber hover and clears AA at 6.06:1. The masthead title uses the same ring at 6px offset to clear its glow. The skip-link is a Brass-edged Exhibit-Card-Deep chip parked off-screen via `transform`, sliding in on focus.
+
+### The Great Catalog  (home front page)
+The home is a dense, ruled catalog spread, not a feed: the most recent post is the feature ("Plate I", under a 2px lit-edge top rule), a "Contents" index (Recent Scrolls) keeps the rest reachable, and the trinkets are figure-numbered catalog cells on a 12-column dense grid. Max width 1180px; warm brass rules (`--catalog-rule`, `--catalog-rule-faint`) throughout. A single scroll reads as one centered reading plate at `max-width: 40rem`.
 
 ## 6. Do's and Don'ts
 
