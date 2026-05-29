@@ -1,0 +1,8 @@
+{{/* ABOUTME: One book on the shelf — the cover art, or a typographic plate (the title set on a */}}
+{{/* ABOUTME: tinted board) when a book has no art. Call as {{ partial "catalog/book-cover.html" (dict "book" <book>) }}. */}}
+{{ $b := .book }}
+{{ with $b.cover_url }}
+<img class="book-cover" src="{{ . }}" alt="Cover of {{ $b.title }}" loading="lazy">
+{{ else }}
+<div class="book-cover book-cover--titled"><span class="book-cover-title">{{ $b.title }}</span></div>
+{{ end }}

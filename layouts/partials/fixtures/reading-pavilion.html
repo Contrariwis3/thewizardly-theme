@@ -12,7 +12,7 @@
       {{ with $b.cover_url }}
       <img class="book-cover" src="{{ . }}" alt="Cover of {{ $b.title }}" loading="lazy">
       {{ else }}
-      <div class="book-cover book-cover--placeholder" aria-hidden="true"></div>
+      <div class="book-cover book-cover--placeholder" aria-hidden="true"><i class="ph ph-book"></i></div>
       {{ end }}
     </div>
     {{ end }}

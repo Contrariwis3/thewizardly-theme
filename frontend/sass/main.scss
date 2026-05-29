@@ -1369,45 +1369,47 @@ footer {
 }
 
 // ===================================
-// BOOKSHELF COMPONENT (READING PAVILION)
+// THE READING PAVILION (/bookshelf/)
 // ===================================
-
-.bookshelf-page {
-    .page-header {
+// Full-width Catalog plate, the Illuminations surface's sibling: currently-reading
+// covers and finished books grouped by year. Covers rest with the Exhibit shadow;
+// art-less books become typographic plates (the title set on a tinted board) rather
+// than an emoji. Reads micro.blog's reading-goal data shape (bookshelf/single.html);
+// the goal count is the access path to the year's books, never surfaced.
+.reading-pavilion-page {
+    .pavilion-section {
         margin-bottom: space(xxxl);
-    }
 
-    .shelf {
-        margin-bottom: space(xxxl);
-    }
-
-    .year-group {
-        margin-bottom: space(xxl);
-
-        .year {
-            margin-top: space(xl);
+        &:last-of-type {
+            margin-bottom: space(xl);
         }
     }
-}
 
-.book-grid {
-    margin-top: space(xl);
-}
+    // Section heading (Currently Reading, or a year) in the Compendium's year
+    // language: amber serif over a dotted Brass rule.
+    .pavilion-head {
+        margin: 0 0 space(lg);
+        color: var(--drafting-lamp-amber);
+        font-size: size(h3);
+        border-bottom: 1px dotted color-mix(in oklch, var(--brass-linework) 30%, transparent);
+        padding-bottom: space(sm);
+    }
 
-.book-cell {
-    padding: space(md);
-    display: flex;
-    justify-content: center;
-}
+    // Covers stand in a wrapping row, bottom-aligned like books on a shelf.
+    .book-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: space(lg);
+        align-items: flex-end;
+    }
 
-.book-cover-container {
-    display: inline-block;
-    @include transition();
+    // Gentle hover-halo, never a card-lift (DESIGN.md §5 / Page-Not-Button Rule).
+    .book-cover {
+        @include transition();
 
-    // No card-lift (DESIGN.md §5 Reading Pavilion / §4 Page-Not-Button Rule):
-    // the cover gets a gentle hover-halo, never a lift.
-    &:hover {
-        @include hover-shadow(var(--drafting-lamp-amber), 30%);
+        &:hover {
+            @include hover-shadow(var(--drafting-lamp-amber), 30%);
+        }
     }
 }
 
@@ -1419,6 +1421,33 @@ footer {
     display: block;
     @include card-shadow();
 
+    // Art-less book: the title set on an Exhibit-Card-Deep board with a Brass edge,
+    // a catalogued specimen with a hand-lettered label. Replaces the emoji placeholder
+    // and surfaces the title the cover art would otherwise carry.
+    &--titled {
+        background-color: var(--exhibit-card-deep);
+        @include subtle-border(var(--brass-linework), 35%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: space(md);
+        text-align: center;
+
+        .book-cover-title {
+            font-family: font(heading);
+            font-size: size(normal);
+            line-height: 1.25;
+            color: var(--marquee-bulb-cream);
+            // Cap a very long title so a plate never overflows its boards.
+            display: -webkit-box;
+            -webkit-line-clamp: 7;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    }
+
+    // Preview placeholder still used by the Reading Pavilion home fixture: a quiet
+    // Brass Phosphor book on a tinted board where a cover image is missing.
     &--placeholder {
         background-color: color-mix(in oklch, var(--brass-linework) 10%, transparent);
         @include subtle-border(var(--brass-linework), 30%);
@@ -1426,10 +1455,10 @@ footer {
         align-items: center;
         justify-content: center;
 
-        &::after {
-            content: '📚';
-            font-size: 48px;
-            opacity: 0.3;
+        i {
+            font-size: 32px;
+            color: var(--brass-linework);
+            opacity: 0.7;
         }
     }
 }

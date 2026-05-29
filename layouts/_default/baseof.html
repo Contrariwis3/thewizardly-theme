@@ -10,17 +10,19 @@
   {{ if .IsHome }}
   {{/* The home page is the full-width Great Catalog (index.html owns the whole body). */}}
   {{ block "main" . }}{{ end }}
-  {{ else if eq .Kind "page" }}
+  {{ else if and (eq .Kind "page") (ne .Type "bookshelf") }}
   {{/* Reading pages (scrolls + static pages) are a single Catalog plate: the runhead
-       carries the nav, the plate is read solo with no trinket aside. */}}
+       carries the nav, the plate is read solo with no trinket aside. The Reading Pavilion
+       is the exception, a full-width cover grid rather than a reading column (below). */}}
   <div class="reading" id="main-content" tabindex="-1">
     {{ partial "catalog/runhead.html" (dict "vol" "The All-Night Pavilion · the reading room" "page" .) }}
     {{ block "main" . }}{{ end }}
   </div>
-  {{ else if or (eq .Kind "taxonomy") (eq .Kind "term") (eq .Kind "section") }}
+  {{ else if or (eq .Kind "taxonomy") (eq .Kind "term") (eq .Kind "section") (eq .Type "bookshelf") }}
   {{/* The catalog index surfaces all own the body with their own runhead: the all-categories
-       index (Kind "taxonomy"), each individual arcanum (Kind "term"), and section lists such
-       as /post/ (Kind "section", which renders the Compendium). The Compendium's siblings. */}}
+       index (Kind "taxonomy"), each individual arcanum (Kind "term"), section lists such as
+       /post/ (Kind "section", the Compendium), and the Reading Pavilion (type "bookshelf").
+       The Compendium's siblings. */}}
   {{ block "main" . }}{{ end }}
   {{ else }}
   {{/* List surfaces (taxonomy terms, sections) keep the main + Pavilion-aside layout. */}}
