@@ -15,7 +15,7 @@
       {{ end }}
       {{ if gt (len $bookmarks) 0 }}
       <section class="fixture fixture--bookmarks">
-        <h2 class="fixture-title">Bookmarks</h2>
+        <h2 class="fixture-title">Marginalia</h2>
         <ul class="fixture-list bookmark-mini">
           {{ range first 6 $bookmarks }}
           {{ $note := replaceRE `(?s)<a.*` "" .content_html | plainify | htmlUnescape | strings.TrimSpace | truncate 72 }}
@@ -27,7 +27,7 @@
           </li>
           {{ end }}
         </ul>
-        <a class="fixture-more" href="{{ "bookmarks" | relURL }}">More bookmarks →</a>
+        <a class="fixture-more" href="{{ "bookmarks" | relURL }}">More marginalia →</a>
       </section>
       {{ end }}
     {{ end }}

@@ -17,7 +17,7 @@
   {{ else if and (eq .Kind "page") (ne .Type "bookshelf") (ne .Type "bookmarks") }}
   {{/* Reading pages (scrolls + static pages) are a single Catalog plate: the runhead
        carries the nav, the plate is read solo with no trinket aside. The Reading Pavilion
-       and the Bookmarks plate are the exceptions, full-width index surfaces rather than a
+       and the Marginalia plate are the exceptions, full-width index surfaces rather than a
        reading column (below). */}}
   <div class="reading" id="main-content" tabindex="-1">
     {{ partial "catalog/runhead.html" (dict "vol" "The All-Night Pavilion · the reading room" "page" .) }}
@@ -27,7 +27,7 @@
   {{/* The catalog index surfaces all own the body with their own runhead: the all-categories
        index (Kind "taxonomy"), each individual arcanum (Kind "term"), section lists such as
        /post/ (Kind "section", the Compendium), the Reading Pavilion (type "bookshelf"), and
-       the Bookmarks plate (type "bookmarks"). The Compendium's siblings. */}}
+       the Marginalia plate (type "bookmarks"). The Compendium's siblings. */}}
   {{ block "main" . }}{{ end }}
   {{ else }}
   {{/* List surfaces (taxonomy terms, sections) keep the main + Pavilion-aside layout. */}}
