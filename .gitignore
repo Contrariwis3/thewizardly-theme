@@ -23,6 +23,10 @@ node_modules/
 .eslintcache
 .stylelintcache
 
+# Impeccable (design tooling: critique snapshots and live-mode state — local only)
+.impeccable/
+.impeccable-live/
+
 # Python (scripts/ generators and their tests)
 __pycache__/
 *.pyc
