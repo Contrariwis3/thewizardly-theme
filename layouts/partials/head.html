@@ -16,9 +16,11 @@
   <meta name="description" content="{{ .Site.Params.itunes_description }}">
   {{ partial "custom/socialcardimage" . }}
   {{ else }}
-  <meta name="twitter:description" content="{{ .Summary | truncate 60 }}">
-  <meta name="og:description" content="{{ .Summary | truncate 60 }}">
-  <meta name="description" content="{{ .Summary }}">
+  {{/* .Summary is rendered HTML; plainify so the description is plain text by intent,
+       not by relying on html/template stripping tags in attribute context. */}}
+  <meta name="twitter:description" content="{{ .Summary | plainify | truncate 60 }}">
+  <meta name="og:description" content="{{ .Summary | plainify | truncate 60 }}">
+  <meta name="description" content="{{ .Summary | plainify }}">
   {{- range .Params.photos -}}
   <meta name="twitter:image" content="{{ . }}">
   <meta property="og:image" content="{{ . }}">
@@ -27,7 +29,10 @@
   {{- end -}}
   {{- end -}}
 
-  <title>{{ block "title" . }}{{ if .IsHome }}{{ .Site.Title }}{{ else if .Title }}{{ .Title }} | {{ .Site.Title }}{{ else }}{{ delimit (split .Summary " " | first 5) " " }} … | {{ .Site.Title }}{{ end }}{{ end }}</title>
+  {{/* Titleless microposts (.Title empty) derive their <title> from the summary.
+       .Summary is rendered HTML (template.HTML), so plainify it before splitting —
+       otherwise the leading <p> tag coerces into the string and leaks as &lt;p&gt;. */}}
+  <title>{{ block "title" . }}{{ if .IsHome }}{{ .Site.Title }}{{ else if .Title }}{{ .Title }} | {{ .Site.Title }}{{ else }}{{ with (.Summary | plainify | htmlUnescape | strings.TrimSpace) }}{{ delimit (split . " " | first 5) " " }} … | {{ end }}{{ .Site.Title }}{{ end }}{{ end }}</title>
 
   <link rel="canonical" href="{{ .Permalink }}">
 
