@@ -11,6 +11,6 @@
 
   {{ partial "catalog/scroll-ledger.html" (dict "pages" $scrolls) }}
 
-  <a class="catalog-totop" href="{{ "categories" | relURL }}"><span class="catalog-totop-icon" aria-hidden="true">←</span> The full index of arcana</a>
+  {{ partial "catalog/pavilion-return.html" . }}
 </div>
 {{ end }}

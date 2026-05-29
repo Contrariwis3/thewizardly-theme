@@ -1,3 +1,0 @@
-{{/* ABOUTME: Masthead entry — the full Threshold hero on the HTML home only; a compact title band elsewhere. */}}
-{{/* ABOUTME: /archive/ and /photos/ are home output formats (.IsHome true) but want the compact band, not the hero. */}}
-{{ if and .IsHome (eq .RelPermalink .Site.Home.RelPermalink) }}{{ partial "masthead/hero.html" . }}{{ else }}{{ partial "masthead/compact.html" . }}{{ end }}

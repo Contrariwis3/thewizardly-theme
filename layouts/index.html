@@ -1,3 +1,8 @@
+{{/* The HTML home is the only surface that wears the full Threshold hero; every other
+     plate (including the /archive/ and /photos/ home output formats) keeps baseof's
+     compact masthead default. */}}
+{{ define "masthead" }}{{ partial "masthead/hero.html" . }}{{ end }}
+
 {{ define "main" }}
 
 {{/* The Great Catalog front page (FJ#4 Inc 3): only the most recent post is rendered as the
@@ -115,8 +120,6 @@
     {{ partial "fixtures/allied-mages.html" . }}
     {{ partial "fixtures/enchanted-emblems.html" . }}
   </div>
-
-  <a class="catalog-totop" href="#threshold">Back to the threshold <span class="catalog-totop-icon" aria-hidden="true">↑</span></a>
 </div>
 
 {{ end }}

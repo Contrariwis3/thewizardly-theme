@@ -6,4 +6,6 @@
   <h2 class="catalog-rubric">The Compendium</h2>
 
   {{ partial "catalog/scroll-ledger.html" (dict "pages" (where .Site.RegularPages "Type" "post")) }}
+
+  {{ partial "catalog/pavilion-return.html" . }}
 </div>

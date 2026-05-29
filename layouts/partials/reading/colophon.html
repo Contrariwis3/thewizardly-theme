@@ -1,5 +1,5 @@
 {{/* ABOUTME: The reading plate's colophon — the filing, the response affordance, and wayfinding back into the Catalog. */}}
-{{/* ABOUTME: Posts step to adjacent scrolls + the compendium; static plates return to the Pavilion. */}}
+{{/* ABOUTME: Posts step to other scrolls + the compendium; every plate ends with the Pavilion return. */}}
 {{ $isPost := eq .Type "post" }}
 <footer class="colophon">
   {{ with (.GetTerms "categories") }}
@@ -43,9 +43,7 @@
     <a class="fixture-more" href="{{ "archive" | relURL }}">The full compendium →</a>
   </section>
   {{ end }}
-  {{ else }}
-  <nav class="colophon-wayfinding" aria-label="More from the catalog">
-    <a class="wayfinding-home" href="{{ "/" | relURL }}">Return to the Pavilion</a>
-  </nav>
   {{ end }}
+
+  {{ partial "catalog/pavilion-return.html" . }}
 </footer>

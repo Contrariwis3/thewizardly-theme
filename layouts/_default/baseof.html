@@ -5,7 +5,11 @@
 
 <body>
   <a class="skip-link" href="#main-content">Skip to content</a>
-  {{ partial "header.html" . }}
+  {{/* The masthead defaults to the compact title band; only the HTML home overrides this
+       block with the full Threshold hero. /archive/ and /photos/ are home output formats
+       (.IsHome true) but render through their own list templates, which don't override, so
+       they correctly get the compact band, the .RelPermalink heuristic can't tell them apart. */}}
+  {{ block "masthead" . }}{{ partial "masthead/compact.html" . }}{{ end }}
 
   {{ if .IsHome }}
   {{/* The home page is the full-width Great Catalog (index.html owns the whole body). */}}

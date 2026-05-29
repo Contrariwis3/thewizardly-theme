@@ -32,6 +32,6 @@
   <p class="empty">No arcana have been inscribed yet. The catalogue waits.</p>
   {{ end }}
 
-  <a class="catalog-totop" href="{{ site.Home.RelPermalink }}">Back to the threshold <span class="catalog-totop-icon" aria-hidden="true">↑</span></a>
+  {{ partial "catalog/pavilion-return.html" . }}
 </div>
 {{ end }}

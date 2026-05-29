@@ -642,10 +642,10 @@ footer {
     > .fixture--emblems { grid-column: span 12; border-right: none; }
 }
 
-// Back to the threshold: a quiet return link at the foot of the long catalog
-// scroll. Inherits the global amber link treatment; centered as a page-end
-// affordance rather than a fixture's "more ->".
-.catalog-totop {
+// Return to the Pavilion: a quiet link home at the foot of every destination plate
+// (omitted on the home page itself). Inherits the global amber link treatment;
+// centered as a page-end affordance rather than a fixture's "more ->".
+.catalog-return {
     display: block;
     width: fit-content;
     margin: space(xxl) auto 0;
@@ -1120,14 +1120,6 @@ footer {
     // The "Other Curiosities" heading carries its own rule (fixture-title), so the
     // section needs spacing above, not another divider.
     margin-top: space(xl);
-}
-
-// The static-page colophon's single return link.
-.colophon-wayfinding {
-    padding-top: space(lg);
-    border-top: 1px solid var(--catalog-rule-faint);
-    font-family: font(mono);
-    font-size: size(small);
 }
 
 // Pavilion Displays (the trinket fixtures). On inner pages each fixture renders
@@ -1719,15 +1711,10 @@ footer {
     color: var(--brass-linework);
 }
 
-.bookmark-date::before {
-    content: " · ";
-    margin: 0 space(xs);
-}
-
-// Archived fallback: a public S3 snapshot link for bookmarks whose original may
-// rot. Inherits the amber link treatment; only the separator stays meta-brass.
-.bookmark-archive::before {
-    content: " · ";
+// Meta separator. A standalone span, not a link ::before, so the archived link's
+// dotted underline covers only "archived" and never runs across the dot. Stays
+// meta-brass between the host, date, and the amber archived fallback link.
+.bookmark-sep {
     margin: 0 space(xs);
     color: var(--brass-linework);
 }

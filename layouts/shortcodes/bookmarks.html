@@ -46,8 +46,9 @@
               </a>
               <div class="bookmark-meta">
                 {{ with $host }}<cite class="bookmark-host">{{ . }}</cite>{{ end }}
-                {{ with .date_published }}<time class="bookmark-date dt-published" datetime="{{ . }}">{{ dateFormat "Jan 2, 2006" . }}</time>{{ end }}
-                {{ with $archive }}<a class="bookmark-archive" href="{{ . }}">archived</a>{{ end }}
+                {{ with .date_published }}<span class="bookmark-sep" aria-hidden="true">·</span><time class="bookmark-date dt-published" datetime="{{ . }}">{{ dateFormat "Jan 2, 2006" . }}</time>{{ end }}
+                {{/* Separator lives outside the anchor so the link underline covers only "archived", not the dot. */}}
+                {{ with $archive }}<span class="bookmark-sep" aria-hidden="true">·</span><a class="bookmark-archive" href="{{ . }}">archived</a>{{ end }}
               </div>
             </li>
           {{ end }}
