@@ -2,10 +2,13 @@
 {{/* ABOUTME: Single source for the menu loop so the two presentations never drift. */}}
 <ul class="fixture-list">
   {{ range .Site.Menus.main }}
+  {{/* $ is the page passed to this partial. The menu is URL-defined, so match the
+       entry's URL against the page's own URL rather than relying on IsMenuCurrent. */}}
+  {{ $current := eq (.URL | relURL) $.RelPermalink }}
   {{ if and .Page (.Page.Params.redirect_url) }}
   <li><a class="nav-link" href="{{ .Page.Params.redirect_url }}">{{ .Name }}</a></li>
   {{ else }}
-  <li><a class="nav-link" href="{{ .URL | relURL | safeURL }}">{{ .Name }}</a></li>
+  <li><a class="nav-link"{{ if $current }} aria-current="page"{{ end }} href="{{ .URL | relURL | safeURL }}">{{ .Name }}</a></li>
   {{ end }}
   {{ end }}
 </ul>

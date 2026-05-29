@@ -3,7 +3,7 @@
 <section class="fixture fixture--random">
   <h2 class="fixture-title">Random Incantations</h2>
   <ul class="fixture-list">
-    {{ range first 3 (shuffle (where (where (where site.RegularPages "Type" "post") "Permalink" "!=" .Permalink) "Title" "!=" "")) }}
+    {{ range first 5 (shuffle (where (where (where site.RegularPages "Type" "post") "Permalink" "!=" .Permalink) "Title" "!=" "")) }}
     <li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
     {{ end }}
   </ul>

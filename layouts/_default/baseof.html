@@ -4,6 +4,7 @@
 {{ partial "head.html" . }}
 
 <body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
   {{ partial "header.html" . }}
 
   {{ if .IsHome }}
@@ -12,7 +13,7 @@
   {{ else if eq .Kind "page" }}
   {{/* Reading pages (scrolls + static pages) are a single Catalog plate: the runhead
        carries the nav, the plate is read solo with no trinket aside. */}}
-  <div class="reading">
+  <div class="reading" id="main-content" tabindex="-1">
     {{ partial "catalog/runhead.html" (dict "vol" "The All-Night Pavilion · the reading room" "page" .) }}
     {{ block "main" . }}{{ end }}
   </div>
@@ -21,7 +22,7 @@
   <div class="pure-g">
     <div class="pure-u-1-24 spacer-column" aria-hidden="true"></div>
 
-    <main class="pure-u-1 pure-u-md-14-24">
+    <main class="pure-u-1 pure-u-md-14-24" id="main-content" tabindex="-1">
       {{ block "main" . }}{{ end }}
     </main>
 

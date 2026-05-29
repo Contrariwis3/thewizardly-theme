@@ -214,6 +214,30 @@ a {
     }
 }
 
+// Skip-link: parked off the top of the viewport until focused, then a brass
+// chip at top-left that lets keyboard users jump past the masthead to the
+// content (targets #main-content on every layout). Slides on transform, not
+// a layout property.
+.skip-link {
+    position: fixed;
+    top: space(sm);
+    left: space(sm);
+    z-index: 1000;
+    padding: space(sm) space(md);
+    background-color: var(--exhibit-card-deep);
+    color: var(--drafting-lamp-amber);
+    border: 1px solid var(--drafting-lamp-amber);
+    border-radius: radius(small);
+    font-family: font(mono);
+    font-size: size(small);
+    transform: translateY(calc(-100% - #{space(lg)}));
+    transition: transform 0.16s ease;
+
+    &:focus {
+        transform: translateY(0);
+    }
+}
+
 // Text Elements
 blockquote {
     @include accent-border(var(--brass-linework));
@@ -564,6 +588,17 @@ footer {
     padding-block: 7px;
 }
 
+// Current-page marker: the nav item for the page you're on wears a solid amber
+// underline at rest (siblings rest at dotted/none). In the runhead the 1px is
+// already reserved transparent, so this only colors it — no reflow.
+.nav-link[aria-current="page"] {
+    border-bottom: 1px solid var(--drafting-lamp-amber);
+}
+
+.catalog-nav .fixture-list a[aria-current="page"] {
+    border-bottom-color: var(--drafting-lamp-amber);
+}
+
 // Top zone: the feature beside a right rail (Recent Scrolls + Reading Pavilion).
 // Two independent-height columns, top-aligned, so a tall feature never forces a
 // dense-grid gap.
@@ -597,10 +632,25 @@ footer {
     grid-auto-rows: min-content;
 
     > * { border-right: 1px solid var(--catalog-rule-faint); }
-    > .fixture--mages { grid-column: span 4; }
-    > .fixture--random { grid-column: span 4; }
+    // Ranked by what fills the space, not by co-equal weight: Random
+    // Incantations leads as the marquee (a five-deep list), the tag sample gets
+    // a wider cell so the pills can breathe, the single-entry blogroll takes the
+    // narrow footnote cell, and the button wall closes full-width.
+    > .fixture--random { grid-column: span 5; }
     > .fixture--tags { grid-column: span 4; }
+    > .fixture--mages { grid-column: span 3; }
     > .fixture--emblems { grid-column: span 12; border-right: none; }
+}
+
+// Back to the threshold: a quiet return link at the foot of the long catalog
+// scroll. Inherits the global amber link treatment; centered as a page-end
+// affordance rather than a fixture's "more ->".
+.catalog-totop {
+    display: block;
+    width: fit-content;
+    margin: space(xxl) auto 0;
+    font-family: font(mono);
+    font-size: size(small);
 }
 
 // Every catalog entry is a ruled cell. The brass rules are warmed toward amber so
@@ -644,12 +694,19 @@ footer {
 .catalog-pair > .fixture .fixture-title::before,
 .catalog-grid > .fixture .fixture-title::before {
     content: "Fig. " counter(fig) " · ";
-    color: color-mix(in oklch, var(--drafting-lamp-amber) 66%, var(--brass-linework));
 }
 
 .recent-scrolls .fixture-title::before {
     content: "Contents · ";
-    color: color-mix(in oklch, var(--drafting-lamp-amber) 66%, var(--brass-linework));
+}
+
+// The figure / contents prefix recedes so the fixture's NAME is the dominant
+// token in the kicker: a smaller, dimmer brass numeral before the loud name.
+.catalog-rail .fixture-title::before,
+.catalog-pair .fixture-title::before,
+.catalog-grid .fixture-title::before {
+    font-size: 0.82em;
+    color: color-mix(in oklch, var(--brass-warm) 62%, var(--night-shift-midnight));
 }
 
 // The figure / plate kicker that labels each entry.
@@ -682,7 +739,9 @@ footer {
     .feature-title {
         font-family: font(heading);
         font-weight: 400;
-        font-size: 2.4rem;
+        // Fluid like the rest of the heading scale: smaller on a phone, larger
+        // on a wide display, instead of a fixed 2.4rem at every width.
+        font-size: clamp(1.9rem, 1.35rem + 2.1vw, 2.75rem);
         line-height: 1.18;
         margin: space(xs) 0 space(sm);
         color: var(--drafting-lamp-amber);
@@ -1300,32 +1359,6 @@ footer {
         overflow-wrap: anywhere;
     }
 
-    .status-footer {
-        margin-top: space(lg);
-        padding-top: space(md);
-        @include subtle-border(var(--brass-linework));
-        border-bottom: none;
-        border-left: none;
-        border-right: none;
-    }
-
-    .status-link {
-        @extend %tag-base;
-        background-color: color-mix(in oklch, var(--now-broadcasting-red) 15%, transparent);
-        color: var(--now-broadcasting-red);
-        font-family: font(heading);
-        display: inline-block;
-        margin-top: space(md);
-
-        i {
-            margin-right: space(xs);
-        }
-
-        &:hover {
-            border-color: var(--now-broadcasting-red);
-            @include hover-shadow(var(--now-broadcasting-red));
-        }
-    }
 }
 
 // ===================================

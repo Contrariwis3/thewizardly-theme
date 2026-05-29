@@ -8,7 +8,7 @@
 {{ $feature := false }}
 {{ if gt (len $posts) 0 }}{{ $feature = index $posts 0 }}{{ end }}
 
-<div class="catalog">
+<div class="catalog" id="main-content" tabindex="-1">
   {{ partial "catalog/runhead.html" (dict "vol" "The All-Night Pavilion · dispatches from the late shift" "page" .) }}
 
   <div class="catalog-top">
@@ -110,11 +110,13 @@
   </div>
 
   <div class="catalog-grid">
-    {{ partial "fixtures/allied-mages.html" . }}
     {{ partial "fixtures/random-incantations.html" . }}
     {{ partial "fixtures/arcane-tags.html" . }}
+    {{ partial "fixtures/allied-mages.html" . }}
     {{ partial "fixtures/enchanted-emblems.html" . }}
   </div>
+
+  <a class="catalog-totop" href="#threshold">Back to the threshold <span class="catalog-totop-icon" aria-hidden="true">↑</span></a>
 </div>
 
 {{ end }}
