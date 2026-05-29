@@ -1347,7 +1347,8 @@ footer {
         @include transition();
 
         &:hover {
-            @include hover-shadow(var(--drafting-lamp-amber), 30%);
+            // Hover-Halo Rule: ≤0.2 opacity (the mixin default).
+            @include hover-shadow(var(--drafting-lamp-amber));
         }
     }
 }
