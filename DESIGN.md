@@ -41,7 +41,6 @@ typography:
     lineHeight: 1.5
 rounded:
   small: "4px"
-  medium: "8px"
 spacing:
   xs: "3px"
   sm: "5px"
@@ -51,14 +50,6 @@ spacing:
   xxl: "30px"
   xxxl: "40px"
 components:
-  exhibit-card:
-    backgroundColor: "{colors.exhibit-card-deep}"
-    rounded: "{rounded.medium}"
-    padding: "30px"
-  pavilion-display:
-    backgroundColor: "{colors.exhibit-card-deep}"
-    rounded: "{rounded.medium}"
-    padding: "20px"
   link:
     textColor: "{colors.drafting-lamp-amber}"
   tag-sigil:
@@ -123,7 +114,7 @@ The Deep Bench converts on the same basis; its four fill-only pigments fail body
 - **Atomic Turquoise** (`#68c6b5`): The cool counter. Carries hover states on certain surfaces, ornamental linework, the "tomorrow shimmer" on slide-tray transitions and planetarium-style ornaments. Used sparingly and intentionally — turquoise should punctuate, never flood-fill. Contrast ≈ 6.0:1 — passes AA for body and large text. (Chosen over the deeper Deep-Dome-Teal `#018990`, which lands at ≈ 2.9:1 and is therefore large-ornament-only.)
 
 ### Tertiary
-- **Now-Broadcasting Red** (`#cd7561`): The rare signal accent. Reads as a glowing neon tube. Contrast ≈ 3.6:1 — **passes AA for large text and UI/icon contexts, fails for body-size text.** Therefore it carries the timestamp icon, the page-number numerals, and the "live" indicator (all large/UI), but **not** inline `<strong>` at body size — inline emphasis uses font weight (with Drafting-Lamp Amber where a color is wanted). Used like a REC light: ≤1% of any screen. Never a button background, never a border, never a section divider.
+- **Now-Broadcasting Red** (`#cd7561`): The rare signal accent. Reads as a glowing neon tube. Contrast ≈ 3.6:1 — **passes AA for large text and UI/icon contexts, fails for body-size text.** Therefore it carries the timestamp icon and the "now broadcasting" live indicator (both large/UI), but **not** inline `<strong>` at body size — inline emphasis uses font weight (with Drafting-Lamp Amber where a color is wanted). Used like a REC light: ≤1% of any screen. Never a button background, never a border, never a section divider.
 
 ### Neutral
 - **Night-Shift Midnight** (`#233745`): Body background. A deep planetarium-navy with a cool blue cast. A starfield texture overlays at low opacity (4–8%); the constellation is not random — see The Named-Starfield Rule below.
@@ -147,7 +138,7 @@ These pigments are decided and available but are **not** primary roles. They do 
 
 **The Named-Light Rule.** Light comes from sources you can name. A desk lamp. A CRT. A marquee bulb. A planetarium projector. A REC light on a console. If a glow doesn't have a clear physical analogue, it isn't earned and shouldn't be in the design. Ambient gradients with no source are the AI-atompunk-slop tell.
 
-**The One-REC-Light Rule.** Now-Broadcasting Red signs one thing on a surface, then disappears. Timestamp icon, page-number, "live" indicator — pick the one that's signing this surface. Three reds visible at once means two are wrong. And because the signal red fails AA at body size, inline `<strong>` is not one of its jobs — emphasis there is weight, not red.
+**The One-REC-Light Rule.** Now-Broadcasting Red signs one thing on a surface, then disappears. Timestamp icon or "now broadcasting" indicator — pick the one that's signing this surface. Three reds visible at once means two are wrong. And because the signal red fails AA at body size, inline `<strong>` is not one of its jobs — emphasis there is weight, not red.
 
 **The Tinted-Black Rule (preserved from Wizard's Workbench).** Pure `#000` and pure `#fff` are forbidden. Night-Shift Midnight carries the cool-blue cast of the body surface; Marquee-Bulb Cream carries the warm-incandescent cast of the text. Even rgba shadows over the body should be tinted toward warm-shadow, not toward absolute black.
 
@@ -170,9 +161,9 @@ These pigments are decided and available but are **not** primary roles. They do 
 - **Title** (Bona Nova 400, ~1.5rem, line-height 1.3): h3. Sub-section headings within long posts. Drafting-Lamp Amber.
 - **Body** (Atkinson Hyperlegible Next 400, 1rem, line-height 1.6): All paragraph text on Marquee-Bulb Cream. Cap line length at the 14/24 PureCSS column (~65–75ch) on desktop.
 - **Body Large** (Atkinson Hyperlegible Next 400, ~1.2rem, line-height 1.6): The masthead tagline paragraph and any pull-quote treatment.
-- **Label** (Atkinson Hyperlegible Next 400, 0.8rem): Tag sigils, status time, pagination tertiary copy.
+- **Label** (Atkinson Hyperlegible Next 400, 0.8rem): Tag sigils, status time.
 - **Mono** (Atkinson Hyperlegible Mono 400, 0.9rem, line-height 1.5): All inline code and code blocks.
-- **Ornament** (Bona Nova Italic 400, ~1.1rem): The Arcane Timestamp, pavilion-display titles, status time, pagination "Scroll N of M." Brass Linework or Drafting-Lamp Amber depending on context.
+- **Ornament** (Bona Nova Italic 400, ~1.1rem): The Arcane Timestamp, pavilion-display titles, status time. Brass Linework or Drafting-Lamp Amber depending on context.
 - **Marquee Initial** (Bona Nova 400, ~4em, line-height 0.8): The first letter of titled-essay bodies, in Drafting-Lamp Amber, floated left for a clean 2-line drop, with a soft Marquee Glow. Skipped on titleless microposts. Replaces the previous medieval-manuscript Drop Cap; same lockup math, different cultural reference.
 
 ### Named Rules
@@ -277,7 +268,7 @@ The home is a dense, ruled catalog spread, not a feed: the most recent post is t
 - **Do** use the wizardly nomenclature in copy ("Inscribed on", "Mystic Missives", "Allied Mages", "Enchanted Emblems", "Teleportation Circle", "Random Incantations"). The voice carries the wizard while the visuals carry the era.
 - **Do** retune the Marquee Initial's line-height alongside any change to its font-size or body line-height. The Three-Knobs Rule is non-negotiable.
 - **Do** gate any planetarium-style rotation, slide-tray reveal, marquee-glow flicker, or starfield-shimmer animation behind `prefers-reduced-motion: no-preference`. The night shift is calm by default.
-- **Do** show visible focus rings on every interactive trinket (web buttons, blogroll links, status feed entries, tag sigils, pagination, book covers, Marquee Initial if it is itself a link). Focus is distinct from hover.
+- **Do** show visible focus rings on every interactive trinket (web buttons, blogroll links, status feed entries, tag sigils, book covers, Marquee Initial if it is itself a link). Focus is distinct from hover.
 - **Do** treat trinkets (Mystic Missives, Allied Mages, Enchanted Emblems, Reading Pavilion, Random Incantations) as load-bearing architecture. The site does the indie-web job of pointing outward; every trinket is evidence that other people are also dreaming.
 
 ### Don't
@@ -296,7 +287,7 @@ The home is a dense, ruled catalog spread, not a feed: the most recent post is t
 - **Don't** use `#000` or `#fff` anywhere. Night-Shift Midnight and Marquee-Bulb Cream are the bounds of the value scale.
 - **Don't** flood-fill with Drafting-Lamp Amber or Atomic Turquoise. They are voices; they do not become walls. No solid amber button backgrounds, no turquoise hero panels, no full-bleed accent bands.
 - **Don't** use Now-Broadcasting Red as a background, button, border, or section divider. One REC light per surface, maximum.
-- **Don't** color inline `<strong>` with Now-Broadcasting Red. At body size it lands at ≈ 3.6:1 on the surface and fails AA. Inline emphasis is font weight; the signal red is for icons, page numbers, and the "live" indicator, where it is large enough to pass.
+- **Don't** color inline `<strong>` with Now-Broadcasting Red. At body size it lands at ≈ 3.6:1 on the surface and fails AA. Inline emphasis is font weight; the signal red is for icons and the "live" indicator, where it is large enough to pass.
 - **Don't** add modals as a first thought. Inline disclosure, expanding cards, or a follow-up post are usually the better answer for a personal site.
 - **Don't** apply glow to body text, h2, h3, or buttons. Glow lives on the masthead h1, the Marquee Initial, and link hover — nowhere else (tag sigils are links, so they take the ordinary link-hover glow, no more).
 - **Don't** animate layout properties. If motion is added, animate `transform` and `opacity` only, with ease-out exponential curves, gated behind `prefers-reduced-motion`.

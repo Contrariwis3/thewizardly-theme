@@ -16,7 +16,7 @@
     --exhibit-card-deep: oklch(28% 0.034 240); // recessed card surface, cool-on-cool
     --drafting-lamp-amber: oklch(80.5% 0.138 75.9); // dominant warm accent: links, headings, masthead
     --atomic-turquoise: oklch(76.4% 0.094 180.5); // cool counter — wired into components in Increment 3
-    --now-broadcasting-red: oklch(65.5% 0.115 33.8); // rare signal: timestamp, pills, page numbers (large/UI only)
+    --now-broadcasting-red: oklch(65.5% 0.115 33.8); // rare signal: timestamp icon + "now broadcasting" indicator (large/UI only)
     --brass-linework: oklch(75.7% 0.040 79.9); // structural rules/dividers + muted metadata text
     --marquee-bulb-cream: oklch(94.6% 0.018 78.2); // all body text on every surface
 
@@ -68,8 +68,7 @@ $spacing: (
 
 // Borders & Effects
 $border-radius: (
-    small: 4px,
-    medium: 8px
+    small: 4px
 );
 
 // Helper Functions
@@ -580,8 +579,8 @@ footer {
 }
 
 // Nav-link tap target: keep the menu links above the 24px touch minimum
-// (WCAG 2.5.8) in both presentations — the runhead row and the Teleportation
-// Circle aside. Shared via the .nav-link class in partials/fixtures/_nav-links.
+// (WCAG 2.5.8) in the runhead row. Shared via the .nav-link class in
+// partials/fixtures/_nav-links.
 .nav-link {
     display: inline-block;
     padding-block: 7px;
@@ -633,7 +632,7 @@ footer {
     > * { border-right: 1px solid var(--catalog-rule-faint); }
     // Ranked by what fills the space, not by co-equal weight: Random
     // Incantations leads as the marquee (a five-deep list), the tag sample gets
-    // a wider cell so the pills can breathe, the single-entry blogroll takes the
+    // a wider cell so the sigils can breathe, the single-entry blogroll takes the
     // narrow footnote cell, and the button wall closes full-width.
     > .fixture--random { grid-column: span 5; }
     > .fixture--tags { grid-column: span 4; }
@@ -1214,10 +1213,9 @@ footer {
         padding: space(md) 0;
     }
 
-    // Brass Linework divider between consecutive entries (DESIGN.md Mystic
-    // Missives). The adjacent-sibling combinator is class-aware (unlike
-    // :last-of-type, which is keyed off tag name and would treat the trailing
-    // .status-footer div as the "last" sibling).
+    // Brass Linework divider between consecutive status entries (DESIGN.md
+    // Mystic Missives): a top rule on every entry after the first, so the feed
+    // reads as ruled rows with no rule above the first or below the last.
     .status-entry + .status-entry {
         border-top: 1px solid color-mix(in oklch, var(--brass-linework) 30%, transparent);
     }

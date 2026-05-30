@@ -1,5 +1,5 @@
-{{/* ABOUTME: The main-menu link list, shared by the catalog runhead nav and the Teleportation Circle fixture. */}}
-{{/* ABOUTME: Single source for the menu loop so the two presentations never drift. */}}
+{{/* ABOUTME: The main-menu link list rendered in the catalog runhead nav. */}}
+{{/* ABOUTME: Kept as a partial so the menu loop has a single source. */}}
 <ul class="fixture-list">
   {{ range .Site.Menus.main }}
   {{/* $ is the page passed to this partial. The menu is URL-defined, so match the
