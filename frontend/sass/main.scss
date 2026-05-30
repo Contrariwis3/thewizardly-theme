@@ -966,22 +966,6 @@ footer {
 // COMPONENTS
 // ===================================
 
-// Card Component (the Exhibit Card)
-// Identity is carried by the Arcane Timestamp at the top and the Drop Cap on
-// titled essays, not by chrome on the edges. No spine.
-.card {
-    background-color: var(--exhibit-card-deep);
-    border-radius: radius(medium);
-    padding: space(xxl);
-    overflow: hidden;
-    margin-bottom: space(xxxl);
-    @include card-shadow();
-
-    @media (max-width: 768px) {
-        padding: space(xl);
-    }
-}
-
 // Post images.
 // Images in posts fill the column width, regardless of intrinsic size or
 // the width/height attributes micro.blog encodes from the source file.
@@ -1209,39 +1193,6 @@ footer {
     margin-bottom: 0;
     font-family: font(mono);
     font-size: size(small);
-}
-
-// ===================================
-// PAGINATION (Slide Tray Counter)
-// ===================================
-
-.pagination {
-    &-link {
-        &.previous {
-            text-align: left;
-        }
-
-        &.next {
-            text-align: right;
-        }
-    }
-
-    // Arrows in Drafting-Lamp Amber (DESIGN.md Slide Tray Counter).
-    &-icon {
-        color: var(--drafting-lamp-amber);
-    }
-
-    &-pages {
-        font-family: font(heading);
-        position: relative;
-        text-align: center;
-
-        // Page numerals in the REC-light red (large enough to pass AA).
-        .page {
-            color: var(--now-broadcasting-red);
-            font-size: space(xl);
-        }
-    }
 }
 
 // ===================================

@@ -67,8 +67,6 @@ components:
     textColor: "{colors.drafting-lamp-amber}"
   arcane-timestamp:
     textColor: "{colors.brass-linework}"
-  pagination-page:
-    textColor: "{colors.now-broadcasting-red}"
   book-cover:
     rounded: "{rounded.small}"
 ---
@@ -211,12 +209,11 @@ Mostly flat with two atmospheric registers. Cards rest on the Night-Shift Midnig
 Documented from the shipped implementation (`frontend/sass/main.scss`). Values are the real compiled tokens: spacing from the `$spacing` scale (`xs` 3px / `sm` 5px / `md` 10px / `lg` 15px / `xl` 20px / `xxl` 30px / `xxxl` 40px), radii from `$border-radius` (`small` 4px / `medium` 8px), shadows and glows from §4. Color names map to the §2 palette.
 
 ### Exhibit Cards
-Paper exhibits resting on oak. The load-bearing content container; identity is carried by the Arcane Timestamp and the Marquee Initial, never by chrome on the edges. No spine.
-- **Corner Style:** 8px (`radius(medium)`).
-- **Background:** Exhibit-Card Deep, a shade off the body so the card reads as a recessed exhibit case rather than raised UI.
-- **Internal Padding:** 30px (`space(xxl)`), tightening to 20px (`space(xl)`) ≤768px.
+Paper exhibits resting on oak: the framed photo plates (the Illuminations grid, `.plate`) and book covers (`.book-cover`), each wearing the Exhibit Rest shadow (§4). The filled, rounded content card was retired in the redesign — reading plates, the home feature, and catalog fixtures are ruled cells on the night surface (a lit-edge or brass top rule plus content), not boxed cards. Identity is carried by the Arcane Timestamp and the Marquee Initial, never by chrome on the edges.
+- **Corner Style:** 4px (`radius(small)`) on plates and covers.
+- **Background:** the night surface shows through; only the art-less book board (`.book-cover--titled`) fills with Exhibit-Card Deep behind a 1px Brass edge.
 - **Shadow:** Exhibit Rest (§4). **Does not lift, intensify, or change on hover** (Page-Not-Button Rule).
-- **Border:** none.
+- **Border:** none, except the sanctioned book-board edge.
 
 ### Pavilion Displays
 The trinket fixtures (Mystic Missives, Allied Mages, Random Incantations, Enchanted Emblems, Illuminations, Reading Pavilion, Arcane Sigils, Marginalia). They render as ruled cells on the home Great Catalog — no card: a ruled cell with a 1px warm-brass top rule and a mono uppercase, figure-numbered kicker (see Fixture Titles). Inner reading plates carry their back-matter in the colophon, not a trinket aside.
@@ -247,9 +244,6 @@ A glowing Bona Nova capital opening a titled essay's first paragraph: 4em, line-
 ### Code
 - **Inline:** Brass Linework 10% wash on the surface, 4px corners (`radius(small)`), Atkinson Hyperlegible Mono 0.9rem (`size(normal)`), 2px 4px padding.
 - **Block (`pre`):** the same wash plus a 3px Drafting-Lamp Amber left-stripe (the preserved syntax-highlighter convention, the second sanctioned side-stripe), 15px padding (`space(lg)`), horizontal scroll on overflow.
-
-### Slide Tray Counter  (Pagination)
-Three columns (previous · counter · next). Arrows in Drafting-Lamp Amber; page numerals in Now-Broadcasting Red at 20px (`space(xl)`) — large enough to clear AA. Counter set in Bona Nova.
 
 ### Reading Pavilion  (Bookshelf, /bookshelf/)
 A full-width Catalog plate: covers grouped by year-of-departure, bottom-aligned in a wrapping row like books on a shelf.
