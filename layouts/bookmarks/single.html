@@ -1,13 +1,14 @@
 {{ define "main" }}
 {{/* The Marginalia plate — saved links as a full-width Catalog plate, sibling to the
-     Compendium (/archive/) and the Index of Arcana (/categories/). The list itself is
-     rendered by the {{< bookmarks >}} shortcode in the page content. */}}
+     Compendium (/archive/) and the Index of Arcana (/categories/). The list is rendered
+     from the micro.blog bookmarks feed by the catalog/marginalia.html partial, matching
+     how bookshelf/single.html renders its shelf from data — the content page is a stub. */}}
 <div class="catalog bookmarks-page" id="main-content" tabindex="-1">
   {{ partial "catalog/runhead.html" (dict "vol" "The All-Night Pavilion · the marginalia" "page" .) }}
 
   <h2 class="catalog-rubric">{{ .Title }}</h2>
 
-  {{ .Content }}
+  {{ partial "catalog/marginalia.html" . }}
 
   {{ partial "catalog/pavilion-return.html" . }}
 </div>

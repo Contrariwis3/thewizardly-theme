@@ -1,0 +1,50 @@
+{{/* ABOUTME: Fetches the micro.blog bookmarks JSON feed and returns normalized bookmark items. */}}
+{{/* ABOUTME: Single source of the fetch/parse for the Marginalia page and the home fixture. */}}
+{{ $items := slice }}
+{{ with $.Site.Params.feeds.bookmarks_json }}
+  {{ $result := try (resources.GetRemote .) }}
+  {{ with $result.Err }}
+    {{ warnf "Bookmarks feed fetch failed: %s" . }}
+  {{ else with $result.Value }}
+    {{ $response := . | transform.Unmarshal }}
+    {{ if isset $response "items" }}
+      {{/* micro.blog mixes in "link<N>"-id items whose .url is the public S3 snapshot of
+           each bookmarked page. Map them by <N> so a bookmark whose original link has
+           rotted can fall through to its archived copy. The matching <N> appears in the
+           bookmark's own content_html, in the "post_archived_links" block, as a
+           micro.blog/bookmarks/<N> reader link (that reader view is private, but the
+           paired S3 url is public). */}}
+      {{ $archives := dict }}
+      {{ range $response.items }}
+        {{ if hasPrefix .id "link" }}
+          {{ $archives = merge $archives (dict (strings.TrimPrefix "link" .id) .url) }}
+        {{ end }}
+      {{ end }}
+      {{ range $response.items }}
+        {{ if not (hasPrefix .id "link") }}
+          {{/* The note (or linked-page title) is everything in content_html before the
+               first <a> tag; anything after is the hostname link plus the archive block. */}}
+          {{ $note := replaceRE `(?s)<a.*` "" .content_html | plainify | htmlUnescape | strings.TrimSpace }}
+          {{ $host := "" }}
+          {{ $favicon := "" }}
+          {{ with .author }}
+            {{ $host = .name }}
+            {{ $favicon = .avatar }}
+          {{ end }}
+          {{ $archive := "" }}
+          {{ with findRESubmatch `micro\.blog/bookmarks/(\d+)` .content_html 1 }}
+            {{ $archive = index $archives (index (index . 0) 1) }}
+          {{ end }}
+          {{ $items = $items | append (dict
+              "url" .url
+              "note" $note
+              "host" $host
+              "favicon" $favicon
+              "date" .date_published
+              "archive" $archive) }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+{{ return $items }}
