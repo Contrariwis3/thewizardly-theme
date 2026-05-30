@@ -9,7 +9,7 @@
     {{ if $data.response.statuses }}
     <section class="fixture fixture--missives status-scroll">
       <h2 class="fixture-title">Mystic Missives</h2>
-      {{ range first 5 $data.response.statuses }}
+      {{ range first 4 $data.response.statuses }}
       <div class="status-entry">
         <div class="status-header">
           <span class="status-emoji">{{ .emoji }}</span>

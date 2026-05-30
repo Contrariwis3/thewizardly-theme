@@ -5,7 +5,7 @@
 <section class="fixture fixture--bookmarks">
   <h2 class="fixture-title">Marginalia</h2>
   <ul class="fixture-list bookmark-mini">
-    {{ range first 6 $bookmarks }}
+    {{ range first 8 $bookmarks }}
     <li>
       <a href="{{ .url }}">
         {{ with .favicon }}<img class="bookmark-favicon" src="{{ . }}" alt="" width="16" height="16" loading="lazy">{{ end }}
