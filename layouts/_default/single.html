@@ -1,5 +1,8 @@
 {{ define "main" }}
-{{/* A standing page (About / Now / Hello / Subscribe), read as a Catalog plate. */}}
+{{/* A standing page (About / Now / Hello / Subscribe), read as a Catalog plate. The reading
+     frame (runhead + #main-content) is the template's own chrome — baseof is just a skeleton. */}}
+<div class="reading" id="main-content" tabindex="-1">
+  {{ partial "catalog/runhead.html" (dict "vol" "The All-Night Pavilion · the reading room" "page" .) }}
 <article class="reading-plate reading-plate--standing">
   {{ if .Title }}<h1 class="plate-title">{{ .Title }}</h1>{{ end }}
 
@@ -9,4 +12,5 @@
 
   {{ partial "reading/colophon.html" . }}
 </article>
+</div>
 {{ end }}

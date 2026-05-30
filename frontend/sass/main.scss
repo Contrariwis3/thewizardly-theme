@@ -1121,17 +1121,10 @@ footer {
     margin-top: space(xl);
 }
 
-// Pavilion Displays (the trinket fixtures). On inner pages each fixture renders
-// as a small exhibit case stacked down the right-hand aside; on the home page the
-// same partials are catalog cells (see THE GREAT CATALOG below). The .fixture-title
-// and .fixture-list rules are shared by both presentations.
-.pavilion-aside .fixture {
-    background-color: var(--exhibit-card-deep);
-    padding: space(xl);
-    border-radius: radius(medium);
-    margin-bottom: space(xxl);
-}
-
+// Pavilion Displays (the trinket fixtures). They render as ruled catalog cells on the home
+// Great Catalog (see THE GREAT CATALOG above); inner reading plates carry their back-matter
+// in the colophon, not an aside. The .fixture-title and .fixture-list rules below are shared
+// by every surface a fixture appears in.
 .fixture-title {
     color: var(--drafting-lamp-amber);
     margin: 0 0 space(lg);

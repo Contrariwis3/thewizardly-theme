@@ -11,50 +11,11 @@
        they correctly get the compact band, the .RelPermalink heuristic can't tell them apart. */}}
   {{ block "masthead" . }}{{ partial "masthead/compact.html" . }}{{ end }}
 
-  {{ if .IsHome }}
-  {{/* The home page is the full-width Great Catalog (index.html owns the whole body). */}}
+  {{/* baseof is a thin skeleton. Every leaf template owns its own body chrome and its own
+       #main-content element — the reading frame (single scrolls + standing pages), the
+       catalog frame (archive / photos / categories / bookshelf / marginalia), or the home
+       Great Catalog — selected by Hugo's layout lookup. baseof does not route by Kind/Type. */}}
   {{ block "main" . }}{{ end }}
-  {{ else if and (eq .Kind "page") (ne .Type "bookshelf") (ne .Type "bookmarks") }}
-  {{/* Reading pages (scrolls + static pages) are a single Catalog plate: the runhead
-       carries the nav, the plate is read solo with no trinket aside. The Reading Pavilion
-       and the Marginalia plate are the exceptions, full-width index surfaces rather than a
-       reading column (below). */}}
-  <div class="reading" id="main-content" tabindex="-1">
-    {{ partial "catalog/runhead.html" (dict "vol" "The All-Night Pavilion · the reading room" "page" .) }}
-    {{ block "main" . }}{{ end }}
-  </div>
-  {{ else if or (eq .Kind "taxonomy") (eq .Kind "term") (eq .Kind "section") (eq .Type "bookshelf") (eq .Type "bookmarks") }}
-  {{/* The catalog index surfaces all own the body with their own runhead: the all-categories
-       index (Kind "taxonomy"), each individual arcanum (Kind "term"), section lists such as
-       /post/ (Kind "section", the Compendium), the Reading Pavilion (type "bookshelf"), and
-       the Marginalia plate (type "bookmarks"). The Compendium's siblings. */}}
-  {{ block "main" . }}{{ end }}
-  {{ else }}
-  {{/* List surfaces (taxonomy terms, sections) keep the main + Pavilion-aside layout. */}}
-  <div class="pure-g">
-    <div class="pure-u-1-24 spacer-column" aria-hidden="true"></div>
-
-    <main class="pure-u-1 pure-u-md-14-24" id="main-content" tabindex="-1">
-      {{ block "main" . }}{{ end }}
-    </main>
-
-    <div class="pure-u-1-24 spacer-column" aria-hidden="true"></div>
-
-    <aside class="pure-u-1 pure-u-md-7-24 pavilion-aside">
-      {{ partial "fixtures/teleportation-circle.html" . }}
-      {{ partial "fixtures/illuminations.html" . }}
-      {{ partial "fixtures/reading-pavilion.html" . }}
-      {{ partial "fixtures/bookmarks.html" . }}
-      {{ partial "fixtures/mystic-missives.html" . }}
-      {{ partial "fixtures/random-incantations.html" . }}
-      {{ partial "fixtures/allied-mages.html" . }}
-      {{ partial "fixtures/enchanted-emblems.html" . }}
-      {{ partial "fixtures/arcane-tags.html" . }}
-    </aside>
-
-    <div class="pure-u-1-24 spacer-column" aria-hidden="true"></div>
-  </div>
-  {{ end }}
 
   <div class="pure-g">
     <div class="pure-u-1-24 spacer-column" aria-hidden="true"></div>

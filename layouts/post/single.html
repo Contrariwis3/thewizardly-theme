@@ -1,6 +1,9 @@
 {{ define "main" }}
 {{/* A scroll, read as a single Catalog plate (not a blog post): the specimen pulled
-     from the catalog and displayed in full under the lamp's lit edge. */}}
+     from the catalog and displayed in full under the lamp's lit edge. The reading frame
+     (runhead + #main-content) is the template's own chrome — baseof is just a skeleton. */}}
+<div class="reading" id="main-content" tabindex="-1">
+  {{ partial "catalog/runhead.html" (dict "vol" "The All-Night Pavilion · the reading room" "page" .) }}
 <article class="reading-plate{{ if not .Title }} reading-plate--micro{{ end }}">
   <span class="catalog-fig">
     <span class="catalog-fig-n">Scroll</span>{{ with (.GetTerms "categories") }} · <span class="catalog-fig-t">{{ (index . 0).LinkTitle }}</span>{{ end }}
@@ -26,4 +29,5 @@
 
   {{ partial "reading/colophon.html" . }}
 </article>
+</div>
 {{ end }}

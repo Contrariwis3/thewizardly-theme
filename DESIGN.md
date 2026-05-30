@@ -219,12 +219,10 @@ Paper exhibits resting on oak. The load-bearing content container; identity is c
 - **Border:** none.
 
 ### Pavilion Displays
-Small exhibit cases on a model fairground, stacked down the right-hand aside on inner pages. On the home page the same partials re-body as ruled catalog cells (see The Great Catalog, below).
-- **Aside form:** Exhibit-Card Deep background, 8px corners (`radius(medium)`), 20px padding (`space(xl)`), 30px bottom margin.
-- **Catalog form:** no card — a ruled cell with a 1px warm-brass top rule and a mono uppercase kicker (see Fixture Titles).
+The trinket fixtures (Mystic Missives, Allied Mages, Random Incantations, Enchanted Emblems, Illuminations, Reading Pavilion, Arcane Sigils, Marginalia). They render as ruled cells on the home Great Catalog — no card: a ruled cell with a 1px warm-brass top rule and a mono uppercase, figure-numbered kicker (see Fixture Titles). Inner reading plates carry their back-matter in the colophon, not a trinket aside.
 
 ### Fixture Titles
-- **Aside:** Bona Nova 400, 1.2rem (`size(large)`), Drafting-Lamp Amber, with a 1px Brass Linework bottom rule at 30% opacity (`subtle-border`).
+- **Standalone** (e.g. the colophon's "Other Curiosities"): Bona Nova 400, 1.2rem (`size(large)`), Drafting-Lamp Amber, with a 1px Brass Linework bottom rule at 30% opacity (`subtle-border`).
 - **Catalog:** Atkinson Hyperlegible Mono 400, 0.8rem (`size(small)`), uppercase, 0.14em tracking, warm-brass, prefixed with a figure number (`Fig. N ·`) or `Contents ·` for the Recent Scrolls index. The prefix recedes (0.82em, dimmer) so the fixture's NAME is the dominant token.
 
 ### Tag Sigils  (formerly Sigil Pills / Tag Pills)
