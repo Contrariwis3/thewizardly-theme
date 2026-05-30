@@ -30,7 +30,7 @@
         {{ if .Title }}
         <span class="scroll-title"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></span>
         {{ else }}
-        {{ $plain := .Content | plainify | strings.TrimSpace }}
+        {{ $plain := .Content | plainify | htmlUnescape | strings.TrimSpace }}
         {{ if $plain }}
         <span class="scroll-title scroll-title--micro"><a href="{{ .RelPermalink }}">{{ $plain | truncate 72 }}</a></span>
         {{ else }}

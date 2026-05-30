@@ -18,9 +18,9 @@
   {{ else }}
   {{/* .Summary is rendered HTML; plainify so the description is plain text by intent,
        not by relying on html/template stripping tags in attribute context. */}}
-  <meta name="twitter:description" content="{{ .Summary | plainify | truncate 60 }}">
-  <meta name="og:description" content="{{ .Summary | plainify | truncate 60 }}">
-  <meta name="description" content="{{ .Summary | plainify }}">
+  <meta name="twitter:description" content="{{ .Summary | plainify | htmlUnescape | truncate 60 }}">
+  <meta name="og:description" content="{{ .Summary | plainify | htmlUnescape | truncate 60 }}">
+  <meta name="description" content="{{ .Summary | plainify | htmlUnescape }}">
   {{- range .Params.photos -}}
   <meta name="twitter:image" content="{{ . }}">
   <meta property="og:image" content="{{ . }}">

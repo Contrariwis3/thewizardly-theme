@@ -10,7 +10,7 @@
   <div class="plate-grid">
     {{ range $plated }}
     {{ $alt := "An illumination" }}
-    {{ with .Params.photos_alt }}{{ $alt = index . 0 }}{{ else }}{{ with (.Content | plainify | strings.TrimSpace) }}{{ $alt = . | truncate 80 }}{{ end }}{{ end }}
+    {{ with .Params.photos_alt }}{{ $alt = index . 0 }}{{ else }}{{ with (.Content | plainify | htmlUnescape | strings.TrimSpace) }}{{ $alt = . | truncate 80 }}{{ end }}{{ end }}
     <a class="plate" href="{{ .Permalink }}" aria-label="{{ $alt }}">
       {{ range first 1 .Params.photos }}<img src="{{ . }}" alt="" loading="lazy" decoding="async">{{ end }}
     </a>

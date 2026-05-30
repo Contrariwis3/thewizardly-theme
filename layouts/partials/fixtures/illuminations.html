@@ -3,7 +3,7 @@
 {{ $plated := where .Site.RegularPages.ByDate.Reverse ".Params.photos" "!=" nil }}
 {{ range first 1 $plated }}
 {{ $alt := "The latest illumination" }}
-{{ with .Params.photos_alt }}{{ $alt = index . 0 }}{{ else }}{{ with (.Content | plainify | strings.TrimSpace) }}{{ $alt = . | truncate 80 }}{{ end }}{{ end }}
+{{ with .Params.photos_alt }}{{ $alt = index . 0 }}{{ else }}{{ with (.Content | plainify | htmlUnescape | strings.TrimSpace) }}{{ $alt = . | truncate 80 }}{{ end }}{{ end }}
 <section class="fixture fixture--illuminations">
   <h2 class="fixture-title">Illuminations</h2>
   <a class="illumination-latest" href="{{ .Permalink }}" aria-label="{{ $alt }}">
