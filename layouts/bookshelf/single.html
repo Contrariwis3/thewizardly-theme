@@ -1,88 +1,59 @@
+{{/* ABOUTME: The Reading Pavilion (/bookshelf/) — a full-width Catalog plate: currently-reading */}}
+{{/* ABOUTME: covers and finished books grouped by year. Reads micro.blog's reading-goal data shape. */}}
 {{ define "main" }}
-<main class="bookshelf-page">
-    <!-- =======================
-       Currently reading
-       ======================= -->
-    <section class="shelf shelf-current">
-        <h2>Currently reading</h2>
+<div class="catalog reading-pavilion-page" id="main-content" tabindex="-1">
+  {{ partial "catalog/runhead.html" (dict "vol" "The All-Night Pavilion · the reading pavilion" "page" .) }}
 
-        {{ with hugo.Data.bookshelves }}
-        {{ with index . "currentlyreading" }}
-        {{ if gt (len .) 0 }}
-        <div class="pure-g book-grid">
-            {{ range . }}
-            {{ $b := . }}
+  <h2 class="catalog-rubric">The Reading Pavilion</h2>
 
-            <div class="pure-u-1-2 pure-u-md-1-4 book-cell">
-                <div class="book-cover-container">
-                    {{ with $b.cover_url }}
-                    <img class="book-cover" src="{{ . }}" alt="Cover of {{ $b.title }}" loading="lazy">
-                    {{ else }}
-                    <div class="book-cover book-cover--placeholder" aria-hidden="true"></div>
-                    {{ end }}
-                </div>
-            </div>
-            {{ end }}
-        </div>
-        {{ else }}
-        <p class="empty"><em>Nothing here right now.</em></p>
-        {{ end }}
-        {{ else }}
-        <p class="empty"><em>Couldn’t find the “currentlyreading” shelf data.</em></p>
-        {{ end }}
-        {{ else }}
-        <p class="empty"><em>Bookshelf data isn’t available in this build.</em></p>
-        {{ end }}
-    </section>
+  {{/* Currently reading — the books open on the table now. */}}
+  <section class="pavilion-section" aria-label="Currently reading">
+    <h3 class="pavilion-head">Currently Reading</h3>
+    {{ with hugo.Data.bookshelves }}
+    {{ with index . "currentlyreading" }}
+    {{ if gt (len .) 0 }}
+    <div class="book-row">
+      {{ range . }}{{ partial "catalog/book-cover.html" (dict "book" .) }}{{ end }}
+    </div>
+    {{ else }}
+    <p class="empty">No scrolls open on the table tonight.</p>
+    {{ end }}
+    {{ else }}
+    <p class="empty">No scrolls open on the table tonight.</p>
+    {{ end }}
+    {{ else }}
+    <p class="empty">The reading shelf isn’t available in this build.</p>
+    {{ end }}
+  </section>
 
-    <!-- =======================
-       Finished (by Goals year)
-       ======================= -->
-    <section class="shelf shelf-finished">
-        <h2>Finished</h2>
+  {{/* Finished, grouped by year (descending). micro.blog nests each year's books
+       inside its reading-goal object; we read only the books, not the goal count. */}}
+  {{ with hugo.Data.bookgoals }}
+  {{ $years := slice }}
+  {{ range $year, $goal := . }}
+  {{ $years = $years | append (dict "year" $year "goal" $goal) }}
+  {{ end }}
+  {{ $years = sort $years "year" "desc" }}
+  {{ range $years }}
+  {{ $yr := .year }}
+  {{ $goal := .goal }}
+  {{ with $goal }}
+  {{ with .books }}
+  {{ if gt (len .) 0 }}
+  <section class="pavilion-section" aria-label="Read in {{ $yr }}">
+    <h3 class="pavilion-head">{{ $yr }}</h3>
+    <div class="book-row">
+      {{ range . }}{{ partial "catalog/book-cover.html" (dict "book" .) }}{{ end }}
+    </div>
+  </section>
+  {{ end }}
+  {{ end }}
+  {{ end }}
+  {{ end }}
+  {{ else }}
+  <p class="empty">The reading log isn’t available in this build.</p>
+  {{ end }}
 
-        {{ with hugo.Data.bookgoals }}
-        {{ $years := slice }}
-        {{ range $year, $goal := . }}
-        {{ $years = $years | append (dict "year" $year "goal" $goal) }}
-        {{ end }}
-        {{ $years = sort $years "year" "desc" }}
-
-        {{ range $years }}
-        {{ $yr := .year }}
-        {{ $goal := .goal }}
-
-        {{ with $goal }}
-        {{ with .books }}
-        {{ if gt (len .) 0 }}
-        <section class="year-group" aria-label="Finished in {{ $yr }}">
-            <h3 class="year">{{ $yr }}</h3>
-
-            <div class="pure-g book-grid">
-                {{ range . }}
-                {{ $b := . }}
-
-                <div class="pure-u-1-2 pure-u-md-1-4 book-cell">
-                    <div class="book-cover-container">
-                        {{ with $b.cover_url }}
-                        <img class="book-cover" src="{{ . }}" alt="Cover of {{ $b.title }}" loading="lazy">
-                        {{ else }}
-                        <div class="book-cover book-cover--placeholder" aria-hidden="true"></div>
-                        {{ end }}
-                    </div>
-                </div>
-                {{ end }}
-            </div>
-        </section>
-        {{ end }}
-        {{ end }}
-        {{ end }}
-
-        {{ end }}
-        {{ else }}
-        <p class="empty"><em>Goals data isn’t available in this build.</em></p>
-        {{ end }}
-    </section>
-
-</main>
+  {{ partial "catalog/pavilion-return.html" . }}
+</div>
 {{ end }}

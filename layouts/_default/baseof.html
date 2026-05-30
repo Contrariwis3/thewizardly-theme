@@ -4,123 +4,18 @@
 {{ partial "head.html" . }}
 
 <body>
-  <div class="pure-g">
-    <div class="pure-u-1-24 spacer-column" aria-hidden="true"></div>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  {{/* The masthead defaults to the compact title band; only the HTML home overrides this
+       block with the full Threshold hero. /archive/ and /photos/ are home output formats
+       (.IsHome true) but render through their own list templates, which don't override, so
+       they correctly get the compact band, the .RelPermalink heuristic can't tell them apart. */}}
+  {{ block "masthead" . }}{{ partial "masthead/compact.html" . }}{{ end }}
 
-    {{ partial "header.html" . }}
-
-    <div class="pure-u-1-24 spacer-column" aria-hidden="true"></div>
-  </div>
-
-  <div class="pure-g">
-    <div class="pure-u-1-24 spacer-column" aria-hidden="true"></div>
-
-    <main class="pure-u-1 pure-u-md-14-24">
-      {{ block "main" . }}{{ end }}
-    </main>
-
-    <div class="pure-u-1-24 spacer-column" aria-hidden="true"></div>
-
-    <aside class="pure-u-1 pure-u-md-7-24">
-      <div class="side-content">
-        <div class="side-title">Teleportation Circle</div>
-        <ul>
-          {{ range .Site.Menus.main }}
-          {{ if and .Page (.Page.Params.redirect_url) }}
-          <li><a href="{{ .Page.Params.redirect_url }}">{{ .Name }}</a></li>
-          {{ else }}
-          <li><a href="{{ .URL | relURL | safeURL }}">{{ .Name }}</a></li>
-          {{ end }}
-          {{ end }}
-        </ul>
-      </div>
-
-      {{ $result := try (resources.GetRemote "https://api.omg.lol/address/contrariwise/statuses/") }}
-      {{ with $result.Err }}
-        {{ warnf "omg.lol fetch failed: %s" . }}
-      {{ else }}
-        {{ with $result.Value }}
-          {{ $data := . | transform.Unmarshal }}
-          {{ if $data.response.statuses }}
-          <div class="side-content status-scroll">
-            <div class="side-title">Mystic Missives</div>
-            {{ range first 3 $data.response.statuses }}
-            <div class="status-entry">
-              <div class="status-header">
-                <span class="status-emoji">{{ .emoji }}</span>
-                {{ $created := .created | int }}
-                <time class="status-time" datetime="{{ $created | dateFormat "2006-01-02" }}">
-                  {{ $created | dateFormat "Jan 2" }}
-                </time>
-              </div>
-              <div class="status-content">{{ .content | safeHTML }}</div>
-            </div>
-            {{ end }}
-            <div class="status-footer">
-              <a href="https://contrariwise.status.lol" class="status-link">
-                <i class="ph ph-scroll" aria-hidden="true"></i> View all scrolls
-              </a>
-            </div>
-          </div>
-          {{ end }}
-        {{ end }}
-      {{ end }}
-
-      <div class="side-content">
-        <div class="side-title">Random Incantations</div>
-        <ul>
-          {{ range first 3 (shuffle (where (where (where site.RegularPages "Type" "post") "Permalink" "!=" .Permalink) "Title" "!=" "")) }}
-          <li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
-          {{ end }}
-        </ul>
-      </div>
-
-      <div class="side-content">
-        <div class="side-title">Allied Mages</div>
-        <ul>
-          {{ range hugo.Data.blogrolls.recommendations }}
-          <li><a href="{{ .url }}">{{ .name }}</a></li>
-          {{ end }}
-        </ul>
-      </div>
-
-      <div class="side-content">
-        <div class="side-title">Enchanted Emblems</div>
-        <small class="emblem-note">Take these sigils for thy grimoire:</small>
-        <div class="button-collection button-collection--share">
-          <img src="https://static.thewizardly.com/buttons/soup.gif" alt="Soup" width="88" height="31">
-          <img src="https://static.thewizardly.com/buttons/the_wizardly.gif" alt="The Wizardly" width="88" height="31">
-        </div>
-        <div class="button-collection">
-          <img src="https://static.thewizardly.com/buttons/any-browser.gif" alt="Any Browser" width="88" height="31">
-          <img src="https://static.thewizardly.com/buttons/coffee.gif" alt="Coffee" width="88" height="31">
-          <img src="https://static.thewizardly.com/buttons/internetprivacy.gif" alt="Internet Privacy" width="88" height="31">
-          <img src="https://static.thewizardly.com/buttons/made_with_machintosh.jpg" alt="Made with Macintosh" width="88" height="31">
-          <img src="https://static.thewizardly.com/buttons/mothcore-2.gif" alt="Mothcore" width="88" height="31">
-          <img src="https://static.thewizardly.com/buttons/positivity_punk_lightning.gif" alt="Positivity Punk" width="88" height="31">
-          <img src="https://static.thewizardly.com/buttons/right2repair.gif" alt="Right to Repair" width="88" height="31">
-        </div>
-      </div>
-
-      {{ $list := ($.Site.GetPage "taxonomy" "categories").Pages }}
-      {{ if gt (len $list) 0 }}
-      <div class="side-content">
-        <div class="side-title">Arcane Tags</div>
-        <div>
-          {{ range $list }}
-          <a class="tag" href="{{ .Permalink }}">
-            <i class="ph ph-sparkle"></i> {{ .Title }}
-          </a>
-          {{ end }}
-        </div>
-      </div>
-      {{ end }}
-    </aside>
-
-    <div class="pure-u-1-24 spacer-column" aria-hidden="true"></div>
-
-  </div>
-
+  {{/* baseof is a thin skeleton. Every leaf template owns its own body chrome and its own
+       #main-content element — the reading frame (single scrolls + standing pages), the
+       catalog frame (archive / photos / categories / bookshelf / marginalia), or the home
+       Great Catalog — selected by Hugo's layout lookup. baseof does not route by Kind/Type. */}}
+  {{ block "main" . }}{{ end }}
 
   <div class="pure-g">
     <div class="pure-u-1-24 spacer-column" aria-hidden="true"></div>

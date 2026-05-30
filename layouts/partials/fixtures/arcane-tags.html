@@ -1,0 +1,18 @@
+{{/* ABOUTME: Arcane Sigils fixture — the category taxonomy as sigil-links, a Pavilion catalog entry. */}}
+{{/* ABOUTME: Shared by the index Catalog and the inner-page aside. */}}
+{{ $list := (site.GetPage "taxonomy" "categories").Pages }}
+{{ if gt (len $list) 0 }}
+<section class="fixture fixture--tags">
+  <h2 class="fixture-title">Arcane Sigils</h2>
+  <div class="fixture-pills">
+    {{/* A random sample — the full taxonomy can run long (and unhinged), so each
+         build surfaces a different 6; the rest live at /categories/. */}}
+    {{ range first 6 (shuffle $list) }}
+    <a class="tag" href="{{ .Permalink }}"><i class="ph ph-sparkle" aria-hidden="true"></i> {{ .Title }}</a>
+    {{ end }}
+  </div>
+  {{ if gt (len $list) 6 }}
+  <a class="fixture-more" href="{{ "categories" | relURL }}">The full index of arcana →</a>
+  {{ end }}
+</section>
+{{ end }}

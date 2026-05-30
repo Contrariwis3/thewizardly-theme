@@ -1,99 +1,125 @@
+{{/* The HTML home is the only surface that wears the full Threshold hero; every other
+     plate (including the /archive/ and /photos/ home output formats) keeps baseof's
+     compact masthead default. */}}
+{{ define "masthead" }}{{ partial "masthead/hero.html" . }}{{ end }}
+
 {{ define "main" }}
 
-{{ $paginator := .Paginate (where .Site.RegularPages.ByDate.Reverse "Type" "post") }}
-{{ range .Paginator.Pages }}
-<article class="card">
-  {{ if .Title }}<h2>{{ .Title }}</h2>{{ end }}
-  <div class="arcane-timestamp">
-    <span class="timestamp-icon"><i class="ph ph-calendar"></i></span> Inscribed on <a href="{{ .Permalink }}" class="permalink" title="Permanent link to this scroll"><time datetime="{{ .Date.Format "2006-01-02 15:04:05 -0700" }}">{{ .Date.Format "January 2, 2006" }}</time></a>
-  </div>
+{{/* The Great Catalog front page (FJ#4 Inc 3): only the most recent post is rendered as the
+     feature (trimmed at a paragraph boundary), a Recent Scrolls index keeps the rest reachable,
+     and the standing trinkets are catalog fixtures at stable grid positions. */}}
 
-  {{/*
-    Three rendering paths, in priority order:
-      1. Author placed <!--more--> in the source — render the prefix as the summary.
-      2. Author set custom_summary — render .Summary.
-      3. Post is long enough to auto-truncate at a paragraph boundary past 750 words,
-         with at least 200 words remaining past the cut. Otherwise render in full.
-  */}}
-  {{ $body := .Content }}
-  {{ $truncated := false }}
+{{ $posts := where .Site.RegularPages.ByDate.Reverse "Type" "post" }}
+{{ $feature := false }}
+{{ if gt (len $posts) 0 }}{{ $feature = index $posts 0 }}{{ end }}
 
-  {{ if in .RawContent "<!--more-->" }}
-    {{ $splitContents := split .RawContent "<!--more-->" }}
-    {{ $summary := index $splitContents 0 }}
-    {{ $summary = replaceRE "\\[\\^.*?\\]" "" $summary }}
-    {{ $summary = replaceRE "\\n\\[\\^.*?\\]:.*" "" $summary }}
-    {{ $body = $summary | markdownify }}
-    {{ $truncated = true }}
-  {{ else if .Params.custom_summary }}
-    {{ $body = .Summary | safeHTML }}
-    {{ $truncated = true }}
-  {{ else if ge .WordCount 950 }}
-    {{ $paragraphs := split .Content "</p>" }}
-    {{ $accumulated := 0 }}
-    {{ $cutAt := -1 }}
-    {{ range $i, $p := $paragraphs }}
-      {{ if lt $cutAt 0 }}
-        {{ $accumulated = add $accumulated (len (split (plainify $p) " ")) }}
-        {{ if ge $accumulated 750 }}
-          {{ $cutAt = $i }}
+<div class="catalog" id="main-content" tabindex="-1">
+  {{ partial "catalog/runhead.html" (dict "vol" "The All-Night Pavilion · dispatches from the late shift" "page" .) }}
+
+  <div class="catalog-top">
+    {{ with $feature }}
+    <article class="feature{{ if not .Title }} feature--micro{{ end }}">
+      <span class="catalog-fig"><span class="catalog-fig-n">Plate I</span> · <span class="catalog-fig-t">The latest scroll</span> · <span class="catalog-fig-live"><i class="ph-fill ph-circle" aria-hidden="true"></i> now broadcasting</span></span>
+      {{ if .Title }}<h2 class="feature-title">{{ .Title }}</h2>{{ end }}
+      <div class="arcane-timestamp">
+        <span class="timestamp-icon"><i class="ph-fill ph-circle" aria-hidden="true"></i></span> Inscribed on <a href="{{ .Permalink }}" class="permalink" title="Permanent link to this scroll"><time datetime="{{ .Date.Format "2006-01-02 15:04:05 -0700" }}">{{ .Date.Format "January 2, 2006" }}</time></a>
+      </div>
+
+      {{/*
+        Trim the feature, in priority order:
+          1. Author placed <!--more--> — render the prefix.
+          2. Author set custom_summary — render .Summary.
+          3. Long enough to auto-truncate at a paragraph boundary past 750 words,
+             with at least 200 words remaining past the cut. Otherwise render in full.
+      */}}
+      {{ $body := .Content }}
+      {{ $truncated := false }}
+
+      {{ if in .RawContent "<!--more-->" }}
+        {{ $splitContents := split .RawContent "<!--more-->" }}
+        {{ $summary := index $splitContents 0 }}
+        {{ $summary = replaceRE "\\[\\^.*?\\]" "" $summary }}
+        {{ $summary = replaceRE "\\n\\[\\^.*?\\]:.*" "" $summary }}
+        {{ $body = $summary | markdownify }}
+        {{ $truncated = true }}
+      {{ else if .Params.custom_summary }}
+        {{ $body = .Summary | safeHTML }}
+        {{ $truncated = true }}
+      {{ else }}
+        {{/* Auto-trim the feature to a ~3-paragraph lead so the front page invites
+             the reader in without pushing the catalog below the fold. Only trims
+             when there are more than 3 paragraphs; shorter posts render in full. */}}
+        {{ $paragraphs := split .Content "</p>" }}
+        {{ if gt (len $paragraphs) 4 }}
+          {{ $kept := first 3 $paragraphs }}
+          {{ $body = printf "%s</p>" (delimit $kept "</p>") | safeHTML }}
+          {{ $truncated = true }}
         {{ end }}
       {{ end }}
-    {{ end }}
-    {{/* Only truncate if at least 200 words remain past the cut. Otherwise the
-         "Continue reading" link reveals too little to justify the round trip. */}}
-    {{ if and (ge $cutAt 0) (gt (sub .WordCount $accumulated) 200) }}
-      {{ $kept := first (add $cutAt 1) $paragraphs }}
-      {{ $body = printf "%s</p>" (delimit $kept "</p>") | safeHTML }}
-      {{ $truncated = true }}
-    {{ end }}
-  {{ end }}
 
-  <div class="post-content">
-    {{ $body }}
-  </div>
+      <div class="post-content">{{ $body }}</div>
 
-  {{ if $truncated }}
-  <p class="continue-reading"><a href="{{ .Permalink }}">Continue reading <span class="continue-reading-icon">→</span></a></p>
-  {{ end }}
+      {{ if $truncated }}
+      <p class="continue-reading"><a href="{{ .Permalink }}">Continue reading <span class="continue-reading-icon">→</span></a></p>
+      {{ end }}
 
-  {{ $categories := (.GetTerms "categories") }}
-  {{ if gt (len $categories) 0 }}
-  <div class="post-tags">
-    <div class="pure-g">
-      <div class="pure-u-1">
+      {{ $categories := (.GetTerms "categories") }}
+      {{ if gt (len $categories) 0 }}
+      <div class="post-tags">
         {{ range $categories }}
-        <a class="tag" href="{{ .Permalink }}">
-          <i class="ph ph-sparkle"></i> {{ .LinkTitle }}
-        </a>
+        <a class="tag" href="{{ .Permalink }}"><i class="ph ph-sparkle" aria-hidden="true"></i> {{ .LinkTitle }}</a>
         {{ end }}
       </div>
+      {{ end }}
+    </article>
+    {{ end }}
+
+    <div class="catalog-rail">
+      {{/* Recent Scrolls — the catalog's contents index of everything past the feature. */}}
+      {{ $rest := after 1 $posts }}
+      {{ if gt (len $rest) 0 }}
+      <section class="fixture recent-scrolls">
+        <h2 class="fixture-title">Recent Scrolls</h2>
+        <ul class="scroll-list">
+          {{ range first 7 $rest }}
+          <li class="scroll-row">
+            <span class="scroll-date">{{ .Date.Format "Jan 2" }}</span>
+            {{ if .Title }}
+            <span class="scroll-title"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></span>
+            {{ else }}
+            {{ $plain := .Content | plainify | strings.TrimSpace }}
+            {{ if $plain }}
+            <span class="scroll-title scroll-title--micro"><a href="{{ .RelPermalink }}">{{ $plain | truncate 72 }}</a></span>
+            {{ else }}
+            {{/* Wordless (image-only) micropost: the Compendium's "an illumination" treatment. */}}
+            <span class="scroll-title scroll-title--micro scroll-title--wordless"><a href="{{ .RelPermalink }}"><i class="ph ph-image" aria-hidden="true"></i> an illumination</a></span>
+            {{ end }}
+            {{ end }}
+          </li>
+          {{ end }}
+        </ul>
+        <a class="fixture-more" href="{{ "archive" | relURL }}">The full compendium →</a>
+      </section>
+      {{ end }}
+
+      {{ partial "fixtures/illuminations.html" . }}
+      {{ partial "fixtures/reading-pavilion.html" . }}
     </div>
   </div>
-  {{ end }}
-</article>
-{{ end }}
 
-{{ if or $paginator.HasPrev $paginator.HasNext }}
-<nav class="card">
-  <div class="pure-g">
-    <div class="pure-u-1-3 pagination-link previous">
-      {{ if $paginator.HasPrev }}
-      <a href="{{ $paginator.Prev.URL }}"><span class="pagination-icon">←</span> Previous</a>
-      {{ end }}
-    </div>
-
-    <div class="pure-u-1-3 pagination-pages">
-      Scroll <span class="page">{{ $paginator.PageNumber }}</span> of <span class="page">{{ $paginator.TotalPages }}</span>
-    </div>
-
-    <div class="pure-u-1-3 pagination-link next">
-      {{ if $paginator.HasNext }}
-      <a href="{{ $paginator.Next.URL }}">More <span class="pagination-icon">→</span></a>
-      {{ end }}
-    </div>
+  {{/* Row 2: a full-width pair split evenly down the middle — the two "on the
+       wire" streams, each wide enough to breathe. */}}
+  <div class="catalog-pair">
+    {{ partial "fixtures/mystic-missives.html" . }}
+    {{ partial "fixtures/bookmarks.html" . }}
   </div>
-</nav>
-{{ end }}
+
+  <div class="catalog-grid">
+    {{ partial "fixtures/random-incantations.html" . }}
+    {{ partial "fixtures/arcane-tags.html" . }}
+    {{ partial "fixtures/allied-mages.html" . }}
+    {{ partial "fixtures/enchanted-emblems.html" . }}
+  </div>
+</div>
 
 {{ end }}

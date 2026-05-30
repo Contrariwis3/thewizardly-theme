@@ -1,0 +1,14 @@
+{{/* ABOUTME: Illuminations fixture — the most recent photo post as a Pavilion catalog entry, linking to /photos/. */}}
+{{/* ABOUTME: Shared by the index Catalog and the inner-page aside; renders nothing when there are no photo posts. */}}
+{{ $plated := where .Site.RegularPages.ByDate.Reverse ".Params.photos" "!=" nil }}
+{{ range first 1 $plated }}
+{{ $alt := "The latest illumination" }}
+{{ with .Params.photos_alt }}{{ $alt = index . 0 }}{{ else }}{{ with (.Content | plainify | strings.TrimSpace) }}{{ $alt = . | truncate 80 }}{{ end }}{{ end }}
+<section class="fixture fixture--illuminations">
+  <h2 class="fixture-title">Illuminations</h2>
+  <a class="illumination-latest" href="{{ .Permalink }}" aria-label="{{ $alt }}">
+    {{ range first 1 .Params.photos }}<img src="{{ . }}" alt="" loading="lazy" decoding="async">{{ end }}
+  </a>
+  <a class="fixture-more" href="{{ "photos" | relURL }}">More illuminations →</a>
+</section>
+{{ end }}

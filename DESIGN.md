@@ -1,80 +1,46 @@
 ---
-name: TheWizardly Theme
-description: A Hugo theme for thewizardly.com. The Wizard's Workbench: an indie-web curio shop set on parchment under inkwell midnight, lit by sage candlelight and sealed in rose wax.
+name: TheWizardly Theme — All-Night Pavilion
+description: A Hugo theme for thewizardly.com. The All-Night Pavilion: sincere atompunk in a dark room, lit by drafting lamp and marquee bulb, where the wizard is awake while the world sleeps and holds the candle for tomorrow.
 colors:
-  sage-grimoire: "#7ba05b"
-  weathered-parchment: "#b5a693"
-  rose-seal: "#b85c69"
-  parchment-cream: "#f4f1e8"
-  inkwell-midnight: "#1a1a2e"
-  inkwell-midnight-deep: "#0f0f1a"
-  card-bg: "#0f0f1acc"
-  code-bg: "#b5a6931a"
+  night-shift-midnight: "oklch(32.6% 0.036 239.8)"
+  exhibit-card-deep: "oklch(28% 0.034 240)"
+  drafting-lamp-amber: "oklch(80.5% 0.138 75.9)"
+  atomic-turquoise: "oklch(76.4% 0.094 180.5)"
+  now-broadcasting-red: "oklch(65.5% 0.115 33.8)"
+  brass-linework: "oklch(75.7% 0.040 79.9)"
+  marquee-bulb-cream: "oklch(94.6% 0.018 78.2)"
 typography:
   display:
-    fontFamily: "Philosopher, serif"
-    fontSize: "3rem"
+    fontFamily: "'Bona Nova', serif"
+    fontSize: "clamp(2.8rem, 8vw, 5rem)"
     fontWeight: 400
-    lineHeight: 1.2
-    letterSpacing: "normal"
-  display-mobile:
-    fontFamily: "Philosopher, serif"
-    fontSize: "2.5rem"
-    fontWeight: 400
-    lineHeight: 1.2
-    letterSpacing: "normal"
+    lineHeight: 1.06
   headline:
-    fontFamily: "Philosopher, serif"
+    fontFamily: "'Bona Nova', serif"
     fontSize: "2rem"
     fontWeight: 400
     lineHeight: 1.25
-    letterSpacing: "normal"
   title:
-    fontFamily: "Philosopher, serif"
+    fontFamily: "'Bona Nova', serif"
     fontSize: "1.5rem"
     fontWeight: 400
     lineHeight: 1.3
-    letterSpacing: "normal"
   body:
-    fontFamily: "Atkinson Hyperlegible Next, sans-serif"
+    fontFamily: "'Atkinson Hyperlegible Next', sans-serif"
     fontSize: "1rem"
     fontWeight: 400
     lineHeight: 1.6
-    letterSpacing: "normal"
-  body-large:
-    fontFamily: "Atkinson Hyperlegible Next, sans-serif"
-    fontSize: "1.2rem"
-    fontWeight: 400
-    lineHeight: 1.6
-    letterSpacing: "normal"
   label:
-    fontFamily: "Atkinson Hyperlegible Next, sans-serif"
+    fontFamily: "'Atkinson Hyperlegible Next', sans-serif"
     fontSize: "0.8rem"
     fontWeight: 400
-    lineHeight: 1.4
-    letterSpacing: "normal"
   mono:
-    fontFamily: "Atkinson Hyperlegible Mono, monospace"
+    fontFamily: "'Atkinson Hyperlegible Mono', monospace"
     fontSize: "0.9rem"
     fontWeight: 400
     lineHeight: 1.5
-    letterSpacing: "normal"
-  ornament:
-    fontFamily: "Philosopher, serif"
-    fontSize: "1.1rem"
-    fontWeight: 400
-    lineHeight: 1.4
-    letterSpacing: "normal"
-  drop-cap:
-    fontFamily: "Philosopher, serif"
-    fontSize: "4em"
-    fontWeight: 400
-    lineHeight: 0.8
-    letterSpacing: "normal"
 rounded:
-  sm: "4px"
-  md: "8px"
-  pill: "20px"
+  small: "4px"
 spacing:
   xs: "3px"
   sm: "5px"
@@ -84,296 +50,247 @@ spacing:
   xxl: "30px"
   xxxl: "40px"
 components:
-  card:
-    backgroundColor: "{colors.card-bg}"
-    textColor: "{colors.parchment-cream}"
-    rounded: "{rounded.md}"
-    padding: "30px"
-  card-mobile:
-    backgroundColor: "{colors.card-bg}"
-    textColor: "{colors.parchment-cream}"
-    rounded: "{rounded.md}"
-    padding: "20px"
-  side-content:
-    backgroundColor: "{colors.card-bg}"
-    textColor: "{colors.parchment-cream}"
-    rounded: "{rounded.md}"
-    padding: "20px"
-  side-title:
-    textColor: "{colors.sage-grimoire}"
-    typography: "{typography.body-large}"
-    padding: "0 0 5px 0"
-  tag:
-    backgroundColor: "#b5a69333"
-    textColor: "{colors.weathered-parchment}"
-    rounded: "{rounded.pill}"
-    padding: "3px 10px"
-    typography: "{typography.label}"
-  tag-hover:
-    backgroundColor: "#b5a69333"
-    textColor: "{colors.weathered-parchment}"
-    rounded: "{rounded.pill}"
-    padding: "3px 10px"
-  response-tag:
-    backgroundColor: "#b85c6926"
-    textColor: "{colors.rose-seal}"
-    rounded: "{rounded.pill}"
-    padding: "3px 10px"
-    typography: "{typography.label}"
-  arcane-timestamp:
-    textColor: "{colors.weathered-parchment}"
-    typography: "{typography.ornament}"
-  drop-cap:
-    textColor: "{colors.sage-grimoire}"
-    typography: "{typography.drop-cap}"
   link:
-    textColor: "{colors.sage-grimoire}"
-  link-hover:
-    textColor: "{colors.sage-grimoire}"
-  blockquote:
-    textColor: "{colors.parchment-cream}"
-    padding: "0 0 0 15px"
-  code-inline:
-    backgroundColor: "{colors.code-bg}"
-    textColor: "{colors.parchment-cream}"
-    rounded: "{rounded.sm}"
-    padding: "2px 4px"
-    typography: "{typography.mono}"
-  code-block:
-    backgroundColor: "{colors.code-bg}"
-    textColor: "{colors.parchment-cream}"
-    rounded: "{rounded.sm}"
-    padding: "15px"
-    typography: "{typography.mono}"
+    textColor: "{colors.drafting-lamp-amber}"
+  tag-sigil:
+    textColor: "{colors.brass-linework}"
+  fixture-title:
+    textColor: "{colors.drafting-lamp-amber}"
+  arcane-timestamp:
+    textColor: "{colors.brass-linework}"
   book-cover:
-    rounded: "{rounded.sm}"
-    width: "128px"
-    height: "200px"
-  web-button:
-    width: "88px"
-    height: "31px"
+    rounded: "{rounded.small}"
 ---
 
-# Design System: TheWizardly Theme
+<!-- Documented in scan mode (FJ#4 Increment 6) from the shipped All-Night Pavilion implementation in frontend/sass/main.scss — real compiled tokens (palette, type scale, spacing, radii, shadows, focus rings) and real component specs. Palette, faces, and starfield were resolved per the closed #1/#2/#3 decisions; the previous Wizard's Workbench DESIGN.md is preserved in git history and was deliberately replaced. Frontmatter carries OKLCH, the project's canonical color space (Stitch's linter prefers hex sRGB and will warn; this is the accepted OKLCH-doctrine path) — the §2 table pairs each token with its sRGB source value. -->
+<!-- Palette source: cross-bred from two Color Cube cards — surface, counter, signal, and a warm-light from card 689; the amber lead and brass-linework neutral from card 589. The cards donated a scheme; the names here are ours. -->
+<!-- The deep bench (secondary tier, structural / fill / large-accent only, not primary roles): filament-glow #fbbf98, banked-ember #7c4c49, kiln-rust #8b4021, deep-dome-teal #018990, drafting-shadow #393631, walnut #4e3123. Documented in §2 prose; promoted to frontmatter only if/when implementation actually reuses them. -->
+
+# Design System: TheWizardly Theme — All-Night Pavilion
 
 ## 1. Overview
 
-**Creative North Star: "The Wizard's Workbench"**
+**Creative North Star: "The All-Night Pavilion"**
 
-A workbench at twilight, lit by candlelight on parchment. A sage-bound notebook lies open. A rose wax seal is cooling on a letter. The room behind it is inkwell-dark, but the surfaces in arm's reach glow warm. This system is workmanlike and lived-in; things are out, in use, mid-thought. The wizardly framing belongs to the proprietor, not to the room: the room is just a person's workbench, faithfully rendered.
+A drafting lamp burns in the upper window of the wizard's tower. Inside, a model city hums under starlight on a long oak table — half-built, alive, faithfully detailed, glowing. Brass marquee bulbs trace a path between the exhibits. A planetarium projector throws constellations on the dome above. The wizard is awake while the world sleeps, holding the candle for tomorrow.
 
-Density is high in the writing surface and modest in the chrome. The page reads top-to-bottom in a single column of long-form text framed by a sidebar of trinkets, sigils, and outbound links. There is one bound notebook (the post card), one mantel of small objects (the sidebar), and a parchment pattern faintly visible on the wall behind everything. Edges are hand-drawn rather than die-cut: dotted underlines, soft drop shadows, a single sage stripe down the spine of each card. Decoration is sincere, not winking, and it never overrides the body type.
+This system is sincere atompunk in a dark room. Drenched in night-shift atmosphere — every surface in scene — with light arriving only from sources you can name: a desk lamp, a CRT, a marquee bulb, a planetarium projector, a single REC light on a console. The room is dark because the wizard is on the late shift, not because the world is grim. There is no gothic gloom and no ambient gradient slop. Decoration is committed and sincere — full-body, no smirk, no remove. The wizardly voice in copy carries the bit; the visuals carry the era. *We play. We dream.*
 
-This system explicitly rejects modern SaaS / Substack templates (white sans-serif blog with subscribe CTA), official D&D / WotC commercial fantasy gloss, goth-metal mysticism (pure black + blood red, blackletter, occult sigils), and ironic Web 2.0 nostalgia bait (Comic Sans, animated GIF chaos as costume). The 88x31 web buttons, blogroll, and status scrolls here are sincere indie-web participation, not pastiche.
+The kin we stand beside (never quoted, never named in site copy, named freely in this internal document for designer reference): the unbuilt 1966 EPCOT plan documents, the 1964 World's Fair pavilion brochures, the Eames studio's filmstrips and book design (*Powers of Ten*, *Mathematica*), the Hayden Planetarium of the early sixties, the Whole Earth Catalog, and the mid-century children's encyclopedias of *How Things Work*. Sincere wonder, careful design, hopeful engineering — the posture is inherited, the iconography is not.
+
+This system explicitly rejects AI-rendered chrome-rocket atompunk gloss, generic Jetsons cartoon retrofuture, Mad Men corporate restraint, direct Disney / EPCOT / Imagineer branding marks, crypto-bro techno-optimism hype, modern SaaS / Substack templates, goth-metal mysticism, and ironic Web 2.0 nostalgia bait.
 
 **Key Characteristics:**
-- Inkwell-midnight surface tinted faintly toward blue, never pure black
-- Parchment-cream body type that never sacrifices legibility for atmosphere
-- A three-pigment palette of sage, weathered parchment, and rose seal carrying all accent work
-- Essay-form posts (those with titles) open with an illuminated drop cap in Sage Grimoire; titleless microposts skip it
-- Every post carries the Arcane Timestamp inside the card: a Philosopher-italic "Inscribed on…" line with a Rose Seal calendar mark
-- A subtle parchment SVG pattern washing the body at 8% opacity
-- Soft glows on the display heading and on link hover; no other ambient effects
-- Trinkets (web buttons, blogroll, status feed) treated as load-bearing, not chrome
+- A warm-led, night-shift midnight surface lit only by named physical light sources
+- Drafting-Lamp Amber as the dominant warm accent; Atomic Turquoise as the cool counter; one rare REC-light red as the signal pigment
+- Marquee-Bulb Cream body type — warmer than parchment-cream, less yellow than ivory
+- A faint starfield texture, not a gradient, sitting under the body
+- An atompunk display serif paired with Atkinson Hyperlegible Next body — editorial, sincere, sit-down-with-a-book wonder
+- 88×31 web buttons preserved at native pixel resolution, no filter, no scaling
+- A Marquee Initial replacing the medieval Drop Cap on essay-form posts: a glowing letterform opening each essay like a marquee bulb-letter
+- Soft amber glow on the masthead and on link hover; nowhere else
+- Trinkets (Mystic Missives, Allied Mages, Enchanted Emblems, Reading Pavilion, Random Incantations) preserved as load-bearing architecture, re-bodied for the new room
 
-## 2. Colors: The Workbench Palette
+## 2. Colors
 
-A three-pigment palette of sage ink, weathered parchment, and rose wax sealed onto an inkwell-midnight surface, with a single warm parchment-cream body color carrying every word.
+A warm-led night-shift palette: warm accents glowing against a cool night-navy ground. Drafting-Lamp Amber leads; Atomic Turquoise is the cool counter; Now-Broadcasting Red is the rare signal; a warm near-white cream carries every word. The palette is locked below (cross-bred from two donated Color Cube schemes), now resolved to OKLCH — the canonical target — with the sRGB hex retained as the source value. WCAG 2.2 AA ratios are computed against Night-Shift Midnight (`#233745`); the resolved tokens and their verified contrast are tabled here.
+
+| Token | sRGB | OKLCH | Contrast on surface |
+|---|---|---|---|
+| Night-Shift Midnight | `#233745` | `oklch(32.6% 0.036 239.8)` | surface |
+| Drafting-Lamp Amber | `#f2b24c` | `oklch(80.5% 0.138 75.9)` | 6.60:1 — AA body |
+| Atomic Turquoise | `#68c6b5` | `oklch(76.4% 0.094 180.5)` | 6.06:1 — AA body |
+| Now-Broadcasting Red | `#cd7561` | `oklch(65.5% 0.115 33.8)` | 3.71:1 — AA large/UI only |
+| Brass Linework | `#beae94` | `oklch(75.7% 0.040 79.9)` | 5.68:1 — AA body |
+| Marquee-Bulb Cream | `#f4ece0` | `oklch(94.6% 0.018 78.2)` | 10.52:1 — AAA |
+| Exhibit-Card Deep | `#1c2d39` | `oklch(28% 0.034 240)` | card surface (cool-on-cool) |
+
+The Deep Bench converts on the same basis; its four fill-only pigments fail body contrast by design (they are never text). The round-trip preserved every AA result — no lightness nudges were required.
 
 ### Primary
-- **Sage Grimoire** (`#7ba05b`): The voice of the system. Carries every link, every body-copy emphasis you want a reader to follow, every h1 and h3 heading, the sage stripe down the left edge of cards and code blocks, and the dotted-underline link affordance. Used softly, never aggressively; never as a flood fill.
+- **Drafting-Lamp Amber** (`#f2b24c`): The dominant warm accent. Carries link affordance, ornament glows, marquee details, the warm side of typography. Reads as a 60-watt incandescent bulb seen through paper; never as electric sodium-vapor yellow. Contrast on Night-Shift Midnight ≈ 6.5:1 — passes AA for body and large text, so amber links and emphasis are crisp.
 
 ### Secondary
-- **Weathered Parchment** (`#b5a693`): The voice of metadata. Carries h2 headings, blockquote text, the Arcane Timestamp ornament, tag pill text, and the muted "previous post" / "year group" labels. The color of margin notes and library spines.
+- **Atomic Turquoise** (`#68c6b5`): The cool counter. Carries hover states on certain surfaces, ornamental linework, the "tomorrow shimmer" on slide-tray transitions and planetarium-style ornaments. Used sparingly and intentionally — turquoise should punctuate, never flood-fill. Contrast ≈ 6.0:1 — passes AA for body and large text. (Chosen over the deeper Deep-Dome-Teal `#018990`, which lands at ≈ 2.9:1 and is therefore large-ornament-only.)
 
 ### Tertiary
-- **Rose Seal** (`#b85c69`): The voice of emphasis and reply. Carries `<strong>` text, the timestamp icon, response tag pills, the pagination page-number numerals. Used like a wax seal: rare, deliberate, signing one thing per surface.
+- **Now-Broadcasting Red** (`#cd7561`): The rare signal accent. Reads as a glowing neon tube. Contrast ≈ 3.6:1 — **passes AA for large text and UI/icon contexts, fails for body-size text.** Therefore it carries the timestamp icon and the "now broadcasting" live indicator (both large/UI), but **not** inline `<strong>` at body size — inline emphasis uses font weight (with Drafting-Lamp Amber where a color is wanted). Used like a REC light: ≤1% of any screen. Never a button background, never a border, never a section divider.
 
 ### Neutral
-- **Parchment Cream** (`#f4f1e8`): All body text on every surface. The page itself.
-- **Inkwell Midnight** (`#1a1a2e`): Body background, with a parchment SVG pattern at 8% opacity layered over it. Faintly blue, never pure black.
-- **Inkwell Midnight Deep** (`#0f0f1a` at 80% opacity, written `#0f0f1acc`): Card and sidebar background. Slightly deeper than the body so cards read as nested pages, not raised cards.
-- **Code Overlay** (`#b5a693` at 10% opacity, written `#b5a6931a`): A whisper of weathered parchment laid over the card surface to mark inline code and code blocks.
+- **Night-Shift Midnight** (`#233745`): Body background. A deep planetarium-navy with a cool blue cast. A starfield texture overlays at low opacity (4–8%); the constellation is not random — see The Named-Starfield Rule below.
+- **Marquee-Bulb Cream** (`#f4ece0` = `oklch(94.6% 0.018 78.2)`, locked): All body text on every surface. A warm near-white — warmer than ivory, well clear of the AA floor (10.52:1 on the surface). Not on either donor card by design — body-on-dark wants a sourced near-white, not a saturated tan.
+- **Brass Linework** (`#beae94`): Structural color for dividers, ornamental separators, low-emphasis rules, and muted metadata text. A desaturated greige-brass. Contrast ≈ 5.6:1 — passes AA for body, so it doubles as a legible muted-metadata text color. Used for the rules under section titles, between status entries, and around the bookshelf year groupings.
+- **Exhibit-Card Deep**: Card and pavilion-display background, a shade off the body so cards read as nested pages rather than raised UI. Resolved to `oklch(28% 0.034 240)` ≈ `#1c2d39`: Night-Shift Midnight's hue and chroma held, lightness dropped ~4.5 points so the card reads as a recessed exhibit case, kept cool-on-cool. Do **not** use the warm-dark bench colors (Drafting-Shadow, Walnut) here; a warm-brown card on the cool navy body clashes.
+
+### The Deep Bench (secondary tier — structural, fill, or large-accent only)
+
+These pigments are decided and available but are **not** primary roles. They do not get used as accent voices; reaching for them as a fifth and sixth "accent color" is off-brand. Promote to frontmatter only when implementation actually reuses one.
+
+- **Filament Glow** (`#fbbf98`): A light warm peach, ≈ 7.5:1. The halo of a lit bulb. Soft secondary warm, glow tint, hover wash.
+- **Banked Ember** (`#7c4c49`): A muted deep maroon, text-fails on the surface. Structural fill only — blockquote bar, a deep warm panel.
+- **Kiln Rust** (`#8b4021`): A deep rust, text-fails on the surface. Structural fill only — code-block tint, warm deep accent.
+- **Deep-Dome Teal** (`#018990`): A saturated teal, ≈ 2.9:1 — large-ornament / focus-ring / big-element use only, never body text.
+- **Drafting-Shadow** (`#393631`) and **Walnut** (`#4e3123`): Warm darks, fill only — possible code-block or footer fills. Keep off the primary card surface (see Exhibit-Card Deep).
 
 ### Named Rules
 
-**The Three-Pigment Rule.** Sage, parchment, rose. No new accent hues without explicit approval. New surfaces compose from these three plus the two midnight neutrals; reaching for blue, gold, or yellow is a sign the design has drifted off-brand.
+**The Drenched Rule.** Every surface — masthead, post card, pavilion display, footer arcade — sits in the night-shift scene. There is no escape hatch to a clean Substack-grey card. The page itself commits. If a future component feels like it wants to "step outside the room for clarity," the component has the wrong shape, not the room.
 
-**The One Seal Rule.** Rose Seal is rare. It signs the timestamp icon, the response-tag pill, the page-number numerals, and `<strong>` emphasis. It does not get used as a button background, a heading color, a border, or a section divider. If the eye is finding rose in three places on a screen at once, two of them are wrong.
+**The Named-Light Rule.** Light comes from sources you can name. A desk lamp. A CRT. A marquee bulb. A planetarium projector. A REC light on a console. If a glow doesn't have a clear physical analogue, it isn't earned and shouldn't be in the design. Ambient gradients with no source are the AI-atompunk-slop tell.
 
-**The Tinted-Black Rule.** Pure `#000` and pure `#fff` are forbidden. Inkwell Midnight carries the blue-cast body; Parchment Cream carries the warm-cast text. Even rgba shadows over the body should fall on Inkwell Midnight Deep, not on `#000`.
+**The One-REC-Light Rule.** Now-Broadcasting Red signs one thing on a surface, then disappears. Timestamp icon or "now broadcasting" indicator — pick the one that's signing this surface. Three reds visible at once means two are wrong. And because the signal red fails AA at body size, inline `<strong>` is not one of its jobs — emphasis there is weight, not red.
+
+**The Tinted-Black Rule (preserved from Wizard's Workbench).** Pure `#000` and pure `#fff` are forbidden. Night-Shift Midnight carries the cool-blue cast of the body surface; Marquee-Bulb Cream carries the warm-incandescent cast of the text. Even rgba shadows over the body should be tinted toward warm-shadow, not toward absolute black.
+
+**The Three-Pigment-Plus-One Rule.** Drafting-Lamp Amber, Atomic Turquoise, Brass Linework — those are the accent and structural pigments. Now-Broadcasting Red is the rare signal layered on top. The Deep Bench is structural/fill, not new accent voices. No new accent hues without explicit approval. Reaching for purple, magenta, or a fresh green is the sign the design has drifted off-brand.
+
+**The Named-Starfield Rule.** The starfield texture under the body is a real, identifiable, low-density star map (a constellation, a sliver of the Milky Way, a recognizable star pattern). It is not random pixel noise. The exact star pattern is a designer choice; that it is *a real sky* and not a generated one is the rule. **Resolved — the Founding Sky:** a real ephemeris, the sky as it stood over 33.83°N, 117.92°W at 03:00 local on 22 April 2000. Source: the Yale Bright Star Catalogue, every star above the horizon at that instant down to magnitude ~6; each star's radius and opacity mapped to its magnitude, the field laid at 4–8% opacity over Night-Shift Midnight. Real catalogue stars only — no procedural fill, no "thickening." The projection and SVG construction land in the implementation issue.
 
 ## 3. Typography
 
-**Display Font:** Philosopher (with serif fallback)
-**Body Font:** Atkinson Hyperlegible Next (with sans-serif fallback)
-**Mono Font:** Atkinson Hyperlegible Mono (with monospace fallback)
+**Display Font:** Bona Nova (OFL) — Mateusz Machalski's 2017 revival of Andrzej Heidrich's 1971 *Bona*, completed with the original author. A warm Polish book serif rooted in Renaissance antiqua: the obscure, period-authentic pick that stands beside the lineage rather than wearing its costume, chosen over the reflex atompunk serifs (Recoleta, DM Serif Display, Reckless Neue). Delivered via Bunny Fonts (privacy-first and GDPR-clean), which serves it alongside the Atkinson body and mono faces and retires the Google Fonts dependency; it holds character at the 4em Marquee Initial under amber glow, and it ships ornamental manicules that echo the ▸ of the Arcane Timestamp.
+**Body Font:** Atkinson Hyperlegible Next (sans-serif fallback)
+**Mono Font:** Atkinson Hyperlegible Mono (monospace fallback)
+**Marquee/Ornament Variant:** Bona Nova Italic — the display face's own italic (the cut the original *Bona* began as), for the Arcane Timestamp and pavilion-display titles.
 
-**Character:** Philosopher carries the wizardly tone in the headings, the side-titles, and small ornamental labels (the Arcane Timestamp, status-time, pagination "Scroll N of M"). Atkinson Hyperlegible Next carries every word a reader actually reads. The pairing is deliberately unequal: the display face decorates, the body face works.
+**Character:** The display face carries the EPCOT-Dreamer optimism — a sit-down-with-a-book editorial serif with mid-century warmth, the kind of letterform that lived on a 1962 children's encyclopedia spine or a 1964 World's Fair brochure cover. Atkinson Hyperlegible Next remains untouched on body, doing the actual work of carrying every word a reader reads. The pairing is intentionally unequal: the display decorates; the body works. Marquee moments — the masthead title and the Marquee Initial on essays — borrow the display face at extreme size, dressed in amber glow.
 
 ### Hierarchy
-
-- **Display** (Philosopher 400, 3rem desktop / 2.5rem ≤768px, line-height 1.2): The site title in the masthead. Glows softly in Sage Grimoire via a 10px text-shadow at 30% opacity. One Display per page, the masthead only.
-- **Headline** (Philosopher 400, 2rem, line-height 1.25): h2. Weathered Parchment with a dotted 1px underline at 30% opacity. Section dividers within a post.
-- **Title** (Philosopher 400, 1.5rem, line-height 1.3): h3. Sage Grimoire. Sub-section headings within long posts.
-- **Body** (Atkinson Hyperlegible Next 400, 1rem / 16px, line-height 1.6): All paragraph text on Parchment Cream. Cap line length at the 14/24 PureCSS column (~65–75ch) on desktop.
-- **Body Large** (Atkinson Hyperlegible Next 400, 1.2rem, line-height 1.6): The masthead tagline paragraph.
-- **Label** (Atkinson Hyperlegible Next 400, 0.8rem): Tag pills, status time, response-tag pills, pagination tertiary copy.
+- **Display** (Bona Nova 400, ~3rem desktop / ~2.5rem ≤768px, line-height 1.2): The masthead. The site title under starlight, glowing softly in Drafting-Lamp Amber via the Marquee Glow.
+- **Headline** (Bona Nova 400, ~2rem, line-height 1.25): h2. Section dividers within a post. Brass Linework rule beneath, 1px solid at ~30% opacity.
+- **Title** (Bona Nova 400, ~1.5rem, line-height 1.3): h3. Sub-section headings within long posts. Drafting-Lamp Amber.
+- **Body** (Atkinson Hyperlegible Next 400, 1rem, line-height 1.6): All paragraph text on Marquee-Bulb Cream. Cap line length at the 14/24 PureCSS column (~65–75ch) on desktop.
+- **Body Large** (Atkinson Hyperlegible Next 400, ~1.2rem, line-height 1.6): The masthead tagline paragraph and any pull-quote treatment.
+- **Label** (Atkinson Hyperlegible Next 400, 0.8rem): Tag sigils, status time.
 - **Mono** (Atkinson Hyperlegible Mono 400, 0.9rem, line-height 1.5): All inline code and code blocks.
-- **Ornament** (Philosopher 400 italic, 1.1rem): The Arcane Timestamp, side-content titles, status time, pagination "Scroll N of M". Weathered Parchment.
-- **Drop Cap** (Philosopher 400, 4em, line-height 0.8): The first letter of titled-post bodies (essays), in Sage Grimoire, floated left for a clean 2-line drop. The medieval-manuscript capital. Skipped on titleless microposts.
+- **Ornament** (Bona Nova Italic 400, ~1.1rem): The Arcane Timestamp, pavilion-display titles, status time. Brass Linework or Drafting-Lamp Amber depending on context.
+- **Marquee Initial** (Bona Nova 400, ~4em, line-height 0.8): The first letter of titled-essay bodies, in Drafting-Lamp Amber, floated left for a clean 2-line drop, with a soft Marquee Glow. Skipped on titleless microposts. Replaces the previous medieval-manuscript Drop Cap; same lockup math, different cultural reference.
 
 ### Named Rules
 
-**The Hyperlegible Body Rule.** The body face is Atkinson Hyperlegible Next. It is non-negotiable. The Philosopher decorative face never carries paragraph text, button labels, form input text, or anything a reader reads in volume. If a heading has more than ~10 words, it stops being decorative and the choice should be reconsidered.
+**The Hyperlegible Body Rule (preserved).** Atkinson Hyperlegible Next is the body face. Non-negotiable. The display face never carries paragraph text, button labels, form input text, or anything a reader reads in volume. If a heading has more than ~10 words, it stops being decorative and the choice should be reconsidered.
 
-**The One Glow Rule.** Soft text-shadow glows are reserved for the site-title h1 (always, low intensity) and for link hover (briefly, while hovered). They do not appear on h2, h3, body text, or buttons. Glow is a flourish, not a tone.
+**The Marquee Glow Rule.** Soft Drafting-Lamp Amber text-shadow is reserved for the masthead h1, the Marquee Initial on essay posts, and link hover. Glow has a physical analogue (the marquee bulb, the desk-lamp halo, the candle catching a wet edge of ink) — it is never decoration without that anchor. Glow does not appear on h2, h3, body text, or buttons. (Tag sigils are links, so they take the ordinary Link Hover Glow on hover and nothing more.)
 
-**The Three-Knobs Rule (drop cap lockup).** A floated drop cap reserves vertical space equal to `cap font-size × cap line-height`; for a clean N-line drop, that product must equal `N × body line-height`. The current lockup is `4em × 0.8 = 3.2em = 2 × 1.6em`. There are three knobs (cap font-size, cap line-height, body line-height) and only two equations (the lockup, and any aesthetic preference). Tuning one without retuning another produces the "good but not great" sliver where the float reserves a fractional number of body lines and line 3 starts beside the cap awkwardly. If body line-height changes, recompute cap line-height to preserve `cap font-size × cap line-height = N × body line-height`.
+**The Three-Knobs Rule (preserved from Wizard's Workbench).** A floated Marquee Initial reserves vertical space equal to `cap font-size × cap line-height`; for a clean N-line drop, that product must equal `N × body line-height`. The previous design's 4em × 0.8 = 2 × 1.6em lockup is a working starting point. If body line-height changes, recompute Marquee Initial line-height to preserve the equation.
+
+**The No-Geometric-Sans-Display Rule.** The display direction is editorial serif, not mid-century geometric sans. Futura, Avenir, and similar are the canonical atompunk choices and exactly for that reason they are *not* the choice here. The All-Night Pavilion reads warmer and more sincere than the geometric-sans atompunk house style; the serif carries that difference.
 
 ## 4. Elevation
 
-The system is mostly flat with two atmospheric registers. Cards float gently above the inkwell body via a single soft drop shadow, conveying "page resting on parchment" rather than "raised UI surface". Glow is reserved for the wizardly flourish: the masthead title, and link-hover feedback.
+Mostly flat with two atmospheric registers. Cards rest on the Night-Shift Midnight surface via a single warm-tinted drop shadow — the shadow a paper exhibit-card would cast on a varnished oak table under a drafting lamp. Glow is reserved for the wizardly flourish: the masthead, the Marquee Initial, and link hover. No surface lifts on hover; the room is calm by default. Motion energy is Responsive (state feedback and transitions only); choreographed entrances and scroll-driven sequences are out.
 
 ### Shadow Vocabulary
 
-- **Card Rest** (`box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2)`): The default shadow under every card and side-content panel. Diffuse, soft, low-contrast against the inkwell surface. Reads as "page laid down", not "button lifted up".
-- **Trinket Hover** (`box-shadow: 0 3px 8px rgba(<accent>, 0.2)`): A small colored hover halo under tags, response tags, status-link pills, and book covers. The accent color matches the trinket's own pigment (Sage Grimoire under primary trinkets, Weathered Parchment under tags, Rose Seal under response affordances).
-- **Display Glow** (`text-shadow: 0 0 10px rgba(123, 160, 91, 0.3)`): The Sage Grimoire halo under the masthead h1. Always-on, low-intensity, atmospheric.
-- **Link Hover Glow** (`text-shadow: 0 0 10px rgba(123, 160, 91, 0.5)`): A brief Sage glow under hovered links. Slightly stronger than Display Glow, present only while the link is hovered.
+- **Exhibit Rest** (`box-shadow: 0 10px 30px color-mix(in oklch, var(--shadow-warm) 30%, transparent)`, where `--shadow-warm: oklch(20% 0.03 64)`; shipped as the `card-shadow()` mixin): The default shadow under every Exhibit Card, Pavilion Display, book cover, and framed plate. Diffuse, warm-tinted (toward Drafting-Lamp Amber, not toward black), low-contrast against the night-shift surface. Reads as paper resting on oak under a drafting lamp.
+- **Trinket Hover Halo** (`box-shadow: 0 3px 8px color-mix(in oklch, <accent> 20%, transparent)`; shipped as the `hover-shadow($color, $alpha)` mixin): A small colored hover halo under book covers (and any trinket that earns one). The accent matches the trinket's own pigment (Drafting-Lamp Amber for warm trinkets, Atomic Turquoise for cool trinkets, Now-Broadcasting Red only for explicitly "live" affordances).
+- **Marquee Glow** (`text-shadow: 0 0 12px color-mix(in oklch, var(--drafting-lamp-amber) 42%, transparent)`, the `--marquee-glow` token): The masthead h1 and Marquee Initials. Always-on, low intensity, atmospheric. Reads as a bulb seen through a paper letterform.
+- **Link Hover Glow** (`text-shadow: 0 0 10px color-mix(in oklch, var(--drafting-lamp-amber) 50%, transparent)`, the `--link-hover-glow` token): A brief amber glow under hovered links, slightly stronger than Marquee Glow, present only while hovered.
 
 ### Named Rules
 
-**The Page-Not-Button Rule.** The Card Rest shadow is a "page on parchment" cue, not a "click me" cue. It does not animate, intensify, or lift on hover. A card is a resting page; a button is something else and gets explicit interactive feedback elsewhere.
+**The Page-Not-Button Rule (preserved).** Exhibit Cards do not lift on hover. A card is a resting paper exhibit; interactive feedback lives elsewhere. The Exhibit Rest shadow is a "paper on oak" cue, not a "click me" cue. It does not animate, intensify, or change on hover.
 
-**The Hover-Halo Rule.** Trinket hover halos use `0 3px 8px rgba(<accent>, 0.2)` and tint the halo to the trinket's own accent (sage, parchment, or rose). They do not exceed 8px blur, do not cast more than 3px down, and do not change opacity beyond 0.2. Hover is a whisper.
+**The Earned-Glow Rule.** Glow has an explicit, namable physical source. The masthead glows like a marquee letter under bulbs. The Marquee Initial glows like a planetarium-show title slide. Links glow briefly like a candle catching a wet edge of ink. Nothing glows decoratively without a named physical analogue.
+
+**The Hover-Halo Rule (preserved).** Trinket hover halos use `0 3px 8px rgba(<accent>, 0.2)` and tint the halo to the trinket's own accent. They do not exceed 8px blur, do not cast more than 3px down, and do not exceed 0.2 opacity. Hover is a whisper.
 
 ## 5. Components
 
-### Cards (the manuscript page)
-Cards are the primary writing surface. Their identity is carried by what's *inside* them, not by chrome on the edges: the Arcane Timestamp at the top of each card and the Illuminated Drop Cap on the first paragraph of titled essays. The card itself is a clean, faintly translucent page.
+Documented from the shipped implementation (`frontend/sass/main.scss`). Values are the real compiled tokens: spacing from the `$spacing` scale (`xs` 3px / `sm` 5px / `md` 10px / `lg` 15px / `xl` 20px / `xxl` 30px / `xxxl` 40px), radii from `$border-radius` (`small` 4px / `medium` 8px), shadows and glows from §4. Color names map to the §2 palette.
 
-- **Shape:** Gently rounded edges (`border-radius: 8px`).
-- **Background:** Inkwell Midnight Deep at 80% opacity (`#0f0f1acc`), letting the parchment body pattern subtly show through.
-- **Edges:** No side stripe. No border. The Card Rest shadow alone defines the page's edge against the body.
-- **Shadow:** Card Rest, always.
-- **Internal Padding:** 30px desktop, 20px ≤768px.
-- **Default Margin:** 40px below each card; cards never touch.
-- **Overflow:** `hidden`, so floated book-cover images and any other floated child crops cleanly inside the rounded corners.
+### Exhibit Cards
+Paper exhibits resting on oak: the framed photo plates (the Illuminations grid, `.plate`) and book covers (`.book-cover`), each wearing the Exhibit Rest shadow (§4). The filled, rounded content card was retired in the redesign — reading plates, the home feature, and catalog fixtures are ruled cells on the night surface (a lit-edge or brass top rule plus content), not boxed cards. Identity is carried by the Arcane Timestamp and the Marquee Initial, never by chrome on the edges.
+- **Corner Style:** 4px (`radius(small)`) on plates and covers.
+- **Background:** the night surface shows through; only the art-less book board (`.book-cover--titled`) fills with Exhibit-Card Deep behind a 1px Brass edge.
+- **Shadow:** Exhibit Rest (§4). **Does not lift, intensify, or change on hover** (Page-Not-Button Rule).
+- **Border:** none, except the sanctioned book-board edge.
 
-### Side Content (the mantel)
-Sidebar containers stacked down the right column, each holding a different kind of trinket.
+### Pavilion Displays
+The trinket fixtures (Mystic Missives, Allied Mages, Random Incantations, Enchanted Emblems, Illuminations, Reading Pavilion, Arcane Sigils, Marginalia). They render as ruled cells on the home Great Catalog — no card: a ruled cell with a 1px warm-brass top rule and a mono uppercase, figure-numbered kicker (see Fixture Titles). Inner reading plates carry their back-matter in the colophon, not a trinket aside.
 
-- **Shape:** `border-radius: 8px`.
-- **Background:** Inkwell Midnight Deep at 80% opacity.
-- **Padding:** 20px.
-- **No spine on desktop**: a side-content container is a tray, not a page; the sage stripe re-appears only on the ≤768px stacked view to maintain the bound feel.
-- **Side Title:** A Philosopher 1.2rem ornament label in Sage Grimoire with a 1px dotted Sage bottom rule at 30% opacity. Names the trinket category ("Teleportation Circle", "Mystic Missives", "Random Incantations", "Allied Mages", "Enchanted Emblems", "Arcane Tags").
+### Fixture Titles
+- **Standalone** (e.g. the colophon's "Other Curiosities"): Bona Nova 400, 1.2rem (`size(large)`), Drafting-Lamp Amber, with a 1px Brass Linework bottom rule at 30% opacity (`subtle-border`).
+- **Catalog:** Atkinson Hyperlegible Mono 400, 0.8rem (`size(small)`), uppercase, 0.14em tracking, warm-brass, prefixed with a figure number (`Fig. N ·`) or `Contents ·` for the Recent Scrolls index. The prefix recedes (0.82em, dimmer) so the fixture's NAME is the dominant token.
 
-### Tag Pills (the wax seals)
-Two species of pill, distinguished only by pigment.
-
-- **Shape:** Pill (`border-radius: 20px`), 3px / 10px padding.
-- **Tag (category):** Weathered Parchment text on a Weathered Parchment 20% tint.
-- **Response Tag (reply / status link):** Rose Seal text on a Rose Seal 15% tint.
-- **Hover:** A 1px solid border in the pill's own pigment appears, plus a Trinket Hover halo. No background or text-color change.
-- **Content:** Most tags carry a Phosphor `ph-sparkle` icon to the left of the label.
-
-### Illuminated Drop Cap (the manuscript capital)
-The first letter of an *essay* post's body text rendered as a large Philosopher capital in Sage Grimoire, floated left for a clean 2-line drop. This is the medieval manuscript practice of illumination, used here as the system's "this is an essay" signal.
-
-- **Apply on:** The `::first-letter` of the first `<p>` inside `.post-content`, **only when the card has a title** (`<h2>`). On micro.blog this maps cleanly to "essay-form posts" — titleless posts are microposts and may be only a few words; a 4em capital on a 10-word post would be absurd. The CSS scope is `.card:has(> h2) .post-content > p:first-of-type::first-letter`. The existing `{{ if .Title }}<h2>...</h2>{{ end }}` pattern in the templates already provides the signal; the only template change required is wrapping `{{ .Content }}` in a `<div class="post-content">` so the selector has something to bite.
-- **Typography:** Philosopher 400, 4em (relative to body), line-height 0.8, color Sage Grimoire.
-- **Sizing math:** `4em × 0.8 = 3.2em = 2 × 1.6em`. The float reserves exactly 2 body line-heights of vertical space; the cap-baseline lands on body line 2's baseline. See **The Three-Knobs Rule** under Typography for what to recompute if body line-height ever changes.
-- **Placement:** `float: left`, `margin-right: 0.12em`. No padding-top, no negative margins; the lockup math eliminates the need.
-- **Restraint:** No background, no border, no glow. The size and the serif do all the work.
-- **Where it doesn't go:** Titleless microposts on the index, summary excerpts, side-content panels, bookshelf entries, pagination cards. The `:has(> h2)` scope handles all of these by default.
-- **Edge cases:** If the first character is a quotation mark or a parenthesis, the drop-cap still applies to the *first letter* (CSS `::first-letter` handles this naturally by including punctuation that precedes the first letter).
-
-### Arcane Timestamp (the dateline)
-A signature ornament on every post showing when it was inscribed. Lives inside the card, above the body text.
-
-- **Form:** `<calendar icon> Inscribed on <linked date>`.
-- **Typography:** Philosopher italic, 1.1rem, Weathered Parchment.
-- **Icon:** Rose Seal, marking the timestamp like a wax seal beside the date.
-- **Behavior:** The date itself is the post's permalink; hover applies the standard sage link affordance.
+### Tag Sigils  (formerly Sigil Pills / Tag Pills)
+A category renders as a sigil-link, not a filled chip. The ✦ sparkle in Drafting-Lamp Amber (the category's lamp-spark), the name in Brass Linework, carrying the site's universal link affordance inherited from the global `a` rule — the dotted→solid Amber underline, the Link Hover Glow on hover, the turquoise focus ring. No fill, no pill radius, no box: a tag is a catalog index entry in the same grammar as every other link, not a chip resting on the page; the leading sparkle delimits each entry where there is no enclosure. The old filled-pill shape and the separate Now-Broadcasting-Red response-tag species are retired — a scroll's response/reply lives in the reading plate's colophon, not a red pill. The taxonomy is a deliberately unclassifiable list (the Celestial Emporium of Benevolent Knowledge), so the sigil stays one uniform sparkle rather than a per-category pictogram: a literal glyph would domesticate categories the list exists to keep wild.
+- **Sparkle:** Phosphor `ph-sparkle`, Drafting-Lamp Amber, `space(xs)` right margin. **Name:** Brass Linework. **Shape:** no fill, no radius, no box.
 
 ### Links
-- **Default:** Sage Grimoire text, 1px dotted Sage underline.
-- **Hover:** Underline becomes 1px solid Sage; Link Hover Glow appears.
-- **Permalink class:** Identical treatment to default links.
-- **Affordance honesty:** Underline appears only on real anchors. Decorative text is never underlined; non-anchor text is never sage-colored.
+- **Rest:** Drafting-Lamp Amber text, 1px dotted Amber bottom border.
+- **Hover:** border goes 1px solid; Link Hover Glow appears. No decorative underlines on non-links.
+- **Focus (`:focus-visible`):** see Focus Rings.
+- **Reserved-underline trick:** in baseline-aligned rows (runhead nav, Recent Scrolls, the Arcanum index) the 1px is reserved transparent at rest and only colored on hover, so hovering never reflows the row.
+
+### Arcane Timestamp
+The `Inscribed on <date>` dateline. Bona Nova italic, 1.1rem (`size(medium)`), Brass Linework. Its icon is the one REC light: a Now-Broadcasting Red filled circle (`.timestamp-icon`), marking the timestamp like a console's recording lamp. One REC light per surface.
+
+### Marquee Initial  (replaces the Illuminated Drop Cap)
+A glowing Bona Nova capital opening a titled essay's first paragraph: 4em, line-height 0.8, floated left for a clean 2-line drop (the Three-Knobs Rule: 4em × 0.8 = 3.2em = 2 × 1.6em body line-height), Drafting-Lamp Amber with the always-on Marquee Glow, 0.14em right margin. Skipped on titleless microposts and standing pages, where a 4em capital would be absurd.
 
 ### Blockquote
-- Left padding 15px; vertical bar via a 3px Weathered Parchment left stripe.
-- Italic, Parchment Cream at 80% opacity.
-- One of only two legitimate side-stripe locations in the system, the other being code blocks.
+3px Brass Linework left-stripe (`accent-border`), italic, 15px left padding (`space(lg)`), desaturated to 0.8 opacity. One of the two sanctioned side-stripes (see Don'ts).
 
-### Code (inline + block)
-- **Background:** Code Overlay (`#b5a6931a`), a whisper of parchment over the card surface.
-- **Spine:** 3px Sage Grimoire left stripe — a syntax-highlighter convention inherited from print and pre-LLM web codeblock styling.
-- **Radius:** 4px.
-- **Family:** Atkinson Hyperlegible Mono.
-- **Inline padding:** 2px / 4px.
-- **Block padding:** 15px, 20px vertical margin, horizontal scroll on overflow, no soft-wrap.
+### Code
+- **Inline:** Brass Linework 10% wash on the surface, 4px corners (`radius(small)`), Atkinson Hyperlegible Mono 0.9rem (`size(normal)`), 2px 4px padding.
+- **Block (`pre`):** the same wash plus a 3px Drafting-Lamp Amber left-stripe (the preserved syntax-highlighter convention, the second sanctioned side-stripe), 15px padding (`space(lg)`), horizontal scroll on overflow.
 
-### Pagination (the scroll counter)
-Three-column layout: Previous link, page counter, Next link.
+### Reading Pavilion  (Bookshelf, /bookshelf/)
+A full-width Catalog plate: covers grouped by year-of-departure, bottom-aligned in a wrapping row like books on a shelf.
+- **Cover:** 128×200px, 4px corners (`radius(small)`), `object-fit: cover`, Exhibit Rest shadow.
+- **Hover:** a gentle Drafting-Lamp Amber Trinket Hover Halo (§4). **No card-lift.**
+- **Art-less book:** the title set on an Exhibit-Card-Deep board with a 1px Brass edge, line-clamped to 7 lines, in place of an emoji. The home-fixture preview covers are 64×100px.
 
-- **Counter:** Philosopher with the page numerals in Rose Seal at 20px (one of the few legitimate Rose Seal uses).
-- **Arrows:** Sage Grimoire `←` and `→` glyphs.
-- **Lives inside a card** (no drop cap, no marginalia date — pagination is navigation, not a post).
+### Mystic Missives  (Status Feed)
+A Pavilion Display of recent omg.lol statuses. Entries separated by 1px Brass Linework rules at 30% (a class-aware adjacent-sibling combinator, so the trailing footer never reads as the last entry); time in Bona Nova italic Brass; long URLs wrap with `overflow-wrap: anywhere`.
 
-### Bookshelf
-A grid of book covers grouped by year.
+### Allied Mages  (Blogroll) · Random Incantations  (Random Posts)
+Pavilion Displays of outbound links — the Network of Fellow Dreamers, and a curated jump elsewhere in the archive. Each entry inherits the global amber link treatment; lists are `.fixture-list` (unstyled, `space(xs)` row padding).
 
-- **Cover size:** 128 × 200px, 4px radius, Card Rest shadow.
-- **Hover:** `translateY(-4px)` lift plus a Sage Grimoire Trinket Hover halo at 30% opacity. The only translate-on-hover in the system.
-- **Placeholder cover:** Weathered Parchment 10% tint with a 1px subtle border at 30% opacity, centered 📚 emoji at 30% opacity.
-- **Empty state:** Weathered Parchment italic, "empty" copy at 80% opacity.
+### Enchanted Emblems  (88×31 Web Buttons)
+A centered flex-wrap of indie-web buttons at native pixel size (88×31, `max-width: none` to defeat the global responsive-image cap). **No filter, no scale, no border, no radius.** They render exactly as their authors made them.
 
-### Web Button Collection (Enchanted Emblems)
-The project's most distinctive trinket: a flexbox wrap of 88×31 indie-web buttons.
+### Focus Rings
+Every interactive trinket shows a keyboard focus ring distinct from hover: `outline: 2px solid var(--atomic-turquoise); outline-offset: 3px; border-radius: 4px`, scoped to `:focus-visible` so it shows for keyboard users and not on mouse click. Atomic Turquoise is the reserved focus pigment — the cool counter reads as distinct from the warm amber hover and clears AA at 6.06:1. The masthead title uses the same ring at 6px offset to clear its glow. The skip-link is a Brass-edged Exhibit-Card-Deep chip parked off-screen via `transform`, sliding in on focus.
 
-- **Image size:** Exactly 88 × 31px, no scaling, `display: block`.
-- **Layout:** Flex-wrap with 5px gap, justify-center.
-- **Sub-collection separator:** A "share these" sub-collection sits above with a 1px Weathered Parchment 20% bottom rule below it.
-- **Caption:** `.emblem-note` in Weathered Parchment italic at 80% opacity, centered.
-- **Honor the medium:** Buttons are GIFs and JPGs hosted at `static.thewizardly.com`. They are not styled, filtered, or resized; they look like 1999 web buttons because they are.
-
-### Status Scroll (Mystic Missives)
-A side-content panel rendering the three most recent statuses from omg.lol.
-
-- **Each entry:** An emoji + dateline header (Philosopher italic in Weathered Parchment), the status content below.
-- **Dividers:** 1px Sage Grimoire bottom rule at 30% opacity between entries; the last entry has no rule.
-- **Footer link:** A Rose Seal "View all scrolls" pill (response-tag style), with a Phosphor scroll icon.
+### The Great Catalog  (home front page)
+The home is a dense, ruled catalog spread, not a feed: the most recent post is the feature ("Plate I", under a 2px lit-edge top rule), a "Contents" index (Recent Scrolls) keeps the rest reachable, and the trinkets are figure-numbered catalog cells on a 12-column dense grid. Max width 1180px; warm brass rules (`--catalog-rule`, `--catalog-rule-faint`) throughout. A single scroll reads as one centered reading plate at `max-width: 40rem`.
 
 ## 6. Do's and Don'ts
 
 ### Do
-- **Do** keep Atkinson Hyperlegible Next as the body face on every screen. Decorative atmosphere is allowed in headings and ornaments, never in paragraph type or form input text.
-- **Do** retune the drop cap's line-height alongside any change to its font-size or to body line-height. The Three-Knobs Rule is non-negotiable: `cap font-size × cap line-height = N × body line-height`.
-- **Do** verify all sage / parchment / rose foreground colors against Inkwell Midnight (`#1a1a2e`) for WCAG 2.2 AA contrast (4.5:1 body, 3:1 large text). When contrast falls short, nudge lightness, not chroma.
-- **Do** use the Three-Pigment Rule. Sage, parchment, rose. New accent hues require explicit approval.
-- **Do** treat trinkets (web buttons, blogroll, status feed, bookshelf, random posts) as load-bearing architecture. New surfaces should make room for the next trinket, not eliminate the existing ones.
-- **Do** cite the wizardly metaphor in copy ("Inscribed on", "Mystic Missives", "Allied Mages", "Enchanted Emblems"). The voice carries the bit so the visuals don't have to.
-- **Do** use Philosopher for headings and small ornamental labels (Arcane Timestamp, side-content titles, status time, pagination counter).
-- **Do** keep the Card Rest shadow soft (`0 10px 20px rgba(0,0,0,0.2)`) and the Trinket Hover halo small (`0 3px 8px rgba(<accent>, 0.2)`).
-- **Do** show visible focus rings on every interactive trinket (web button images, blogroll links, status feed links, tag pills, pagination, book covers). Focus is distinct from hover.
-- **Do** wrap any new motion in `@media (prefers-reduced-motion: no-preference)`.
+
+- **Do** keep Atkinson Hyperlegible Next as the body face on every screen. Decorative atmosphere is allowed in headings, ornaments, and the Marquee Initial — never in paragraph text or form-input text.
+- **Do** verify every accent pigment against Night-Shift Midnight for WCAG 2.2 AA. Nudge lightness, not chroma, when contrast falls short.
+- **Do** anchor every glow to a named physical light source: a desk lamp, a CRT, a marquee bulb, a planetarium projector, a REC light, a candle catching a wet edge. If you can't name the source, the glow isn't earned.
+- **Do** treat the 88×31 web buttons as sincere indie-web participation. Display at native pixel resolution. Never filter, restyle, scale, or apply CSS effects.
+- **Do** use the wizardly nomenclature in copy ("Inscribed on", "Mystic Missives", "Allied Mages", "Enchanted Emblems", "Teleportation Circle", "Random Incantations"). The voice carries the wizard while the visuals carry the era.
+- **Do** retune the Marquee Initial's line-height alongside any change to its font-size or body line-height. The Three-Knobs Rule is non-negotiable.
+- **Do** gate any planetarium-style rotation, slide-tray reveal, marquee-glow flicker, or starfield-shimmer animation behind `prefers-reduced-motion: no-preference`. The night shift is calm by default.
+- **Do** show visible focus rings on every interactive trinket (web buttons, blogroll links, status feed entries, tag sigils, book covers, Marquee Initial if it is itself a link). Focus is distinct from hover.
+- **Do** treat trinkets (Mystic Missives, Allied Mages, Enchanted Emblems, Reading Pavilion, Random Incantations) as load-bearing architecture. The site does the indie-web job of pointing outward; every trinket is evidence that other people are also dreaming.
 
 ### Don't
-- **Don't** let the site look like a modern SaaS / Substack template (white sans-serif blog with author bio card, subscribe CTA, Medium-style scroll-optimized layout). This site is a hearth, not a funnel.
-- **Don't** lean toward official D&D / WotC commercial fantasy gloss (red and black, scroll banners, stock fantasy art). The wizardly voice here is personal and weird, not licensed.
-- **Don't** drift toward goth / metal mysticism (pure black + blood red, occult sigils, blackletter, edgelord posturing). The base is Inkwell Midnight, not pitch black; the accent is Rose Seal, not blood.
-- **Don't** wear ironic Web 2.0 nostalgia bait (Comic Sans, animated GIF chaos for its own sake, "old web" worn as a meme costume). The 88×31 web buttons here are sincere indie-web participation; treat them straight.
-- **Don't** add side-stripe borders to new components. Side-stripes greater than 1px exist in exactly two locations: the 3px Weathered Parchment stripe on blockquotes (a print typography convention) and the 3px Sage Grimoire stripe on code blocks (a syntax-highlighter convention). Cards have no spine; their identity is carried by the Illuminated Drop Cap and the Arcane Timestamp. Do not propagate the stripe to callouts, alerts, list items, sidebars, or any other surface.
-- **Don't** use gradient text (`background-clip: text` over a gradient). Emphasis is via weight, size, or pigment, never via gradient.
-- **Don't** use `#000` or `#fff` anywhere. Inkwell Midnight and Parchment Cream are the bounds of the value scale.
-- **Don't** flood-fill with Sage Grimoire (no full sage button backgrounds, no sage section bands, no sage hero panels). Sage is a voice; it should not become a wall.
-- **Don't** use Rose Seal as a background, button, border, or section divider. One Seal Rule: rose signs one thing on a surface, then disappears.
-- **Don't** add modals as a first thought. Inline disclosure, expanding cards, or a follow-up post on the blog are usually the better answer for a personal site.
-- **Don't** apply glow to body text, h2, h3, or buttons. Glow lives on the masthead h1 (always) and link hover (briefly), nowhere else.
-- **Don't** animate layout properties. If hover transforms or scroll motion is added, animate `transform` and `opacity` only, with ease-out exponential curves, gated behind `prefers-reduced-motion`.
-- **Don't** lift cards on hover. Cards are resting pages, not buttons. The Page-Not-Button Rule.
-- **Don't** filter, restyle, or scale the 88×31 web buttons. They render at their native pixel size and look like what they are.
+
+- **Don't** render fake chrome bezels, fake brushed-metal gradients, rendered-3D rocket fins, or fluorescent vector starbursts. The AI-rendered chrome-rocket atompunk slop pile is the closest first-order failure mode and we are not it.
+- **Don't** lean toward generic Jetsons / Saturday-morning cartoon retrofuture: saturated primaries on cartoon curves, exaggerated UFO shapes, ironic-mascot atompunk. The wizard isn't a Hanna-Barbera character.
+- **Don't** invoke Disney / EPCOT / Imagineer references in copy or visuals. No Mickey, no Sorcerer's-hat icon, no Tomorrowland callouts, no Carousel-of-Progress glyphs. We stand beside Walt; we never invoke him by name.
+- **Don't** drift toward Mad Men corporate mid-century restraint: olive-green-and-Helvetica ad-agency cool. Atompunk here is a person's pavilion, not an expense account.
+- **Don't** apply crypto-bro / SV techno-optimism hype: "We're so back" neon manifesto type, NFT-rocket emoji, beanie-vector founder energy. The optimism here is sincere, slow-burning, built — not pumped.
+- **Don't** let the site look like a modern SaaS / Substack template (white sans-serif blog with subscribe CTA, author bio card, Medium scroll-optimized layout).
+- **Don't** drift toward goth / metal mysticism (pitch black, blood red, occult sigils, blackletter, edgelord posturing).
+- **Don't** wear ironic Web 2.0 nostalgia bait (Comic Sans, animated-GIF chaos as meme costume, "old web" worn ironically). The 88×31 web buttons here are sincere indie-web participation, not pastiche.
+- **Don't** reach for Futura, Avenir, or similar mid-century geometric sans for the display face. They are the canonical atompunk default and exactly for that reason they are off-limits here. The All-Night Pavilion is editorial-serif territory.
+- **Don't** add side-stripe borders ≥1px to new components. The two legitimate exceptions from the previous design are preserved: the 3px Brass Linework stripe on blockquote (a print typography convention) and the 3px Drafting-Lamp Amber stripe on code blocks (a syntax-highlighter convention). Cards have no spine; their identity is carried by the Marquee Initial and the Arcane Timestamp.
+- **Don't** use gradient text (`background-clip: text` over a gradient). Emphasis is via weight, size, or pigment, never gradient.
+- **Don't** use `#000` or `#fff` anywhere. Night-Shift Midnight and Marquee-Bulb Cream are the bounds of the value scale.
+- **Don't** flood-fill with Drafting-Lamp Amber or Atomic Turquoise. They are voices; they do not become walls. No solid amber button backgrounds, no turquoise hero panels, no full-bleed accent bands.
+- **Don't** use Now-Broadcasting Red as a background, button, border, or section divider. One REC light per surface, maximum.
+- **Don't** color inline `<strong>` with Now-Broadcasting Red. At body size it lands at ≈ 3.6:1 on the surface and fails AA. Inline emphasis is font weight; the signal red is for icons and the "live" indicator, where it is large enough to pass.
+- **Don't** add modals as a first thought. Inline disclosure, expanding cards, or a follow-up post are usually the better answer for a personal site.
+- **Don't** apply glow to body text, h2, h3, or buttons. Glow lives on the masthead h1, the Marquee Initial, and link hover — nowhere else (tag sigils are links, so they take the ordinary link-hover glow, no more).
+- **Don't** animate layout properties. If motion is added, animate `transform` and `opacity` only, with ease-out exponential curves, gated behind `prefers-reduced-motion`.
+- **Don't** lift Exhibit Cards on hover. Cards are resting paper exhibits.
+- **Don't** filter, restyle, or scale the 88×31 web buttons. They render at native pixel size and look like what they are.
+- **Don't** generate a random-noise starfield. The Night-Shift Midnight starfield is a real, identifiable star pattern — a recognizable sky, a real constellation, a real slice of the Milky Way. A procedural pixel-noise field is the AI-atompunk-slop tell.

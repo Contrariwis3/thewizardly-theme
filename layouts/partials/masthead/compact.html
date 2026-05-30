@@ -1,0 +1,16 @@
+{{/* ABOUTME: Inner-page masthead — the compact All-Night Pavilion title band (FJ#4). */}}
+{{/* ABOUTME: The night sky is the real Founding Sky, cropped to the band; full hero is home-only. */}}
+<header class="masthead masthead--compact">
+  <div class="masthead-sky" aria-hidden="true">
+      {{ partial "masthead/founding-sky.html" . }}
+  </div>
+  <div class="masthead-title">
+    {{/* On reading pages the plate's title is the page h1, so the wordmark steps down
+         to a non-heading link; elsewhere (archive/photos) it stays the h1. */}}
+    {{ if eq .Kind "page" }}
+    <p class="masthead-wordmark"><a href="/">{{ .Site.Title }}</a></p>
+    {{ else }}
+    <h1 class="masthead-wordmark"><a href="/">{{ .Site.Title }}</a></h1>
+    {{ end }}
+  </div>
+</header>

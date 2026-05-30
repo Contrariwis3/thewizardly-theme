@@ -1,0 +1,49 @@
+{{/* ABOUTME: The reading plate's colophon — the filing, the response affordance, and wayfinding back into the Catalog. */}}
+{{/* ABOUTME: Posts step to other scrolls + the compendium; every plate ends with the Pavilion return. */}}
+{{ $isPost := eq .Type "post" }}
+<footer class="colophon">
+  {{ with (.GetTerms "categories") }}
+  <div class="colophon-filed">
+    <span class="colophon-label">Filed under</span>
+    {{ range . }}<a class="tag" href="{{ .Permalink }}"><i class="ph ph-sparkle" aria-hidden="true"></i> {{ .LinkTitle }}</a>{{ end }}
+  </div>
+  {{ end }}
+
+  {{ if $isPost }}
+  <div class="colophon-reply">{{ partial "reply-by-email.html" . }}</div>
+  {{ end }}
+
+  {{ if $isPost }}
+  {{/* Other Curiosities: a handful of scrolls to wander into, drawn at random
+       (serendipity, not a linear next/previous) and reshuffled each build. */}}
+  {{ $others := slice }}
+  {{ range (where .Site.RegularPages "Type" "post") }}
+    {{ if ne .Permalink $.Permalink }}{{ $others = $others | append . }}{{ end }}
+  {{ end }}
+  {{ with first 3 (shuffle $others) }}
+  <section class="colophon-curiosities">
+    <h2 class="fixture-title">Other Curiosities</h2>
+    <ul class="scroll-list">
+      {{ range . }}
+      <li class="scroll-row">
+        <span class="scroll-date">{{ .Date.Format "Jan 2" }}</span>
+        {{ if .Title }}
+        <span class="scroll-title"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></span>
+        {{ else }}
+        {{ $plain := .Content | plainify | strings.TrimSpace }}
+        {{ if $plain }}
+        <span class="scroll-title scroll-title--micro"><a href="{{ .RelPermalink }}">{{ $plain | truncate 72 }}</a></span>
+        {{ else }}
+        <span class="scroll-title scroll-title--micro scroll-title--wordless"><a href="{{ .RelPermalink }}"><i class="ph ph-image" aria-hidden="true"></i> an illumination</a></span>
+        {{ end }}
+        {{ end }}
+      </li>
+      {{ end }}
+    </ul>
+    <a class="fixture-more" href="{{ "archive" | relURL }}">The full compendium →</a>
+  </section>
+  {{ end }}
+  {{ end }}
+
+  {{ partial "catalog/pavilion-return.html" . }}
+</footer>

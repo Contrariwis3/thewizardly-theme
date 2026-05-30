@@ -1,0 +1,16 @@
+{{/* ABOUTME: The Arcanum (/categories/<term>/) — a full-width Catalog plate: the scrolls filed */}}
+{{/* ABOUTME: under one category, year-grouped. The Compendium scoped to a single arcanum. */}}
+{{ define "main" }}
+<div class="catalog arcanum-page" id="main-content" tabindex="-1">
+  {{ partial "catalog/runhead.html" (dict "vol" "The All-Night Pavilion · the arcana" "page" .) }}
+
+  {{ $scrolls := where .Pages "Type" "post" }}
+  {{ $n := len $scrolls }}
+  <h2 class="catalog-rubric"><i class="ph ph-sparkle" aria-hidden="true"></i> {{ .Title }}</h2>
+  <p class="arcana-dek">{{ $n }} scroll{{ if ne $n 1 }}s{{ end }} filed under this arcanum</p>
+
+  {{ partial "catalog/scroll-ledger.html" (dict "pages" $scrolls) }}
+
+  {{ partial "catalog/pavilion-return.html" . }}
+</div>
+{{ end }}

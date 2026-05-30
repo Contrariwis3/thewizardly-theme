@@ -1,0 +1,24 @@
+{{/* ABOUTME: The Illuminations surface (/photos/) — a Catalog page of every photo post as a grid of plates. */}}
+{{/* ABOUTME: Rendered by both list.photoshtml.html twins; .Params.photos is micro.blog's per-post photo list. */}}
+<div class="catalog illuminations-page">
+  {{ partial "catalog/runhead.html" (dict "vol" "The All-Night Pavilion · illuminations" "page" .) }}
+
+  <h2 class="catalog-rubric">Illuminations</h2>
+
+  {{ $plated := where .Site.RegularPages.ByDate.Reverse ".Params.photos" "!=" nil }}
+  {{ if gt (len $plated) 0 }}
+  <div class="plate-grid">
+    {{ range $plated }}
+    {{ $alt := "An illumination" }}
+    {{ with .Params.photos_alt }}{{ $alt = index . 0 }}{{ else }}{{ with (.Content | plainify | strings.TrimSpace) }}{{ $alt = . | truncate 80 }}{{ end }}{{ end }}
+    <a class="plate" href="{{ .Permalink }}" aria-label="{{ $alt }}">
+      {{ range first 1 .Params.photos }}<img src="{{ . }}" alt="" loading="lazy" decoding="async">{{ end }}
+    </a>
+    {{ end }}
+  </div>
+  {{ else }}
+  <p class="empty">No illuminations have been hung yet.</p>
+  {{ end }}
+
+  {{ partial "catalog/pavilion-return.html" . }}
+</div>

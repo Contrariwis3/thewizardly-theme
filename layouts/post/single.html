@@ -1,35 +1,33 @@
 {{ define "main" }}
-<article class="card">
-  {{ if .Title }}<h2>{{ .Title }}</h2>{{ end }}
+{{/* A scroll, read as a single Catalog plate (not a blog post): the specimen pulled
+     from the catalog and displayed in full under the lamp's lit edge. The reading frame
+     (runhead + #main-content) is the template's own chrome — baseof is just a skeleton. */}}
+<div class="reading" id="main-content" tabindex="-1">
+  {{ partial "catalog/runhead.html" (dict "vol" "The All-Night Pavilion · the reading room" "page" .) }}
+<article class="reading-plate{{ if not .Title }} reading-plate--micro{{ end }}">
+  <span class="catalog-fig">
+    <span class="catalog-fig-n">Scroll</span>{{ with (.GetTerms "categories") }} · <span class="catalog-fig-t">{{ (index . 0).LinkTitle }}</span>{{ end }}
+  </span>
+
+  {{ if .Title }}
+  <h1 class="plate-title">{{ .Title }}</h1>
   <div class="arcane-timestamp">
-    <span class="timestamp-icon"><i class="ph ph-calendar"></i></span> Inscribed on <a href="{{ .Permalink }}" class="permalink" title="Permanent link to this scroll"><time datetime="{{ .Date.Format "2006-01-02 15:04:05 -0700" }}">{{ .Date.Format "January 2, 2006" }}</time></a>
+    <span class="timestamp-icon"><i class="ph-fill ph-circle" aria-hidden="true"></i></span> Inscribed on <a href="{{ .Permalink }}" class="permalink" title="Permanent link to this scroll"><time datetime="{{ .Date.Format "2006-01-02 15:04:05 -0700" }}">{{ .Date.Format "January 2, 2006" }}</time></a>
   </div>
+  {{ else }}
+  {{/* Titleless micropost: the dateline is the plate's heading, so the page still has one h1. */}}
+  <h1 class="plate-title plate-title--micro"><span class="timestamp-icon"><i class="ph-fill ph-circle" aria-hidden="true"></i></span> Inscribed on <a href="{{ .Permalink }}" class="permalink" title="Permanent link to this scroll"><time datetime="{{ .Date.Format "2006-01-02 15:04:05 -0700" }}">{{ .Date.Format "January 2, 2006" }}</time></a></h1>
+  {{ end }}
 
   {{ if .Params.reply_to_url }}
-  <p>Replying to: {{ if eq .Params.reply_to_hostname "micro.blog" }} <a href="{{ .Params.reply_to_url }}">@{{ .Params.reply_to_username }}</a> {{ else }} <a href="{{ .Params.reply_to_url }}">{{ .Params.reply_to_hostname }}</a>{{ end }}</p>
+  <p class="plate-replying">Replying to {{ if eq .Params.reply_to_hostname "micro.blog" }}<a href="{{ .Params.reply_to_url }}">@{{ .Params.reply_to_username }}</a>{{ else }}<a href="{{ .Params.reply_to_url }}">{{ .Params.reply_to_hostname }}</a>{{ end }}</p>
   {{ end }}
 
   <div class="post-content">
     {{ .Content }}
   </div>
 
-  {{ $categories := (.GetTerms "categories") }}
-  {{ if gt (len $categories) 0 }}
-  <div class="post-tags">
-    <div class="pure-g">
-      <div class="pure-u-2-3 tags-column">
-        {{ range $categories }}
-        <a class="tag" href="{{ .Permalink }}">
-          <i class="ph ph-sparkle"></i> {{ .LinkTitle }}
-        </a>
-        {{ end }}
-      </div>
-
-      <div class="pure-u-1-3 response-column">
-        {{ partial "reply-by-email.html" . }}
-      </div>
-    </div>
-  </div>
-  {{ end }}
+  {{ partial "reading/colophon.html" . }}
 </article>
+</div>
 {{ end }}

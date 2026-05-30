@@ -1,73 +1,115 @@
 <style>
-	.microblog_permalink {
-		color: gray;
-		font-style: italic;
-	}
+	/* Embedded styles reach into .Content (post body) where inline styles can't,
+	   and carry the mobile media query inline styles can't hold. Everything
+	   structural is also inlined below, so clients that strip <style> still render. */
+	:root { color-scheme: light; supported-color-schemes: light; }
 
-	.microblog_divider {
-		color: gray;
+	.mb-content a { color: #8b4021; }
+	.mb-content img { max-width: 100% !important; height: auto !important; }
+	.mb-content blockquote {
+		margin: 14px 0; padding: 4px 0 4px 16px;
+		border-left: 3px solid #beae94; color: #4a3a2e; font-style: italic;
+	}
+	.mb-content pre, .mb-content code {
+		font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+		font-size: 14px; background: #ece2d2;
+	}
+	.mb-content pre { padding: 12px 14px; overflow-x: auto; }
+
+	@media only screen and (max-width: 600px) {
+		.mb-pad { padding-left: 22px !important; padding-right: 22px !important; }
+		.mb-head { padding: 26px 22px !important; }
 	}
 </style>
 
-<div class="microblog_email">
-
-	<p class="microblog_header">
-		<img src="{{ .Site.Params.author_avatar }}" width="30" height="30" alt="Profile icon" style="border-radius: 15px; vertical-align: middle;">
-		<b>{{ .Site.Title }}</b>
-		— <a href="{{ .Footer.UnsubscribeURL }}">Unsubscribe</a>
-
-		{{ if gt (len .Intro) 0 }}
-	<p>
-		<hr>
-
-	<p>
-		{{ .Intro }}
-		{{ end }}
-
-	<p>
-		<hr>
-
-		{{ range .Pages }}
-
-		{{ if .Title }}
-		<b>{{ .Title }}</b>
-		{{ end }}
-
-	<p>
-		{{ .Content }}
-
-	<p>
-		{{ if gt (len .Params.audio) 0 }}
-		<a href="{{ .Permalink }}">Audio</a>
-		{{ end }}
-
-		{{ if gt (len .Params.video) 0 }}
-		<a href="{{ .Permalink }}">Video</a>
-		{{ end }}
-
-		<a href="{{ .Permalink }}" class="microblog_permalink">{{ .Date.Format "2006-01-02" }}</a>
-
-		<hr>
-
-		{{ end }}
-
-	<div class="microblog_footer">
-
-		<p>
-			<a href="{{ .Footer.UnsubscribeURL }}">Unsubscribe</a> <span class="microblog_divider">|</span>
-
-			{{ if eq (len .Pages) 1 }}
-			{{ with index .Pages 0 }}
-			<a href="{{ .Permalink }}">View in browser</a> <span class="microblog_divider">|</span>
-			{{ end }}
-			{{ end }}
-
-			<a href="{{ .Site.BaseURL }}">{{ .Site.Hostname }}</a>
-
-			{{ if gt (len .Footer.MailingAddress) 0 }}
-			<span class="microblog_divider">|</span> {{ .Footer.MailingAddress }}
-			{{ end }}
-
-	</div>
-
+<!-- Inbox preview text, hidden in the body. The trailing entities push the
+     client's auto-preview (which would otherwise show "Unsubscribe ...") off-screen. -->
+<div style="display:none;max-height:0;overflow:hidden;mso-hide:all;opacity:0;color:transparent;height:0;width:0;">
+	A new dispatch from the late shift.&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
 </div>
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#f4ece0" style="background-color:#f4ece0;margin:0;padding:0;width:100%;">
+	<tr>
+		<td align="center" style="padding:24px 12px;">
+			<!--[if mso]><table role="presentation" width="600" align="center" cellpadding="0" cellspacing="0" border="0"><tr><td><![endif]-->
+			<table role="presentation" class="mb-container" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;margin:0 auto;background-color:#f4ece0;">
+
+				<!-- Marquee header: the one dark brand moment (Night-Shift Midnight + amber serif). -->
+				<tr>
+					<td bgcolor="#233745" class="mb-head" style="background-color:#233745;padding:30px 36px;border-radius:6px 6px 0 0;">
+						<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+							<tr>
+								<td width="54" valign="middle" style="padding-right:14px;">
+									<img src="{{ .Site.Params.author_avatar }}" width="40" height="40" alt="" style="display:block;border-radius:20px;border:1px solid #beae94;">
+								</td>
+								<td valign="middle">
+									<a href="{{ .Site.BaseURL }}" style="text-decoration:none;color:#f2b24c;">
+										<span style="font-family:Georgia,'Times New Roman',serif;font-size:26px;line-height:1.12;color:#f2b24c;">{{ .Site.Title }}</span>
+									</a>
+									<div style="font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:13px;color:#beae94;padding-top:5px;">dispatches from the late shift</div>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+
+				{{ if gt (len .Intro) 0 }}
+				<!-- Intro -->
+				<tr>
+					<td class="mb-pad" style="padding:26px 36px 2px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;color:#233745;">
+						{{ .Intro }}
+					</td>
+				</tr>
+				{{ end }}
+
+				<!-- Scrolls -->
+				{{ range $i, $p := .Pages }}
+				{{ if gt $i 0 }}
+				<tr>
+					<td class="mb-pad" style="padding:22px 36px 0;">
+						<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="border-top:1px solid #beae94;font-size:0;line-height:0;height:0;">&nbsp;</td></tr></table>
+					</td>
+				</tr>
+				{{ end }}
+				<tr>
+					<td class="mb-pad" style="padding:22px 36px 0;">
+						{{ if $p.Title }}
+						<div style="font-family:Georgia,'Times New Roman',serif;font-size:21px;line-height:1.3;color:#233745;font-weight:bold;padding-bottom:8px;">
+							<a href="{{ $p.Permalink }}" style="color:#233745;text-decoration:none;">{{ $p.Title }}</a>
+						</div>
+						{{ end }}
+						<div class="mb-content" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;color:#233745;">
+							{{ $p.Content }}
+						</div>
+						<div style="padding-top:14px;font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:13px;color:#7c4c49;">
+							{{ if gt (len $p.Params.audio) 0 }}<a href="{{ $p.Permalink }}" style="color:#8b4021;text-decoration:none;">Listen</a> &nbsp;&middot;&nbsp; {{ end }}
+							{{ if gt (len $p.Params.video) 0 }}<a href="{{ $p.Permalink }}" style="color:#8b4021;text-decoration:none;">Watch</a> &nbsp;&middot;&nbsp; {{ end }}
+							Inscribed on <a href="{{ $p.Permalink }}" style="color:#7c4c49;text-decoration:none;">{{ $p.Date.Format "January 2, 2006" }}</a>
+						</div>
+					</td>
+				</tr>
+				{{ end }}
+
+				<!-- Colophon / footer -->
+				<tr>
+					<td class="mb-pad" style="padding:28px 36px 0;">
+						<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="border-top:2px solid #beae94;font-size:0;line-height:0;height:0;">&nbsp;</td></tr></table>
+					</td>
+				</tr>
+				<tr>
+					<td class="mb-pad" style="padding:18px 36px 34px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:14px;line-height:1.7;color:#7c4c49;">
+						<a href="{{ .Site.BaseURL }}" style="color:#8b4021;font-weight:bold;text-decoration:none;">Visit the All-Night Pavilion &rarr;</a>
+						<div style="padding-top:10px;font-size:13px;color:#8a7a64;">
+							<a href="{{ .Footer.UnsubscribeURL }}" style="color:#7c4c49;text-decoration:underline;">Unsubscribe</a>
+							{{ if eq (len .Pages) 1 }}{{ with index .Pages 0 }} &nbsp;&middot;&nbsp; <a href="{{ .Permalink }}" style="color:#7c4c49;text-decoration:underline;">Read in the pavilion</a>{{ end }}{{ end }}
+							&nbsp;&middot;&nbsp; <a href="{{ .Site.BaseURL }}" style="color:#7c4c49;text-decoration:underline;">{{ .Site.Hostname }}</a>
+							{{ if gt (len .Footer.MailingAddress) 0 }} &nbsp;&middot;&nbsp; {{ .Footer.MailingAddress }}{{ end }}
+						</div>
+					</td>
+				</tr>
+
+			</table>
+			<!--[if mso]></td></tr></table><![endif]-->
+		</td>
+	</tr>
+</table>

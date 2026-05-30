@@ -1,35 +1,44 @@
+// ABOUTME: The All-Night Pavilion stylesheet for the TheWizardly Hugo theme.
+// ABOUTME: Defines the OKLCH palette tokens, type scale, and every component's styling.
+
 @use "sass:map";
+
+// ===================================
+// DESIGN TOKENS — ALL-NIGHT PAVILION PALETTE
+// ===================================
+// Resolved OKLCH (DESIGN.md §2); OKLCH is the canonical target. The palette
+// lives here as CSS custom properties; alpha variants are derived at use-site
+// with color-mix(in oklch, …) so every tint stays in one perceptual space.
+// Pure #000/#fff are forbidden (Tinted-Black Rule): the neutrals are tinted
+// toward the cool surface or the warm light, and even shadows tint warm.
+:root {
+    --night-shift-midnight: oklch(32.6% 0.036 239.8); // body surface
+    --exhibit-card-deep: oklch(28% 0.034 240); // recessed card surface, cool-on-cool
+    --drafting-lamp-amber: oklch(80.5% 0.138 75.9); // dominant warm accent: links, headings, masthead
+    --atomic-turquoise: oklch(76.4% 0.094 180.5); // cool counter — wired into components in Increment 3
+    --now-broadcasting-red: oklch(65.5% 0.115 33.8); // rare signal: timestamp icon + "now broadcasting" indicator (large/UI only)
+    --brass-linework: oklch(75.7% 0.040 79.9); // structural rules/dividers + muted metadata text
+    --marquee-bulb-cream: oklch(94.6% 0.018 78.2); // all body text on every surface
+
+    // Warm-shadow base for the Exhibit Rest shadow — paper on varnished oak under
+    // a drafting lamp. Tinted warm, never toward absolute black (Tinted-Black Rule).
+    --shadow-warm: oklch(20% 0.03 64);
+
+    // Earned glow (Marquee Glow Rule): an amber halo with a named physical source.
+    // The masthead h1 and the Marquee Initial wear --marquee-glow always-on; links
+    // wear --link-hover-glow only while hovered. Nothing else glows.
+    --marquee-glow: 0 0 12px color-mix(in oklch, var(--drafting-lamp-amber) 42%, transparent);
+    --link-hover-glow: 0 0 10px color-mix(in oklch, var(--drafting-lamp-amber) 50%, transparent);
+}
 
 // ===================================
 // VARIABLES & FUNCTIONS
 // ===================================
 
-// Color Palette
-$colors: (
-    // Primary Colors (Background)
-    body: #1a1a2e,
-
-    // Theme Colors  
-    primary: #7ba05b,
-    // Sage Grimoire (main accent - links, borders, h3)
-    secondary: #b5a693,
-    // Weathered Parchment (h2, blockquotes, tags)
-    accent: #b85c69,
-    // Rose Seal (highlights, strong text, special elements)
-
-    // Text Colors
-    body-text: #f4f1e8,
-    // Parchment Cream
-
-    // Background Colors
-    card-bg: rgba(15, 15, 26, 0.8),
-    // Darker midnight with transparency
-    code-bg: rgba(181, 166, 147, 0.1) // Subtle weathered parchment overlay
-);
-
 // Typography
 $fonts: (
-    heading: ('Philosopher', sans-serif),
+    heading: ('Bona Nova', serif),
+    // All-Night Pavilion display serif (FJ#1, OFL, served via Bunny Fonts)
     body: ('Atkinson Hyperlegible Next', sans-serif),
     mono: ('Atkinson Hyperlegible Mono', monospace)
 );
@@ -59,16 +68,12 @@ $spacing: (
 
 // Borders & Effects
 $border-radius: (
-    small: 4px,
-    medium: 8px,
-    pill: 20px
+    small: 4px
 );
 
 // Helper Functions
-@function color($name) {
-    @return map.get($colors, $name);
-}
-
+// Color is no longer a Sass function: the palette lives in :root above, reached
+// with var(--token) and color-mix(). Type, spacing, and radius stay build-time maps.
 @function font($name) {
     @return map.get($fonts, $name);
 }
@@ -89,24 +94,23 @@ $border-radius: (
 // MIXINS
 // ===================================
 
-@mixin glow($color, $intensity: 0.3) {
-    text-shadow: 0 0 10px rgba($color, $intensity);
-}
-
 @mixin card-shadow() {
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    // Exhibit Rest (DESIGN.md §4): a diffuse, warm-tinted shadow — paper resting
+    // on oak under a drafting lamp. Low-contrast against the night-shift surface.
+    box-shadow: 0 10px 30px color-mix(in oklch, var(--shadow-warm) 30%, transparent);
 }
 
-@mixin hover-shadow($color, $intensity: 0.2) {
-    box-shadow: 0 3px 8px rgba($color, $intensity);
+@mixin hover-shadow($color, $alpha: 20%) {
+    // Trinket Hover Halo (DESIGN.md §4): a small accent-tinted halo, ≤8px blur.
+    box-shadow: 0 3px 8px color-mix(in oklch, #{$color} $alpha, transparent);
 }
 
 @mixin accent-border($color, $width: 3px) {
     border-left: $width solid $color;
 }
 
-@mixin subtle-border($color, $opacity: 0.3) {
-    border: 1px solid rgba($color, $opacity);
+@mixin subtle-border($color, $opacity: 30%) {
+    border: 1px solid color-mix(in oklch, #{$color} $opacity, transparent);
 }
 
 @mixin transition($properties: all, $duration: 0.2s) {
@@ -122,9 +126,11 @@ $border-radius: (
 }
 
 body {
-    background-color: color(body);
-    background-image: url("data:image/svg+xml,%3Csvg width='84' height='48' viewBox='0 0 84 48' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h12v6H0V0zm28 8h12v6H28V8zm14-8h12v6H42V0zm14 0h12v6H56V0zm0 8h12v6H56V8zM42 8h12v6H42V8zm0 16h12v6H42v-6zm14-8h12v6H56v-6zm14 0h12v6H70v-6zm0-16h12v6H70V0zM28 32h12v6H28v-6zM14 16h12v6H14v-6zM0 24h12v6H0v-6zm0 8h12v6H0v-6zm14 0h12v6H14v-6zm14 8h12v6H28v-6zm-14 0h12v6H14v-6zm28 0h12v6H42v-6zm14-8h12v6H56v-6zm0-8h12v6H56v-6zm14 8h12v6H70v-6zm0 8h12v6H70v-6zM14 24h12v6H14v-6zm14-8h12v6H28v-6zM14 8h12v6H14V8zM0 8h12v6H0V8z' fill='%23B5A693' fill-opacity='0.08' fill-rule='evenodd'/%3E%3C/svg%3E");
-    color: color(body-text);
+    background-color: var(--night-shift-midnight);
+    // The Founding Sky lives in the masthead, not here (Increment 4 decision):
+    // the body stays plain Night-Shift Midnight so the catalog reads on warm ink
+    // and edges, not an ambient field. The starfield is in the .masthead-sky rules.
+    color: var(--marquee-bulb-cream);
     font-family: font(body);
     font-size: size(base);
     line-height: 1.6;
@@ -158,10 +164,12 @@ h6 {
     @extend %heading-base;
 }
 
+// Display step (DESIGN.md §3). The Marquee Glow is NOT here — it is reserved for
+// the masthead h1 (see the header rule), so list-page titles do not glow.
 h1 {
     font-size: size(h1);
-    color: color(primary);
-    @include glow(color(primary));
+    line-height: 1.2;
+    color: var(--drafting-lamp-amber);
 
     @media (max-width: 768px) {
         font-size: size(h1-mobile);
@@ -170,53 +178,90 @@ h1 {
 
 h2 {
     font-size: size(h2);
-    color: color(secondary);
-    border-bottom: 1px solid rgba(color(secondary), 0.3);
+    color: var(--brass-linework);
+    border-bottom: 1px solid color-mix(in oklch, var(--brass-linework) 30%, transparent);
     padding-bottom: space(md);
 }
 
 h3 {
     font-size: size(h3);
-    color: color(primary);
+    color: var(--drafting-lamp-amber);
 }
 
-// Links
+// Links (DESIGN.md §5): Amber text, 1px dotted Amber underline at rest; on hover
+// the underline goes solid and the Link Hover Glow appears.
 a {
-    color: color(primary);
+    color: var(--drafting-lamp-amber);
     text-decoration: none;
-    border-bottom: 1px dotted color(primary);
+    border-bottom: 1px dotted var(--drafting-lamp-amber);
     @include transition();
 
     &:hover {
-        border-bottom: 1px solid color(primary);
-        @include glow(color(primary), 0.5);
+        border-bottom: 1px solid var(--drafting-lamp-amber);
+        text-shadow: var(--link-hover-glow);
+    }
+
+    // Keyboard focus ring: Atomic Turquoise, the pigment DESIGN.md reserves for
+    // focus rings. The cool counter reads as distinct from the warm amber hover
+    // (underline + glow), and clears AA on the night surface (6.07:1). Scoped to
+    // :focus-visible so it shows for keyboard users, not on mouse click.
+    &:focus-visible {
+        outline: 2px solid var(--atomic-turquoise);
+        outline-offset: 3px;
+        border-radius: radius(small);
+    }
+}
+
+// Skip-link: parked off the top of the viewport until focused, then a brass
+// chip at top-left that lets keyboard users jump past the masthead to the
+// content (targets #main-content on every layout). Slides on transform, not
+// a layout property.
+.skip-link {
+    position: fixed;
+    top: space(sm);
+    left: space(sm);
+    z-index: 1000;
+    padding: space(sm) space(md);
+    background-color: var(--exhibit-card-deep);
+    color: var(--drafting-lamp-amber);
+    border: 1px solid var(--drafting-lamp-amber);
+    border-radius: radius(small);
+    font-family: font(mono);
+    font-size: size(small);
+    transform: translateY(calc(-100% - #{space(lg)}));
+    transition: transform 0.16s ease;
+
+    &:focus {
+        transform: translateY(0);
     }
 }
 
 // Text Elements
 blockquote {
-    @include accent-border(color(secondary));
+    @include accent-border(var(--brass-linework));
     padding-left: space(lg);
     margin-left: 0;
     font-style: italic;
-    color: color(body-text);
+    color: var(--marquee-bulb-cream);
     opacity: 0.8;
 }
 
 em {
-    color: color(secondary);
-    font-weight: normal;
+    font-style: italic;
 }
 
+// One-REC-Light Rule: inline emphasis is font weight, never the signal red.
+// Now-Broadcasting Red lands at ~3.7:1 at body size and fails AA, so it never
+// colors running text (DESIGN.md §2 Tertiary / §6).
 strong {
-    color: color(accent);
-    font-weight: normal;
+    font-weight: 700;
 }
 
 // Code
 %code-base {
-    background-color: color(code-bg);
-    @include accent-border(color(primary));
+    // Brass wash on the surface (DESIGN.md §5 Code).
+    background-color: color-mix(in oklch, var(--brass-linework) 10%, transparent);
+    @include accent-border(var(--drafting-lamp-amber));
     border-radius: radius(small);
     font-family: font(mono);
     font-size: size(normal);
@@ -239,51 +284,686 @@ pre {
 // LAYOUT
 // ===================================
 
-header {
-    text-align: center;
-    margin-bottom: space(xxxl);
-    padding-bottom: space(xl);
+// Masthead (The All-Night Pavilion "Threshold"). Markup lives in
+// partials/masthead/: a full hero scene on the home page, a compact title band
+// on inner pages. The city you've built sits dense on the left and thins to a
+// luminous, still-being-dreamed frontier on the right, under the founding sky.
+// Light obeys the Named-Light Rule (the dawn and a few rationed sparks); the
+// title glow lives on the letterforms only (Marquee Glow Rule); motion is gated.
+// The starfield is the real Founding Sky (scripts/founding_sky.py emits the SVG
+// partial that partials/masthead/{hero,compact} include).
+.masthead {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background-color: var(--night-shift-midnight);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: space(xxl);
+}
 
-    h1 {
+// The site title: Bona Nova in Drafting-Lamp Amber, glowing from the
+// letterforms. As the masthead it is not a body link, so it wears no dotted
+// underline and holds its glow through hover.
+.masthead-title {
+    position: relative;
+    z-index: 5;
+    text-align: center;
+    padding: 0 space(xl);
+
+    .masthead-wordmark {
         margin: 0;
+        font-family: font(heading);
+        font-weight: 400;
+        line-height: 1.06;
+        color: var(--drafting-lamp-amber);
+        text-shadow: var(--marquee-glow);
+
+        a {
+            color: inherit;
+            border-bottom: none;
+            text-shadow: var(--marquee-glow);
+
+            &:hover {
+                border-bottom: none;
+                text-shadow: var(--marquee-glow);
+            }
+
+            &:focus-visible {
+                // Consistent with the global focus ring (turquoise), with more
+                // offset to clear the large glowing title.
+                outline: 2px solid var(--atomic-turquoise);
+                outline-offset: 6px;
+                border-radius: radius(small);
+            }
+        }
+    }
+}
+
+// The hero (home): a tall scene with the title floating at center, sky above.
+.masthead--hero {
+    min-height: clamp(360px, 60vh, 544px);
+
+    // Seat the title about a third of the way down, so it reads as centred in
+    // the sky above the city rather than low in the whole frame.
+    .masthead-title {
+        position: absolute;
+        top: 34%;
+        left: 0;
+        right: 0;
+        transform: translateY(-50%);
     }
 
-    p {
-        color: color(body-text);
-        font-size: size(large);
-        margin-top: space(md);
+    .masthead-title .masthead-wordmark {
+        font-size: clamp(2.8rem, 8vw, 5rem);
+    }
+
+    @media (max-width: 768px) {
+        min-height: clamp(320px, 54vh, 432px);
+    }
+}
+
+// The compact band (inner pages): just the title on a sliver of night sky.
+.masthead--compact {
+    min-height: 168px;
+    padding: space(xxl) 0;
+    border-bottom: 1px solid color-mix(in oklch, var(--brass-linework) 18%, transparent);
+
+    .masthead-title .masthead-wordmark {
+        font-size: size(h1);
+
+        @media (max-width: 768px) {
+            font-size: size(h1-mobile);
+        }
+    }
+}
+
+// The boundless starfield: the real Founding Sky. scripts/founding_sky.py projects
+// the Yale BSC5 stars above the horizon at the founding instant and emits the SVG
+// partial; it fills the masthead and is cropped by the masthead's aspect ratio.
+.masthead-sky {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+
+    .founding-sky {
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+
+    // Horizontal overscan so the slow drift never reveals a bare edge.
+    &.drift .founding-sky {
+        width: 104%;
+    }
+
+    .fs-star {
+        fill: var(--marquee-bulb-cream);
+    }
+
+    // The brightest catalogue stars carry a soft bulb-halo (the Named-Light glow).
+    .fs-bright {
+        filter: drop-shadow(0 0 6px color-mix(in oklch, var(--marquee-bulb-cream) 62%, transparent));
+    }
+}
+
+// Atmospheric layers. Gradient centres sit off-frame so only the smooth falloff
+// is ever visible — never a band, never an edge that announces itself.
+.masthead-dawn {
+    position: absolute;
+    left: -10%;
+    right: -10%;
+    bottom: 0;
+    height: 80%;
+    z-index: 1;
+    pointer-events: none;
+    background: radial-gradient(150% 100% at 42% 138%,
+            color-mix(in oklch, var(--drafting-lamp-amber) 22%, transparent),
+            color-mix(in oklch, var(--drafting-lamp-amber) 6%, transparent) 24%,
+            transparent 50%);
+}
+
+// The sky dissolves into the page: the stars thin into the same night the body
+// is made of, so the masthead has no bottom edge.
+.masthead-melt {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 28%;
+    z-index: 4;
+    pointer-events: none;
+    background: linear-gradient(to bottom, transparent, var(--night-shift-midnight) 96%);
+}
+
+// The built-and-dreamed city. Built fills are a deep cool silhouette; built
+// lines (the monorail track, panel seams) are muted brass; the still-unbuilt
+// parts are drawn in pale luminous line and glow; gold is rationed to a few
+// sparks. Element geometry is in the SVG; colour lives here.
+.masthead-city {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 3;
+    width: 100%;
+    height: 250px;
+    pointer-events: none;
+
+    .sil { fill: oklch(18% 0.03 245); }
+    .seam { stroke: color-mix(in oklch, var(--brass-linework) 22%, transparent); fill: none; }
+    .track { stroke: color-mix(in oklch, var(--brass-linework) 34%, transparent); fill: none; }
+    .draft { stroke: color-mix(in oklch, var(--brass-linework) 84%, var(--marquee-bulb-cream)); fill: none; }
+    .rim { stroke: color-mix(in oklch, var(--drafting-lamp-amber) 55%, var(--marquee-bulb-cream)); fill: none; }
+    .spark { fill: var(--drafting-lamp-amber); }
+    // Lit windows: small amber panes (a deliberate rectangle, never a round
+    // star) so the built structure reads as built against the starfield.
+    .window { fill: var(--drafting-lamp-amber); }
+
+    // Only the dreamed structure glows; the drop-shadow follows the stroke,
+    // never pooling into a blob.
+    .dreamed {
+        filter: drop-shadow(0 0 3px color-mix(in oklch, var(--brass-linework) 50%, transparent));
+    }
+
+    @media (max-width: 768px) {
+        height: 184px;
+    }
+}
+
+// Motion: slow, atmospheric, sincere — gated, and calm by default.
+@keyframes masthead-twinkle {
+    0%, 100% { opacity: var(--o); }
+    50% { opacity: calc(var(--o) * 0.4); }
+}
+
+@keyframes masthead-drift {
+    from { transform: translateX(0); }
+    to { transform: translateX(-1.6%); }
+}
+
+@keyframes masthead-dream-breathe {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.84; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .masthead-sky .fs-tw {
+        animation: masthead-twinkle 5.5s ease-in-out infinite;
+        animation-delay: var(--d);
+    }
+
+    .masthead-sky.drift {
+        animation: masthead-drift 140s ease-in-out infinite alternate;
+    }
+
+    .masthead-city .dreamed {
+        animation: masthead-dream-breathe 8s ease-in-out infinite;
     }
 }
 
 footer {
     text-align: center;
     padding: space(xxl) 0;
-    @include subtle-border(color(primary));
+    @include subtle-border(var(--brass-linework));
     border-bottom: none;
     border-left: none;
     border-right: none;
-    color: color(body-text);
+    color: var(--marquee-bulb-cream);
+}
+
+// ===================================
+// THE GREAT CATALOG (HOME / FRONT PAGE) — FJ#4 Increment 3
+// ===================================
+// The home page is a dense, ruled catalog spread (DESIGN.md §5, reframed): the
+// most recent post is the feature (trimmed at a paragraph boundary), a Recent
+// Scrolls index keeps the rest reachable, and the trinkets are catalog fixtures
+// at stable grid positions. Warmth comes from ink and edges — the lamp catching
+// the feature's top edge, and brass rules + figure numbers warmed toward amber —
+// never an ambient pool (a sourceless glow is the AI-atompunk-slop tell).
+:root {
+    // Warm structural ink: brass nudged toward the drafting lamp (the "lamplit ledger").
+    --brass-warm: color-mix(in oklch, var(--brass-linework) 74%, var(--drafting-lamp-amber));
+    --catalog-rule: color-mix(in oklch, var(--brass-warm) 40%, transparent);
+    --catalog-rule-faint: color-mix(in oklch, var(--brass-warm) 20%, transparent);
+    // The lamp catching the top edge of the current sheet (named-light glint).
+    --lit-edge: color-mix(in oklch, var(--drafting-lamp-amber) 60%, var(--brass-linework));
+}
+
+.catalog {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: space(md) space(xxl) space(xxxl);
+    // Figure numbering for the plate language (the feature is "Plate I", the
+    // Recent Scrolls index is "Contents", every other fixture is "Fig. N").
+    counter-reset: fig;
+}
+
+.catalog-runhead {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: space(lg);
+    flex-wrap: wrap;
+    border-bottom: 2px solid var(--catalog-rule);
+    padding-bottom: space(sm);
+
+    .catalog-vol {
+        font-family: font(heading);
+        font-style: italic;
+        color: var(--brass-linework);
+        font-size: size(medium);
+    }
+}
+
+.catalog-nav .fixture-list {
+    display: flex;
+    gap: space(lg);
+    flex-wrap: wrap;
+
+    li {
+        padding: 0;
+    }
+
+    a {
+        // Reserve the underline's 1px at rest (transparent) so coloring it on
+        // hover never grows the box and reflows the baseline-aligned runhead.
+        border-bottom: 1px solid transparent;
+        font-size: size(small);
+
+        &:hover {
+            border-bottom-color: var(--drafting-lamp-amber);
+        }
+    }
+}
+
+// Nav-link tap target: keep the menu links above the 24px touch minimum
+// (WCAG 2.5.8) in the runhead row. Shared via the .nav-link class in
+// partials/fixtures/_nav-links.
+.nav-link {
+    display: inline-block;
+    padding-block: 7px;
+}
+
+// Current-page marker: the nav item for the page you're on wears a solid amber
+// underline at rest (siblings rest at dotted/none). In the runhead the 1px is
+// already reserved transparent, so this only colors it — no reflow.
+.nav-link[aria-current="page"] {
+    border-bottom: 1px solid var(--drafting-lamp-amber);
+}
+
+.catalog-nav .fixture-list a[aria-current="page"] {
+    border-bottom-color: var(--drafting-lamp-amber);
+}
+
+// Top zone: the feature beside a right rail (Recent Scrolls + Reading Pavilion).
+// Two independent-height columns, top-aligned, so a tall feature never forces a
+// dense-grid gap.
+.catalog-top {
+    display: grid;
+    grid-template-columns: 8fr 4fr;
+    align-items: start;
+}
+
+.catalog-rail {
+    min-width: 0;
+}
+
+// Row 2: a full-width pair split evenly down the middle, with a brass divider.
+// Two block trinkets (the "on the wire" streams) get room to breathe here,
+// rather than stacking in the narrow rail and leaving a hole beside them.
+.catalog-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    > *:first-child {
+        border-right: 1px solid var(--catalog-rule);
+    }
+}
+
+// Bottom zone: the remaining fixtures in a dense ruled grid.
+.catalog-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-auto-flow: dense;
+    grid-auto-rows: min-content;
+
+    > * { border-right: 1px solid var(--catalog-rule-faint); }
+    // Ranked by what fills the space, not by co-equal weight: Random
+    // Incantations leads as the marquee (a five-deep list), the tag sample gets
+    // a wider cell so the sigils can breathe, the single-entry blogroll takes the
+    // narrow footnote cell, and the button wall closes full-width.
+    > .fixture--random { grid-column: span 5; }
+    > .fixture--tags { grid-column: span 4; }
+    > .fixture--mages { grid-column: span 3; }
+    > .fixture--emblems { grid-column: span 12; border-right: none; }
+}
+
+// Return to the Pavilion: a quiet link home at the foot of every destination plate
+// (omitted on the home page itself). Inherits the global amber link treatment;
+// centered as a page-end affordance rather than a fixture's "more ->".
+.catalog-return {
+    display: block;
+    width: fit-content;
+    margin: space(xxl) auto 0;
+    font-family: font(mono);
+    font-size: size(small);
+}
+
+// Every catalog entry is a ruled cell. The brass rules are warmed toward amber so
+// the whole spread reads as warm ink on dark paper.
+.feature,
+.catalog-rail > *,
+.catalog-pair > *,
+.catalog-grid > * {
+    padding: space(xl);
+    border-top: 1px solid var(--catalog-rule);
+    min-width: 0;
+    position: relative;
+}
+
+// In the catalog, the trinket headings become the plate language: a mono,
+// uppercase, warm-brass kicker prefixed with its figure number — not the serif
+// amber title the aside uses. The inner-page aside keeps the serif .fixture-title.
+.catalog-rail .fixture-title,
+.catalog-pair .fixture-title,
+.catalog-grid .fixture-title {
+    font-family: font(mono);
+    font-weight: 400;
+    font-size: size(small);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--brass-warm);
+    border: none;
+    padding: 0;
+    margin: 0 0 space(md);
+}
+
+// Number every catalog fixture except the Recent Scrolls index (which is labelled
+// "Contents", not a figure).
+.catalog-rail > .fixture:not(.recent-scrolls),
+.catalog-pair > .fixture,
+.catalog-grid > .fixture {
+    counter-increment: fig;
+}
+
+.catalog-rail > .fixture:not(.recent-scrolls) .fixture-title::before,
+.catalog-pair > .fixture .fixture-title::before,
+.catalog-grid > .fixture .fixture-title::before {
+    content: "Fig. " counter(fig) " · ";
+}
+
+.recent-scrolls .fixture-title::before {
+    content: "Contents · ";
+}
+
+// The figure / contents prefix recedes so the fixture's NAME is the dominant
+// token in the kicker: a smaller, dimmer brass numeral before the loud name.
+.catalog-rail .fixture-title::before,
+.catalog-pair .fixture-title::before,
+.catalog-grid .fixture-title::before {
+    font-size: 0.82em;
+    color: color-mix(in oklch, var(--brass-warm) 62%, var(--night-shift-midnight));
+}
+
+// The figure / plate kicker that labels each entry.
+.catalog-fig {
+    display: block;
+    margin-bottom: space(sm);
+    font-family: font(mono);
+    font-size: size(small);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--brass-warm);
+
+    .catalog-fig-n { color: color-mix(in oklch, var(--drafting-lamp-amber) 66%, var(--brass-linework)); }
+
+    // One REC light per surface: the "now broadcasting" mark on the feature.
+    .catalog-fig-live {
+        color: var(--now-broadcasting-red);
+
+        i { font-size: 0.8em; vertical-align: middle; }
+    }
+}
+
+// THE FEATURE — the most recent post, large, under the lamp's lit edge.
+.feature {
+    // The lamp catches the top edge of the current sheet (named-light glint);
+    // a vertical rule separates the feature from the right rail.
+    border-top: 2px solid var(--lit-edge);
+    border-right: 1px solid var(--catalog-rule);
+
+    .feature-title {
+        font-family: font(heading);
+        font-weight: 400;
+        // Fluid like the rest of the heading scale: smaller on a phone, larger
+        // on a wide display, instead of a fixed 2.4rem at every width.
+        font-size: clamp(1.9rem, 1.35rem + 2.1vw, 2.75rem);
+        line-height: 1.18;
+        margin: space(xs) 0 space(sm);
+        color: var(--drafting-lamp-amber);
+        text-wrap: balance;
+    }
+
+    .arcane-timestamp { margin-bottom: space(xl); }
+    .post-content > p { max-width: 64ch; }
+
+    .post-tags {
+        margin-top: space(xl);
+        padding-top: space(lg);
+        border-top: 1px solid var(--catalog-rule-faint);
+    }
+}
+
+// Marquee Initial on the titled feature (Three-Knobs Rule preserved: 4em × 0.8 = 2 × 1.6em).
+// Skipped on titleless microposts, where a 4em capital would be absurd.
+.feature:not(.feature--micro) .post-content > p:first-of-type::first-letter {
+    font-family: font(heading);
+    font-weight: 400;
+    color: var(--drafting-lamp-amber);
+    font-size: 4em;
+    line-height: 0.8;
+    float: left;
+    margin-right: 0.14em;
+    text-shadow: var(--marquee-glow);
+}
+
+// RECENT SCROLLS — the catalog's dated contents index of everything past the feature.
+// The scroll-list: a dated index of scrolls, used by the home's Recent Scrolls
+// and by the reading plate's "Other Curiosities" colophon. Base classes so the
+// component travels; the "Contents" label stays scoped to .recent-scrolls.
+.scroll-list {
+    list-style: none;
+    margin: space(sm) 0 0;
+    padding: 0;
+}
+
+.scroll-row {
+    display: grid;
+    grid-template-columns: 4.4em 1fr;
+    gap: space(md);
+    align-items: baseline;
+    padding: space(sm) 0;
+
+    & + & {
+        border-top: 1px dotted var(--catalog-rule-faint);
+    }
+}
+
+.scroll-date {
+    font-family: font(heading);
+    font-style: italic;
+    color: var(--brass-linework);
+    font-size: size(small);
+    white-space: nowrap;
+}
+
+.scroll-title a {
+    // Same reserved-underline trick as the runhead nav: 1px transparent at rest,
+    // colored on hover, so a hovered title never shifts the scrolls listed below.
+    border-bottom: 1px solid transparent;
+
+    &:hover { border-bottom-color: var(--drafting-lamp-amber); }
+}
+
+.scroll-title--micro a {
+    color: color-mix(in oklch, var(--marquee-bulb-cream) 82%, var(--night-shift-midnight));
+}
+
+.fixture-more {
+    display: inline-block;
+    margin-top: space(sm);
+    // padding-block lifts the tap target above the 24px touch minimum
+    // (WCAG 2.5.8); margin-top eased to space(sm) to keep the visual gap.
+    padding-block: 6px;
+    font-family: font(mono);
+    font-size: size(small);
+}
+
+// READING PAVILION fixture — a shelf preview of currently-reading covers.
+.fixture--reading {
+    .shelf {
+        display: flex;
+        gap: space(md);
+        // Spread the covers evenly across the cell rather than left-packing them,
+        // so the shelf reads as a filled row (gap stays the minimum spacing).
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-top: space(sm);
+        padding-bottom: space(md);
+        border-bottom: 2px solid color-mix(in oklch, var(--brass-warm) 34%, transparent);
+    }
+
+    .shelf-book { flex: 0 0 auto; }
+
+    .book-cover {
+        width: 64px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: radius(small);
+        @include card-shadow();
+    }
+}
+
+// ILLUMINATIONS fixture — the latest photo as a framed plate linking to /photos/.
+.fixture--illuminations {
+    .illumination-latest {
+        display: block;
+        margin-top: space(sm);
+        padding: 4px;
+        border: 1px solid var(--catalog-rule);
+        @include card-shadow();
+
+        &:hover {
+            border-color: color-mix(in oklch, var(--drafting-lamp-amber) 50%, var(--brass-linework));
+        }
+
+        img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+        }
+    }
+}
+
+// BOOKMARKS fixture — a compact list of recent saved links.
+.bookmark-mini {
+    li {
+        padding: space(xs) 0;
+    }
+
+    li + li {
+        border-top: 1px dotted var(--catalog-rule-faint);
+    }
+
+    a {
+        display: flex;
+        align-items: baseline;
+        gap: space(sm);
+        border-bottom: none;
+
+        &:hover {
+            border-bottom: none;
+
+            span { text-decoration: underline; }
+        }
+    }
+
+    .bookmark-favicon {
+        flex-shrink: 0;
+        transform: translateY(3px);
+    }
+}
+
+// ===================================
+// ILLUMINATIONS SURFACE (/photos/)
+// ===================================
+// A Catalog page of every photo post as a grid of plates.
+.catalog-rubric {
+    font-family: font(heading);
+    font-weight: 400;
+    font-size: size(h2);
+    color: var(--drafting-lamp-amber);
+    margin: space(xl) 0 space(lg);
+    padding-top: space(lg);
+    border-top: 2px solid var(--catalog-rule);
+
+    // The category sigil on an Arcanum page (/categories/<term>/): the sparkle
+    // that marks a category everywhere, sized to sit beside the amber name.
+    i {
+        font-size: 0.8em;
+        margin-right: space(sm);
+    }
+}
+
+.plate-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: space(md);
+}
+
+.plate {
+    display: block;
+    padding: 5px;
+    border: 1px solid var(--catalog-rule);
+    @include card-shadow();
+
+    &:hover {
+        border-color: color-mix(in oklch, var(--drafting-lamp-amber) 50%, var(--brass-linework));
+    }
+
+    img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+    }
+}
+
+// Collapse the catalog to a single column on narrow viewports.
+@media (max-width: 900px) {
+    .catalog-top,
+    .catalog-pair {
+        grid-template-columns: 1fr;
+    }
+
+    .feature,
+    .catalog-pair > *:first-child {
+        border-right: none;
+    }
+
+    .catalog-grid > * {
+        grid-column: span 12 !important;
+        grid-row: auto !important;
+        border-right: none;
+    }
 }
 
 // ===================================
 // COMPONENTS
 // ===================================
-
-// Card Component (the manuscript page)
-// Identity is carried by the Arcane Timestamp at the top and the Illuminated
-// Drop Cap on titled essays, not by chrome on the edges. No spine.
-.card {
-    background-color: color(card-bg);
-    border-radius: radius(medium);
-    padding: space(xxl);
-    overflow: hidden;
-    margin-bottom: space(xxxl);
-    @include card-shadow();
-
-    @media (max-width: 768px) {
-        padding: space(xl);
-    }
-}
 
 // Post images.
 // Images in posts fill the column width, regardless of intrinsic size or
@@ -304,38 +984,136 @@ footer {
     margin: space(lg) 0;
 }
 
-// Illuminated Drop Cap (essay posts only)
-// Scoped to .card:has(> h2): only titled posts get the manuscript capital.
-// On micro.blog, titleless posts are microposts (often <10 words) where a
-// 4em capital would be absurd. The :has(> h2) scope handles the conditional.
+// Marquee Initial (titled essays only)
+// The first letter of a titled essay's opening paragraph, set as a glowing
+// Bona Nova capital floated for a clean 2-line drop: the planetarium-show
+// title slide that opens each essay. Replaces the old manuscript Drop Cap with
+// the same lockup math and a marquee cultural reference instead of a medieval
+// one. Scoped to a titled reading plate; titleless microposts (where a 4em
+// capital would be absurd) are skipped.
 //
 // The Three-Knobs Rule: cap font-size × cap line-height = N × body line-height.
-// Here 4em × 0.8 = 3.2em = 2 × 1.6em (clean 2-line drop). Cap-baseline lands
-// on body line 2's baseline. If body line-height changes, recompute cap
-// line-height to preserve the lockup.
-.card:has(> h2) .post-content > p:first-of-type::first-letter {
+// Here 4em × 0.8 = 3.2em = 2 × 1.6em (a clean 2-line drop), and body
+// line-height is 1.6, so the lockup holds with no retune. If body line-height
+// changes, recompute the cap line-height to preserve the equation.
+.reading-plate:not(.reading-plate--micro):not(.reading-plate--standing) .post-content > p:first-of-type::first-letter {
     font-family: font(heading);
     font-weight: 400;
-    color: color(primary);
+    color: var(--drafting-lamp-amber);
     font-size: 4em;
     line-height: 0.8;
     float: left;
-    margin-right: 0.12em;
+    margin-right: 0.14em;
+    // Earned-Glow Rule: the Marquee Initial glows like a planetarium title slide.
+    // Marquee Glow lives here, on the masthead, and on link hover, nowhere else.
+    text-shadow: var(--marquee-glow);
 }
 
-// Sidebar Content
-.side-content {
-    background-color: color(card-bg);
-    padding: space(xl);
-    border-radius: radius(medium);
-    margin-bottom: space(xxl);
+// ===================================
+// THE READING PLATE (single scrolls + standing pages) — FJ#4
+// ===================================
+// A scroll read in full as one Catalog plate: the runhead (in baseof) carries the
+// nav, the specimen sits centered under the lamp's lit edge in a single reading
+// column, no trinket aside. The catalog language frames the prose without crowding it.
+.reading {
+    max-width: 40rem;
+    margin: 0 auto;
+    padding: space(md) space(xl) space(xxxl);
+    // Figure-numbered images within the plate count off this scope.
+    counter-reset: fig;
 }
 
-.side-title {
-    color: color(primary);
+.reading-plate {
+    // The lamp catches the top edge of the sheet (named-light glint), as on the feature.
+    border-top: 2px solid var(--lit-edge);
+    margin-top: space(xl);
+    padding-top: space(xl);
+
+    .arcane-timestamp { margin-bottom: space(xxl); }
+}
+
+// The plate title: the page's h1, Bona Nova amber — the scroll on display.
+.plate-title {
+    font-family: font(heading);
+    font-weight: 400;
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    line-height: 1.15;
+    color: var(--drafting-lamp-amber);
+    margin: space(xs) 0 space(sm);
+    text-wrap: balance;
+}
+
+// Titleless micropost: the dateline stands in as the heading — modest, not a display title.
+.plate-title--micro {
+    font-family: font(heading);
+    font-style: italic;
+    font-weight: 400;
+    font-size: size(medium);
+    color: var(--brass-linework);
+    margin: 0 0 space(lg);
+
+    .timestamp-icon { color: var(--now-broadcasting-red); }
+    .permalink { color: inherit; border-bottom: none; }
+}
+
+.plate-replying {
+    font-style: italic;
+    color: var(--brass-linework);
     margin-bottom: space(lg);
+}
+
+// The colophon: back-matter that replaces the trinket aside — filing, response, wayfinding.
+.colophon {
+    margin-top: space(xxxl);
+    padding-top: space(xl);
+    border-top: 2px solid var(--catalog-rule);
+    // The colophon is an <article> footer; override the centered, padded site-footer
+    // styling that the unscoped global `footer {}` rule leaks onto it.
+    text-align: left;
+    padding-bottom: 0;
+    color: inherit;
+}
+
+.colophon-filed {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: space(sm);
+    margin-bottom: space(xl);
+
+    .colophon-label {
+        font-family: font(mono);
+        font-size: size(small);
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--brass-warm);
+        margin-right: space(xs);
+    }
+}
+
+.colophon-reply { margin-bottom: space(xl); }
+// micro.blog supplies the reply affordance; if it renders nothing, don't leave a gap.
+.colophon-reply:empty { display: none; }
+
+// Other Curiosities: a few random scrolls to wander into (the catalog-of-wonder
+// fallback in place of a linear next/previous), styled as a small Recent-Scrolls
+// fixture at the foot of the plate.
+.colophon-curiosities {
+    // The "Other Curiosities" heading carries its own rule (fixture-title), so the
+    // section needs spacing above, not another divider.
+    margin-top: space(xl);
+}
+
+// Pavilion Displays (the trinket fixtures). They render as ruled catalog cells on the home
+// Great Catalog (see THE GREAT CATALOG above); inner reading plates carry their back-matter
+// in the colophon, not an aside. The .fixture-title and .fixture-list rules below are shared
+// by every surface a fixture appears in.
+.fixture-title {
+    color: var(--drafting-lamp-amber);
+    margin: 0 0 space(lg);
     font-size: size(large);
-    @include subtle-border(color(primary));
+    font-weight: 400;
+    @include subtle-border(var(--brass-linework));
     border-top: none;
     border-left: none;
     border-right: none;
@@ -343,139 +1121,77 @@ footer {
     font-family: font(heading);
 }
 
-// Tag Component
-%tag-base {
-    display: inline-block;
-    padding: space(xs) space(md);
-    border-radius: radius(pill);
-    font-size: size(small);
-    margin-right: space(sm);
-    margin-bottom: space(sm);
-    @include transition();
-    border: 1px solid transparent;
+.fixture-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+        padding: space(xs) 0;
+    }
 }
 
-.tag {
-    @extend %tag-base;
-    background-color: rgba(color(secondary), 0.2);
-    color: color(secondary);
+.fixture-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: space(sm);
+}
 
-    &:hover {
-        border-color: color(secondary);
-        @include hover-shadow(color(secondary));
-    }
+// Tag Component (the Category Sigil)
+// A category renders as a sigil-link, not a filled pill: the ✦ sparkle in
+// Drafting-Lamp Amber (the category's lamp-spark), the name in Brass Linework,
+// carrying the site's universal link affordance inherited from the global `a`
+// rule — the dotted→solid Amber underline, the Link Hover Glow on hover, and the
+// turquoise focus ring. No fill, no pill radius, no box: a tag is a catalog index
+// entry in the same grammar as every other link, not a chip resting on the page.
+// The leading sparkle delimits each entry where there is no enclosure.
+.tag {
+    color: var(--brass-linework);
 
     i {
+        color: var(--drafting-lamp-amber);
         margin-right: space(xs);
     }
 }
 
-.response-tag {
-    @extend %tag-base;
-    background-color: rgba(color(accent), 0.15);
-    color: color(accent);
-
-    &:hover {
-        border-color: color(accent);
-        @include hover-shadow(color(accent));
-    }
-
-    @media (max-width: 768px) {
-        display: inline-block;
-        margin-top: space(sm);
-    }
-}
-
-// Timestamp Component
+// Timestamp Component (the Arcane Timestamp)
 .arcane-timestamp {
-    color: color(secondary);
+    color: var(--brass-linework);
     font-style: italic;
     margin-bottom: space(xl);
     font-family: font(heading);
     font-size: size(medium);
 }
 
+// The REC light: Now-Broadcasting Red signs the timestamp like a console's
+// recording lamp (DESIGN.md One-REC-Light Rule).
 .timestamp-icon {
-    color: color(accent);
+    color: var(--now-broadcasting-red);
 }
 
-// Post Tags Section
+// Post Tags Section — a row of category sigils beneath the feature.
 .post-tags {
     margin-top: #{space(xl) + space(sm)};
-    @include subtle-border(color(primary));
+    @include subtle-border(var(--brass-linework));
     border-bottom: none;
     border-left: none;
     border-right: none;
     padding-top: space(xl);
+    display: flex;
+    flex-wrap: wrap;
+    gap: space(sm);
+    align-items: baseline;
 }
 
 // Continue Reading affordance (the page-turn)
-// Shown beneath an auto-truncated or <!--more--> summary on the index. The
-// link itself inherits the global sage / dotted-underline / hover-glow
-// treatment; this rule only positions the wrapping paragraph.
+// Shown beneath an auto-truncated or <!--more--> summary on the index. Matches
+// the catalog's other "more ->" affordances (.fixture-more): mono, small, and
+// left-aligned. The link inherits the global amber / dotted-underline / glow.
 .continue-reading {
     margin-top: space(xl);
     margin-bottom: 0;
-    text-align: right;
-}
-
-// ===================================
-// PAGINATION
-// ===================================
-
-.pagination {
-    &-link {
-        &.previous {
-            text-align: left;
-        }
-
-        &.next {
-            text-align: right;
-        }
-    }
-
-    &-icon {
-        color: color(primary);
-    }
-
-    &-pages {
-        font-family: font(heading);
-        position: relative;
-        text-align: center;
-
-        .page {
-            color: color(accent);
-            font-size: space(xl);
-        }
-    }
-}
-
-// ===================================
-// LAYOUT COLUMNS
-// ===================================
-
-.tags-column {
-    text-align: left;
-
-    @media (max-width: 768px) {
-        width: 100% !important;
-        display: block;
-    }
-}
-
-.response-column {
-    text-align: right;
-
-    @media (max-width: 768px) {
-        width: 100% !important;
-        display: block;
-        text-align: left;
-        margin-top: space(lg);
-    }
-}
-
-.response-icon {
-    margin-right: 4px;
+    font-family: font(mono);
+    font-size: size(small);
 }
 
 // ===================================
@@ -489,7 +1205,7 @@ footer {
 }
 
 // ===================================
-// STATUS SCROLL COMPONENT (SIMPLIFIED)
+// STATUS SCROLL COMPONENT (MYSTIC MISSIVES)
 // ===================================
 
 .status-scroll {
@@ -497,11 +1213,11 @@ footer {
         padding: space(md) 0;
     }
 
-    // Sage divider between consecutive entries. Adjacent-sibling combinator
-    // is class-aware (unlike :last-of-type, which is keyed off tag name and
-    // would treat the trailing .status-footer div as the "last" sibling).
+    // Brass Linework divider between consecutive status entries (DESIGN.md
+    // Mystic Missives): a top rule on every entry after the first, so the feed
+    // reads as ruled rows with no rule above the first or below the last.
     .status-entry + .status-entry {
-        border-top: 1px solid rgba(color(primary), 0.3);
+        border-top: 1px solid color-mix(in oklch, var(--brass-linework) 30%, transparent);
     }
 
     .status-header {
@@ -517,7 +1233,7 @@ footer {
 
     .status-time {
         font-size: size(small);
-        color: color(secondary);
+        color: var(--brass-linework);
         font-family: font(heading);
         font-style: italic;
     }
@@ -525,79 +1241,57 @@ footer {
     .status-content {
         font-size: size(normal);
         line-height: 1.5;
-        color: color(body-text);
+        color: var(--marquee-bulb-cream);
         // omg.lol content is user-authored; long URLs must not overflow the
         // narrow side column.
         overflow-wrap: anywhere;
     }
 
-    .status-footer {
-        margin-top: space(lg);
-        padding-top: space(md);
-        @include subtle-border(color(primary));
-        border-bottom: none;
-        border-left: none;
-        border-right: none;
+}
+
+// ===================================
+// THE READING PAVILION (/bookshelf/)
+// ===================================
+// Full-width Catalog plate, the Illuminations surface's sibling: currently-reading
+// covers and finished books grouped by year. Covers rest with the Exhibit shadow;
+// art-less books become typographic plates (the title set on a tinted board) rather
+// than an emoji. Reads micro.blog's reading-goal data shape (bookshelf/single.html);
+// the goal count is the access path to the year's books, never surfaced.
+.reading-pavilion-page {
+    .pavilion-section {
+        margin-bottom: space(xxxl);
+
+        &:last-of-type {
+            margin-bottom: space(xl);
+        }
     }
 
-    .status-link {
-        @extend %tag-base;
-        background-color: rgba(color(accent), 0.15);
-        color: color(accent);
-        font-family: font(heading);
-        display: inline-block;
-        margin-top: space(md);
+    // Section heading (Currently Reading, or a year) in the Compendium's year
+    // language: amber serif over a dotted Brass rule.
+    .pavilion-head {
+        margin: 0 0 space(lg);
+        color: var(--drafting-lamp-amber);
+        font-size: size(h3);
+        border-bottom: 1px dotted color-mix(in oklch, var(--brass-linework) 30%, transparent);
+        padding-bottom: space(sm);
+    }
 
-        i {
-            margin-right: space(xs);
-        }
+    // Covers stand in a wrapping row, bottom-aligned like books on a shelf.
+    .book-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: space(lg);
+        align-items: flex-end;
+    }
+
+    // Gentle hover-halo, never a card-lift (DESIGN.md §5 / Page-Not-Button Rule).
+    .book-cover {
+        @include transition();
 
         &:hover {
-            border-color: color(accent);
-            @include hover-shadow(color(accent));
+            // Hover-Halo Rule: ≤0.2 opacity (the mixin default).
+            @include hover-shadow(var(--drafting-lamp-amber));
         }
-    }
-}
-
-// ===================================
-// BOOKSHELF COMPONENT
-// ===================================
-
-.bookshelf-page {
-    .page-header {
-        margin-bottom: space(xxxl);
-    }
-
-    .shelf {
-        margin-bottom: space(xxxl);
-    }
-
-    .year-group {
-        margin-bottom: space(xxl);
-
-        .year {
-            margin-top: space(xl);
-        }
-    }
-}
-
-.book-grid {
-    margin-top: space(xl);
-}
-
-.book-cell {
-    padding: space(md);
-    display: flex;
-    justify-content: center;
-}
-
-.book-cover-container {
-    display: inline-block;
-    @include transition();
-
-    &:hover {
-        transform: translateY(-4px);
-        @include hover-shadow(color(primary), 0.3);
     }
 }
 
@@ -609,23 +1303,50 @@ footer {
     display: block;
     @include card-shadow();
 
+    // Art-less book: the title set on an Exhibit-Card-Deep board with a Brass edge,
+    // a catalogued specimen with a hand-lettered label. Replaces the emoji placeholder
+    // and surfaces the title the cover art would otherwise carry.
+    &--titled {
+        background-color: var(--exhibit-card-deep);
+        @include subtle-border(var(--brass-linework), 35%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: space(md);
+        text-align: center;
+
+        .book-cover-title {
+            font-family: font(heading);
+            font-size: size(normal);
+            line-height: 1.25;
+            color: var(--marquee-bulb-cream);
+            // Cap a very long title so a plate never overflows its boards.
+            display: -webkit-box;
+            -webkit-line-clamp: 7;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    }
+
+    // Preview placeholder still used by the Reading Pavilion home fixture: a quiet
+    // Brass Phosphor book on a tinted board where a cover image is missing.
     &--placeholder {
-        background-color: rgba(color(secondary), 0.1);
-        @include subtle-border(color(secondary), 0.3);
+        background-color: color-mix(in oklch, var(--brass-linework) 10%, transparent);
+        @include subtle-border(var(--brass-linework), 30%);
         display: flex;
         align-items: center;
         justify-content: center;
 
-        &::after {
-            content: '📚';
-            font-size: 48px;
-            opacity: 0.3;
+        i {
+            font-size: 32px;
+            color: var(--brass-linework);
+            opacity: 0.7;
         }
     }
 }
 
 .empty {
-    color: color(secondary);
+    color: var(--brass-linework);
     font-style: italic;
     opacity: 0.8;
 }
@@ -646,13 +1367,13 @@ footer {
             margin-bottom: 0;
         }
 
-        // The year heading nests inside the card with its own dotted Sage
+        // The year heading nests inside the card with its own dotted Brass
         // rule. Override the default %heading-base top margin so the section
         // break carries the spacing, not the heading itself.
         .year {
             margin-top: 0;
             margin-bottom: space(lg);
-            border-bottom: 1px dotted rgba(color(primary), 0.3);
+            border-bottom: 1px dotted color-mix(in oklch, var(--brass-linework) 30%, transparent);
             padding-bottom: space(sm);
         }
     }
@@ -663,7 +1384,7 @@ footer {
         margin: 0;
     }
 
-    // Two-column grid: a fixed-width Philosopher date column on the left,
+    // Two-column grid: a fixed-width Bona Nova date column on the left,
     // the title or snippet flowing in the right column. Baseline-aligned so
     // the italic ornament date sits on the title's text baseline.
     .archive-entry {
@@ -673,12 +1394,11 @@ footer {
         align-items: baseline;
         padding: space(sm) 0;
 
-        // Dotted Parchment rule between entries. Mirrors the Mystic Missives
-        // status-entry separator language (1px sage at 30%) but tinted to
-        // Weathered Parchment at lower opacity, because the codex is long
-        // and a row of higher-contrast sage rules would read as a ladder.
+        // Dotted Brass rule between entries, at lower opacity than the year
+        // rule because the codex is long and a row of higher-contrast rules
+        // would read as a ladder.
         & + & {
-            border-top: 1px dotted rgba(color(secondary), 0.18);
+            border-top: 1px dotted color-mix(in oklch, var(--brass-linework) 18%, transparent);
         }
 
         @media (max-width: 540px) {
@@ -690,11 +1410,11 @@ footer {
 
     // The date is a non-link ornament. Making the title (or snippet) the
     // sole click target avoids the global a:hover glow firing on a
-    // parchment-colored date and keeps each row to one affordance.
+    // brass-colored date and keeps each row to one affordance.
     .archive-date {
         font-family: font(heading);
         font-style: italic;
-        color: color(secondary);
+        color: var(--brass-linework);
         font-size: size(normal);
         white-space: nowrap;
     }
@@ -704,21 +1424,21 @@ footer {
     }
 
     // Microposts: render as quieter body-colored prose so the row reads as
-    // content rather than as a heading. The dotted Sage underline still
+    // content rather than as a heading. The dotted Amber underline still
     // inherits from the global anchor rule, signalling the affordance.
     .archive-snippet {
-        color: color(body-text);
+        color: var(--marquee-bulb-cream);
         opacity: 0.85;
     }
 
     // Image-only microposts have no plain-text content (alt attributes are
     // stripped by plainify), so the row falls back to a small Phosphor image
     // icon and an italic "an illumination" label, in the manuscript-marginalia
-    // sense. Italics + Weathered Parchment match the Arcane Timestamp ornament
+    // sense. Italics + Brass Linework match the Arcane Timestamp ornament
     // language: this is metadata about the post, not the post's words.
     .archive-snippet--wordless {
         font-style: italic;
-        color: color(secondary);
+        color: var(--brass-linework);
         opacity: 0.85;
 
         i {
@@ -728,14 +1448,104 @@ footer {
 }
 
 // ===================================
+// INDEX OF ARCANA (/categories/)
+// ===================================
+
+// The all-categories page: a full-width Catalog plate, the Compendium's sibling.
+// Where the Compendium indexes scrolls by year, this indexes them by category.
+// Every category is a printed-index entry — name, dot leader, scroll count — laid
+// in reflowing columns so an unhinged-long taxonomy reads as a real index, not a
+// card grid. No new tokens; the leader and count speak the Brass ornament language.
+.arcana-dek {
+    font-family: font(heading);
+    font-style: italic;
+    color: var(--brass-linework);
+    font-size: size(medium);
+    margin: 0 0 space(xl);
+}
+
+.arcana-index {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    // Reflowing columns ruled like a ledger: column-width drives the count, so
+    // the index packs to as many columns as the plate affords and collapses to
+    // one on a phone. The faint brass column rule is the catalog's vertical rule.
+    column-width: 20rem;
+    column-gap: space(xxxl);
+    column-rule: 1px solid var(--catalog-rule-faint);
+}
+
+.arcanum-row {
+    // Keep an entry whole rather than letting it split across a column break.
+    break-inside: avoid;
+    padding: space(sm) 0;
+}
+
+.arcanum {
+    display: flex;
+    align-items: baseline;
+    gap: space(sm);
+    // Override the global dotted-amber link underline: the affordance here is the
+    // name underlining on hover, not a rule under the whole row.
+    border-bottom: none;
+    color: var(--marquee-bulb-cream);
+
+    &:hover {
+        border-bottom: none;
+        text-shadow: none;
+
+        .arcanum-name {
+            border-bottom-color: var(--drafting-lamp-amber);
+            text-shadow: var(--link-hover-glow);
+        }
+
+        .arcanum-leader {
+            border-bottom-color: color-mix(in oklch, var(--brass-linework) 55%, transparent);
+        }
+    }
+}
+
+.arcanum-name {
+    font-family: font(heading);
+    font-weight: 400;
+    font-size: size(large);
+    line-height: 1.2;
+    color: var(--drafting-lamp-amber);
+    // Reserve the hover underline's 1px (transparent at rest) so coloring it on
+    // hover never shifts the count or the entries below — the runhead's trick.
+    border-bottom: 1px solid transparent;
+}
+
+.arcanum-leader {
+    // The dot leader: a dotted brass rule riding the text baseline, bridging the
+    // name to its count the way a printed catalogue index does. Nudged up to sit
+    // on the baseline; min-width keeps a few dots even behind a long name.
+    flex: 1 1 auto;
+    min-width: space(xl);
+    border-bottom: 1px dotted color-mix(in oklch, var(--brass-linework) 35%, transparent);
+    transform: translateY(-0.35em);
+    @include transition(border-bottom-color);
+}
+
+.arcanum-count {
+    flex: 0 0 auto;
+    font-family: font(heading);
+    font-style: italic;
+    font-size: size(normal);
+    color: var(--brass-linework);
+    white-space: nowrap;
+}
+
+// ===================================
 // BOOKMARKS
 // ===================================
 
 // A list of saved links: each row is favicon + title (or user note), with
-// hostname and date below in the Compendium's Philosopher-italic Weathered
-// Parchment language. Replaces the old <figure><blockquote> rendering, which
-// misused blockquote (reserved for actual pull-quotes) and inherited the
-// 3px parchment side-stripe explicitly banned on list items.
+// hostname and date below in the Compendium's Bona Nova-italic Brass Linework
+// language. Replaces the old <figure><blockquote> rendering, which misused
+// blockquote (reserved for actual pull-quotes) and inherited the 3px side-stripe
+// explicitly banned on list items.
 .bookmarks {
     list-style: none;
     padding: 0;
@@ -746,7 +1556,31 @@ footer {
     padding: space(md) 0;
 
     & + & {
-        border-top: 1px dotted rgba(color(secondary), 0.18);
+        border-top: 1px dotted color-mix(in oklch, var(--brass-linework) 18%, transparent);
+    }
+}
+
+// On the full-width Bookmarks plate the list becomes a columnar index — the Index
+// of Arcana's reflowing-ledger mechanic — so the saved links fill the wide plate
+// in readable-measure columns rather than one 1180px-wide line, and collapse to a
+// single column on a phone. (The bare .bookmark rules above still serve the
+// {{< bookmarks >}} shortcode when it is used inline inside a scroll.)
+.bookmarks-page .bookmarks {
+    column-width: 20rem;
+    column-gap: space(xxxl);
+    column-rule: 1px solid var(--catalog-rule-faint);
+}
+
+.bookmarks-page .bookmark {
+    // Keep an entry whole rather than letting it split across a column break.
+    break-inside: avoid;
+    // A per-entry bottom rule replaces the base between-siblings top rule, so the
+    // first entry at the top of each column never carries a stray dotted rule.
+    border-top: none;
+    border-bottom: 1px dotted color-mix(in oklch, var(--brass-linework) 18%, transparent);
+
+    &:last-child {
+        border-bottom: none;
     }
 }
 
@@ -774,7 +1608,7 @@ footer {
 }
 
 .bookmark-title {
-    border-bottom: 1px dotted color(primary);
+    border-bottom: 1px dotted var(--drafting-lamp-amber);
 
     .bookmark-link:hover & {
         border-bottom-style: solid;
@@ -788,26 +1622,20 @@ footer {
     font-family: font(heading);
     font-style: italic;
     font-size: size(small);
-    color: color(secondary);
+    color: var(--brass-linework);
 }
 
-.bookmark-date::before {
-    content: " · ";
+// Meta separator. A standalone span, not a link ::before, so the archived link's
+// dotted underline covers only "archived" and never runs across the dot. Stays
+// meta-brass between the host, date, and the amber archived fallback link.
+.bookmark-sep {
     margin: 0 space(xs);
+    color: var(--brass-linework);
 }
 
 // ===================================
-// WEB BUTTONS COLLECTION
+// WEB BUTTONS COLLECTION (ENCHANTED EMBLEMS)
 // ===================================
-
-.emblem-note {
-    display: block;
-    color: color(secondary);
-    font-style: italic;
-    opacity: 0.8;
-    margin-bottom: space(sm);
-    text-align: center;
-}
 
 .button-collection {
     display: flex;
@@ -825,6 +1653,6 @@ footer {
     &--share {
         margin-bottom: space(lg);
         padding-bottom: space(lg);
-        border-bottom: 1px solid rgba(color(secondary), 0.2);
+        border-bottom: 1px solid color-mix(in oklch, var(--brass-linework) 20%, transparent);
     }
 }
