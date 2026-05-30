@@ -29,8 +29,10 @@
         Trim the feature, in priority order:
           1. Author placed <!--more--> — render the prefix.
           2. Author set custom_summary — render .Summary.
-          3. Long enough to auto-truncate at a paragraph boundary past 750 words,
-             with at least 200 words remaining past the cut. Otherwise render in full.
+          3. Otherwise auto-trim to a ~175-word lead (≈ three average prose paragraphs):
+             keep whole paragraphs until the budget is reached, then cut at that paragraph
+             boundary. Word-based, not paragraph-count: a post opening with an epigraph or
+             short lines still shows a real lead. At/under budget renders in full.
       */}}
       {{ $body := .Content }}
       {{ $truncated := false }}
@@ -46,14 +48,26 @@
         {{ $body = .Summary | safeHTML }}
         {{ $truncated = true }}
       {{ else }}
-        {{/* Auto-trim the feature to a ~3-paragraph lead so the front page invites
-             the reader in without pushing the catalog below the fold. Only trims
-             when there are more than 3 paragraphs; shorter posts render in full. */}}
-        {{ $paragraphs := split .Content "</p>" }}
-        {{ if gt (len $paragraphs) 4 }}
-          {{ $kept := first 3 $paragraphs }}
-          {{ $body = printf "%s</p>" (delimit $kept "</p>") | safeHTML }}
-          {{ $truncated = true }}
+        {{/* Walk whole paragraphs, accumulating words, and stop once the lead budget is
+             reached — so the lead is a consistent amount of text whether the post opens
+             with dense paragraphs or an epigraph plus one-liners. Only truncate when a
+             worthwhile remainder (>= 40 words) would be left unshown; otherwise full. */}}
+        {{ $budget := 175 }}
+        {{ $total := countwords (.Content | plainify) }}
+        {{ if gt $total $budget }}
+          {{ $kept := slice }}
+          {{ $words := 0 }}
+          {{ range (split .Content "</p>") }}
+            {{ $segwords := countwords (plainify .) }}
+            {{ if and (lt $words $budget) (gt $segwords 0) }}
+              {{ $kept = $kept | append . }}
+              {{ $words = add $words $segwords }}
+            {{ end }}
+          {{ end }}
+          {{ if and (gt (len $kept) 0) (ge (sub $total $words) 40) }}
+            {{ $body = printf "%s</p>" (delimit $kept "</p>") | safeHTML }}
+            {{ $truncated = true }}
+          {{ end }}
         {{ end }}
       {{ end }}
 
