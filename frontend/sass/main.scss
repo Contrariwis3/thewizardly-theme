@@ -443,11 +443,17 @@ pre {
 // sparks. Element geometry is in the SVG; colour lives here.
 .masthead-city {
     position: absolute;
-    left: 0;
-    right: 0;
+    // Capped and centred so the city never magnifies into the title at very wide
+    // viewports. The SVG uses `slice`, so past ~1600px the scaled dome swells up
+    // under the wordmark; we stop the city growing there and let the full-bleed
+    // sky and dawn behind it carry the edges, the sparse-right frontier dissolving
+    // into open night. Below 1600px this is identical to a full-bleed left:0/right:0.
+    left: 50%;
+    transform: translateX(-50%);
     bottom: 0;
     z-index: 3;
     width: 100%;
+    max-width: 1600px;
     height: 250px;
     pointer-events: none;
 
