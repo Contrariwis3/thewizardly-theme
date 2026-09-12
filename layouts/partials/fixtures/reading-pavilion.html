@@ -1,0 +1,24 @@
+{{/* ABOUTME: Reading Pavilion fixture — a preview of currently-reading book covers as a Pavilion catalog entry. */}}
+{{/* ABOUTME: Pulls hugo.Data.bookshelves.currentlyreading; links through to the full bookshelf page. */}}
+{{ with hugo.Data.bookshelves }}
+{{ with index . "currentlyreading" }}
+{{ if gt (len .) 0 }}
+<section class="fixture fixture--reading">
+  <h2 class="fixture-title">Reading Pavilion</h2>
+  <div class="shelf">
+    {{ range first 4 . }}
+    {{ $b := . }}
+    <div class="shelf-book">
+      {{ with $b.cover_url }}
+      <img class="book-cover" src="{{ . }}" alt="Cover of {{ $b.title }}" loading="lazy">
+      {{ else }}
+      <div class="book-cover book-cover--placeholder" aria-hidden="true"><i class="ph ph-book"></i></div>
+      {{ end }}
+    </div>
+    {{ end }}
+  </div>
+  <a class="fixture-more" href="{{ "bookshelf" | relURL }}">The full Reading Pavilion →</a>
+</section>
+{{ end }}
+{{ end }}
+{{ end }}

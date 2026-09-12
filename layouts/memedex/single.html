@@ -1,0 +1,68 @@
+{{/* ABOUTME: The Memedex (/memedex/) — a shoebox of meme polaroids tipped onto the catalog table, reshuffled every build. */}}
+{{/* ABOUTME: Reads the manifest via catalog/memedex-feed.html; each polaroid is a <details> whose summary swaps thumb for full print in place. Prints carry no names: the manifest names are camera filenames. */}}
+{{ define "main" }}
+<div class="catalog memedex-page" id="main-content" tabindex="-1">
+  {{ partial "catalog/runhead.html" (dict "vol" "The All-Night Pavilion · the memedex" "page" .) }}
+
+  <h2 class="catalog-rubric">{{ .Title }}</h2>
+
+  {{ $memes := partial "catalog/memedex-feed.html" . }}
+  {{ if gt (len $memes) 0 }}
+  {{/* name="memedex" makes the pile an exclusive group where supported: opening one
+       print closes the last, so at most one is out of the pile at a time. */}}
+  <div class="pile">
+    {{ range shuffle $memes }}
+    <details class="polaroid" name="memedex" id="{{ .id }}" style="--lean: {{ .lean }}deg; --nudge-x: {{ .nudge_x }}px; --nudge-y: {{ .nudge_y }}px; --aspect: {{ printf "%.3f" .aspect }}; --thumb-w: {{ .thumb_width }}px">
+      {{/* The summary is the whole print, closed or open: the thumb shows in the pile, the
+           full print once opened, so clicking the print itself puts it back. */}}
+      <summary class="polaroid-face" aria-label="A print from the shoebox{{ if .animated }} (animated){{ end }}">
+        <span class="polaroid-window"><img class="polaroid-print" src="{{ .thumb }}" width="{{ .thumb_width }}" height="{{ .thumb_height }}" alt="" loading="lazy" decoding="async"></span>
+        <span class="polaroid-window polaroid-window--full"><img class="polaroid-print polaroid-print--full" src="{{ .full }}" width="{{ .full_width }}" height="{{ .full_height }}" alt="" loading="lazy" decoding="async"></span>
+        <span class="polaroid-margin">{{ if .animated }}<i class="ph ph-film-strip" aria-hidden="true"></i>{{ end }}</span>
+      </summary>
+    </details>
+    {{ end }}
+    {{/* Absorbs the slack in the last row so its prints keep their size instead of stretching. */}}
+    <span class="pile-fill" aria-hidden="true"></span>
+  </div>
+  {{ else }}
+  <p class="empty">The shoebox is empty tonight.</p>
+  {{ end }}
+
+  {{ partial "catalog/pavilion-return.html" . }}
+</div>
+
+{{/* An opened print scrolls to the centre of the viewport; click anywhere off it, or
+     press Escape, to put it back into the pile. Arriving with a print's id in the hash
+     (the home fixture links this way) opens that print. The <details> itself handles
+     click-to-toggle and keyboard focus. */}}
+<script>
+  // Opened after load, so the browser's own jump to the fragment has already
+  // happened and the centring scroll below is the one that sticks.
+  window.addEventListener('load', function () {
+    if (!location.hash) return;
+    var arrived = document.getElementById(location.hash.slice(1));
+    if (!arrived || !arrived.matches('.pile details')) return;
+    // Clear the fragment first, or the browser keeps re-anchoring to it as images land.
+    history.replaceState(null, '', location.pathname);
+    arrived.open = true;
+  });
+  document.addEventListener('toggle', function (e) {
+    if (!e.target.matches('.pile details[open]')) return;
+    var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var centre = function () { e.target.scrollIntoView({ block: 'center', behavior: calm ? 'auto' : 'smooth' }); };
+    requestAnimationFrame(centre);
+    // Recentre once the full print has actually arrived, in case its arrival moved the page.
+    var full = e.target.querySelector('.polaroid-print--full');
+    if (full && !full.complete) full.addEventListener('load', centre, { once: true });
+  }, true);
+  document.addEventListener('click', function (e) {
+    document.querySelectorAll('.pile details[open]').forEach(function (d) {
+      if (!d.contains(e.target)) d.removeAttribute('open');
+    });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') document.querySelectorAll('.pile details[open]').forEach(function (d) { d.removeAttribute('open'); });
+  });
+</script>
+{{ end }}

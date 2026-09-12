@@ -1,0 +1,6 @@
+{{/* ABOUTME: The Catalog runhead — the vol line plus the main nav — shared by every Catalog surface. */}}
+{{/* ABOUTME: Call as {{ partial "catalog/runhead.html" (dict "vol" "<text>" "page" .) }} so the nav sees the page. */}}
+<div class="catalog-runhead">
+  <span class="catalog-vol">{{ .vol }}</span>
+  <nav class="catalog-nav" aria-label="Main navigation">{{ partial "fixtures/_nav-links.html" .page }}</nav>
+</div>

@@ -1,0 +1,43 @@
+{{/* ABOUTME: Fetches the memedex manifest and returns its memes with absolute image URLs, a lean, a nudge, and an aspect. */}}
+{{/* ABOUTME: Single source of the fetch/parse for the /memedex/ page and the home fixture; empty on any failure. */}}
+{{/*
+  The manifest (written by the memedex tool) is {"memes": [{id, name, full{key,width,height},
+  thumb{key,width,height}, animated}]} with keys relative to the host that serves it. The host
+  is memedex.thewizardly.com; a site param overrides it so a local test site can point at a stub.
+  Each entry gets a "lean" in degrees (±2..±7, never square) and a "nudge" in px, fixed by the
+  first three hex digits of its id, so a given polaroid always lies the same way however the
+  pile is shuffled. "aspect" is the thumb's width/height, used to justify the pile's rows.
+*/}}
+{{ $base := site.Params.memedex_url | default "https://memedex.thewizardly.com" }}
+{{ $base = strings.TrimSuffix "/" $base }}
+{{ $memes := slice }}
+{{ $hex := dict "0" 0 "1" 1 "2" 2 "3" 3 "4" 4 "5" 5 "6" 6 "7" 7 "8" 8 "9" 9 "a" 10 "b" 11 "c" 12 "d" 13 "e" 14 "f" 15 }}
+{{ $result := try (resources.GetRemote (printf "%s/manifest.json" $base)) }}
+{{ with $result.Err }}
+  {{ warnf "memedex manifest fetch failed: %s" . }}
+{{ else with $result.Value }}
+  {{ $manifest := . | transform.Unmarshal }}
+  {{ range $manifest.memes }}
+    {{ $d1 := index $hex (substr .id 0 1) | default 0 }}
+    {{ $d2 := index $hex (substr .id 1 1) | default 0 }}
+    {{ $d3 := index $hex (substr .id 2 1) | default 0 }}
+    {{ $lean := add 2 (mod $d1 6) }}
+    {{ if ge $d1 8 }}{{ $lean = mul $lean -1 }}{{ end }}
+    {{ $nudgeX := mul (sub (mod $d2 5) 2) 3 }}
+    {{ $nudgeY := mul (sub (mod $d3 5) 2) 3 }}
+    {{ $memes = $memes | append (dict
+        "id" .id
+        "animated" .animated
+        "lean" $lean
+        "nudge_x" $nudgeX
+        "nudge_y" $nudgeY
+        "aspect" (div (float .thumb.width) (float .thumb.height))
+        "thumb" (printf "%s/%s" $base .thumb.key)
+        "thumb_width" .thumb.width
+        "thumb_height" .thumb.height
+        "full" (printf "%s/%s" $base .full.key)
+        "full_width" .full.width
+        "full_height" .full.height) }}
+  {{ end }}
+{{ end }}
+{{ return $memes }}

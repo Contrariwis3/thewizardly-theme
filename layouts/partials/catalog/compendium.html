@@ -1,0 +1,11 @@
+{{/* ABOUTME: The Compendium surface (/archive/) — a Catalog index of every post, year-grouped. */}}
+{{/* ABOUTME: Rendered by both list.archivehtml.html twins; shares the .archive-card entry styling. */}}
+<div class="catalog compendium-page">
+  {{ partial "catalog/runhead.html" (dict "vol" "The All-Night Pavilion · the compendium" "page" .) }}
+
+  <h2 class="catalog-rubric">The Compendium</h2>
+
+  {{ partial "catalog/scroll-ledger.html" (dict "pages" (where .Site.RegularPages "Type" "post")) }}
+
+  {{ partial "catalog/pavilion-return.html" . }}
+</div>

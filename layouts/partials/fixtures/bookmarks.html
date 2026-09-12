@@ -1,0 +1,19 @@
+{{/* ABOUTME: Bookmarks fixture — a few recent saved links as a Pavilion catalog entry, linking to /bookmarks/. */}}
+{{/* ABOUTME: Reads normalized items from catalog/bookmark-feed.html (same feed as the Marginalia page). */}}
+{{ $bookmarks := partial "catalog/bookmark-feed.html" . }}
+{{ if gt (len $bookmarks) 0 }}
+<section class="fixture fixture--bookmarks">
+  <h2 class="fixture-title">Marginalia</h2>
+  <ul class="fixture-list bookmark-mini">
+    {{ range first 8 $bookmarks }}
+    <li>
+      <a href="{{ .url }}">
+        {{ with .favicon }}<img class="bookmark-favicon" src="{{ . }}" alt="" width="16" height="16" loading="lazy">{{ end }}
+        <span>{{ .note | truncate 72 }}</span>
+      </a>
+    </li>
+    {{ end }}
+  </ul>
+  <a class="fixture-more" href="{{ "bookmarks" | relURL }}">More marginalia →</a>
+</section>
+{{ end }}

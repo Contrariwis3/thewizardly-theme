@@ -1,0 +1,59 @@
+{{/* ABOUTME: The Reading Pavilion (/bookshelf/) — a full-width Catalog plate: currently-reading */}}
+{{/* ABOUTME: covers and finished books grouped by year. Reads micro.blog's reading-goal data shape. */}}
+{{ define "main" }}
+<div class="catalog reading-pavilion-page" id="main-content" tabindex="-1">
+  {{ partial "catalog/runhead.html" (dict "vol" "The All-Night Pavilion · the reading pavilion" "page" .) }}
+
+  <h2 class="catalog-rubric">The Reading Pavilion</h2>
+
+  {{/* Currently reading — the books open on the table now. */}}
+  <section class="pavilion-section" aria-label="Currently reading">
+    <h3 class="pavilion-head">Currently Reading</h3>
+    {{ with hugo.Data.bookshelves }}
+    {{ with index . "currentlyreading" }}
+    {{ if gt (len .) 0 }}
+    <div class="book-row">
+      {{ range . }}{{ partial "catalog/book-cover.html" (dict "book" .) }}{{ end }}
+    </div>
+    {{ else }}
+    <p class="empty">No scrolls open on the table tonight.</p>
+    {{ end }}
+    {{ else }}
+    <p class="empty">No scrolls open on the table tonight.</p>
+    {{ end }}
+    {{ else }}
+    <p class="empty">The reading shelf isn’t available in this build.</p>
+    {{ end }}
+  </section>
+
+  {{/* Finished, grouped by year (descending). micro.blog nests each year's books
+       inside its reading-goal object; we read only the books, not the goal count. */}}
+  {{ with hugo.Data.bookgoals }}
+  {{ $years := slice }}
+  {{ range $year, $goal := . }}
+  {{ $years = $years | append (dict "year" $year "goal" $goal) }}
+  {{ end }}
+  {{ $years = sort $years "year" "desc" }}
+  {{ range $years }}
+  {{ $yr := .year }}
+  {{ $goal := .goal }}
+  {{ with $goal }}
+  {{ with .books }}
+  {{ if gt (len .) 0 }}
+  <section class="pavilion-section" aria-label="Read in {{ $yr }}">
+    <h3 class="pavilion-head">{{ $yr }}</h3>
+    <div class="book-row">
+      {{ range . }}{{ partial "catalog/book-cover.html" (dict "book" .) }}{{ end }}
+    </div>
+  </section>
+  {{ end }}
+  {{ end }}
+  {{ end }}
+  {{ end }}
+  {{ else }}
+  <p class="empty">The reading log isn’t available in this build.</p>
+  {{ end }}
+
+  {{ partial "catalog/pavilion-return.html" . }}
+</div>
+{{ end }}

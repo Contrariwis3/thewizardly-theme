@@ -1,0 +1,33 @@
+{{ define "main" }}
+{{/* A scroll, read as a single Catalog plate (not a blog post): the specimen pulled
+     from the catalog and displayed in full under the lamp's lit edge. The reading frame
+     (runhead + #main-content) is the template's own chrome — baseof is just a skeleton. */}}
+<div class="reading" id="main-content" tabindex="-1">
+  {{ partial "catalog/runhead.html" (dict "vol" "The All-Night Pavilion · the reading room" "page" .) }}
+<article class="reading-plate{{ if not .Title }} reading-plate--micro{{ end }}">
+  <span class="catalog-fig">
+    <span class="catalog-fig-n">Scroll</span>{{ with (.GetTerms "categories") }} · <span class="catalog-fig-t">{{ (index . 0).LinkTitle }}</span>{{ end }}
+  </span>
+
+  {{ if .Title }}
+  <h1 class="plate-title">{{ .Title }}</h1>
+  <div class="arcane-timestamp">
+    <span class="timestamp-icon"><i class="ph-fill ph-circle" aria-hidden="true"></i></span> Inscribed on <a href="{{ .Permalink }}" class="permalink" title="Permanent link to this scroll"><time datetime="{{ .Date.Format "2006-01-02 15:04:05 -0700" }}">{{ .Date.Format "January 2, 2006" }}</time></a>
+  </div>
+  {{ else }}
+  {{/* Titleless micropost: the dateline is the plate's heading, so the page still has one h1. */}}
+  <h1 class="plate-title plate-title--micro"><span class="timestamp-icon"><i class="ph-fill ph-circle" aria-hidden="true"></i></span> Inscribed on <a href="{{ .Permalink }}" class="permalink" title="Permanent link to this scroll"><time datetime="{{ .Date.Format "2006-01-02 15:04:05 -0700" }}">{{ .Date.Format "January 2, 2006" }}</time></a></h1>
+  {{ end }}
+
+  {{ if .Params.reply_to_url }}
+  <p class="plate-replying">Replying to {{ if eq .Params.reply_to_hostname "micro.blog" }}<a href="{{ .Params.reply_to_url }}">@{{ .Params.reply_to_username }}</a>{{ else }}<a href="{{ .Params.reply_to_url }}">{{ .Params.reply_to_hostname }}</a>{{ end }}</p>
+  {{ end }}
+
+  <div class="post-content">
+    {{ .Content }}
+  </div>
+
+  {{ partial "reading/colophon.html" . }}
+</article>
+</div>
+{{ end }}

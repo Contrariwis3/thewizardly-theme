@@ -1,0 +1,23 @@
+{{/* ABOUTME: Renders the full Marginalia list — every saved bookmark as an h-cite entry. */}}
+{{/* ABOUTME: Reads normalized items from catalog/bookmark-feed.html; shown on the /bookmarks/ page. */}}
+{{ $bookmarks := partial "catalog/bookmark-feed.html" . }}
+{{ if gt (len $bookmarks) 0 }}
+<ul class="bookmarks">
+  {{ range $bookmarks }}
+  <li class="bookmark h-cite">
+    <a href="{{ .url }}" class="bookmark-link u-url u-bookmark-of">
+      {{ with .favicon }}<img class="bookmark-favicon" src="{{ . }}" alt="" width="16" height="16" loading="lazy" />{{ end }}
+      <span class="bookmark-title p-name">{{ .note | truncate 200 }}</span>
+    </a>
+    <div class="bookmark-meta">
+      {{ with .host }}<cite class="bookmark-host">{{ . }}</cite>{{ end }}
+      {{ with .date }}<span class="bookmark-sep" aria-hidden="true">·</span><time class="bookmark-date dt-published" datetime="{{ . }}">{{ dateFormat "Jan 2, 2006" . }}</time>{{ end }}
+      {{/* Separator lives outside the anchor so the link underline covers only "archived", not the dot. */}}
+      {{ with .archive }}<span class="bookmark-sep" aria-hidden="true">·</span><a class="bookmark-archive" href="{{ . }}">archived</a>{{ end }}
+    </div>
+  </li>
+  {{ end }}
+</ul>
+{{ else }}
+<p class="empty">No notes in the margins tonight.</p>
+{{ end }}

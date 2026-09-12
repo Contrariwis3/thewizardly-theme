@@ -1,0 +1,14 @@
+{{/* ABOUTME: Memedex fixture — one polaroid from the shoebox, drawn at random on every build, as a Pavilion catalog entry. */}}
+{{/* ABOUTME: Reads the manifest via catalog/memedex-feed.html; renders nothing when the manifest is unreachable or empty. */}}
+{{ $memes := partial "catalog/memedex-feed.html" . }}
+{{ if gt (len $memes) 0 }}
+{{ $pick := index (shuffle $memes) 0 }}
+<section class="fixture fixture--memedex">
+  <h2 class="fixture-title">The Memedex</h2>
+  {{/* Links straight to this print in the pile: the page opens the print named in the hash. */}}
+  <a class="polaroid polaroid--link" href="{{ "memedex" | relURL }}#{{ $pick.id }}" style="--lean: {{ $pick.lean }}deg">
+    <span class="polaroid-window"><img class="polaroid-print" src="{{ $pick.thumb }}" width="{{ $pick.thumb_width }}" height="{{ $pick.thumb_height }}" alt="A print from the Memedex" loading="lazy" decoding="async"></span>
+    <span class="polaroid-margin" aria-hidden="true"></span>
+  </a>
+</section>
+{{ end }}
