@@ -43,7 +43,12 @@
   <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
   <link href="https://fonts.bunny.net/css?family=atkinson-hyperlegible-mono:400|atkinson-hyperlegible-next:400,400i,700|bona-nova:400,400i&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="{{ "styles.css" | relURL }}?{{ .Site.Params.theme_seconds }}">
+  {{/* Fingerprinted so every CSS change gets a new URL: micro.blog's theme_seconds param
+       (the former cache-buster) only moves on a settings-side theme update, not on a rebuild,
+       so a CSS-only deploy could sit behind a stale Cloudflare edge cache for hours. */}}
+  {{ with resources.Get "styles.css" }}{{ with . | fingerprint }}
+  <link rel="stylesheet" href="{{ .RelPermalink }}">
+  {{ end }}{{ end }}
 
   {{ partial "microblog_head.html" . }}
 </head>
