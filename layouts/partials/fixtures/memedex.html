@@ -7,8 +7,8 @@
   <h2 class="fixture-title">The Memedex</h2>
   {{/* Links straight to this print in the pile: the page opens the print named in the hash. */}}
   <a class="polaroid polaroid--link" href="{{ "memedex" | relURL }}#{{ $pick.id }}" style="--lean: {{ $pick.lean }}deg">
-    <span class="polaroid-window"><img class="polaroid-print" src="{{ $pick.thumb }}" width="{{ $pick.thumb_width }}" height="{{ $pick.thumb_height }}" alt="A print from the Memedex" loading="lazy" decoding="async"></span>
-    <span class="polaroid-margin" aria-hidden="true"></span>
+    <span class="polaroid-window"><img class="polaroid-print" src="{{ $pick.thumb }}" width="{{ $pick.thumb_width }}" height="{{ $pick.thumb_height }}" alt="{{ $pick.description }}" loading="lazy" decoding="async"></span>
+    <span class="polaroid-margin">{{ partial "catalog/polaroid-mark.html" $pick }}</span>
   </a>
 </section>
 {{ end }}

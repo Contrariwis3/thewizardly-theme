@@ -1,0 +1,7 @@
+{{/* ABOUTME: The graphite mark pencilled in a polaroid's margin: a film strip for an animated print, a play glyph and runtime for a video. */}}
+{{/* ABOUTME: Renders nothing for a still image. Takes one meme dict from catalog/memedex-feed.html. */}}
+{{ if eq .kind "video" -}}
+<span class="polaroid-mark polaroid-mark--reel"><i class="ph ph-play" role="img" aria-label="Video"></i><span class="polaroid-runtime">{{ .runtime }}</span></span>
+{{- else if .animated -}}
+<i class="ph ph-film-strip polaroid-mark" role="img" aria-label="Animated"></i>
+{{- end }}
