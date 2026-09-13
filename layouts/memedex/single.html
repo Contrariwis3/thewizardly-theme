@@ -65,8 +65,9 @@
 {{/* An opened print scrolls to the centre of the viewport; click anywhere off it, or
      press Escape, to put it back into the pile. Arriving with a print's id in the hash
      (the home fixture links this way) opens that print. The <details> itself handles
-     click-to-toggle and keyboard focus. A video print starts playing as it comes out
-     (where the browser allows it) and pauses as it goes back. */}}
+     click-to-toggle and keyboard focus; Left and Right move through the pile from an
+     open print. A video print starts playing as it comes out (where the browser
+     allows it) and pauses as it goes back. */}}
 <script>
   // Opened after load, so the browser's own jump to the fragment has already
   // happened and the centring scroll below is the one that sticks.
@@ -135,8 +136,21 @@
       if (!d.contains(e.target)) putBack(d);
     });
   });
+  // Escape puts an open print back. Left and Right put it back and take out its
+  // neighbour in the pile — unless the player itself has focus, which keeps its
+  // own arrow keys for seeking. The pile has edges: no wrap-around.
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') document.querySelectorAll('.pile details[open]').forEach(putBack);
+    var out = document.querySelector('.pile details[open]');
+    if (!out) return;
+    if (e.key === 'Escape') return putBack(out);
+    if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+    if (e.target.matches('.polaroid-video')) return;
+    var next = e.key === 'ArrowLeft' ? out.previousElementSibling : out.nextElementSibling;
+    if (!next || !next.matches('details')) return;
+    e.preventDefault();
+    putBack(out);
+    next.open = true;
+    next.querySelector('summary').focus({ preventScroll: true });
   });
 </script>
 {{ end }}
