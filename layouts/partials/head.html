@@ -2,7 +2,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta name="twitter:card" content="summary">
+  {{/* A page with its own social image gets the large card; everything else the small one. */}}
+  <meta name="twitter:card" content="{{ if .Params.social_image }}summary_large_image{{ else }}summary{{ end }}">
   {{- with .Title -}}
   <meta name="twitter:title" content="{{ . }}">
   <meta property="og:title" content="{{ . }}">
@@ -15,17 +16,33 @@
   <meta name="og:description" content="{{ .Site.Params.itunes_description | truncate 60 }}">
   <meta name="description" content="{{ .Site.Params.itunes_description }}">
   {{ partial "custom/socialcardimage" . }}
+  {{ else if .Description }}
+  {{/* A page that describes itself in front matter (the Memedex) says so verbatim. */}}
+  <meta name="twitter:description" content="{{ .Description }}">
+  <meta name="og:description" content="{{ .Description }}">
+  <meta name="description" content="{{ .Description }}">
+  {{ template "social-image" . }}
   {{ else }}
   {{/* .Summary is rendered HTML; plainify so the description is plain text by intent,
        not by relying on html/template stripping tags in attribute context. */}}
   <meta name="twitter:description" content="{{ .Summary | plainify | htmlUnescape | truncate 60 }}">
   <meta name="og:description" content="{{ .Summary | plainify | htmlUnescape | truncate 60 }}">
   <meta name="description" content="{{ .Summary | plainify | htmlUnescape }}">
+  {{ template "social-image" . }}
+  {{- end -}}
+  {{- define "social-image" -}}
+  {{- with .Params.social_image -}}
+  <meta name="twitter:image" content="{{ .src }}">
+  <meta property="og:image" content="{{ .src }}">
+  <meta property="og:image:width" content="{{ .width }}">
+  <meta property="og:image:height" content="{{ .height }}">
+  {{- else -}}
   {{- range .Params.photos -}}
   <meta name="twitter:image" content="{{ . }}">
   <meta property="og:image" content="{{ . }}">
   {{- else -}}
   {{ partial "custom/socialcardimage" . }}
+  {{- end -}}
   {{- end -}}
   {{- end -}}
 
