@@ -18,7 +18,12 @@
       <summary class="polaroid-face" aria-label="A print from the shoebox{{ if .animated }} (animated){{ end }}">
         <span class="polaroid-window"><img class="polaroid-print" src="{{ .thumb }}" width="{{ .thumb_width }}" height="{{ .thumb_height }}" alt="" loading="lazy" decoding="async"></span>
         <span class="polaroid-window polaroid-window--full"><img class="polaroid-print polaroid-print--full" src="{{ .full }}" width="{{ .full_width }}" height="{{ .full_height }}" alt="" loading="lazy" decoding="async"></span>
-        <span class="polaroid-margin">{{ if .animated }}<i class="ph ph-film-strip" aria-hidden="true"></i>{{ end }}</span>
+        {{/* The margin carries the animated mark and, once the print is out, a control that
+             copies this print's own address (the page opens a hashed print on arrival). */}}
+        <span class="polaroid-margin">
+          {{ if .animated }}<i class="ph ph-film-strip polaroid-mark" aria-hidden="true"></i>{{ end }}
+          <button type="button" class="polaroid-share" data-href="{{ $.Permalink }}#{{ .id }}" aria-label="Copy a link to this print"><i class="ph ph-link" aria-hidden="true"></i><i class="ph ph-check" aria-hidden="true"></i><span class="polaroid-share-word" aria-live="polite">Copy link</span></button>
+        </span>
       </summary>
     </details>
     {{ end }}
@@ -56,6 +61,26 @@
     var full = e.target.querySelector('.polaroid-print--full');
     if (full && !full.complete) full.addEventListener('load', centre, { once: true });
   }, true);
+  // The share control copies the print's own address. It lives inside the summary,
+  // so the default action is cancelled to keep the print out of the pile.
+  document.addEventListener('click', function (e) {
+    var share = e.target.closest('.polaroid-share');
+    if (!share) return;
+    e.preventDefault();
+    var word = share.querySelector('.polaroid-share-word');
+    var copy = navigator.clipboard ? navigator.clipboard.writeText(share.dataset.href) : Promise.reject();
+    copy.then(function () {
+      share.classList.add('is-copied');
+      word.textContent = 'Copied';
+      setTimeout(function () {
+        share.classList.remove('is-copied');
+        word.textContent = 'Copy link';
+      }, 1800);
+    }, function () {
+      // No clipboard (an insecure context): hand the address over for copying by hand.
+      window.prompt('Copy this link', share.dataset.href);
+    });
+  });
   document.addEventListener('click', function (e) {
     document.querySelectorAll('.pile details[open]').forEach(function (d) {
       if (!d.contains(e.target)) d.removeAttribute('open');
