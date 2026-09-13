@@ -1,7 +1,8 @@
 {{/* ABOUTME: The graphite mark pencilled in a polaroid's margin: a film strip for an animated print, a play glyph and runtime for a video. */}}
-{{/* ABOUTME: Renders nothing for a still image. Takes one meme dict from catalog/memedex-feed.html. */}}
-{{ if eq .kind "video" -}}
-<span class="polaroid-mark polaroid-mark--reel"><i class="ph ph-play" role="img" aria-label="Video"></i><span class="polaroid-runtime">{{ .runtime }}</span></span>
-{{- else if .animated -}}
-<i class="ph ph-film-strip polaroid-mark" role="img" aria-label="Animated"></i>
+{{/* ABOUTME: Renders nothing for a still image. Takes (dict "meme" <entry from catalog/memedex-feed.html> "id" <optional element id, for aria-labelledby>). */}}
+{{ $m := .meme }}
+{{- if eq $m.kind "video" -}}
+<span class="polaroid-mark polaroid-mark--reel"{{ with .id }} id="{{ . }}"{{ end }}><i class="ph ph-play" role="img" aria-label="Video"></i><span class="polaroid-runtime">{{ $m.runtime }}</span></span>
+{{- else if $m.animated -}}
+<i class="ph ph-film-strip polaroid-mark"{{ with .id }} id="{{ . }}"{{ end }} role="img" aria-label="Animated"></i>
 {{- end }}

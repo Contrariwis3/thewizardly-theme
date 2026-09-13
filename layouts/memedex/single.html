@@ -12,23 +12,26 @@
        print closes the last, so at most one is out of the pile at a time. */}}
   <div class="pile">
     {{ range shuffle $memes }}
+    {{/* The summary is named from its thumb and its mark rather than its content, so the
+         share control nested in an image print's face never joins the print's name. */}}
+    {{ $marked := or (eq .kind "video") .animated }}
+    {{ $label := printf "print-%s%s" .id (cond $marked (printf " mark-%s" .id) "") }}
     <details class="polaroid{{ if eq .kind "video" }} polaroid--video{{ end }}" name="memedex" id="{{ .id }}" style="--lean: {{ .lean }}deg; --nudge-x: {{ .nudge_x }}px; --nudge-y: {{ .nudge_y }}px; --aspect: {{ printf "%.3f" .aspect }}; --thumb-w: {{ .thumb_width }}px">
       {{ if eq .kind "video" }}
       {{/* A video print: the summary is the thumb in the pile; out of the pile the board is
            the reel below, outside the summary, so clicking the player's controls never puts
-           the print back. The summary is hidden while the reel is out, so the reel carries
-           its own put-back control. */}}
-      <summary class="polaroid-face">
-        <span class="polaroid-window"><img class="polaroid-print" src="{{ .thumb }}" width="{{ .thumb_width }}" height="{{ .thumb_height }}" alt="{{ .description }}" loading="lazy" decoding="async"></span>
-        <span class="polaroid-margin">{{ partial "catalog/polaroid-mark.html" . }}</span>
+           the print back. The summary is hidden while the reel is out; an outside click,
+           Escape, or opening another print puts it back. */}}
+      <summary class="polaroid-face" aria-labelledby="{{ $label }}">
+        <span class="polaroid-window"><img class="polaroid-print" id="print-{{ .id }}" src="{{ .thumb }}" width="{{ .thumb_width }}" height="{{ .thumb_height }}" alt="{{ .description }}" loading="lazy" decoding="async"></span>
+        <span class="polaroid-margin">{{ partial "catalog/polaroid-mark.html" (dict "meme" . "id" (printf "mark-%s" .id)) }}</span>
       </summary>
       <div class="polaroid-reel">
         {{/* The poster waits in data-poster until the print comes out, so 21 posters don't
              load with the page; preload="none" keeps the mp4 itself off the wire until play. */}}
         <div class="polaroid-window polaroid-window--full"><video class="polaroid-print polaroid-print--full polaroid-video" controls playsinline preload="none" width="{{ .video_width }}" height="{{ .video_height }}" data-poster="{{ .poster }}" aria-label="{{ .description }}"><source src="{{ .video }}" type="video/mp4"></video></div>
         <div class="polaroid-margin">
-          <button type="button" class="polaroid-back" aria-label="Put it back"><i class="ph ph-arrow-bend-up-left" aria-hidden="true"></i><span class="polaroid-back-word">Put it back</span></button>
-          {{ partial "catalog/polaroid-mark.html" . }}
+          {{ partial "catalog/polaroid-mark.html" (dict "meme" .) }}
           <button type="button" class="polaroid-share" data-href="{{ $.Permalink }}#{{ .id }}" aria-label="Copy a link to this print"><i class="ph ph-link" aria-hidden="true"></i><i class="ph ph-check" aria-hidden="true"></i><span class="polaroid-share-word" aria-live="polite">Copy link</span></button>
         </div>
       </div>
@@ -36,13 +39,13 @@
       {{/* The summary is the whole print, closed or open: the thumb shows in the pile, the
            full print once opened, so clicking the print itself puts it back. Only one window
            is displayed at a time, so the description is read once. */}}
-      <summary class="polaroid-face">
-        <span class="polaroid-window"><img class="polaroid-print" src="{{ .thumb }}" width="{{ .thumb_width }}" height="{{ .thumb_height }}" alt="{{ .description }}" loading="lazy" decoding="async"></span>
+      <summary class="polaroid-face" aria-labelledby="{{ $label }}">
+        <span class="polaroid-window"><img class="polaroid-print" id="print-{{ .id }}" src="{{ .thumb }}" width="{{ .thumb_width }}" height="{{ .thumb_height }}" alt="{{ .description }}" loading="lazy" decoding="async"></span>
         <span class="polaroid-window polaroid-window--full"><img class="polaroid-print polaroid-print--full" src="{{ .full }}" width="{{ .full_width }}" height="{{ .full_height }}" alt="{{ .description }}" loading="lazy" decoding="async"></span>
         {{/* The margin carries the animated mark and, once the print is out, a control that
              copies this print's own address (the page opens a hashed print on arrival). */}}
         <span class="polaroid-margin">
-          {{ partial "catalog/polaroid-mark.html" . }}
+          {{ partial "catalog/polaroid-mark.html" (dict "meme" . "id" (printf "mark-%s" .id)) }}
           <button type="button" class="polaroid-share" data-href="{{ $.Permalink }}#{{ .id }}" aria-label="Copy a link to this print"><i class="ph ph-link" aria-hidden="true"></i><i class="ph ph-check" aria-hidden="true"></i><span class="polaroid-share-word" aria-live="polite">Copy link</span></button>
         </span>
       </summary>
@@ -107,12 +110,6 @@
     var full = e.target.querySelector('.polaroid-print--full');
     if (full && !full.complete) full.addEventListener('load', centre, { once: true });
   }, true);
-  // The put-back control on a video print's reel: the face is hidden while the reel is
-  // out, so the reel carries the control the face would otherwise be.
-  document.addEventListener('click', function (e) {
-    var back = e.target.closest('.polaroid-back');
-    if (back) putBack(back.closest('.pile details'));
-  });
   // The share control copies the print's own address. On an image print it lives inside
   // the summary, so the default action is cancelled to keep the print out of the pile.
   document.addEventListener('click', function (e) {
