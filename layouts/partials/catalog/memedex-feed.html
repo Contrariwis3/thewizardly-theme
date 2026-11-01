@@ -1,4 +1,4 @@
-{{/* ABOUTME: Fetches the memedex manifest and returns its memes with absolute media URLs, a description, a lean, a nudge, and an aspect. */}}
+{{/* ABOUTME: Fetches the memedex manifest and returns its memes with absolute media URLs, a description, a lean, a nudge, an aspect, and a new-print edition. */}}
 {{/* ABOUTME: Single source of the fetch/parse for the /memedex/ page and the home fixture; empty on any failure. */}}
 {{/*
   The manifest (written by the memedex tool) is {"memes": [...]} with keys relative to the host
@@ -11,10 +11,15 @@
   first three hex digits of its id, so a given polaroid always lies the same way however the
   pile is shuffled. "aspect" is the thumb's width/height, used to justify the pile's rows.
   A video's "runtime" is its duration as m:ss, the note pencilled beside its play mark.
+  Every entry also carries "new", true when the last build of the manifest lacked its id.
+  A new print comes in a special-edition frame instead of the cream board; its "edition"
+  is fixed by the fourth hex digit of its id, so it keeps the same frame all build. A
+  manifest written before the flag existed has no "new", and every print reads as not new.
 */}}
 {{ $base := site.Params.memedex_url | default "https://memedex.thewizardly.com" }}
 {{ $base = strings.TrimSuffix "/" $base }}
 {{ $memes := slice }}
+{{ $editions := slice "lamp" "tomorrow" "kiln" "awning" "halftone" "planetarium" }}
 {{ $hex := dict "0" 0 "1" 1 "2" 2 "3" 3 "4" 4 "5" 5 "6" 6 "7" 7 "8" 8 "9" 9 "a" 10 "b" 11 "c" 12 "d" 13 "e" 14 "f" 15 }}
 {{ $result := try (resources.GetRemote (printf "%s/manifest.json" $base)) }}
 {{ with $result.Err }}
@@ -25,6 +30,7 @@
     {{ $d1 := index $hex (substr .id 0 1) | default 0 }}
     {{ $d2 := index $hex (substr .id 1 1) | default 0 }}
     {{ $d3 := index $hex (substr .id 2 1) | default 0 }}
+    {{ $d4 := index $hex (substr .id 3 1) | default 0 }}
     {{ $lean := add 2 (mod $d1 6) }}
     {{ if ge $d1 8 }}{{ $lean = mul $lean -1 }}{{ end }}
     {{ $nudgeX := mul (sub (mod $d2 5) 2) 3 }}
@@ -38,7 +44,9 @@
         "aspect" (div (float .thumb.width) (float .thumb.height))
         "thumb" (printf "%s/%s" $base .thumb.key)
         "thumb_width" .thumb.width
-        "thumb_height" .thumb.height }}
+        "thumb_height" .thumb.height
+        "new" (eq .new true)
+        "edition" (index $editions (mod $d4 (len $editions))) }}
     {{ if eq .kind "video" }}
       {{ $seconds := int .video.duration }}
       {{ $meme = merge $meme (dict

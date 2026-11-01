@@ -15,8 +15,9 @@
     {{/* The summary is named from its thumb and its mark rather than its content, so the
          share control nested in an image print's face never joins the print's name. */}}
     {{ $marked := or (eq .kind "video") .animated }}
-    {{ $label := printf "print-%s%s" .id (cond $marked (printf " mark-%s" .id) "") }}
-    <details class="polaroid{{ if eq .kind "video" }} polaroid--video{{ end }}" name="memedex" id="{{ .id }}" style="--lean: {{ .lean }}deg; --nudge-x: {{ .nudge_x }}px; --nudge-y: {{ .nudge_y }}px; --aspect: {{ printf "%.3f" .aspect }}; --thumb-w: {{ .thumb_width }}px">
+    {{ $label := printf "%sprint-%s%s" (cond .new (printf "new-%s " .id) "") .id (cond $marked (printf " mark-%s" .id) "") }}
+    {{/* A print new in this build comes in its edition frame, and "New" opens its name. */}}
+    <details class="polaroid{{ if eq .kind "video" }} polaroid--video{{ end }}{{ if .new }} polaroid--edition-{{ .edition }}{{ end }}" name="memedex" id="{{ .id }}" style="--lean: {{ .lean }}deg; --nudge-x: {{ .nudge_x }}px; --nudge-y: {{ .nudge_y }}px; --aspect: {{ printf "%.3f" .aspect }}; --thumb-w: {{ .thumb_width }}px">
       {{ if eq .kind "video" }}
       {{/* A video print: the summary is the thumb in the pile; out of the pile the board is
            the reel below, outside the summary, so clicking the player's controls never puts
@@ -50,6 +51,7 @@
         </span>
       </summary>
       {{ end }}
+      {{ if .new }}<span id="new-{{ .id }}" hidden>New</span>{{ end }}
     </details>
     {{ end }}
     {{/* Absorbs the slack in the last row so its prints keep their size instead of stretching. */}}
